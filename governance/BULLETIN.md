@@ -25,6 +25,27 @@ Entry format:
 
 ---
 
+## 044 — 2026-11-11 — Onboarding PR 4b-1 live (identifier lookups, add a seed by identifier, lookup consent); no real lookup has run yet; the service's Firestore client stays eager for now
+
+- **From:** Claude Code (Core lane), at Gary's direction (relayed by Claude Chat); the merge, the deploy at 0%, the traffic move and the tag removal were each named by Gary first
+- **Status:** DRAFT. In force from the merge of the pull request that adds this entry. Records what is live; it does not change any rule. Follows entry 043, whose proposal it completes.
+- **Record:** copernicus-web [#204](https://github.com/garywelz/copernicus-web/pull/204) (merge `4d3674e56`, parents `4bbb07b43` and `11da56b05`, merged 2026-11-10 21:15:00Z; branch deleted). Cloud Run revision `copernicus-podcast-api-00442-vup` (image `sha256:a41c06bcf22d8727ed411893df03bd6a120f92fd61900500552fdc67334ff59e`, build `39596f8c`, from a clean worktree of `4d3674e56`); rollback `copernicus-podcast-api-00439-weq`, kept. Deployed by `cloud-run-backend/DEPLOY.md`: digest, 0% with the tag `ob4b1`, spec diff (image only), smoke test of the tagged URL against live, traffic moved at 2026-11-11 00:53:36Z on Gary's word and read back, no ERROR-level entry and no 5xx on the new revision from then to 01:03:41Z (7 requests, all 200), tag removed (its URL answers 404), worktree removed. After the merge the public site reported commit `4d3674e56` and two episode pages answered 200.
+- **Affects:** Core; Gary and Claude Chat; invited research owners (none yet besides the test accounts); PR 4b-2 and 4b-3
+- **Summary:**
+  - **Live:** `POST /api/onboarding/engines/{e}/lookup`, `POST .../seeds` and `PUT .../consent/lookups`, as described in entry 043, and the add-a-seed control with the consent switch on the seed section page. All three are for owners of that engine only; the administrator gets 404.
+  - **Smoke test (tagged revision against live, no credential and a bogus session only):** `/health` the same on both; the same 41 episode ids; the three new routes answered 404 "Not found" on the new revision and the framework's own 404 on the old one, which shows the old one lacked them; the existing onboarding routes answered the same on both. The admin-key case was not tried live (the key was not read); the unit tests cover it.
+  - **No real lookup has run.** Nobody is a member of any engine: `tdap-test` is closed with no members, and the real `tdap` engine has no record. The first real calls to the registries will be an attended test on `tdap-test`, proposed separately and run only on Gary's approval of each write.
+  - **Revision numbers skip by three, and nothing is missing.** A revision is numbered by the service's generation, and each deploy cycle makes three service updates (deploy with a tag, traffic move, tag removal). That is why the live revisions run 433, 436, 439, 442; revisions 440 and 441 never existed. The audit log shows only those updates.
+- **Later (not scheduled):**
+  - **Make the service's Firestore client lazy.** `cloud-run-backend/config/database.py` creates the client when the module is imported. Gary decided on 2026-11-10 to leave it as it is for now: the test guard of entry 043 covers the risk that a test reaches the real database. A lazy client would be a change to the running service and needs its own pull request and gated deploy.
+- **Findings** (open; F1 to F3 of entry 043 stand):
+  - **F4:** the 10-minute watch after the traffic move saw only 7 requests, so it shows the revision starts and serves, not that it behaves under load.
+- **Waiting on:**
+  - **Gary:** approve, change or decline the attended lookup test on `tdap-test`; PR 4b-2 only with his approval; the Artifact Registry dry-run reading is due after 2026-11-11 15:20Z (entry 040).
+  - **Claude Chat:** review of this entry's pull request.
+  - **Core:** the dry-run reading when due; nothing else until Gary decides.
+  - **GLMP lane and Methods & Tools:** nobody.
+
 ## 043 — 2026-11-10 — Onboarding PR 4b-1 proposed (identifier lookups, add a seed by identifier, lookup consent can be changed, loader output in UTF-8); PR 4b is three pull requests; Gary's eight answers; the test suite can no longer create a real Firestore client
 
 - **From:** Claude Code (Core lane), at Gary's direction (relayed by Claude Chat); the plan and each answer below were approved by Gary on 2026-11-10
