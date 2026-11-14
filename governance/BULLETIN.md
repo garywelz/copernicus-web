@@ -25,6 +25,38 @@ Entry format:
 
 ---
 
+## 046 — 2026-11-14 — Correction to entry 045: the arXiv scout has acquired nothing since 2026-06-29, not 2026-10-18; the cause was our own commit, not arXiv; the fix is on the Jetson as one path ahead of the clone's HEAD; the real length of a morning run
+
+- **From:** Claude Code (Core lane), at Gary's direction (relayed by Claude Chat). The wrong date in entry 045 was Claude Code's error.
+- **Status:** DRAFT. In force from the merge of the pull request that adds this entry. It corrects entry 045 and does not edit it. Where the two disagree, this entry is right.
+- **Record:** the pull request that adds this entry. copernicus-web [#206](https://github.com/garywelz/copernicus-web/pull/206) (the fix; merge `d900b7a0e`), [#207](https://github.com/garywelz/copernicus-web/pull/207) (the one-off backfill script; merge `4352dbafa`) and [#208](https://github.com/garywelz/copernicus-web/pull/208) (the invitation tests' clock pinned, which closes F6 of entry 045; merge `25665e362`). The Jetson was read, and one file on it changed, on 2026-11-14 under the one-time exception of entry 045, extended by Gary to this step.
+- **Affects:** Core; the GLMP lane and Cursor (the Jetson and the scouts are Cursor's lane); Gary; anyone who used arXiv counts or "recent papers" from the corpus between July and November 2026
+- **What entry 045 got wrong:**
+  - **The date.** Entry 045 says the arXiv scout failed "every session since the evening of 2026-10-18". **It has acquired nothing since 2026-06-29.** The newest arXiv paper in the scout's papers directory was published on 2026-06-26 and saved on 2026-06-29; no file there is newer. The logs agree: the morning session of 2026-06-28 acquired 150 papers; from the evening session of 2026-06-29 every session shows HTTP 500 on every query and "Total papers acquired: 0".
+  - **The cause.** Entry 045 says the wildcard date range "dates from 2026-06-29 and worked until 2026-10-18, so the change was on arXiv's side". It never worked. It was introduced by commit `6241ff867` ("Redesign scout queries for GLMP biology focus", 2026-06-29 19:30 New York time, committed under Gary's git identity with Cursor as co-author), which replaced the scout's broad queries with the four biology queries and added the date filter `submittedDate:[YYYYMMDD* TO YYYYMMDD*]`. arXiv has answered that form with HTTP 500 from the first session after it. The change was ours.
+  - **The size.** Entry 045 says 54 failed sessions. It is about 275: two a day from the evening of 2026-06-29 to the morning of 2026-11-14.
+- **Why it looked like October.** Until [#133](https://github.com/garywelz/copernicus-web/pull/133) ("Report arXiv scout failures instead of silent success", merged 2026-10-18 03:43Z) the scout exited 0 when every query failed and reported "Acquisition Complete". #133 made it exit 1, and it reached the Jetson on 2026-10-18, so the first non-zero exit is that evening. Claude Code dated the failure from the first non-zero exit code and did not look at what earlier sessions had acquired. The ingest, the hooks and the status page were healthy throughout, because bioRxiv kept adding a few papers a day.
+- **The lesson.** Date a failure from what the job last produced (the newest file, the count acquired, the newest document), never from exit codes or the absence of an error line. The truth appeared only when a cross-check for another purpose counted the files on disk.
+- **State of the Jetson (changed on 2026-11-14 at 12:29 New York, on Gary's approval):**
+  - **The fix is in place as one file.** In the clone at `/media/sdcard/copernicus-worker/copernicus-web`, `huggingface-space/scripts/acquire_papers/acquire_arxiv_batch.py` was checked out at the #206 merge commit (`git checkout d900b7a0e -- <that path>`); its blob is `5c007a5b`. **The clone is therefore one path ahead of its HEAD:** HEAD is still `a8b8d1ea5`, `git status` shows that one file as changed, and `origin/main` has been fetched but not merged. A later fast-forward pull works unless `main` changes that file again; if it has, reset that one path first. The full pull (192 commits and more) is left to Cursor's lane. Rollback: `git checkout HEAD -- huggingface-space/scripts/acquire_papers/acquire_arxiv_batch.py`.
+  - `sync_to_jetson.sh` was not run: the wrapper directory was already identical to the repository.
+  - A folder `/tmp/arxiv_backfill_4352dbafa` holds three files from the #207 merge commit, used for the dry runs below. Left in place on purpose.
+  - Whether the first fixed session acquires papers is not yet known: it is the 20:10 session of 2026-11-14.
+- **The backfill so far (nothing written):** the script of #207, run on the Jetson in `--count-only` and `--dry-run` for 2026-10-18 to 2026-11-14, found 634 papers in the four queries, 501 after removing those matched by more than one query, none already on disk, no query failed or incomplete. That window is only the last four weeks of a twenty-week gap; the count for 2026-06-27 onward is the next step. No `--write` has been approved.
+- **The real length of a run, and the windows that follow from it.** The morning run of 2026-11-14 took 77 minutes: it started at 15:30:01Z, the ingest finished at about 16:43:48Z (about 74 minutes, because it re-checks all 53,000 files), and the four hooks ended at 16:47:29Z (under 4 minutes). **Nothing is done on the Jetson between 10:10 and 12:20, or between 20:00 and 22:00, New York time.** An attempt at 11:45 found the hooks still running and stopped.
+- **Later (priority raised):**
+  - **An alarm on scout failure, now the first item.** Silent success hid this for 16 weeks, and after #133 made the failure visible in the exit code it went unseen for four more, because nothing reads the exit codes. The check should look at what was acquired, per source, per session (for example: a source that acquires nothing for N sessions), and tell a person.
+  - The other items of entry 045 stand: why PubMed returns about 83 papers a session with almost none new; making the service's Firestore client lazy (entry 044).
+- **Findings** (open):
+  - **F1:** the backfill script counted 10,960 arXiv ids on disk; an independent shell count of distinct ids gave 10,917, and of files 11,023 (105 ids are saved in more than one file). The 43-id difference is not explained. It does not affect a window in which nothing is on disk.
+  - **F2:** F1 of entry 045 (the 500 was reproduced only from a second machine) is closed: the Jetson's own logs show the same 500 for the same form since June.
+  - **F3:** the corpus has no arXiv paper submitted after 2026-06-26 from the scout. Anything that presented the corpus as current for arXiv in that period was wrong by that much.
+- **Waiting on:**
+  - **Gary:** review and name the pull request; the 20:10 and 20:15 results of 2026-11-14, to be read on 2026-11-15 after 12:20 New York; the backfill window and whether to cap it, after the larger count; the Artifact Registry dry-run reading, due after 2026-11-15 15:40Z.
+  - **Cursor (when its session is back):** the full pull of the Jetson's clone; the alarm.
+  - **Claude Chat:** review of the pull request.
+  - **Methods & Tools:** nobody.
+
 ## 045 — 2026-11-14 — The arXiv scout has acquired nothing since 2026-10-18 (its date range is refused by arXiv); fix proposed; a one-time read of the Jetson by Claude Code; Artifact Registry audit logs really on since 2026-11-14
 
 - **From:** Claude Code (Core lane), at Gary's direction (relayed by Claude Chat)
