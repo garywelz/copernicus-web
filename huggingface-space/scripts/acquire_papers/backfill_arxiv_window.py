@@ -15,9 +15,14 @@ RUN ATTENDED, ONLY ON GARY'S APPROVAL. It must be told what to do; with no mode 
   --count-only   one request per query: how many papers arXiv has in the window. Writes nothing.
   --dry-run      fetches every page and reports, per query and in total, how many papers there are, how many are
                  already on disk and how many would be new. Writes nothing.
-  --write        the same, then saves the NEW papers as JSON files in the scout's papers directory. A paper already on
-                 disk is never rewritten. Nothing here touches Firestore: the next scheduled ingest reads the new files
-                 (through its stub gate) exactly as it reads the scout's.
+  --write        the same, then saves the NEW papers EXACTLY AS THE SCOUT DOES: under <papers>/arxiv_recent/, with the
+                 batch name "arxiv_recent" and marked biology, i.e. arxiv_recent/biology/arxiv_recent_<id>.json. A paper
+                 already on disk is never rewritten. Nothing here touches Firestore: the next scheduled ingest reads
+                 the new files (through its stub gate) exactly as it reads the scout's.
+
+"ALREADY ON DISK" means saved anywhere under the papers directory, under any batch name (arxiv_recent_, arxiv_classic_,
+arxiv_, or another script's), matched on the arXiv id with its version suffix ignored: 2610.01234v1 on disk covers
+2610.01234v2 from arXiv. The ids on disk are collected once, in one walk of the directory, before any request.
 
 NO CAP ON THE NUMBER OF PAPERS (Gary, 2026-11-14: decide after the dry run shows the real count). The one limit is a
 safety ceiling per query (--ceiling, default 10000): a query that matches more than that is REFUSED, never cut short.
@@ -33,15 +38,24 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+import re
 import sys
 import time
 from datetime import date, datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 HERE = Path(__file__).resolve().parent
 DEFAULT_CONFIG = HERE / "daily_scout_config.json"
 DEFAULT_CEILING = 10000
+# Where and how the scout saves a session's papers (acquire_recent_papers in acquire_arxiv_batch.py):
+#   save_papers(all_papers, OUTPUT_DIR / "arxiv_recent", batch_name="arxiv_recent"), every paper marked biology.
+SCOUT_SUBDIR = "arxiv_recent"
+SCOUT_BATCH_NAME = "arxiv_recent"
+SCOUT_DISCIPLINE = "biology"
+_VERSION = re.compile(r"v\d+$")
+_NEW_STYLE_AT_END = re.compile(r"(?:^|[^0-9A-Za-z.])(\d{4}\.\d{4,5})(?:v\d+)?$")       # 2610.01234 or 2610.01234v2, at the end of a file name
+_OLD_STYLE_AT_END = re.compile(r"(?:^|[^0-9A-Za-z.])(\d{7})(?:v\d+)?$")                # 0301001v1: only trusted in a file whose name starts with "arxiv"
 
 
 def load_scout():
@@ -72,16 +86,42 @@ def window_query(scout, qdef: Dict[str, Any], start: date, end: date) -> str:
     return scout.build_arxiv_query(list(qdef["categories"]), (end - start).days, qdef.get("keyword_filter"), today=end)
 
 
-def on_disk(output_dir: Path, arxiv_id: str) -> bool:
-    """True if the scout (or an earlier run of this script) already saved this paper, under any discipline directory."""
-    name = f"arxiv_{arxiv_id}.json"
-    return any((d / name).exists() for d in output_dir.iterdir() if d.is_dir()) if output_dir.exists() else False
+def base_id(arxiv_id: str) -> str:
+    """An arXiv id without its version suffix: '2610.01234v2' -> '2610.01234'."""
+    return _VERSION.sub("", str(arxiv_id).strip())
+
+
+def id_in_filename(stem: str) -> Optional[str]:
+    """The arXiv id a paper file is named for, without its version, or None. Any batch name counts: 'arxiv_recent_2610.01234v1',
+    'arxiv_classic_2610.01234', 'arxiv_2610.01234', or another script's name ending in the id."""
+    m = _NEW_STYLE_AT_END.search(stem)
+    if m:
+        return m.group(1)
+    if stem.lower().startswith("arxiv"):
+        m = _OLD_STYLE_AT_END.search(stem)
+        if m:
+            return m.group(1)
+    return None
+
+
+def ids_on_disk(output_dir: Path) -> Set[str]:
+    """Every arXiv id already saved anywhere under the papers directory, versions ignored. ONE walk of the directory."""
+    found: Set[str] = set()
+    if output_dir.exists():
+        for path in output_dir.rglob("*.json"):
+            pid = id_in_filename(path.stem)
+            if pid:
+                found.add(pid)
+    return found
 
 
 def run(scout, queries: List[Dict[str, Any]], start: date, end: date, mode: str, output_dir: Path, ceiling: int, out=print) -> Tuple[int, Dict[str, int]]:
     totals = {"queries": 0, "failed": 0, "incomplete": 0, "over_ceiling": 0, "matched": 0, "fetched": 0, "duplicates": 0, "on_disk": 0, "new": 0, "saved": 0}
     seen, to_save = set(), []
     out(f"arXiv backfill {start.isoformat()} to {end.isoformat()}  mode={mode}  papers dir={output_dir}")
+    have = ids_on_disk(output_dir) if mode != "count-only" else set()
+    if mode != "count-only":
+        out(f"arXiv papers already on disk (any batch name, versions ignored): {len(have)}")
     for n, qdef in enumerate(queries):
         if n:
             time.sleep(scout.DELAY_BETWEEN_QUERIES)
@@ -115,13 +155,14 @@ def run(scout, queries: List[Dict[str, Any]], start: date, end: date, mode: str,
             out(f"  INCOMPLETE: fetched {len(fetched)} of {matched}; a re-run picks up the rest")
         dup = disk = new = 0
         for p in fetched:
-            if p["arxiv_id"] in seen:
+            pid = base_id(p["arxiv_id"])
+            if pid in seen:
                 dup += 1
-            elif on_disk(output_dir, p["arxiv_id"]):
-                seen.add(p["arxiv_id"])
+            elif pid in have:
+                seen.add(pid)
                 disk += 1
             else:
-                seen.add(p["arxiv_id"])
+                seen.add(pid)
                 new += 1
                 to_save.append(p)
         totals["duplicates"] += dup
@@ -129,7 +170,10 @@ def run(scout, queries: List[Dict[str, Any]], start: date, end: date, mode: str,
         totals["new"] += new
         out(f"  fetched {len(fetched)}: {new} new, {disk} already on disk, {dup} already counted under an earlier query")
     if mode == "write" and to_save:
-        stats = scout.save_papers(to_save, output_dir, "arxiv")
+        for p in to_save:                                   # as acquire_recent_papers does before it saves
+            p["category"] = SCOUT_DISCIPLINE
+            p["discipline"] = SCOUT_DISCIPLINE
+        stats = scout.save_papers(to_save, output_dir / SCOUT_SUBDIR, batch_name=SCOUT_BATCH_NAME)
         totals["saved"] = int(stats.get("saved", 0))
         if stats.get("updated_files"):
             out(f"  WARNING: {stats['updated_files']} file(s) existed by the time of saving and were rewritten")
