@@ -25,6 +25,39 @@ Entry format:
 
 ---
 
+## 045 — 2026-11-14 — The arXiv scout has acquired nothing since 2026-10-18 (its date range is refused by arXiv); fix proposed; a one-time read of the Jetson by Claude Code; Artifact Registry audit logs really on since 2026-11-14
+
+- **From:** Claude Code (Core lane), at Gary's direction (relayed by Claude Chat)
+- **Status:** DRAFT. In force from the merge of the pull request that adds this entry. The fix is not on the Jetson: nothing there was changed, and the fix reaches it only by an attended step Gary approves.
+- **Record:** the pull request that adds this entry. It changes `huggingface-space/scripts/acquire_papers/acquire_arxiv_batch.py` (the date range) and adds `huggingface-space/scripts/acquire_papers/tests/test_arxiv_query_dates.py`. The Jetson was read over SSH on 2026-11-14 between 15:40Z and 15:50Z; the audit-log setting was read with `gcloud` at 15:40:19Z.
+- **Affects:** Core; the GLMP lane and Cursor (the Jetson and the scouts are Cursor's lane); Gary; anyone reading the corpus totals for arXiv since mid-October
+- **Summary:**
+  - **A one-time lane exception, authorized by Gary.** The Jetson belongs to Cursor's lane. Cursor's local session was not available, so Gary authorized Claude Code to read it once, changing nothing: no edit, no restart, no cron change, no ingest. This entry is the record of that exception. It is not a standing permission. The fix below is in `copernicus-web` at Gary's direction; putting it on the Jetson goes back to an attended, approved step.
+  - **The Jetson is running.** Up 76 days; `/` 65% used, the SD card 5%. Both `scout_ingest.sh` lines (10:30 and 20:15 America/New_York) are present and uncommented, cron is active, and the last five ingest runs each finished with no failure, timeout or lock line and no gate hit: they wrote 0, 12, 0, 8 and 1 documents and skipped about 53,000 each time. Each run takes about 70 minutes because it re-checks every file. The status hook published at 2026-11-14 02:27Z.
+  - **The arXiv scout has failed every session since the evening of 2026-10-18** (the last good session was that morning): "all 4 arXiv queries failed", exit 1, 0 papers, twice a day for four weeks. The first failure was a 429; every one since is an HTTP 500 from `export.arxiv.org`.
+  - **The cause is the form of the date range.** The scout sent `submittedDate:[20261031* TO 20261114*]`. Tried from another machine on 2026-11-14: that form is answered 500; the same query with full timestamps, `submittedDate:[202610310000 TO 202611142359]`, is answered 200 with results; so is the query with no date clause. arXiv's API manual gives the range as two `YYYYMMDDHHMM` timestamps.
+  - **Which file runs (the "three trees" question of July), checked on the Jetson:** cron runs `/media/sdcard/scheduler/scout/scout_arxiv.py`, which is not in any git repository. It only wraps: through `scout_common.py` it runs `/home/gdubs/copernicus-web-public/huggingface-space/scripts/acquire_papers/acquire_arxiv_batch.py`, and that path is a symlink into a git clone of `copernicus-web` at `/media/sdcard/copernicus-worker/copernicus-web`. **The executed file is the git-tracked repository file**, unmodified, with the same content as `main` before this fix (blob `bd9d6d6f`), and its line 420 is the wildcard range. So a `git pull` in that clone is what delivers the fix; the untracked wrapper directory does not build the query and needs no change. The seven live wrapper files are byte-for-byte the repository's `huggingface-space/scripts/scheduler/scout/` files.
+  - **The wildcard line is not new.** It dates from 2026-06-29 and worked until 2026-10-18, so the change was on arXiv's side.
+  - **The fix:** the range is now built as full timestamps, from 00:00 on the first day to 23:59 on the last, with no wildcard. Six unit tests of the query string all fail on the old form.
+  - **The other two scouts.** bioRxiv and medRxiv: 12, 7 and 8 new preprints in the three morning sessions of 12 to 14 November, and the same records seen again (0 new) each evening. PubMed (the GLMP supplement): 82 to 83 papers every session, exit 0, yet the ingest wrote almost nothing from them.
+  - **Artifact Registry audit logs (corrects entry 040's expectation).** Data Write audit logs for `artifactregistry.googleapis.com` were **not** on before 2026-11-14: the project's policy held no audit setting, no data-access log existed, and the one attempt on 2026-11-10 (15:04Z, by a service account) was refused. Gary enabled them in the Console on **2026-11-14 at 15:38:18Z**, read back in the policy at 15:40:19Z. The cleanup policies are still dry-run on both repositories. **The first dry-run reading is due no earlier than 2026-11-15 15:40Z.**
+- **Later (not scheduled):**
+  - **An alarm on consecutive non-zero scout exits.** A scout failed 54 sessions in a row and nothing reported it: the ingest and the status page both looked healthy.
+  - **Why PubMed returns about 83 papers a session with almost none new.** Not investigated. It may be the same records each time, which would be correct, or a query that no longer moves forward.
+  - **Whether to backfill arXiv for 2026-10-18 onward.** The scout looks back 14 days (7 for one query), so papers submitted from 18 to about 30 October will not be reached by the fix alone. A one-time backfill is proposed separately and needs Gary's approval.
+- **Findings** (open):
+  - **F1:** the 500 was reproduced from a second machine, not from the Jetson itself. An identical answer in both places makes a Jetson-only cause unlikely, but it was not ruled out there.
+  - **F2:** the ingest log does not name the documents it writes or their dates, so "the newest document the ingest wrote" can only be dated by the run that wrote it (the 20:15 run of 13 November wrote one).
+  - **F4:** the Jetson's clone is on `main` at `a8b8d1ea5` (2026-10-19), 192 commits behind. Within `huggingface-space/` only two files differ from today's `main` besides this fix, and neither is run by cron. The clone has one untracked report file and no modified file.
+  - **F5:** the live scout package still depends on two files outside any repository: the wrapper directory itself (installed by `sync_to_jetson.sh`, last on 2026-10-18) and `/media/sdcard/scheduler/firestore_config.py`, which sets the paths (dated June). An older set of scout scripts from June also sits in `/media/sdcard/scheduler/`; cron does not call it.
+  - **F6 (unrelated to the scout; found by running the full suite on 2026-11-14):** nine tests in `cloud-run-backend/tests/test_onboarding_invites.py` now fail on any branch, `main` included. They create an invitation at a fixed date, 2026-11-06, with the default 7-day expiry, and then accept it against the real clock, so every acceptance has been "expired" since 2026-11-13 12:00Z. The service is not affected; the tests need their clock pinned. Not fixed here.
+  - **F3:** success exit codes of `scout_ingest.sh` are not logged; "finished cleanly" is read from the absence of a failure line and the presence of the summary.
+- **Waiting on:**
+  - **Gary:** review and name the pull request; approve, change or decline how the fix reaches the Jetson and the one-time backfill; ask for the dry-run reading after 2026-11-15 15:40Z.
+  - **Cursor (when its session is back):** the Jetson stays its lane; the alarm and the PubMed question are proposed for it.
+  - **Claude Chat:** review of the pull request.
+  - **Methods & Tools:** nobody.
+
 ## 044 — 2026-11-11 — Onboarding PR 4b-1 live (identifier lookups, add a seed by identifier, lookup consent); no real lookup has run yet; the service's Firestore client stays eager for now
 
 - **From:** Claude Code (Core lane), at Gary's direction (relayed by Claude Chat); the merge, the deploy at 0%, the traffic move and the tag removal were each named by Gary first

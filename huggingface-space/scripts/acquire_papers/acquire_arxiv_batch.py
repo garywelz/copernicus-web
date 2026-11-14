@@ -413,11 +413,23 @@ def load_config_queries(config_path: Optional[str]) -> Optional[List[Dict]]:
     return data if isinstance(data, list) else None
 
 
-def build_arxiv_query(categories: List[str], days_back: int = 14, keyword_filter: Optional[str] = None) -> str:
+def submitted_date_filter(start: date, end: date) -> str:
+    """The arXiv API's date range for papers submitted from the start of `start` to the end of `end`.
+
+    Both ends are FULL timestamps, YYYYMMDDHHMM (GMT, as the arXiv API manual gives them). The earlier form,
+    `[YYYYMMDD* TO YYYYMMDD*]`, was answered with HTTP 500 by export.arxiv.org for every query from 2026-10-18,
+    so the scout acquired nothing for four weeks (governance/BULLETIN.md entry 045). Never put a wildcard in
+    this range.
+    """
+    return f"submittedDate:[{start.strftime('%Y%m%d')}0000 TO {end.strftime('%Y%m%d')}2359]"
+
+
+def build_arxiv_query(categories: List[str], days_back: int = 14, keyword_filter: Optional[str] = None,
+                      today: Optional[date] = None) -> str:
     cat_query = " OR ".join(f"cat:{c}" for c in categories)
-    end = date.today()
+    end = today or date.today()
     start = end - timedelta(days=days_back)
-    date_filter = f"submittedDate:[{start.strftime('%Y%m%d')}* TO {end.strftime('%Y%m%d')}*]"
+    date_filter = submitted_date_filter(start, end)
     base = f"({cat_query})"
     if keyword_filter:
         kw_terms = [t.strip() for t in keyword_filter.replace(" OR ", "|").split("|") if t.strip()]
