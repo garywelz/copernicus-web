@@ -57,6 +57,9 @@ def env(monkeypatch):
             sent.append({"address": address, "link": link, "days": days, "engine_label": engine_label})
             return True
     monkeypatch.setattr(ob, "_run_in_transaction", run_in_transaction)
+    # THE CLOCK IS PINNED. The invitations here are made at NOW (2026-11-06) with a 7-day expiry, and the accept route reads the clock. Left on the real clock,
+    # nine of these tests began failing on 2026-11-13 12:00Z, when every invitation became "expired" (BULLETIN 045, F6). A test that needs another time sets it.
+    monkeypatch.setattr(ob, "_utcnow", lambda: NOW)
     monkeypatch.setattr(routes, "db", db)
     monkeypatch.setattr(config.database, "db", db)
     monkeypatch.setattr(routes, "email_service", Mail())
@@ -220,6 +223,25 @@ def test_normalisation_leaves_existing_ids_alone_and_finds_either_spelling(reg):
     assert reg.client.post("/api/subscribers/register", json={"email": "Fresh@Example.invalid", "name": "x", "password": PASSWORD}).status_code == 200
     fresh_id = hashlib.sha256(b"fresh@example.invalid").hexdigest()
     assert sh.get_subscriber_by_email("FRESH@example.INVALID").id == fresh_id and sh.get_subscriber_by_email("fresh@example.invalid").id == fresh_id
+
+
+# ---- the tests do not depend on today's date --------------------------------------------------------------------------------------------------------
+def test_the_fixture_pins_the_clock_and_the_same_acceptance_fails_on_any_later_real_date(env):
+    """The pin, and what it prevents. With the clock at NOW an invitation made a minute earlier is accepted. With the clock where the real one has been since
+    2026-11-13 (more than 7 days after NOW), the SAME request is refused as expired: that is the failure nine tests showed before the fixture pinned the clock."""
+    assert ob._utcnow() == NOW and ob._utcnow() is not None
+    made = invite(env, addr="pinned.person@example.invalid")
+    env.mp.setattr(ob, "_utcnow", lambda: NOW + timedelta(days=7, seconds=1))                  # one second past the expiry: where an unpinned clock now stands
+    late = post_accept(env, made, addr="pinned.person@example.invalid")
+    assert (late.status_code, late.json()["detail"]) == (400, env.routes.INVITATION_REFUSAL)
+    env.mp.setattr(ob, "_utcnow", lambda: NOW + timedelta(days=6, hours=23))                   # still inside the 7 days
+    assert post_accept(env, made, addr="pinned.person@example.invalid").status_code == 200
+
+
+def test_no_test_in_this_file_can_reach_the_real_clock_through_the_accept_route(env):
+    import inspect
+    src = inspect.getsource(env.routes.accept_invitation)
+    assert "ob._utcnow()" in src and "datetime.now" not in src and "utcnow()" not in src.replace("ob._utcnow()", ""), "the route's only clock is the one the fixture pins"
 
 
 # ---- (c) used, expired, revoked ------------------------------------------------------------------------------------------------------------------
