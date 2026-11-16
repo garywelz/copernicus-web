@@ -66,8 +66,10 @@ def section_row(meta: dict, counts: dict, sec: dict, now: datetime) -> Dict[str,
 def engine_overview(db, engine_id: str, engine: dict, now: datetime) -> Dict[str, Any]:
     items, comments, secs = form._items_of(db, engine_id), form._comments_of(db, engine_id), form._section_docs(db, engine_id)
     disagreed = form._disagreed_ids(comments)
-    rows = []
+    rows, shown = [], form.shown_keys(items)
     for meta in tpl.SECTIONS:
+        if meta["key"] not in shown:
+            continue
         its = [i for i in items if i.get("section") == meta["key"]]
         sec = secs.get(meta["key"]) or {}
         rows.append(section_row(meta, form.section_counts(its, disagreed, sec.get("status", "draft")), sec, now))
@@ -85,7 +87,7 @@ def engine_detail(db, engine_id: str, now: Optional[datetime] = None) -> Dict[st
     """One engine for Gary: the overview, and for every section its items with their history and comment threads. Read only."""
     engine = form._engine(db, engine_id)
     now = now or ob._utcnow()
-    return {**engine_overview(db, engine_id, engine, now), "details": [form.get_section(db, engine_id, key, VIEWER) for key in tpl.SECTION_KEYS]}
+    return {**engine_overview(db, engine_id, engine, now), "details": [form.get_section(db, engine_id, key, VIEWER) for key in form.shown_keys_of(db, engine_id)]}
 
 
 # ---- the diff ---------------------------------------------------------------------------------------------------------------------------------------

@@ -319,7 +319,8 @@ def test_section_view_lists_items_in_order_with_context_and_unknown_sections_are
 BODIES = {"PUT": {"value": "x", "choice": None, "base_revision": 0}, "POST": {"body": "x", "kind": "comment"}}
 BODY_BY_SUFFIX = {"/entries": {"list": "mute", "text": "noise"}, "/questions": {"action": "add", "questions": [{"wording": "W?", "centrality": "central"}]}, "/delegations": {"to": "other_owner", "scope": "all"},
                   "/notifications": {"email": False}, "/final": None, "/final-all": None, "/resolve": None,
-                  "/lookup": {"query": "10.9998/synthetic.001"}, "/seeds": {"identifier": "10.9998/synthetic.001", "question_ids": ["ex-q1"]}, "/consent/lookups": {"lookups": True}}
+                  "/lookup": {"query": "10.9998/synthetic.001"}, "/seeds": {"identifier": "10.9998/synthetic.001", "question_ids": ["ex-q1"]}, "/consent/lookups": {"lookups": True},
+                  "/review/bulk": {"choice": "keep", "papers": [{"item_id": "cand-000000000000", "base_revision": 0}]}}
 
 
 def engine_routes(env):
@@ -354,7 +355,8 @@ def test_the_engine_routes_are_exactly_these(env):
         ("GET", "/api/onboarding/engines/{engine_id}/delegations"), ("PUT", "/api/onboarding/engines/{engine_id}/delegations"),
         ("DELETE", "/api/onboarding/engines/{engine_id}/delegations/{delegation_id}"), ("PUT", "/api/onboarding/engines/{engine_id}/notifications"),
         ("POST", "/api/onboarding/engines/{engine_id}/lookup"), ("POST", "/api/onboarding/engines/{engine_id}/seeds"),          # PR 4b-1
-        ("PUT", "/api/onboarding/engines/{engine_id}/consent/lookups")])
+        ("PUT", "/api/onboarding/engines/{engine_id}/consent/lookups"),
+        ("GET", "/api/onboarding/engines/{engine_id}/review"), ("POST", "/api/onboarding/engines/{engine_id}/review/bulk")])            # PR 4b-2a
 
 
 def test_no_route_is_reachable_without_a_session_and_a_stranger_gets_the_same_404(env):
@@ -394,7 +396,8 @@ def test_the_administrator_may_read_and_comment_but_every_owner_only_route_is_40
     assert comment(env, "admin", "use-case", "ok").status_code == 200
     before = snapshot(env.db)
     for method, path in ((m, p) for m, p in engine_routes(env) if (m, p) not in {("GET", "/api/onboarding/engines/{engine_id}"), ("GET", "/api/onboarding/engines/{engine_id}/sections/{section_key}"),
-                                                                                 ("POST", "/api/onboarding/engines/{engine_id}/items/{item_id}/comments")}):
+                                                                                 ("POST", "/api/onboarding/engines/{engine_id}/items/{item_id}/comments"),
+                                                                                 ("GET", "/api/onboarding/engines/{engine_id}/review")}):      # read by the admin: tested with the review
         assert send(env, method, fill(path, X), ADMIN).status_code == 404, (method, path)
     assert snapshot(env.db) == before
 

@@ -212,8 +212,9 @@ def test_the_choices_lists_and_caps_in_the_pages_are_the_templates():
     assert len(extra) == 1 and min(extra) >= tpl.LIST_MAX * (tpl.LIST_ITEM_CAP + 1), extra          # the out-of-scope box: 30 lines of 200, with room for the line breaks
     assert re.search(r"maxlength: %d \}\), dis" % tpl.COMMENT_CAP, section)
     titles = dict(re.findall(r"(\w+): '([^']+)'", re.search(r"SECTION_TITLES = \{([^}]+)\}", common).group(1)))
-    assert titles == {s["key"]: s["title"] for s in tpl.SECTIONS}
-    assert re.search(r"SECTION_KEYS = \[([^\]]+)\]", common).group(1).replace("'", "").replace(" ", "").split(",") == tpl.SECTION_KEYS
+    # the optional review section (PR 4b-2a) has its own page, which is PR 4b-2b: until then the pages list the four sections every engine has
+    assert titles == {s["key"]: s["title"] for s in tpl.SECTIONS if not s.get("optional")}
+    assert re.search(r"SECTION_KEYS = \[([^\]]+)\]", common).group(1).replace("'", "").replace(" ", "").split(",") == [k for k in tpl.SECTION_KEYS if not tpl.is_optional(k)]
     assert re.search(r"ENGINE_RE = /\^\[a-z0-9\]\[a-z0-9-\]\{1,40\}\$/", common) and tpl.ID_RE.pattern.startswith("^[a-z0-9]")
     from utils import onboarding as ob
     assert ob.ENGINE_ID_RE.pattern == r"^[a-z0-9][a-z0-9-]{1,40}$"

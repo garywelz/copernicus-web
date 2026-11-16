@@ -128,7 +128,7 @@ def stored(env, item_id, section="questions", engine=X):
 
 # ---- the template as data ------------------------------------------------------------------------------------------------------------------------------
 def test_the_template_is_versioned_generic_data():
-    assert tpl.TEMPLATE_VERSION == 1 and tpl.SECTION_KEYS == ["scope", "questions", "keywords", "seeds"]
+    assert tpl.TEMPLATE_VERSION == 1 and tpl.SECTION_KEYS == ["scope", "questions", "keywords", "seeds", "review"]
     src = Path(tpl.__file__).read_text(encoding="utf-8").lower()
     assert "tdap" not in src and "bees" not in src                                          # no engine's content in the template
     assert {t for s in tpl.SECTIONS for t in s["item_types"]} == set(tpl.ITEM_TYPES)

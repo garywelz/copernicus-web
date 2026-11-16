@@ -112,6 +112,18 @@ def _section_docs(db, engine_id: str) -> Dict[str, dict]:
     return {(d.to_dict() or {}).get("section"): d.to_dict() for d in db.collection(SECTIONS_COL).where("engine_id", "==", engine_id).stream()}
 
 
+def shown_keys(items: List[dict]) -> List[str]:
+    """The sections an engine shows, in template order: every section, except an OPTIONAL one that has no item (the review of the hold list, for an engine with
+    no hold list). `items` is every item of the engine."""
+    have = {i.get("section") for i in items}
+    return [k for k in tpl.SECTION_KEYS if k in have or not tpl.is_optional(k)]
+
+
+def shown_keys_of(db, engine_id: str) -> List[str]:
+    return [k for k in tpl.SECTION_KEYS if not tpl.is_optional(k) or
+            any(True for _ in db.collection(ITEMS).where("engine_id", "==", engine_id).where("section", "==", k).limit(1).stream())]
+
+
 def section_status(db, engine_id: str, section: str) -> str:
     snap = _section_ref(db, engine_id, section).get()
     return (snap.to_dict() or {}).get("status", "draft") if snap.exists else "draft"
@@ -157,6 +169,8 @@ def get_section(db, engine_id: str, section: str, viewer: dict) -> dict:
         raise FormError(404, "Not found")
     engine = _engine(db, engine_id)
     items, comments = _items_of(db, engine_id, section), _comments_of(db, engine_id, section)
+    if not items and tpl.is_optional(section):
+        raise FormError(404, "Not found")                # an optional section with nothing in it does not exist for this engine
     sec = _section_docs(db, engine_id).get(section) or {}
     status = sec.get("status", "draft")
     by_item: Dict[str, List[dict]] = {}
@@ -174,8 +188,10 @@ def get_progress(db, engine_id: str, viewer: dict) -> dict:
     """Per section: items open / answered / disagreed / final / approved, whether it is ready; a 'what is left' list; and the 'waiting on' line."""
     items, comments, sec_docs = _items_of(db, engine_id), _comments_of(db, engine_id), _section_docs(db, engine_id)
     disagreed = _disagreed_ids(comments)
-    rows, left = [], []
+    rows, left, shown = [], [], shown_keys(items)
     for meta in tpl.SECTIONS:
+        if meta["key"] not in shown:
+            continue
         its = [i for i in items if i.get("section") == meta["key"]]
         status = (sec_docs.get(meta["key"]) or {}).get("status", "draft")
         rows.append({"key": meta["key"], "title": meta["title"], "status": status, **section_counts(its, disagreed, status),

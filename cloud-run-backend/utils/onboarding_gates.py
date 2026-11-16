@@ -92,7 +92,8 @@ def authority_view(db, engine_id: str, engine: dict, sid: str) -> Dict[str, Any]
         _, scope = authority(None, db, engine_id, engine, sid)
     except FormError:
         return {"can_mark_final": False, "may_mark": []}
-    return {"can_mark_final": True, "may_mark": list(tpl.SECTION_KEYS) if scope == "all" else list(scope)}
+    shown = form.shown_keys_of(db, engine_id)
+    return {"can_mark_final": True, "may_mark": shown if scope == "all" else [k for k in scope if k in shown]}
 
 
 # ---- Mark final ---------------------------------------------------------------------------------------------------------------------------------------
@@ -106,6 +107,9 @@ def _final_in(transaction, db, engine_id, sid, wanted, bulk, now, ip_hash, reque
         raise FormError(409, "This engine is not open for edits")
     plans, skipped = [], []
     for key in wanted:                                                       # reads first: every write below is buffered and committed together
+        items = form._items_of(db, engine_id, key, transaction=transaction)
+        if bulk and not items and tpl.is_optional(key):
+            continue                                                         # an optional section this engine does not have: neither marked nor reported
         if not covers(scope, key):
             if not bulk:
                 raise FormError(403, REFUSALS["not_delegated"], reason="not_delegated")
@@ -115,7 +119,6 @@ def _final_in(transaction, db, engine_id, sid, wanted, bulk, now, ip_hash, reque
         sec_snap = sec_ref.get(transaction=transaction)
         sec = sec_snap.to_dict() if sec_snap.exists else {"engine_id": engine_id, "section": key, "status": "draft", "revision": 1}
         status = sec.get("status", "draft")
-        items = form._items_of(db, engine_id, key, transaction=transaction)
         counts = form.section_counts(items, form._disagreed_ids(form._comments_of(db, engine_id, key, transaction=transaction)), status)
         reason = {"final": "already_final", "approved": "approved", "rejected": "rejected"}.get(status) or (None if counts["ready"] else "not_ready")
         if reason:

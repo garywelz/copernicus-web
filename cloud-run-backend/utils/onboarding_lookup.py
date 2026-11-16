@@ -13,6 +13,10 @@ registry timed out, refused, rate-limited, answered too much or answered somethi
 instrument question first (governance/ENGINE_ONBOARDING.md section 6), so `not_found` is worded "not found in <registries> just now" and says outright that this
 does not mean the paper does not exist; the page never says that a paper does not exist.
 
+A TITLE SEARCH asks Crossref, OpenAlex and arXiv's own title search, and MIXES their answers in turn (the first of each, then the second of each, ...), so
+no registry fills every place and crowds the others out, and a paper that exists only on arXiv can be found (BULLETIN 047, finding 1: Crossref used to fill
+all five places). A match needs a DOI or an arXiv id; the same paper from two registries is shown once.
+
 RESULTS ARE SUGGESTIONS WITH PROVENANCE: each record says which registry each of its fields came from. Text from a registry is stored and shown as plain
 text (tags and control characters removed, lengths capped).
 
@@ -150,18 +154,45 @@ def parse_openalex_list(body: bytes) -> List[Dict[str, Any]]:
     return [r for r in (_openalex_record(w) for w in items[:TITLE_RESULTS]) if r]
 
 
-def parse_arxiv(body: bytes) -> Optional[Dict[str, Any]]:
+def parse_arxiv_list(body: bytes) -> List[Dict[str, Any]]:
     if b"<!DOCTYPE" in body or b"<!ENTITY" in body:              # an Atom feed declares neither; refuse rather than expand anything
         raise ValueError("unexpected XML declaration")
     ns = {"a": "http://www.w3.org/2005/Atom", "x": "http://arxiv.org/schemas/atom"}
-    for e in ET.fromstring(body).findall("a:entry", ns):
+    out = []
+    for e in ET.fromstring(body).findall("a:entry", ns)[:TITLE_RESULTS]:
         m = re.search(r"arxiv\.org/abs/(.+?)(?:v\d+)?$", (e.findtext("a:id", "", ns) or "").strip())
         title = e.findtext("a:title", "", ns) or ""
         if not m or title.strip().lower().startswith("error"):
             continue
-        return _record("arxiv", title, [n.text or "" for n in e.findall("a:author/a:name", ns)], e.findtext("a:published", "", ns), e.findtext("a:summary", "", ns),
-                       {"arxiv": ids.normalise_identifier("arxiv", m.group(1)), "doi": ids.normalise_identifier("doi", e.findtext("x:doi", "", ns))})
-    return None
+        rec = _record("arxiv", title, [n.text or "" for n in e.findall("a:author/a:name", ns)], e.findtext("a:published", "", ns), e.findtext("a:summary", "", ns),
+                      {"arxiv": ids.normalise_identifier("arxiv", m.group(1)), "doi": ids.normalise_identifier("doi", e.findtext("x:doi", "", ns))})
+        if rec:
+            out.append(rec)
+    return out
+
+
+def parse_arxiv(body: bytes) -> Optional[Dict[str, Any]]:
+    return (parse_arxiv_list(body) or [None])[0]
+
+
+_ARXIV_DOI = re.compile(r"^doi:10\.48550/arxiv\.(.+)$")
+_TITLE_WORD = re.compile(r"[^\w]+", re.UNICODE)
+
+
+def arxiv_title_query(title: str) -> str:
+    """arXiv's title search, as a phrase of the title's words: punctuation is removed (a colon, a hyphen or a quote inside the phrase breaks the query)."""
+    return 'ti:"' + " ".join(_TITLE_WORD.sub(" ", title).replace("_", " ").split()) + '"'
+
+
+def _paper_keys(rec: Dict[str, Any]) -> set:
+    """What identifies this record as a paper: its DOI, its arXiv id, and the arXiv id inside an arXiv DOI (10.48550/arXiv.<id>), so that the same preprint
+    answered by Crossref or OpenAlex (with that DOI) and by arXiv (with its id) is one paper."""
+    found = rec["identifiers"]
+    keys = {v for v in (found.get("doi"), found.get("arxiv")) if v}
+    m = _ARXIV_DOI.match(found.get("doi") or "")
+    if m:
+        keys.add("arxiv:" + m.group(1))
+    return keys
 
 
 def parse_s2(body: bytes) -> Optional[Dict[str, Any]]:
@@ -228,15 +259,23 @@ def _by_identifier(kind: str, value: str, asker: _Asker) -> Optional[Dict[str, A
 
 
 def _by_title(title: str, asker: _Asker) -> List[Dict[str, Any]]:
-    """Up to TITLE_RESULTS possible matches, each with a DOI (a paper with no public identifier cannot be a seed). A person picks one; nothing is picked for them."""
-    out: List[Dict[str, Any]] = []
+    """Up to TITLE_RESULTS possible matches, each with a DOI or an arXiv id (a paper with no public identifier cannot be a seed). The three registries' answers
+    are taken IN TURN, each registry's best match first, so none crowds out the others. A person picks one; nothing is picked for them."""
+    lists = []
     for registry, path, parser, params in (("crossref", "/works", parse_crossref_list, {"query.bibliographic": title, "rows": str(TITLE_RESULTS), "select": "DOI,title,author,issued,abstract"}),
-                                           ("openalex", "/works", parse_openalex_list, {"search": title, "per-page": str(TITLE_RESULTS)})):
-        for rec in asker.ask(registry, path, parser, params) or []:
-            doi = rec["identifiers"].get("doi")
-            if doi and all(doi != r["identifiers"].get("doi") for r in out):
-                out.append(rec)
-    return out[:TITLE_RESULTS]
+                                           ("openalex", "/works", parse_openalex_list, {"search": title, "per-page": str(TITLE_RESULTS)}),
+                                           ("arxiv", "/api/query", parse_arxiv_list, {"search_query": arxiv_title_query(title), "max_results": str(TITLE_RESULTS)})):
+        lists.append(asker.ask(registry, path, parser, params) or [])
+    out: List[Dict[str, Any]] = []
+    seen: set = set()
+    for rank in range(TITLE_RESULTS):
+        for found in lists:
+            if rank < len(found) and len(out) < TITLE_RESULTS:
+                keys = _paper_keys(found[rank])
+                if keys and not (keys & seen):
+                    out.append(found[rank])
+                    seen |= keys
+    return out
 
 
 def message(state: str, checked: List[Dict[str, str]]) -> str:
