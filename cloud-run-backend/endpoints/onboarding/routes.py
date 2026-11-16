@@ -5,6 +5,8 @@
   POST   /api/onboarding/engines/{e}/lookup             an owner who agreed to lookups: resolve a DOI, arXiv id, PubMed id or title at the public registries (PR 4b-1)
   POST   /api/onboarding/engines/{e}/seeds              an owner who agreed to lookups: add a seed by identifier; the server resolves it again, and it starts unanswered
   PUT    /api/onboarding/engines/{e}/consent/lookups    an owner: turn their own lookup consent on or off; each change is a versioned, audited consent event
+  GET    /api/onboarding/engines/{e}/review             a member, or the admin (read): every hold-list paper with its decision, comment, flags and abstract (PR 4b-2a)
+  POST   /api/onboarding/engines/{e}/review/bulk        an owner: give up to 100 selected papers one decision, all or nothing; a stale paper refuses the whole batch
   POST   /api/admin/onboarding/invites                  admin key: create an invitation (the address is entered once and kept only as a hash)
   GET    /api/admin/onboarding/invites?engine_id=       admin key: list one engine's invitations (never an address or token hash)
   DELETE /api/admin/onboarding/invites/{invite_id}      admin key: revoke an unused invitation; a used one also removes the membership (Q17)
@@ -34,6 +36,7 @@ from config.database import db
 from email_service import EmailService
 from utils import onboarding as ob
 from utils import onboarding_bundle as bundles
+from utils import onboarding_candidates as candidates
 from utils import onboarding_form as form
 from utils import onboarding_gates as gates
 from utils import onboarding_ids as ids
@@ -67,6 +70,7 @@ LOOKUP_LIMIT_PER_HOUR = 60          # one person's lookups (each may call up to 
 LOOKUP_ENGINE_LIMIT_PER_HOUR = 300  # all the owners of one engine together
 SEED_ADD_LIMIT_PER_HOUR = 30
 CONSENT_LIMIT_PER_HOUR = 30
+REVIEW_BULK_LIMIT_PER_HOUR = 60
 LOOKUP_CONSENT_NEEDED = "You have not agreed to lookups at public scholarly services, so nothing was looked up. You can turn lookups on below."
 NOTICE_TIMEOUT_SECONDS = 10      # the mail is sent before the route returns, so a hung mail server must not hold an owner's save
 ENGINE_PAGE_URL = "https://www.copernicusai.fyi/onboarding/engine.html"      # the link in a notification: the engine page, never an address
@@ -460,6 +464,44 @@ async def put_lookup_consent(engine_id: str, body: LookupConsentIn, request: Req
     if out is None:
         raise HTTPException(status_code=404, detail="Not found")
     return {"lookups": out["lookups"], "revision": out["revision"]}
+
+
+# ---- the review of the hold list (PR 4b-2a; design 2.5) --------------------------------------------------------------------------------------------------
+class BulkPaper(BaseModel):
+    item_id: str = Field(..., min_length=1, max_length=64)
+    base_revision: StrictInt = Field(..., ge=0)
+
+
+class ReviewBulkIn(BaseModel):
+    choice: str = Field(..., max_length=10)                              # keep, drop or unsure
+    papers: List[BulkPaper] = Field(..., min_length=1, max_length=candidates.BULK_MAX)
+
+
+@engine_router.get("/review")
+async def get_review(engine_id: str, caller: dict = Depends(engine_gate)):
+    """The hold list for review: every paper with its decision, comment, flags and abstract. This is the ONLY route that returns an abstract, and only to a member
+    of this engine or the administrator. 404 for an engine with no hold list. One decision is saved through PUT .../items/{item_id}, like any other answer."""
+    try:
+        return candidates.review_view(db, engine_id, _viewer(caller))
+    except form.FormError as e:
+        raise _fail(e)
+
+
+@engine_router.post("/review/bulk")
+async def review_bulk(engine_id: str, body: ReviewBulkIn, request: Request, caller: dict = Depends(engine_gate), _size: None = Depends(limit_body)):
+    """Mark up to 100 selected papers keep, drop or unsure in one all-or-nothing transaction (owners only; an administrator gets 404). Each paper carries the
+    revision the owner was looking at: if any one has changed since, nothing is written and the 409 names those papers. Comments are left as they are."""
+    _owner(caller)
+    check_rate_limit(db, caller["subscriber_id"], "onboarding_review_bulk", limit=REVIEW_BULK_LIMIT_PER_HOUR, window_seconds=3600)
+    (ip, rid), outcome = _trace(request), {}
+    try:
+        out = candidates.bulk_mark(db, engine_id=engine_id, subscriber_id=caller["subscriber_id"], choice=body.choice, papers=[p.model_dump() for p in body.papers],
+                                   ip_hash=ip, request_id=rid, outcome=outcome)
+    except form.FormError as e:
+        raise _fail(e)
+    if out["marked"]:
+        await _notify(engine_id, candidates.SECTION, outcome.get("reopened_from"))
+    return {**out, "section_status": form.section_status(db, engine_id, candidates.SECTION)}
 
 
 router.include_router(engine_router)

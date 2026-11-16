@@ -16,7 +16,9 @@ Four checks, each a separate boolean and each able to fail on its own:
                        given names to refuse with --deny-name.
   schema_ok            docs/research_focus.json parses and every active question has q, terms and since, with only the optional id and priority beside them;
                        a docs/seeds.csv parses with a header that has a doi column, every row the header's width, and every row the bundle adds or changes has a doi
-                       or an arxiv_id (a row with neither cannot be ingested).
+                       or an arxiv_id (a row with neither cannot be ingested). In docs/hold_list.md the generated decisions block, if present, has both
+                       its markers once, holds no heading and no bullet line (either would change which papers the loader reads from the file), and every
+                       row's decision is keep, drop or unsure.
 
 `files` are dicts with a `path` and either `content` or `proposed_content`.
 """
@@ -158,6 +160,29 @@ def _check_seeds_csv(path: str, text: str, base: Optional[str] = None) -> List[s
     return out
 
 
+HOLD_BEGIN = "<!-- onboarding:hold-list-decisions:begin -->"
+HOLD_END = "<!-- onboarding:hold-list-decisions:end -->"
+HOLD_DECISIONS = ("keep", "drop", "unsure")
+
+
+def _check_hold_list(path: str, text: str) -> List[str]:
+    if HOLD_BEGIN not in text and HOLD_END not in text:
+        return []
+    if text.count(HOLD_BEGIN) != 1 or text.count(HOLD_END) != 1 or text.index(HOLD_BEGIN) > text.index(HOLD_END):
+        return [f"{path}: the decisions block does not have exactly one begin and one end marker, in that order"]
+    out = []
+    body = text.split(HOLD_BEGIN, 1)[1].split(HOLD_END, 1)[0].split("\n")
+    rows = [line for line in body if line.startswith("|")][2:]                 # after the header row and its rule
+    for n, line in enumerate(body):
+        if line.startswith("#") or line.startswith("- "):
+            out.append(f"{path}: the decisions block has a heading or a bullet line (line {n} of the block)")
+    for n, line in enumerate(rows, start=1):
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if not cells or cells[0] not in HOLD_DECISIONS:
+            out.append(f"{path}: row {n} of the decisions block has no decision of keep, drop or unsure")
+    return out
+
+
 def check_schema(files: Iterable[dict], bases: Optional[Dict[str, Optional[str]]] = None) -> List[str]:
     out = []
     for f in files:
@@ -165,6 +190,8 @@ def check_schema(files: Iterable[dict], bases: Optional[Dict[str, Optional[str]]
             out += _check_research_focus(f["path"], _text(f))
         elif f.get("path") == "docs/seeds.csv":
             out += _check_seeds_csv(f["path"], _text(f), (bases or {}).get(f["path"]))
+        elif f.get("path") == "docs/hold_list.md":
+            out += _check_hold_list(f["path"], _text(f))
     return out
 
 

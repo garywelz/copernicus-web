@@ -19,7 +19,8 @@ THE FORMAT, as built (engine_onboarding_bundle v1; design 5.3, with `format`/`ve
   base:       {repo, branch: "main", commit_sha}                       repo and commit_sha are null for an engine with no repository
   sections:   [{section, revision, content_sha256, final_by_role ("final_say" | "delegate"), final_at, approved_at, approver_note}]
   files:      [{path, action ("add" | "modify"), base_blob_sha, proposed_sha256, proposed_content}]
-  core_tasks: [{kind, payload}]            kind: ingest_seed | retag     (design 5.4; scope_change is not emitted: README only, no Core task)
+  core_tasks: [{kind, payload}]            kind: ingest_seed | retag | ingest_keep   (design 5.4; scope_change is not emitted: README only, no Core task;
+                                           ingest_keep is one per hold-list paper the owners decided to keep, PR 4b-2: the form never ingests)
   checks:     {public_safe, no_email, no_not_yet_public, names_ok, schema_ok}
   pr_text:    {title, body}
   notes:      [text]                       what was not exported (for example frontier / flagged entries: "not exported in v1")
@@ -73,6 +74,9 @@ def core_tasks(items_by_section: Dict[str, List[dict]]) -> List[dict]:
     for i in items_by_section.get("seeds", []):
         if i.get("choice") == "yes" and (i.get("context") or {}).get("identifier"):
             tasks.append({"kind": "ingest_seed", "payload": {"identifier": i["context"]["identifier"], "question_ids": (i["context"].get("question_ids") or [])}})
+    for i in items_by_section.get("review", []):
+        if i.get("type") == "candidate_decision" and i.get("choice") == "keep" and (i.get("context") or {}).get("identifier"):
+            tasks.append({"kind": "ingest_keep", "payload": {"identifier": i["context"]["identifier"]}})
     qs = items_by_section.get("questions")
     if qs is not None:
         added = [i["item_id"] for i in qs if i.get("choice") == "add"]

@@ -176,7 +176,7 @@ def test_rerun_at_the_same_commit_changes_nothing(web, capsys):
     code, out, _ = run(["--apply", "--approval", LINE], db, capsys)
     assert code == 0 and snapshot(db) == before and "no write was made" in out
     code, out, _ = run([], db, capsys)
-    assert code == 0 and "0 create, 0 update (untouched by owners), 90 unchanged, 0 conflict" in out
+    assert code == 0 and "0 create, 0 update (untouched by owners), 0 adopt (a seed an owner added; repository fields only), 155 unchanged, 0 conflict" in out
 
 
 def changed_tree(tmp_path):
@@ -387,12 +387,14 @@ def hold_tree(tmp_path, papers, name="big"):
 
 
 def test_a_plan_over_the_write_limit_is_refused_and_one_at_the_limit_is_not(web, tmp_path, capsys):
-    # the fixture's 25 items + N candidates + the engine update + the event: N = 423 gives exactly 450, N = 424 gives 451
-    at_limit, over = hold_tree(tmp_path, 423, "at"), hold_tree(tmp_path, 424, "over")
+    # the fixture's 25 items + N candidates + N review decisions (PR 4b-2a: one item per hold-list paper) + the engine update + the event:
+    # N = 211 gives 449 (the nearest a whole number of papers comes to the limit), N = 212 gives 451
+    at_limit, over = hold_tree(tmp_path, 211, "at"), hold_tree(tmp_path, 212, "over")
     web.set(SHA, at_limit)
     db = engine_db()
     code, out, _ = run(["--apply", "--approval", LINE], db, capsys)
-    assert code == 0 and "transaction: 450 writes (limit 450)" in out and len(db.data[le.CANDIDATES]) == 423
+    assert code == 0 and "transaction: 449 writes (limit 450)" in out and len(db.data[le.CANDIDATES]) == 211
+    assert sum(d["section"] == "review" for d in db.data[le.ITEMS].values()) == 211
     web.set(SHA, over)
     db = engine_db()
     before = snapshot(db)
@@ -427,3 +429,123 @@ def test_no_hold_list_means_no_skipped_report(web, tmp_path, capsys):
     (root / "docs" / "hold_list.md").unlink()
     web.set(SHA, root)
     assert "skipped" not in run([], engine_db(), capsys)[1]
+
+
+# ---- PR 4b-2a: review decisions, and the adoption of a seed an owner added (BULLETIN 043) ------------------------------------------------------------------
+def test_every_hold_list_paper_gets_an_unanswered_review_decision_that_points_at_its_candidate(web, capsys):
+    web.set(SHA, FIXTURE)
+    db = engine_db()
+    code, out, _ = run(["--apply", "--approval", LINE], db, capsys)
+    assert code == 0 and "65 review decisions (one per hold-list paper)" in out and "transaction: 157 writes" in out
+    review = sorted((d for d in db.data[le.ITEMS].values() if d["section"] == "review"), key=lambda d: d["order"])
+    assert len(review) == 65 and [d["order"] for d in review] == list(range(65))
+    for d in review:
+        cand = db.data[le.CANDIDATES][d["context"]["candidate_id"]]
+        assert d["type"] == "candidate_decision" and d["value"] == {"comment": ""} and d["choice"] is None and d["revision"] == 0
+        assert d["item_id"] == le.review_item_id(cand["identifier"]) and le.tpl.ID_RE.match(d["item_id"])
+        assert (d["context"]["identifier"], d["context"]["title"], d["context"]["group"], d["context"]["likely_keep"]) == (
+            cand["identifier"], cand["flags"]["title"], cand["flags"]["group"], cand["flags"]["likely_keep"])
+        assert "abstract" not in d["context"] and "abstract" not in d["value"]
+    assert sum(d["context"]["likely_keep"] for d in review) == 4
+    (e,) = [e for e in db.data[ob.EVENTS].values() if e["action"] == "engine_load"]
+    assert e["counts"]["review_decisions"] == 65 and e["adopted"] == []
+
+
+def test_a_decision_an_owner_made_and_an_abstract_survive_a_reload(web, tmp_path, capsys):
+    web.set(SHA, FIXTURE)
+    db = engine_db()
+    run(["--apply", "--approval", LINE], db, capsys)
+    decided = next(d for d in db.data[le.ITEMS].values() if d["section"] == "review")
+    decided.update({"choice": "keep", "revision": 1, "author_subscriber_id": "sub-1", "value": {"comment": "ours"}})
+    cand = db.data[le.CANDIDATES][decided["context"]["candidate_id"]]
+    cand.update({"abstract": "A stored abstract.", "lookup_state": "found", "abstract_source": "crossref"})
+    before = snapshot(db)
+    assert run(["--apply", "--approval", LINE], db, capsys)[0] == 0 and snapshot(db) == before
+
+
+def owner_added(db, key, item_id=None, **over):
+    """A seed as the form's add-a-seed route stores it (utils/onboarding_form.add_seed), answered and commented on by an owner."""
+    kind = key.split(":", 1)[0]
+    item_id = item_id or le.ids.seed_item_id(key)
+    doc = {"engine_id": ENGINE, "section": "seeds", "item_id": item_id, "type": "seed_confirm", "value": {"comment": "our own remark"}, "choice": "yes", "revision": 2,
+           "author_subscriber_id": "sub-owner", "updated_at": "2026-11-12T00:00:00+00:00", "comment_count": 1,
+           "history": [{"revision": 1, "choice": "unsure", "value": {"comment": ""}, "author": "sub-owner", "at": "2026-11-11T00:00:00+00:00"}], "order": 1000,
+           "context": {"identifier": key, "identifiers": {kind: key}, "question_ids": ["demo-q2"], "title": "Registry title", "citation": "Registry title", "admit_policy": "",
+                       "status_in_repo": None, "reference_source": None, "added": True, "added_by": "owner",
+                       "registry": {"authors": ["Ada Example"], "year": 2026, "sources": {"title": "crossref"}, "fetched_at": "2026-11-11T00:00:00+00:00"}, **over}}
+    db.data.setdefault(le.ITEMS, {})[le.item_key(ENGINE, "seeds", item_id)] = doc
+    return doc
+
+
+def test_a_seed_an_owner_added_is_adopted_and_keeps_its_answer_comments_revision_and_history(web, capsys):
+    web.set(SHA, FIXTURE)
+    db = engine_db()
+    mine = copy.deepcopy(owner_added(db, "doi:10.9999/demo.seed.01"))
+    code, out, _ = run([], db, capsys)
+    assert code == 0 and "1 adopt (a seed an owner added; repository fields only)" in out and "0 conflict" in out and "adopt: onboarding_items/demo__seeds__" in out
+    code, out, _ = run(["--apply", "--approval", LINE], db, capsys)
+    assert code == 0 and "1 adopted" in out, out
+    now = db.data[le.ITEMS][le.item_key(ENGINE, "seeds", mine["item_id"])]
+    for k in ("value", "choice", "revision", "author_subscriber_id", "updated_at", "comment_count", "history", "order", "type", "item_id", "section"):
+        assert now[k] == mine[k], k                                              # neither a conflict nor an overwrite: the owner's side is untouched
+    ctx = now["context"]
+    assert (ctx["status_in_repo"], ctx["admit_policy"]) == ("confirmed", "all_references")                     # the repository's side
+    assert (ctx["citation"], ctx["reference_source"]) == ("Author1 — *Synthetic Seed Paper 01* (2026)", "Synthetic source 1")   # its citation, for display (Gary, 2026-11-16)
+    assert ctx["adopted_source_sha256"] and "loaded_by" not in ctx and ctx["added"] is True
+    for k in ("identifier", "identifiers", "question_ids", "title", "registry", "added_by"):
+        assert ctx[k] == mine["context"][k], k                                    # the owner's question ids and the registry record stay
+    assert sum(d["section"] == "seeds" for d in db.data[le.ITEMS].values()) == 10                              # one entry, not two
+    (e,) = [e for e in db.data[ob.EVENTS].values() if e["action"] == "engine_load"]
+    assert e["adopted"] == [mine["item_id"]]
+    before = snapshot(db)
+    db.fail_writes_to = {le.ITEMS, le.CANDIDATES, ob.EVENTS, ob.ENGINES}                                      # a second run writes nothing at all
+    code, out, _ = run(["--apply", "--approval", LINE], db, capsys)
+    assert code == 0 and snapshot(db) == before and "no write was made" in out
+    code, out, _ = run([], db, capsys)
+    assert "0 adopt" in out and "0 conflict" in out
+
+
+def test_an_adopted_seed_whose_row_has_no_citation_keeps_the_registry_title(web, tmp_path, capsys):
+    root = tree(tmp_path)
+    p = root / "docs" / "seeds.csv"
+    p.write_text(p.read_text(encoding="utf-8") + "10.9999/demo.added.77,demo-q1,A row with no seed_papers entry,,all_references,proposed\n", encoding="utf-8")
+    web.set(SHA, root)
+    db = engine_db()
+    owner_added(db, "doi:10.9999/demo.added.77")
+    assert run(["--apply", "--approval", LINE], db, capsys)[0] == 0
+    ctx = db.data[le.ITEMS][le.item_key(ENGINE, "seeds", le.ids.seed_item_id("doi:10.9999/demo.added.77"))]["context"]
+    assert (ctx["citation"], ctx["reference_source"], ctx["status_in_repo"]) == ("Registry title", None, "proposed")
+
+
+def test_the_same_paper_under_another_identifier_is_a_conflict_not_a_second_seed(web, capsys):
+    """The owner added the arXiv id; the repository's row leads with the DOI and also names that arXiv id. Two keys, one paper."""
+    web.set(SHA, FIXTURE)
+    db = engine_db()
+    owner_added(db, "arxiv:2601.00003")
+    before = snapshot(db)
+    for args in ([], ["--apply", "--approval", LINE]):
+        code, out, _ = run(args, db, capsys)
+        assert code == 1 and "CONFLICT" in out and "already a seed an owner added under another identifier" in out and "nothing was written" in out
+        assert snapshot(db) == before
+
+
+def test_an_adoption_is_refused_if_the_seed_changed_between_the_plan_and_the_write(web, capsys, monkeypatch):
+    web.set(SHA, FIXTURE)
+    db = engine_db()
+    mine = owner_added(db, "doi:10.9999/demo.seed.01")
+    real = le.diff
+
+    def then_change(*a, **k):
+        planned = real(*a, **k)
+        mine["context"]["added"] = False                                          # no longer an owner-added seed when the transaction reads it
+        return planned
+    monkeypatch.setattr(le, "diff", then_change)
+    code, _, err = run(["--apply", "--approval", LINE], db, capsys)
+    assert code == 1 and "changed since the plan was made" in err and le.CANDIDATES not in db.data
+
+
+def test_the_loader_and_the_form_share_one_set_of_identifier_rules():
+    from utils import onboarding_ids
+    assert le.DOI_RE.pattern == onboarding_ids.DOI_RE.pattern and le.ARXIV_RE.pattern == onboarding_ids.ARXIV_RE.pattern and le.PMID_RE.pattern == onboarding_ids.PMID_RE.pattern
+    src = (ROOT / "scripts" / "onboarding" / "load_engine.py").read_text(encoding="utf-8")
+    assert 're.compile(r"^10' not in src and "ids.normalise_identifier(kind, raw)" in src and "ids.seed_item_id(key)" in src

@@ -10,6 +10,9 @@ THE MAPPING (design 6.2):
   seeds      -> docs/seed_papers.md        a generated "owners' confirmation" block; the rest of the file is left exactly as it is
                 docs/seeds.csv               the real tdap repo's machine-readable seed record (doi,question_ids,title,arxiv_id,admit_policy,status, read at
                                              b384da6); the confirmation sets each matched row's `status`. (The design's earlier name, seed_papers.csv, is superseded.)
+  review     -> docs/hold_list.md        a generated "owners' decisions" TABLE (decision, identifier, title) between markers; the list itself is left exactly as
+                                             it is. Comments are NEVER exported (Gary, 2026-11-10), and an abstract is never part of an item. The block has no
+                                             heading and no bullet line, so the loader reads the same papers from the file after the block is added.
   (bundles) -> README.md                     also a generated attribution line, following each owner's consent choice (role only by default)
 
 EVERY FILE IS MERGED INTO ITS CURRENT TEXT, never rewritten from nothing, so a diff shows only what the owners changed. With no current text (the engine has
@@ -29,7 +32,7 @@ import re
 from typing import Any, Dict, List, Optional
 
 SECTION_FILES = {"scope": ("README.md",), "questions": ("docs/research_focus.json",), "keywords": ("docs/research_focus.json",),
-                 "seeds": ("docs/seed_papers.md", "docs/seeds.csv")}
+                 "seeds": ("docs/seed_papers.md", "docs/seeds.csv"), "review": ("docs/hold_list.md",)}
 STRING_LISTS = ("categories", "horizons", "mute")
 OBJECT_LISTS = ("frontier", "flagged")
 SEEDS_BEGIN = "<!-- onboarding:seed-confirmations:begin -->"
@@ -218,6 +221,31 @@ def render_seed_papers(base_text: Optional[str], items: List[dict]):
     return base_text.rstrip("\n") + "\n\n" + block, []
 
 
+# ---- docs/hold_list.md ----------------------------------------------------------------------------------------------------------------------------------
+HOLD_BEGIN = "<!-- onboarding:hold-list-decisions:begin -->"
+HOLD_END = "<!-- onboarding:hold-list-decisions:end -->"
+HOLD_CAPTION = "**Owners' decisions on the hold list.** One row per paper: the decision, the identifier and the title."
+HOLD_DECISIONS = ("keep", "drop", "unsure")
+
+
+def _cell(text: Any) -> str:
+    return " ".join(str(text or "").split()).replace("|", "\\|")
+
+
+def hold_block_body(items: List[dict]) -> str:
+    """A table, never bullets: decision, identifier, title. No comment, no author, no abstract."""
+    rows = []
+    for i in items:
+        ctx = i.get("context") or {}
+        decision = i.get("choice") if i.get("choice") in HOLD_DECISIONS else "unanswered"
+        rows.append(f"| {decision} | `{_cell(ctx.get('identifier'))}` | {_cell(ctx.get('title') or i.get('item_id'))} |")
+    return "\n".join([HOLD_CAPTION, "", "| Decision | Identifier | Title |", "|---|---|---|", *rows])
+
+
+def render_hold_list(base_text: Optional[str], items: List[dict]):
+    return _put_block(base_text or "", HOLD_BEGIN, HOLD_END, hold_block_body(items)), []
+
+
 # ---- docs/seeds.csv -----------------------------------------------------------------------------------------------------------------------------------
 CSV_COLUMNS = ["doi", "question_ids", "title", "arxiv_id", "admit_policy", "status"]
 CSV_STATUS = {"yes": "confirmed", "unsure": "proposed", "no": "rejected"}
@@ -279,6 +307,8 @@ def render_files(items_by_section: Dict[str, List[dict]], bases: Dict[str, Optio
             text, notes = render_research_focus(base, items_by_section.get("questions"), items_by_section.get("keywords"), as_of)
         elif path == "docs/seeds.csv":
             text, notes = render_seeds_csv(base, items_by_section["seeds"])
+        elif path == "docs/hold_list.md":
+            text, notes = render_hold_list(base, items_by_section["review"])
         else:
             text, notes = render_seed_papers(base, items_by_section["seeds"])
         out.append({"path": path, "content": text, "sha256": sha256_text(text), "sections": secs, "notes": notes})

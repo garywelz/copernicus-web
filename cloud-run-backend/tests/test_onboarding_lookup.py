@@ -255,22 +255,75 @@ def test_registry_text_is_stored_as_plain_text(web):
     assert (len(rec["title"]), len(rec["abstract"]), len(rec["authors"])) == (600, 5000, 20)
 
 
-def test_a_title_search_returns_at_most_five_possible_matches_each_with_a_doi_and_picks_none(web):
-    cr = "https://api.crossref.org/works?query.bibliographic=A+study+of+synthetic+things&rows=5&select=DOI%2Ctitle%2Cauthor%2Cissued%2Cabstract"
-    oa = "https://api.openalex.org/works?search=A+study+of+synthetic+things&per-page=5"
+TITLE_CR = "https://api.crossref.org/works?query.bibliographic=A+study+of+synthetic+things&rows=5&select=DOI%2Ctitle%2Cauthor%2Cissued%2Cabstract"
+TITLE_OA = "https://api.openalex.org/works?search=A+study+of+synthetic+things&per-page=5"
+TITLE_AX = "https://export.arxiv.org/api/query?search_query=ti%3A%22A+study+of+synthetic+things%22&max_results=5"
+
+
+def crossref_list(pairs):
+    return json.dumps({"message": {"items": [json.loads(crossref(title=t, doi=d))["message"] for t, d in pairs]}}).encode()
+
+
+def openalex_list(pairs):
+    return json.dumps({"results": [json.loads(openalex(title=t, doi=d)) for t, d in pairs]}).encode()
+
+
+def arxiv_list(pairs, doi=None):
+    entries = "".join(f'<entry><id>http://arxiv.org/abs/{i}v2</id><title>{t}</title><summary>Summary of {t}.</summary><published>2024-01-02T00:00:00Z</published>'
+                      f'<author><name>Ada Example</name></author>{f"<arxiv:doi>{doi}</arxiv:doi>" if doi else ""}</entry>' for t, i in pairs)
+    return f'<feed xmlns="http://www.w3.org/2005/Atom" xmlns:arxiv="http://arxiv.org/schemas/atom">{entries}</feed>'.encode()
+
+
+def test_a_title_search_returns_at_most_five_possible_matches_each_with_an_identifier_and_picks_none(web):
     items = [json.loads(crossref(title=f"Match {n}", doi=f"10.9998/m{n}"))["message"] for n in range(4)] + [{"title": ["No DOI"]}]
-    web.table[cr] = (200, json.dumps({"message": {"items": items}}).encode())
-    web.table[oa] = (200, json.dumps({"results": [json.loads(openalex(title="Match 0 again", doi="10.9998/m0")), json.loads(openalex(title="Match 9", doi="10.9998/m9")),
-                                                  json.loads(openalex(title="Match 10", doi="10.9998/m10")), json.loads(openalex(title="Nothing", doi=None))]}).encode())
+    web.table[TITLE_CR] = (200, json.dumps({"message": {"items": items}}).encode())
+    web.table[TITLE_OA] = (200, json.dumps({"results": [json.loads(openalex(title="Match 0 again", doi="10.9998/m0")), json.loads(openalex(title="Match 9", doi="10.9998/m9")),
+                                                        json.loads(openalex(title="Match 10", doi="10.9998/m10")), json.loads(openalex(title="Nothing", doi=None))]}).encode())
     out = lookup.lookup(None, "title", "A study of synthetic things")
-    assert web.calls == [cr, oa] and out["state"] == "found"
-    assert [r["title"] for r in out["results"]] == ["Match 0", "Match 1", "Match 2", "Match 3", "Match 9"]
-    assert all(r["identifiers"].get("doi") for r in out["results"]) and out["results"][4]["sources"]["title"] == "openalex"
-    web.table[cr], web.table[oa] = (200, b'{"message": {"items": []}}'), (200, b'{"results": []}')
+    assert web.calls == [TITLE_CR, TITLE_OA, TITLE_AX] and out["state"] == "found"
+    # taken in turn: the first of each registry, then the second of each; the same DOI from two registries is one paper; a record with no identifier is left out
+    assert [r["title"] for r in out["results"]] == ["Match 0", "Match 1", "Match 9", "Match 2", "Match 10"]
+    assert all(r["identifiers"].get("doi") for r in out["results"]) and [r["sources"]["title"] for r in out["results"]] == ["crossref", "crossref", "openalex", "crossref", "openalex"]
+    web.table[TITLE_CR], web.table[TITLE_OA], web.table[TITLE_AX] = (200, b'{"message": {"items": []}}'), (200, b'{"results": []}'), (200, arxiv_list([]))
     out = lookup.lookup(None, "title", "A study of synthetic things")
-    assert out["state"] == "not_found" and out["message"].startswith("Not found in Crossref and OpenAlex just now.")
-    web.table[oa] = (429, b"")
+    assert out["state"] == "not_found" and out["message"].startswith("Not found in Crossref, OpenAlex and arXiv just now.")
+    web.table[TITLE_OA] = (429, b"")
     assert lookup.lookup(None, "title", "A study of synthetic things")["state"] == "unavailable"
+
+
+def test_an_arxiv_only_paper_is_found_by_title_even_when_crossref_and_openalex_each_return_five_other_papers(web):
+    """BULLETIN 047, finding 1. Before PR 4b-2a Crossref's five matches filled every place: OpenAlex's were never shown and arXiv was never asked."""
+    web.table[TITLE_CR] = (200, crossref_list([(f"Crossref other {n}", f"10.9998/c{n}") for n in range(5)]))
+    web.table[TITLE_OA] = (200, openalex_list([(f"OpenAlex other {n}", f"10.9998/o{n}") for n in range(5)]))
+    web.table[TITLE_AX] = (200, arxiv_list([("A study of synthetic things", "2401.00077")]))
+    out = lookup.lookup(None, "title", "A study of synthetic things")
+    assert out["state"] == "found" and len(out["results"]) == 5
+    (preprint,) = [r for r in out["results"] if r["sources"]["title"] == "arxiv"]
+    assert preprint["title"] == "A study of synthetic things" and preprint["identifiers"] == {"arxiv": "arxiv:2401.00077"} and preprint["abstract"]
+    # neither registry crowds out another: each has a place in the first round
+    assert [r["sources"]["title"] for r in out["results"]] == ["crossref", "openalex", "arxiv", "crossref", "openalex"]
+    # and the preprint can then be added as a seed by its arXiv id (the route resolves it again by identifier)
+    assert ids.classify(preprint["identifiers"]["arxiv"]) == ("arxiv", "arxiv:2401.00077")
+
+
+def test_arxiv_alone_answers_a_title_when_the_other_two_have_nothing_or_are_down(web):
+    web.table[TITLE_AX] = (200, arxiv_list([("A study of synthetic things", "2401.00077"), ("Another study", "2401.00078")]))
+    out = lookup.lookup(None, "title", "A study of synthetic things")                      # Crossref and OpenAlex answer 404 here
+    assert out["state"] == "found" and [r["identifiers"]["arxiv"] for r in out["results"]] == ["arxiv:2401.00077", "arxiv:2401.00078"]
+    web.table[TITLE_CR], web.table[TITLE_OA] = TimeoutError("slow"), (500, b"")
+    assert lookup.lookup(None, "title", "A study of synthetic things")["state"] == "found"
+
+
+def test_the_same_preprint_from_arxiv_and_under_its_arxiv_doi_is_shown_once(web):
+    web.table[TITLE_CR] = (200, crossref_list([("A study of synthetic things", "10.48550/arXiv.2401.00077")]))
+    web.table[TITLE_AX] = (200, arxiv_list([("A study of synthetic things", "2401.00077"), ("Published elsewhere", "2401.00079")], doi="10.9998/c0"))
+    web.table[TITLE_OA] = (200, openalex_list([("Published elsewhere", "10.9998/c0")]))
+    out = lookup.lookup(None, "title", "A study of synthetic things")
+    assert [(r["sources"]["title"], r["title"]) for r in out["results"]] == [("crossref", "A study of synthetic things"), ("openalex", "Published elsewhere")]
+
+
+def test_the_arxiv_title_query_is_a_phrase_of_words_with_no_punctuation():
+    assert lookup.arxiv_title_query('BERT: Pre-training of "Deep" Bidirectional_Transformers (v2)') == 'ti:"BERT Pre training of Deep Bidirectional Transformers v2"'
 
 
 def test_a_found_record_is_cached_for_a_day_by_a_hash_of_the_query_and_failures_are_never_cached(env, web):

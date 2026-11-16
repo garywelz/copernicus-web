@@ -14,13 +14,23 @@ FILES READ (raw.githubusercontent.com at the pinned commit, a plain GET, no cred
 There are four files. The loader reads nothing else.
 
 WRITES (only with --apply and the typed approval line; one Firestore transaction):
-  onboarding_items       one per question, keyword-list entry and seed, UNANSWERED (revision 0, no choice, no author). An item an owner has touched is never changed.
-  onboarding_candidates  one per hold-list paper: origin hold_list, flags {group, likely_keep, reason, cited_by, title}, decision null
+  onboarding_items       one per question, keyword-list entry, seed and hold-list paper, UNANSWERED (revision 0, no choice, no author). An item an owner has
+                         touched is never changed. A hold-list paper's item is its review decision (type candidate_decision, section review; PR 4b-2).
+  onboarding_candidates  one per hold-list paper: origin hold_list, flags {group, likely_keep, reason, cited_by, title}, decision null (the decision lives on the
+                         paper's item; this document holds the paper and, later, its abstract, which scripts/onboarding/fetch_abstracts.py fills in)
   onboarding_engines     .source = {repo, commit_sha, loaded_at}  (the engine record must already exist)
   onboarding_events      one `engine_load` event (a no-change re-run writes nothing at all, not even this)
 
 LIMITS: a plan of more than 450 writes (creates + updates + the engine update + the event) is refused with exit 1 and nothing written (Firestore allows 500 per
 transaction). A hold-list bullet without ' -- ' is skipped, never silently: the count and the first 60 characters of each are printed.
+
+ADOPTION (BULLETIN 043; design 5.6): a seed an owner ADDED through the form (context.added, no loaded_by) whose identifier is the key of a row of docs/seeds.csv is
+the SAME entry. The loader adopts it: it writes only the repository's side of the context (status_in_repo, admit_policy, the citation and reference-list source
+from docs/seed_papers.md when the repository gives them, and a hash of the row). The owner's answer, comment, revision, history, question ids and the registry record
+are not touched, and a second run at the same commit writes nothing. A repository row that names the same paper under a DIFFERENT key than the owner's seed
+(the owner added the arXiv id, the row leads with a DOI) is a conflict: loading it would make a second seed of one paper.
+
+IDENTIFIERS: one set of rules, cloud-run-backend/utils/onboarding_ids.py, shared with the form (PR 4b-2; the loader used to keep its own copy).
 
 EVERY ENTRY GETS A DOCUMENT, OR THE LOAD FAILS: an entry the loader silently skipped would be dropped from the next bundle (the mute-list lesson). Seeds are keyed by
 identifier (doi:, then arxiv:, then pmid:), never by author name.
@@ -59,6 +69,7 @@ def _load(name):
 base = _load("onboarding_base")
 lint = _load("onboarding_lint")
 tpl = _load("onboarding_template")
+ids = _load("onboarding_ids")
 
 FILES = {"focus": "docs/research_focus.json", "seeds": "docs/seeds.csv", "papers": "docs/seed_papers.md", "hold": "docs/hold_list.md"}
 REQUIRED = ("focus", "seeds", "papers")
@@ -69,9 +80,8 @@ MAX_QUESTIONS = 30
 WRITE_LIMIT = 450                        # Firestore allows 500 writes in a transaction; the loader refuses a plan over 450 and leaves the margin
 HTML_RE = re.compile(r"<\s*/?\s*[A-Za-z!?]|javascript\s*:|vbscript\s*:|data\s*:\s*text/html", re.I)
 CONTROL_RE = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
-DOI_RE = re.compile(r"^10\.\d{4,9}/\S+$")
-ARXIV_RE = re.compile(r"^(?:\d{4}\.\d{4,5}|[a-z][a-z\-]*(?:\.[a-z]{2})?/\d{7})$")
-PMID_RE = re.compile(r"^\d{1,9}$")
+DOI_RE, ARXIV_RE, PMID_RE = ids.DOI_RE, ids.ARXIV_RE, ids.PMID_RE          # the form's rules: one copy (utils/onboarding_ids.py)
+ADOPT_FIELDS = ("status_in_repo", "admit_policy")                         # always the repository's; citation and reference_source too, when it gives them
 STATUS_RE = re.compile(r"^[a-z][a-z_]{0,19}$")
 HOLD_ENTRY_RE = re.compile(r"^- (?P<title>.+?) -- `(?P<ident>[^`]+)`(?P<rest>.*)$")
 LIKELY_KEEP_RE = re.compile(r"\*\*\[[^\]]*\]\*\*")
@@ -159,18 +169,7 @@ def norm_key(text):
 
 def normalise_identifier(kind, raw):
     """'doi:..', 'arxiv:..' or 'pmid:..' (lower case; prefixes and a version suffix removed), or None when the text is not a valid identifier of that kind."""
-    s = (raw or "").strip().strip("`").strip()
-    if kind == "doi":
-        s = re.sub(r"^(?:https?://(?:dx\.)?doi\.org/|doi:\s*)", "", s, flags=re.I).lower()
-        return "doi:" + s if DOI_RE.match(s) else None
-    if kind == "arxiv":
-        s = re.sub(r"^(?:https?://arxiv\.org/(?:abs|pdf)/|arxiv:\s*)", "", s, flags=re.I).lower()
-        s = re.sub(r"v\d+$", "", s)
-        return "arxiv:" + s if ARXIV_RE.match(s) else None
-    if kind == "pmid":
-        s = re.sub(r"^pmid:\s*", "", s, flags=re.I)
-        return "pmid:" + s if PMID_RE.match(s) else None
-    return None
+    return ids.normalise_identifier(kind, raw)
 
 
 def identifiers(doi="", arxiv="", pmid="", where="entry"):
@@ -317,7 +316,7 @@ def parse_seeds(csv_text, papers_text, question_ids):
         context = {"identifier": key, "identifiers": found, "question_ids": qids, "title": value_text(row.get("title", ""), 600, f"{where} title", required=False),
                    "admit_policy": value_text(row.get("admit_policy", ""), 60, f"{where} admit_policy", required=False), "status_in_repo": status or None,
                    "citation": shown.get("citation"), "reference_source": shown.get("reference_source")}
-        items.append(make_item("seeds", "seed_confirm", "seed-" + hashlib.sha256(key.encode("utf-8")).hexdigest()[:12], len(items), {"comment": ""}, context))
+        items.append(make_item("seeds", "seed_confirm", ids.seed_item_id(key), len(items), {"comment": ""}, context))
     csv_keys = set()
     for it in items:
         csv_keys.update(it["context"]["identifiers"].values())
@@ -376,10 +375,20 @@ def build_plan(engine_id, texts):
                "identifier": c["key"], "identifiers": c["identifiers"], "registry_record": None, "abstract": None, "decision": None, "question_ids": [], "flags": c["flags"]}
         doc["source_sha256"] = sha({k: doc[k] for k in ("identifier", "identifiers", "flags")})
         cands.append(doc)
+        # the paper's review decision (PR 4b-2): an item like any other, so readiness, Mark final, approval, the diff and the bundle all work on it unchanged
+        f = c["flags"]
+        items.append(make_item("review", "candidate_decision", review_item_id(c["key"]), len(cands) - 1, {"comment": ""},
+                               {"candidate_id": doc["candidate_id"], "identifier": c["key"], "identifiers": c["identifiers"], "title": f["title"], "group": f["group"],
+                                "likely_keep": f["likely_keep"], "reason": f["reason"], "cited_by": f["cited_by"]}))
     ids = [i["item_id"] for i in items]
     if len(ids) != len(set(ids)):
         raise Refused("two entries produced the same item id: " + ", ".join(sorted({i for i in ids if ids.count(i) > 1})))
     return {"items": items, "candidates": cands, "notes": notes, "skipped_hold": skipped if texts["hold"] is not None else None}
+
+
+def review_item_id(key):
+    """The item id of the review decision for the hold-list paper with this identifier."""
+    return "cand-" + hashlib.sha256(key.encode("utf-8")).hexdigest()[:12]
 
 
 # ---- comparing with what is stored ----------------------------------------------------------------------------------------------------------------
@@ -392,11 +401,41 @@ def owner_touched(d):
                 or d.get("decision") is not None)
 
 
+def owner_added_seed(d):
+    ctx = (d or {}).get("context") or {}
+    return (d or {}).get("type") == "seed_confirm" and ctx.get("added") is True and ctx.get("loaded_by") != "load_engine"
+
+
+def all_identifiers(ctx):
+    found = ctx.get("identifiers") if isinstance(ctx.get("identifiers"), dict) else {}
+    return {v for v in list(found.values()) + [ctx.get("identifier")] if isinstance(v, str) and v}
+
+
+def adopted_context(have_ctx, planned_ctx):
+    """The stored context of an owner-added seed after adoption: ONLY the repository's side changes. The citation and the reference-list source are taken from the
+    repository when it gives them (Gary, 2026-11-16); the owner's question ids, the title and the registry record stay."""
+    new = dict(have_ctx)
+    for k in ADOPT_FIELDS:
+        new[k] = planned_ctx.get(k)
+    for k in ("citation", "reference_source"):
+        if planned_ctx.get(k):
+            new[k] = planned_ctx[k]
+    new["adopted_source_sha256"] = planned_ctx["source_sha256"]
+    return new
+
+
 def diff(db, engine_id, plan):
-    """{'create': [..], 'update': [..], 'unchanged': [..], 'conflict': [..], 'removed': [..]} for items and candidates; documents are the planned ones.
-    update is an untouched loader item whose source changed; conflict is a document an owner touched (or that is not the loader's) AND whose source changed."""
-    out = {k: [] for k in ("create", "update", "unchanged", "conflict", "removed")}
+    """{'create': [..], 'update': [..], 'adopt': [..], 'unchanged': [..], 'conflict': [..], 'removed': [..]} for items and candidates; documents are the planned ones.
+    update is an untouched loader item whose source changed; adopt is an owner-added seed the repository now lists under the same identifier (only the
+    repository's side of its context is written); conflict is a document an owner touched (or that is not the loader's) AND whose source changed."""
+    out = {k: [] for k in ("create", "update", "adopt", "unchanged", "conflict", "removed")}
     seen = set()
+    added = {}                                                                   # identifier -> item id, for every seed an owner added
+    for s in db.collection(ITEMS).where("engine_id", "==", engine_id).where("type", "==", "seed_confirm").stream():
+        d = s.to_dict() or {}
+        if owner_added_seed(d):
+            for v in all_identifiers(d.get("context") or {}):
+                added[v] = d.get("item_id")
     for kind, col, docs in (("item", ITEMS, plan["items"]), ("candidate", CANDIDATES, plan["candidates"])):
         for p in docs:
             doc_id = item_key(engine_id, p["section"], p["item_id"]) if kind == "item" else p["candidate_id"]
@@ -405,8 +444,21 @@ def diff(db, engine_id, plan):
             have = snap.to_dict() if snap.exists else None
             new_hash = p["context"]["source_sha256"] if kind == "item" else p["source_sha256"]
             row = {"kind": kind, "col": col, "doc_id": doc_id, "planned": p, "label": p.get("item_id") or p.get("candidate_id")}
+            if kind == "item" and p["type"] == "seed_confirm":
+                other = sorted({added[v] for v in all_identifiers(p["context"]) if v in added and added[v] != p["item_id"]})
+                if other:
+                    out["conflict"].append({**row, "why": f"the same paper is already a seed an owner added under another identifier ({', '.join(other)}); "
+                                                          "loading this row would make a second seed of one paper"})
+                    continue
             if have is None:
                 out["create"].append(row)
+                continue
+            if kind == "item" and owner_added_seed(have) and p["type"] == "seed_confirm" and (have.get("context") or {}).get("identifier") == p["context"]["identifier"]:
+                want = adopted_context(have.get("context") or {}, p["context"])
+                if want == (have.get("context") or {}):
+                    out["unchanged"].append({**row, "adopted": True})
+                else:
+                    out["adopt"].append({**row, "context": want})
                 continue
             old_hash = (have.get("context") or {}).get("source_sha256") if kind == "item" else have.get("source_sha256")
             mine = ((have.get("context") or {}).get("loaded_by") == "load_engine") if kind == "item" else bool(have.get("source_sha256"))
@@ -436,6 +488,7 @@ def blocking_bundles(db, engine_id, commit):
 def counts(plan):
     return {"questions": sum(i["section"] == "questions" for i in plan["items"]), "keyword_entries": sum(i["section"] == "keywords" for i in plan["items"]),
             "seeds": sum(i["section"] == "seeds" for i in plan["items"]), "candidates": len(plan["candidates"]),
+            "review_decisions": sum(i["section"] == "review" for i in plan["items"]),
             "likely_keep": sum(c["flags"]["likely_keep"] for c in plan["candidates"])}
 
 
@@ -451,8 +504,9 @@ def _apply_in(transaction, db, engine_id, repo, commit, planned, plan_hash, coun
         raise Unreachable(f"no engine record {engine_id}")
     engine = snap.to_dict() or {}
     reads = []
-    for row in planned["create"] + planned["update"]:                                # ALL reads first (Firestore), then every write
+    for row in planned["create"] + planned["update"] + planned["adopt"]:             # ALL reads first (Firestore), then every write
         reads.append((row, db.collection(row["col"]).document(row["doc_id"]).get(transaction=transaction)))
+    adopting = {}
     for row, cur in reads:
         have = cur.to_dict() if cur.exists else None
         if row in planned["create"] and have is not None:
@@ -460,9 +514,15 @@ def _apply_in(transaction, db, engine_id, repo, commit, planned, plan_hash, coun
         if row in planned["update"]:
             if have is None or owner_touched(have):
                 raise Refused(f"{row['doc_id']}: changed since the plan was made; run again")
+        if row in planned["adopt"]:
+            if not owner_added_seed(have) or (have.get("context") or {}).get("identifier") != row["planned"]["context"]["identifier"]:
+                raise Refused(f"{row['doc_id']}: changed since the plan was made; run again")
+            adopting[row["doc_id"]] = adopted_context(have.get("context") or {}, row["planned"]["context"])     # from the document as it is NOW, inside the transaction
     for row, _ in reads:
         p, ref = row["planned"], db.collection(row["col"]).document(row["doc_id"])
-        if row["kind"] == "item":
+        if row["doc_id"] in adopting:
+            transaction.update(ref, {"context": adopting[row["doc_id"]]})            # the context only: never the answer, the comment, the revision or the history
+        elif row["kind"] == "item":
             doc = {"engine_id": engine_id, "section": p["section"], "item_id": p["item_id"], "type": p["type"], "value": p["value"], "choice": None, "revision": 0,
                    "author_subscriber_id": None, "updated_at": now.isoformat(), "comment_count": 0, "history": [], "context": p["context"], "order": p["order"]}
             if row in planned["update"]:
@@ -479,6 +539,7 @@ def _apply_in(transaction, db, engine_id, repo, commit, planned, plan_hash, coun
     ob._event(transaction, db, engine_id=engine_id, actor="admin", actor_role="admin", action="engine_load", target=f"{repo}@{commit[:12]}",
               before=old, after={"repo": repo, "commit_sha": commit, "plan_sha256": plan_hash}, ip_hash=None, request_id=run_id, now=now,
               extra={"counts": counts_, "created": len(planned["create"]), "updated": len(planned["update"]), "unchanged": len(planned["unchanged"]),
+                     "adopted": [r["label"] for r in planned["adopt"]],
                      "removed_upstream": len(planned["removed"]), "previous_commit_sha": (old or {}).get("commit_sha")})
 
 
@@ -520,7 +581,8 @@ def main(argv=None, db=None, now=None, out=print):
         plan_hash = sha({"items": [(i["section"], i["item_id"], i["context"]["source_sha256"]) for i in plan["items"]], "candidates": [(x["candidate_id"], x["source_sha256"]) for x in plan["candidates"]]})
         out(f"{'APPLY' if args.apply else 'DRY RUN'}: engine {eid}, {args.repo}@{args.commit[:12]}")
         out(f"  read: " + ", ".join(f"{FILES[k]}{' (absent)' if texts[k] is None else ''}" for k in FILES))
-        out(f"  plan: {c['questions']} questions, {c['keyword_entries']} keyword entries, {c['seeds']} seeds, {c['candidates']} hold-list candidates ({c['likely_keep']} likely keep)")
+        out(f"  plan: {c['questions']} questions, {c['keyword_entries']} keyword entries, {c['seeds']} seeds, {c['candidates']} hold-list candidates ({c['likely_keep']} likely keep)"
+            f", {c['review_decisions']} review decisions (one per hold-list paper)")
         if plan["skipped_hold"] is not None:
             out(f"  skipped {len(plan['skipped_hold'])} bullet lines in {FILES['hold']} (not papers)")
             for s in plan["skipped_hold"]:
@@ -552,9 +614,10 @@ def main(argv=None, db=None, now=None, out=print):
         if src.get("commit_sha") and src.get("commit_sha") != args.commit:
             out(f"  the engine was loaded from {str(src.get('commit_sha'))[:12]}; this load is a diff against it")
         planned = diff(db, eid, plan)
-        out(f"  writes: {len(planned['create'])} create, {len(planned['update'])} update (untouched by owners), {len(planned['unchanged'])} unchanged, "
+        out(f"  writes: {len(planned['create'])} create, {len(planned['update'])} update (untouched by owners), {len(planned['adopt'])} adopt (a seed an owner added; "
+            f"repository fields only), {len(planned['unchanged'])} unchanged, "
             f"{len(planned['conflict'])} conflict, {len(planned['removed'])} removed upstream (reported, never deleted)")
-        for k in ("create", "update"):
+        for k in ("create", "update", "adopt"):
             for r in planned[k]:
                 out(f"    {k}: {r['col']}/{r['doc_id']}")
         for r in planned["removed"]:
@@ -567,7 +630,7 @@ def main(argv=None, db=None, now=None, out=print):
         if planned["conflict"] or blockers:
             out("  REFUSED: " + ("conflicts with owners' edits; " if planned["conflict"] else "") + ("open bundles on a different base; " if blockers else "") + "nothing was written")
             return 1
-        total = len(planned["create"]) + len(planned["update"]) + 2                  # + the engine update + the event
+        total = len(planned["create"]) + len(planned["update"]) + len(planned["adopt"]) + 2      # + the engine update + the event
         out(f"  transaction: {total} writes (limit {WRITE_LIMIT})")
         if total > WRITE_LIMIT:
             out(f"  REFUSED: the plan has {total} writes, over the limit of {WRITE_LIMIT} (Firestore allows 500 per transaction); nothing was written")
@@ -575,13 +638,13 @@ def main(argv=None, db=None, now=None, out=print):
         if not args.apply:
             out("  nothing was written (dry run). To apply, Gary types the approval line:\n    " + line)
             return 0
-        if not (planned["create"] or planned["update"]) and src.get("commit_sha") == args.commit:
+        if not (planned["create"] or planned["update"] or planned["adopt"]) and src.get("commit_sha") == args.commit:
             out("  nothing to change at this commit: no write was made")
             return 0
         sys.path.insert(0, str(BACKEND))
         from utils import onboarding as ob
         ob._run_in_transaction(db, _apply_in, db, eid, args.repo, args.commit, planned, plan_hash, c, now, uuid.uuid4().hex, ob)
-        out(f"  APPLIED: {len(planned['create'])} created, {len(planned['update'])} updated; engine source and one engine_load event recorded")
+        out(f"  APPLIED: {len(planned['create'])} created, {len(planned['update'])} updated, {len(planned['adopt'])} adopted; engine source and one engine_load event recorded")
         return 0
     except Refused as e:
         print(f"REFUSED: {e}", file=sys.stderr)

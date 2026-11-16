@@ -5,7 +5,9 @@ tests, by a synthetic fixture; this module only says which sections exist, which
 every free-text field (design 9: every free-text field has a length cap and a type, and values are stored as text, never as HTML).
 
 Sections in this version: 2.1 scope and use case, 2.2 research questions, 2.3 keywords and horizons, and the CONFIRM part of 2.4 (each current seed:
-yes, no or unsure, with a comment). Adding a seed, the review queue and the private bibliography are PR 4.
+yes, no or unsure, with a comment), and 2.5 the review of the hold list (each held paper: keep, drop or unsure, with a comment; PR 4b-2). The review section is
+OPTIONAL: an engine with no hold list has no item in it, and a section marked optional that has no item is not shown anywhere (form.shown_keys).
+Adding a seed is PR 4b-1; the private bibliography is PR 4b-3.
 """
 import re
 from typing import Any, Callable, Dict, List, Optional, Tuple
@@ -28,6 +30,8 @@ QUESTION_CHOICES = ("accept", "reword", "drop", "split", "add")
 TERM_CHOICES = ("keep", "reword", "drop", "add")
 ENTRY_CHOICES = ("keep", "reword", "drop", "add")
 SEED_CHOICES = ("yes", "no", "unsure")
+REVIEW_CHOICES = ("keep", "drop", "unsure")          # "unsure" is an answer: a section with unsure papers can be marked final (Gary, 2026-11-16)
+REVIEW_COMMENT_CAP = 1000
 CENTRALITY = ("central", "background")
 KEYWORD_LISTS = ("categories", "horizons", "mute", "frontier", "flagged")
 
@@ -36,6 +40,7 @@ SECTIONS: List[Dict[str, Any]] = [
     {"key": "questions", "title": "Research questions", "design": "2.2", "item_types": ["question"]},
     {"key": "keywords", "title": "Keywords and horizons", "design": "2.3", "item_types": ["keyword_entry"]},
     {"key": "seeds", "title": "Seed papers: confirm", "design": "2.4", "item_types": ["seed_confirm"]},
+    {"key": "review", "title": "Hold list: review", "design": "2.5", "item_types": ["candidate_decision"], "optional": True},
 ]
 SECTION_KEYS = [s["key"] for s in SECTIONS]
 
@@ -136,6 +141,12 @@ def _seed_confirm(value, choice):
     return {"comment": clean_text(v.get("comment", ""), SEED_COMMENT_CAP, "the comment")}, choice
 
 
+def _candidate_decision(value, choice):
+    choice = _choice(choice, REVIEW_CHOICES)
+    v = _only(value if value is not None else {}, ("comment",), "a review decision")
+    return {"comment": clean_text(v.get("comment", ""), REVIEW_COMMENT_CAP, "the comment")}, choice
+
+
 # item type -> (section, validator(value, choice) -> (clean value, clean choice))
 ITEM_TYPES: Dict[str, Tuple[str, Callable]] = {
     "scope_statement": ("scope", _text_type("the scope statement")),
@@ -144,6 +155,7 @@ ITEM_TYPES: Dict[str, Tuple[str, Callable]] = {
     "question": ("questions", _question),
     "keyword_entry": ("keywords", _keyword_entry),
     "seed_confirm": ("seeds", _seed_confirm),
+    "candidate_decision": ("review", _candidate_decision),
 }
 
 
@@ -156,6 +168,10 @@ def validate_item(item_type: str, value: Any, choice: Any) -> Tuple[Any, Optiona
 
 def section_of(item_type: str) -> Optional[str]:
     return ITEM_TYPES[item_type][0] if item_type in ITEM_TYPES else None
+
+
+def is_optional(key: str) -> bool:
+    return any(s["key"] == key and s.get("optional") for s in SECTIONS)
 
 
 def section_title(key: str) -> str:
