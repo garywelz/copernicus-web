@@ -25,6 +25,41 @@ Entry format:
 
 ---
 
+## 047 — 2026-11-15 — Attended lookup test on `tdap-test` passed on the live revision; four findings for later pull requests; what was left on `tdap-test`; the Artifact Registry dry run has still produced no entries
+
+- **From:** Claude Code (Core lane), at Gary's direction (relayed by Claude Chat). Gary drove the test account in his browser and made every click; each write was approved by him first, and Claude Code read each one back before the next.
+- **Status:** DRAFT. In force from the merge of the pull request that adds this entry. Records a test and its findings; it does not change any rule. Follows entries 043 and 044 (it supplies the real lookups those entries said had not yet run).
+- **Record:** the pull request that adds this entry (documentation only). The test ran on 2026-11-15 between 15:04Z and 2026-11-16 02:24Z, with a pause, against Cloud Run revision `copernicus-podcast-api-00442-vup` (the code of [#204](https://github.com/garywelz/copernicus-web/pull/204)). No bundle was created and nothing reached any repository.
+- **Affects:** Core; Gary and Claude Chat; PR 4b-2 and 4b-3; anyone who opens `tdap-test` and finds it changed
+- **Summary:**
+  - **How it was run.** `tdap-test` was opened by a direct write (`state` from `closed` to `open`), one of the two smoke-test accounts of entry 041 was invited without final say, unable to generate and with quota 0, and it accepted with lookup consent off. At the end the invitation was revoked and the engine closed again by a second direct write. Before and after, the engine record is identical; the only account that can generate is Gary's own, as before.
+  - **No lookup without consent (live).** With consent off the page says nothing is sent, disables Look up, and no request reached the server. The owner then turned consent on from the seed section: the consent record went to revision 2 with one `consent` event.
+  - **Five real lookups:**
+    - a DOI: found by Crossref, with OpenAlex and Semantic Scholar asked only for an abstract (none had one);
+    - an arXiv id: found by arXiv, with its abstract;
+    - a PubMed id: found by OpenAlex and resolved to the paper's DOI; NCBI was not called;
+    - a title: five possible matches, none chosen for the owner (see finding 1);
+    - an invented DOI: "Not found in Crossref, OpenAlex and Semantic Scholar just now. This does not mean the paper does not exist", and nothing cached.
+  - **Provenance and cache.** Each field named its registry on the page. Found results were cached under a hash of the query, with no query text stored; a repeat lookup said "kept from an earlier lookup" and made no outbound call. Lookups are not audited events, by design.
+  - **Two seeds added by identifier,** one by DOI and one by arXiv id. Each holds only the registry's record, starts unanswered, and wrote a `seed_add` event; the first also re-opened the approved seeds section (one `reopen` event). **No mail was sent to anyone:** the engine had no final-say holder and no delegation, so the recipient list was empty, checked beforehand with the service's own function. The one mail of the test was the invitation, to the test account.
+  - **No error** was logged on the live revision during the test.
+- **Left on `tdap-test` on purpose** (Gary's instruction: undo access only; no direct deletes or restores of items or section documents):
+  - two unanswered seeds, `seed-8e415d711904` and `seed-a1a0262a54cd`. **They are real, well-known papers, not synthetic content**, in an engine labelled synthetic;
+  - the seeds section as a **draft at revision 4** (it was approved at revision 3; that approval is kept in its history);
+  - four documents in `onboarding_lookup_cache` (public registry data only), three rate-limit counters, eight audit events (99 on the engine in all), and one used, revoked invitation;
+  - also still there from entry 041: the twelve test bundles and the earlier synthetic content.
+- **Findings, for later pull requests:**
+  - **F1, title search.** The results of Crossref are taken first and the list stops at five, so whenever Crossref returns five, **nothing from OpenAlex is ever shown**, though OpenAlex answered. And a paper whose only DOI is arXiv's is not in Crossref at all: the search for "Attention Is All You Need" returned five look-alikes and not the paper. Nothing was picked for the owner, which is the safeguard, but an owner could add a wrong paper by hand. **Fix:** mix the two lists, and add arXiv's own title search.
+  - **F2, the admin key on the admin pages.** There is no control to clear a saved key, and **Save key overwrites a good key with whatever is in the box**. During the test the saved key worked at 15:06:10Z and was wrong 80 seconds later; the first attempt to send the invitation was refused (403) and created nothing. What replaced it was not established. The server's key has one version, unchanged since 2025-11-22. **Fix:** a clear control, and a check of a new key against the server before it replaces the saved one.
+  - **F3, no route opens or closes an engine.** Every route only reads `state`. Both changes in this test, and those of entry 041, were direct writes with no audit event. **Fix:** an admin route that changes the state and writes an event.
+  - **F4, Semantic Scholar is unreliable, now seen live** (entry 043, F1). For one well-known DOI it answered "not found" in the morning and was unavailable in the evening; for the invented DOI it answered. It is only the last fallback for an abstract, and a failure there did not turn a found paper into an error. But when the other registries do not have a paper, an unavailable Semantic Scholar turns "not found" into "could not be completed".
+- **Artifact Registry dry run: still no entries.** Data Write audit logs were enabled on 2026-11-14 at 15:38:18Z (entry 045). At 2026-11-16 02:25Z, about 35 hours later, there is no `BatchDeleteVersions` entry with `validateOnly`, and no data-access entry of any kind, for either repository. The setting is still on, both repositories are still dry-run, and the documented query was used; a control query finds the policy change itself. Google's page says only to "wait at least a day" and gives no schedule. Either the cleanup job has not run since, or it ran and found nothing to delete (unlikely, given the simulation of entry 040). **Nothing was changed, and the policy is not live.**
+- **Waiting on:**
+  - **Gary:** review and name the pull request; whether the two real papers and the draft section on `tdap-test` should stay; when to read the Artifact Registry logs again; the Jetson results and the backfill decision (entry 046).
+  - **Core:** the four findings, each as its own pull request when Gary asks; F1 fits PR 4b-2, which already touches the lookups.
+  - **Claude Chat:** review of the pull request.
+  - **GLMP lane, Cursor and Methods & Tools:** nobody.
+
 ## 046 — 2026-11-14 — Correction to entry 045: the arXiv scout has acquired nothing since 2026-06-29, not 2026-10-18; the cause was our own commit, not arXiv; the fix is on the Jetson as one path ahead of the clone's HEAD; the real length of a morning run
 
 - **From:** Claude Code (Core lane), at Gary's direction (relayed by Claude Chat). The wrong date in entry 045 was Claude Code's error.
