@@ -42,6 +42,25 @@ between. Deploy this service by hand, in gated steps, every time.
    service's public access (`governance/AGENT_ROLES.md` rule 18). It is for
    step 5 only; remove it in step 9.
 
+   **Then tag the deployed digest `keep-rollback-` in Artifact Registry,
+   before any traffic moves.** The cleanup policy on the `gcr.io`
+   repository keeps an image for certain only while it carries a tag that
+   starts `keep-rollback-`; without one, the image behind a serving or
+   rollback revision is kept only by being recent, and becomes deletable
+   after 30 days and 10 further builds. The tag is `keep-rollback-` plus the
+   first 12 hex characters of the digest (one tag per digest, the convention
+   of `governance/BULLETIN.md` entry 040):
+   ```bash
+   gcloud artifacts docker tags add      us-docker.pkg.dev/regal-scholar-453620-r7/gcr.io/copernicus-podcast-api@sha256:<digest>      us-docker.pkg.dev/regal-scholar-453620-r7/gcr.io/copernicus-podcast-api:keep-rollback-<first-12-hex-of-digest>
+   ```
+   Read it back; the line for the digest must show the new tag:
+   ```bash
+   gcloud artifacts docker images list      us-docker.pkg.dev/regal-scholar-453620-r7/gcr.io/copernicus-podcast-api      --include-tags --format="value(version,tags)" | grep <first-12-hex-of-digest>
+   ```
+   This is an image tag in Artifact Registry, not the Cloud Run revision tag
+   above: step 9 does not remove it. It stays for as long as any revision
+   that uses the digest exists. Adding it changes nothing about the service.
+
 4. **Diff the new and old revision specs.** Record which revision is
    currently serving traffic before you start. The only acceptable
    difference is the image (plus revision name, tag, timestamps, and
@@ -62,7 +81,8 @@ between. Deploy this service by hand, in gated steps, every time.
    - `/api/public/podcasts?limit=200` on both — compare the **sorted list
      of episode IDs**, not just the count. They must be identical.
 
-6. **Move traffic only after Gary approves.**
+6. **Move traffic only after Gary approves,** and only once the
+   `keep-rollback-` tag of step 3 has been read back.
    ```bash
    gcloud run services update-traffic copernicus-podcast-api \
      --region us-central1 --project regal-scholar-453620-r7 \
@@ -149,4 +169,5 @@ checks passed). So before reporting any deploy done:
 Clean up the worktree when done: `git worktree remove <path>`.
 
 See `governance/BULLETIN.md` entry 009 for the worked example this
-procedure was extracted from, and entry 018 for why step 9 exists.
+procedure was extracted from, entry 018 for why step 9 exists, and entry
+040 for the `keep-rollback-` tag.
