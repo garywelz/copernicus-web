@@ -3,8 +3,9 @@
 Supplemental PubMed acquisition for GLMP query term clusters 1–3.
 
 Runs from huggingface-space cwd; imports acquire_pubmed_batch helpers in-process.
-Same rule as the main scout: publication date, a rolling window that ends today,
-and the existing per-term cap so one term cannot crowd out the others.
+Same rule as the main scout: sort by publication date, a rolling window that
+ends today filtered by the date the record was added to PubMed (EDAT), and the
+existing per-term cap so one term cannot crowd out the others.
 """
 
 from __future__ import annotations
@@ -36,7 +37,7 @@ def main() -> int:
 
     mindate, maxdate = pubmed.rolling_pubmed_dates()
     print(f"GLMP PubMed supplement: {len(ALL_CLUSTERS_1_3)} terms")
-    print(f"  window {mindate} to {maxdate}, sort=pub_date, cap={GLMP_PUBMED_MAX_RESULTS_PER_TERM}")
+    print(f"  window {mindate} to {maxdate} (edat), sort=pub_date, cap={GLMP_PUBMED_MAX_RESULTS_PER_TERM}")
 
     all_papers = []
     for term in ALL_CLUSTERS_1_3:
@@ -48,7 +49,7 @@ def main() -> int:
             mindate=mindate,
             maxdate=maxdate,
             sort="pub_date",
-            datetype="pdat",
+            datetype="edat",
         )
         if not pmids:
             continue

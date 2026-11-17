@@ -40,7 +40,8 @@ BATCH_SIZE = 100  # Number of papers to fetch at once
 DELAY_BETWEEN_QUERIES = 0.34  # Seconds (NCBI requires < 3 requests/second)
 # Scout window. The config file's mindate/maxdate are not what the daily scout sends:
 # those froze the search on a relevance head of a multi-year range. days_back matches
-# the arXiv scout (today minus this many days, through today).
+# the arXiv scout (today minus this many days, through today). The field is edat
+# (date added to PubMed). Sort stays pub_date; PubMed has no edat sort.
 PUBMED_LOOKBACK_DAYS = 14
 
 def get_pubmed_api_key():
@@ -99,7 +100,10 @@ def plan_config_queries(
 
     Each query is capped at target_count // n (at least 1), and also at its own
     max_results. Dates are the rolling window, not the dates stored on the query.
-    Sort is publication date.
+    Sort is publication date. The window itself is Entrez date (when the
+    paper was added to PubMed), not the issue's publication date: a paper
+    posted online with a future issue date has a publication date outside a
+    window that ends today.
     """
     mindate, maxdate = rolling_pubmed_dates(today, lookback_days)
     n = len(query_defs)
@@ -118,14 +122,14 @@ def plan_config_queries(
             "mindate": mindate,
             "maxdate": maxdate,
             "sort": "pub_date",
-            "datetype": "pdat",
+            "datetype": "edat",
         })
     return plan
 
 
 def supplement_term_query(term: str, mindate: str, maxdate: str) -> str:
-    """GLMP supplement term, limited to the same rolling publication-date window."""
-    return f'({term}) AND ("{mindate}"[PDAT] : "{maxdate}"[PDAT])'
+    """GLMP supplement term, limited to the rolling Entrez-date window."""
+    return f'({term}) AND ("{mindate}"[EDAT] : "{maxdate}"[EDAT])'
 
 
 def pubmed_search_params(
@@ -167,7 +171,9 @@ def search_pubmed(query: str, max_results: int, mindate: Optional[str] = None,
         mindate: Minimum publication date (YYYY/MM/DD)
         maxdate: Maximum publication date (YYYY/MM/DD)
         sort: Sort order. pub_date is the scout default; the bulk fallback passes relevance.
-        datetype: Entrez date field. Defaults to pdat when a date range is set.
+        datetype: Entrez date field. The scout passes edat (date added to PubMed).
+            When a range is set and this is omitted, the field is pdat, which is
+            what the classic acquire uses.
 
     Returns:
         List of PubMed IDs (PMIDs)
@@ -471,8 +477,9 @@ def acquire_recent_papers(target_count: int = 15000, config_queries_path: Option
     """Acquire recent papers.
 
     With config queries (the daily scout): every query runs, each capped so the
-    first cannot use the whole target, sorted by publication date inside a
-    rolling window that ends today. Without config queries: the old bulk list,
+    first cannot use the whole target. Results are sorted by publication date.
+    The window is the date the paper was added to PubMed (edat) and it ends
+    today. Without config queries: the old bulk list,
     which stops once target_count is reached.
     """
     print("\n" + "=" * 60)
@@ -485,7 +492,7 @@ def acquire_recent_papers(target_count: int = 15000, config_queries_path: Option
         if calls:
             print(
                 f"  Using {len(calls)} config queries, "
-                f"window {calls[0]['mindate']} to {calls[0]['maxdate']}, sort=pub_date"
+                f"window {calls[0]['mindate']} to {calls[0]['maxdate']} (edat), sort=pub_date"
             )
         all_papers = _collect_query_papers(calls, target_count, stop_at_target=False)
     else:

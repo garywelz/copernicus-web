@@ -39,12 +39,23 @@ def test_the_rolling_window_ends_today_and_starts_lookback_days_earlier():
     assert (mindate, maxdate) == ("2026/12/22", "2027/01/05")
 
 
-def test_a_date_range_is_publication_date_and_the_scout_sorts_by_pub_date():
-    params = pubmed.pubmed_search_params("gene regulation", 50, mindate="2026/11/03", maxdate="2026/11/17")
+def test_the_scout_window_is_entrez_date_and_the_sort_is_publication_date():
+    """PubMed accepts sort=pub_date together with datetype=edat.
+
+    Checked 2026-11-17 against esearch: sort=pub_date returned a different
+    order and no warning. sort=edat and sort=most_recent were rejected
+    ("Unknown sort schema") and ignored. So the scout keeps sort=pub_date
+    and filters the window on edat, the date the record was added.
+    """
+    params = pubmed.pubmed_search_params(
+        "gene regulation", 50, mindate="2026/11/03", maxdate="2026/11/17", datetype="edat",
+    )
     assert params["sort"] == "pub_date"
-    assert params["datetype"] == "pdat"
+    assert params["datetype"] == "edat"
     assert params["mindate"] == "2026/11/03"
     assert params["maxdate"] == "2026/11/17"
+    omitted = pubmed.pubmed_search_params("gene regulation", 50, mindate="2026/11/03", maxdate="2026/11/17")
+    assert omitted["datetype"] == "pdat"
     explicit = pubmed.pubmed_search_params("x", 10, sort="relevance")
     assert explicit["sort"] == "relevance"
     assert "datetype" not in explicit
@@ -61,7 +72,7 @@ def test_every_config_query_runs_and_none_can_take_the_whole_target():
     assert sum(item["max_results"] for item in plan) == 500
     assert {item["mindate"] for item in plan} == {"2026/11/03"}
     assert {item["maxdate"] for item in plan} == {"2026/11/17"}
-    assert all(item["sort"] == "pub_date" and item["datetype"] == "pdat" for item in plan)
+    assert all(item["sort"] == "pub_date" and item["datetype"] == "edat" for item in plan)
     # The stored config dates are the old fixed range. The plan does not use them.
     assert all(q.get("maxdate") == "2026/12/31" for q in queries)
     assert all(item["maxdate"] != q.get("maxdate") for item, q in zip(plan, queries))
@@ -86,6 +97,7 @@ def test_a_query_keeps_its_own_smaller_cap_and_a_short_target_still_visits_every
 def test_the_supplement_uses_the_same_window_and_not_the_open_ended_range():
     mindate, maxdate = pubmed.rolling_pubmed_dates(TODAY)
     query = pubmed.supplement_term_query("gene regulatory network inference", mindate, maxdate)
-    assert query == '(gene regulatory network inference) AND ("2026/11/03"[PDAT] : "2026/11/17"[PDAT])'
+    assert query == '(gene regulatory network inference) AND ("2026/11/03"[EDAT] : "2026/11/17"[EDAT])'
     assert "3000" not in query
+    assert "[PDAT]" not in query
     assert '"2024"' not in query
