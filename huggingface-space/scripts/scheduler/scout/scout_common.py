@@ -233,7 +233,9 @@ def parse_acquire_log_stats(log_file: Path) -> int:
     try:
         text = log_file.read_text(encoding="utf-8")
         matches = re.findall(r"SCOUT_STATS fetched=(\d+)", text)
-        return int(matches[-1]) if matches else 0
+        # A session can print one line for the main acquire and one for the
+        # GLMP supplement. The session acquired the sum, not whichever ran last.
+        return sum(int(m) for m in matches) if matches else 0
     except (OSError, ValueError):
         return 0
 

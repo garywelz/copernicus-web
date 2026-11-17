@@ -12,7 +12,7 @@ import os
 import time
 from pathlib import Path
 from typing import Dict, List, Optional
-from datetime import datetime
+from datetime import date, datetime, timedelta
 import sys
 
 # Try to import Biopython for Entrez API
@@ -38,6 +38,10 @@ EMAIL = "gwelz@gc.cuny.edu"  # Required by Entrez API
 MAX_RESULTS_PER_QUERY = 10000  # Entrez API limit
 BATCH_SIZE = 100  # Number of papers to fetch at once
 DELAY_BETWEEN_QUERIES = 0.34  # Seconds (NCBI requires < 3 requests/second)
+# Scout window. The config file's mindate/maxdate are not what the daily scout sends:
+# those froze the search on a relevance head of a multi-year range. days_back matches
+# the arXiv scout (today minus this many days, through today).
+PUBMED_LOOKBACK_DAYS = 14
 
 def get_pubmed_api_key():
     """
@@ -75,38 +79,107 @@ def setup_entrez():
         print(f"⚠️  No PubMed API key found (rate limit: 3 requests/second)")
         print(f"   Set PUBMED_API_KEY environment variable or create Google Secret for higher limits")
 
-def search_pubmed(query: str, max_results: int, mindate: Optional[str] = None, 
-                  maxdate: Optional[str] = None, sort: str = "relevance") -> List[str]:
+def rolling_pubmed_dates(today: Optional[date] = None, lookback_days: int = PUBMED_LOOKBACK_DAYS):
+    """Return (mindate, maxdate) as YYYY/MM/DD, ending on today, spanning lookback_days."""
+    if today is None:
+        today = date.today()
+    if isinstance(today, datetime):
+        today = today.date()
+    start = today - timedelta(days=lookback_days)
+    return start.strftime("%Y/%m/%d"), today.strftime("%Y/%m/%d")
+
+
+def plan_config_queries(
+    query_defs: List[Dict],
+    target_count: int,
+    today: Optional[date] = None,
+    lookback_days: int = PUBMED_LOOKBACK_DAYS,
+) -> List[Dict]:
+    """One slot per config query, so the first query cannot spend the whole target.
+
+    Each query is capped at target_count // n (at least 1), and also at its own
+    max_results. Dates are the rolling window, not the dates stored on the query.
+    Sort is publication date.
+    """
+    mindate, maxdate = rolling_pubmed_dates(today, lookback_days)
+    n = len(query_defs)
+    if n == 0:
+        return []
+    share = max(1, int(target_count) // n)
+    plan = []
+    for qdef in query_defs:
+        configured = int(qdef.get("max_results", share))
+        cap = min(configured, share) if configured > 0 else share
+        query = qdef["query"]
+        plan.append({
+            "name": qdef.get("name") or query[:60],
+            "query": query,
+            "max_results": cap,
+            "mindate": mindate,
+            "maxdate": maxdate,
+            "sort": "pub_date",
+            "datetype": "pdat",
+        })
+    return plan
+
+
+def supplement_term_query(term: str, mindate: str, maxdate: str) -> str:
+    """GLMP supplement term, limited to the same rolling publication-date window."""
+    return f'({term}) AND ("{mindate}"[PDAT] : "{maxdate}"[PDAT])'
+
+
+def pubmed_search_params(
+    query: str,
+    max_results: int,
+    mindate: Optional[str] = None,
+    maxdate: Optional[str] = None,
+    sort: str = "pub_date",
+    datetype: Optional[str] = None,
+) -> Dict:
+    """Entrez esearch parameters. A date range defaults to publication date."""
+    params = {
+        "db": "pubmed",
+        "term": query,
+        "retmax": min(max_results, MAX_RESULTS_PER_QUERY),
+        "sort": sort,
+        "usehistory": "y",
+    }
+    if mindate:
+        params["mindate"] = mindate
+    if maxdate:
+        params["maxdate"] = maxdate
+    if datetype:
+        params["datetype"] = datetype
+    elif mindate or maxdate:
+        params["datetype"] = "pdat"
+    return params
+
+
+def search_pubmed(query: str, max_results: int, mindate: Optional[str] = None,
+                  maxdate: Optional[str] = None, sort: str = "pub_date",
+                  datetype: Optional[str] = None) -> List[str]:
     """
     Search PubMed and return list of PMIDs.
-    
+
     Args:
         query: PubMed search query
         max_results: Maximum number of results
         mindate: Minimum publication date (YYYY/MM/DD)
         maxdate: Maximum publication date (YYYY/MM/DD)
-        sort: Sort order (relevance, pub_date, etc.)
-    
+        sort: Sort order. pub_date is the scout default; the bulk fallback passes relevance.
+        datetype: Entrez date field. Defaults to pdat when a date range is set.
+
     Returns:
         List of PubMed IDs (PMIDs)
     """
     if not BIOENTREZ_AVAILABLE:
         print("❌ Bio.Entrez not available. Cannot search PubMed.")
         return []
-    
-    search_params = {
-        "db": "pubmed",
-        "term": query,
-        "retmax": min(max_results, MAX_RESULTS_PER_QUERY),
-        "sort": sort,
-        "usehistory": "y"
-    }
-    
-    if mindate:
-        search_params["mindate"] = mindate
-    if maxdate:
-        search_params["maxdate"] = maxdate
-    
+
+    search_params = pubmed_search_params(
+        query, max_results, mindate=mindate, maxdate=maxdate, sort=sort, datetype=datetype,
+    )
+
     try:
         print(f"  Searching PubMed: {query[:80]}...")
         handle = Entrez.esearch(**search_params)
@@ -369,18 +442,54 @@ def load_config_queries(config_path: Optional[str]) -> Optional[List[Dict]]:
     return None
 
 
+def _collect_query_papers(calls: List[Dict], target_count: int, stop_at_target: bool) -> List[Dict]:
+    """Run planned PubMed searches. stop_at_target is the old bulk behavior."""
+    all_papers = []
+    total_acquired = 0
+    for call in calls:
+        if stop_at_target and total_acquired >= target_count:
+            break
+        print(f"\nQuery ({call['name']}): {call['query'][:80]}...")
+        pmids = search_pubmed(
+            call["query"],
+            call["max_results"],
+            mindate=call["mindate"],
+            maxdate=call["maxdate"],
+            sort=call["sort"],
+            datetype=call.get("datetype"),
+        )
+        if pmids:
+            papers = fetch_pubmed_details(pmids)
+            all_papers.extend(papers)
+            total_acquired += len(papers)
+            print(f"  ✅ Acquired {len(papers)} papers (Total: {total_acquired}/{target_count})")
+        time.sleep(DELAY_BETWEEN_QUERIES * 2)
+    return all_papers
+
+
 def acquire_recent_papers(target_count: int = 15000, config_queries_path: Optional[str] = None):
-    """Acquire recent papers (2020-2026)."""
+    """Acquire recent papers.
+
+    With config queries (the daily scout): every query runs, each capped so the
+    first cannot use the whole target, sorted by publication date inside a
+    rolling window that ends today. Without config queries: the old bulk list,
+    which stops once target_count is reached.
+    """
     print("\n" + "=" * 60)
-    print("Acquiring Recent Papers (2020-2026)")
+    print("Acquiring Recent Papers")
     print("=" * 60)
-    
+
     config_queries = load_config_queries(config_queries_path)
     if config_queries:
-        print(f"  Using {len(config_queries)} queries from config file")
-        query_defs = config_queries
+        calls = plan_config_queries(config_queries, target_count)
+        if calls:
+            print(
+                f"  Using {len(calls)} config queries, "
+                f"window {calls[0]['mindate']} to {calls[0]['maxdate']}, sort=pub_date"
+            )
+        all_papers = _collect_query_papers(calls, target_count, stop_at_target=False)
     else:
-        query_defs = [
+        fallback = [
             {"query": "molecular biology[MeSH] OR genetics[MeSH]", "max_results": 2500, "mindate": "2020/01/01", "maxdate": "2026/12/31"},
             {"query": "biochemistry[MeSH] OR metabolism[MeSH]", "max_results": 2500, "mindate": "2020/01/01", "maxdate": "2026/12/31"},
             {"query": "cell biology[MeSH] OR developmental biology[MeSH]", "max_results": 2500, "mindate": "2020/01/01", "maxdate": "2026/12/31"},
@@ -389,31 +498,30 @@ def acquire_recent_papers(target_count: int = 15000, config_queries_path: Option
             {"query": "ecology[MeSH] OR evolution[MeSH]", "max_results": 1500, "mindate": "2020/01/01", "maxdate": "2026/12/31"},
             {"query": "microbiology[MeSH] OR bacteriology", "max_results": 1000, "mindate": "2020/01/01", "maxdate": "2026/12/31"},
         ]
-    
-    all_papers = []
-    total_acquired = 0
-    
-    for qdef in query_defs:
-        if total_acquired >= target_count:
-            break
-        
-        remaining = target_count - total_acquired
-        query_target = min(int(qdef.get("max_results", remaining)), remaining)
-        query = qdef["query"]
-        mindate = qdef.get("mindate", "2020/01/01")
-        maxdate = qdef.get("maxdate", "2026/12/31")
-        name = qdef.get("name", query[:60])
-        
-        print(f"\nQuery ({name}): {query[:80]}...")
-        pmids = search_pubmed(query, query_target, mindate=mindate, maxdate=maxdate)
-        
-        if pmids:
-            papers = fetch_pubmed_details(pmids)
-            all_papers.extend(papers)
-            total_acquired += len(papers)
-            print(f"  ✅ Acquired {len(papers)} papers (Total: {total_acquired}/{target_count})")
-        
-        time.sleep(DELAY_BETWEEN_QUERIES * 2)
+        print(f"  Using {len(fallback)} fallback queries (no config file)")
+        all_papers = []
+        total_acquired = 0
+        for qdef in fallback:
+            if total_acquired >= target_count:
+                break
+            remaining = target_count - total_acquired
+            query = qdef["query"]
+            query_target = min(int(qdef["max_results"]), remaining)
+            print(f"\nQuery ({query[:60]}): {query[:80]}...")
+            pmids = search_pubmed(
+                query,
+                query_target,
+                mindate=qdef["mindate"],
+                maxdate=qdef["maxdate"],
+                sort="relevance",
+                datetype="pdat",
+            )
+            if pmids:
+                papers = fetch_pubmed_details(pmids)
+                all_papers.extend(papers)
+                total_acquired += len(papers)
+                print(f"  ✅ Acquired {len(papers)} papers (Total: {total_acquired}/{target_count})")
+            time.sleep(DELAY_BETWEEN_QUERIES * 2)
     
     # Save all papers
     print(f"\n💾 Saving {len(all_papers)} recent papers...")
