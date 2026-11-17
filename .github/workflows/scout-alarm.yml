@@ -1,0 +1,36 @@
+name: Scout alarm
+
+# Reads the public knowledge-engine-status.json and opens a GitHub issue when
+# a scout source has stalled or the file itself is old. Issues email the
+# repository's watchers. No stored credential and no mailer: gh uses the
+# workflow's built-in GITHUB_TOKEN.
+#
+# Cron is UTC. 17:45 and 03:45 UTC are 12:45 and 22:45 New York in EST.
+# In EDT those runs fall at 13:45 and 23:45, still after the scout windows
+# (10:10–12:20 and 20:00–22:00). Scheduling the earlier UTC hour would put
+# the winter run inside the morning window, before the status file is published.
+on:
+  schedule:
+    - cron: "45 17 * * *"
+    - cron: "45 3 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  scout-alarm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Open a scout issue when a source has stalled
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python huggingface-space/scripts/scout_alarm.py

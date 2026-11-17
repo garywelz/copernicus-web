@@ -300,6 +300,7 @@
         <!-- Last Updated -->
         <div class="bg-gray-100 rounded-lg p-4 text-center text-sm text-gray-600">
             <p>Last updated: <span id="lastUpdated"></span></p>
+            <p class="mt-2" id="scoutNotice"></p>
             <p class="mt-2">Auto-refreshes every 5 minutes</p>
             <p class="mt-1 text-xs text-gray-500" id="dashboardBuild">Dashboard: PF totals v2 (API + GCS process_databases)</p>
         </div>
@@ -409,13 +410,22 @@
                 }
             }
 
+            const noticeParts = [];
+            if (data.scout && typeof data.scout.notice === 'string' && data.scout.notice) {
+                noticeParts.push(data.scout.notice);
+            }
             if (data.last_updated) {
                 const d = new Date(data.last_updated);
                 if (!isNaN(d.getTime())) {
                     setIf('lastUpdated', d.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }) + ' (status JSON)');
+                    if ((Date.now() - d.getTime()) > 18 * 3600 * 1000) {
+                        noticeParts.push('The knowledge-engine status is more than 18 hours old.');
+                    }
+                    setIf('scoutNotice', noticeParts.join(' '));
                     return;
                 }
             }
+            setIf('scoutNotice', noticeParts.join(' '));
             document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString('en-US');
         }
 
