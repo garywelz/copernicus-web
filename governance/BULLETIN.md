@@ -25,6 +25,55 @@ Entry format:
 
 ---
 
+## 048 — 2026-11-17 — Onboarding PR 4b-2a live (review of the hold list, backend); the `keep-rollback-` step used for the first time; the arXiv scout since its fix (three clean runs, one 429); backfill piece 1 written; the 429 retry is PR #213
+
+- **From:** Claude Code (Core lane), at Gary's direction (relayed by Claude Chat).
+- **Status:** DRAFT. In force from the merge of the pull request that adds this entry. Records a deploy, a backfill step and Jetson results; it changes no rule. Follows entries 045 to 047.
+- **Record:** copernicus-web [#211](https://github.com/garywelz/copernicus-web/pull/211) (`DEPLOY.md`: tag the deployed digest `keep-rollback-`; merge `b21d5210c`), [#212](https://github.com/garywelz/copernicus-web/pull/212) (4b-2a; merge `122db1b77`, parents `b21d5210c` and `121f4571c`; reviewed by Claude Chat at that head), [#213](https://github.com/garywelz/copernicus-web/pull/213) (open). Cloud Run revision `copernicus-podcast-api-00445-vek` (image `sha256:b06adf1023ee9c717a67b595d0b6d5fbdc2c8514c4dc350e81964896beacd08b`, build `63d01e9b`, from a clean worktree of `122db1b77`); rollback `copernicus-podcast-api-00442-vup`, kept.
+- **Affects:** Core; Gary and Claude Chat; PR 4b-2b; Cursor (the Jetson scout); anyone deploying `copernicus-podcast-api`
+- **Summary:**
+  - **4b-2a is live.** It adds an optional fifth section, the review of the hold list:
+    - one `candidate_decision` item per hold-list paper (keep, drop or unsure), created by the loader;
+    - `GET .../review`, the only route that returns an abstract, for a member or the admin;
+    - `POST .../review/bulk`, an owner's all-or-nothing mark of up to 100 papers;
+    - a decisions table in the engine repository's hold list, docs/hold_list.md (comments never exported) and one `ingest_keep` Core task per kept paper;
+    - `scripts/onboarding/fetch_abstracts.py`, an attended fetch that only fills what is missing and marks a likely wrong paper `title_mismatch`;
+    - the loader's adoption of a seed an owner added (BULLETIN 043), and the mixed title search of entry 047, finding 1.
+    An engine with no hold list sees no change. The design amendment is in `docs/design/ENGINE_ONBOARDING_FORM.md` after the §5.6 amendments. **No engine has a hold list loaded yet**; the review page is PR 4b-2b.
+  - **Deployed by `cloud-run-backend/DEPLOY.md`.**
+    - Digest, 0% with the tag `ob4b2a`, spec diff (image only).
+    - Smoke test of the tagged URL against live: `/health` the same; the same 41 episode ids, sorted; both review routes 404 with no credential and with a bogus session; nine owner and four admin onboarding routes answering the same on both.
+    - Traffic moved at 2026-11-17 01:42:44Z on Gary's word and read back. From 01:42:30Z to 02:49Z: no ERROR-level entry and no 5xx on the new revision. One 404 was a request for an episode that is not in the public list.
+    - Tag removed (its URL answers 404), worktree removed.
+  - **The `keep-rollback-` step, used for the first time.** The new digest was tagged `keep-rollback-b06adf1023ee` before traffic moved, and read back. Before that, on Gary's approval, the three in-use images deployed after entry 040 were tagged: those of `00436-xiz`, `00439-weq` and `00442-vup` (`keep-rollback-062a78cd7f5d`, `-7a6421a872ef`, `-a41c06bcf22d`). `gcr.io` now holds 94 such tags. The cleanup policy is still in dry run on both repositories.
+  - **The arXiv scout since its fix** (entry 046; read on the Jetson 2026-11-16, read only):
+
+    | Run (New York) | Scout | Exit | Ingest |
+    |---|---|---|---|
+    | 14 Nov 20:10 | 111 fetched, 111 new, errors=0 | 0 | wrote 111, failed 0 |
+    | 15 Nov 10:25 | 111 fetched, 0 new, errors=0 | 0 | wrote 7, failed 0 |
+    | 15 Nov 20:10 | 0 fetched, **errors=4: HTTP 429 on all four queries** | 1 | wrote 0, failed 0 |
+    | 16 Nov 10:25 | 112 fetched, 20 new, errors=0 | 0 | wrote 30, failed 0 |
+
+    Every query used the corrected date range, and every post-ingest hook ran OK. A 429 is arXiv asking for less, not a broken query, so there was no rollback. The cause is not known.
+  - **The 429 retry is [#213](https://github.com/garywelz/copernicus-web/pull/213), open.**
+    - A refused query waits 20, 60, then 120 seconds, or arXiv's Retry-After when that is longer.
+    - Only 429 is retried.
+    - All waiting in one run is capped at 240 seconds, so the 20:10 scout ends before the 20:15 ingest.
+    - The backfill script gains the same retry. It reaches the Jetson only by a further single-file checkout on Gary's word.
+  - **Backfill piece 1 written** (approved by Gary 2026-11-16 as pieces, newest first, back to 2026-06-27, at most 300 new each, one piece per ingest cycle). Window 2026-10-24 to 2026-11-16, run at 15:47 to 15:50 New York with nothing else running:
+    - dry run and write: matched 516, already on disk 131, new 277, **saved 277**, no failed query;
+    - the files under `arxiv_recent/biology` rose from 673 to 950.
+
+    The next ingest (20:15 that evening) takes them in. **The next piece ends at 2026-10-23.**
+- **Later, not started:** the podcast's RSS episode descriptions show raw HTML in Spotify (reported by Gary, 2026-11-16). Not investigated yet.
+- **Waiting on:**
+  - **Gary:** name this pull request and #213; the word for backfill piece 2, after the read of the 20:15 ingest of 2026-11-16 shows it wrote about 277 plus the scout's, failed 0, and the embedding hook ran without refusing over its cap; when to load the real `tdap` engine (recommended after 4b-2b); the Artifact Registry audit-log read.
+  - **Core:** PR 4b-2b (the review page); the RSS description item when Gary asks.
+  - **Cursor:** the full pull of the Jetson clone, still outstanding (entry 046).
+  - **Claude Chat:** review of this pull request and #213.
+  - **GLMP lane and Methods & Tools:** nobody.
+
 ## 047 — 2026-11-15 — Attended lookup test on `tdap-test` passed on the live revision; four findings for later pull requests; what was left on `tdap-test`; the Artifact Registry dry run has still produced no entries
 
 - **From:** Claude Code (Core lane), at Gary's direction (relayed by Claude Chat). Gary drove the test account in his browser and made every click; each write was approved by him first, and Claude Code read each one back before the next.
