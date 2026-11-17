@@ -13,7 +13,7 @@ import time
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
-from datetime import datetime, date, timedelta
+from datetime import datetime, date, timedelta, timezone
 import sys
 import urllib.error
 import urllib.request
@@ -34,6 +34,78 @@ ARXIV_API_URL = "https://export.arxiv.org/api/query"
 MAX_RESULTS_PER_QUERY = 2000  # arXiv API limit
 RESULTS_PER_ITERATION = 100  # arXiv default, max 2000
 DELAY_BETWEEN_QUERIES = 3.0  # Seconds (be respectful, arXiv recommends 3 seconds)
+
+# HTTP 429 ("too many requests") is arXiv asking us to slow down, not a broken query. One refusal used to fail
+# the query at once, and on 2026-11-15 it failed all four queries of a run within seconds. Now a refused query
+# waits and tries again: up to len(RETRY_429_WAITS) more attempts, with growing waits, or the wait arXiv names
+# in a Retry-After header. Only 429 is retried; a 5xx, a timeout or a parse error still fails at once.
+# RETRY_429_BUDGET caps the waiting of a WHOLE run, so the evening scout (20:10) is over before the ingest
+# starts (20:15) however many queries are refused. A wait that does not fit in what is left is not started.
+RETRY_429_WAITS = (20.0, 60.0, 120.0)
+RETRY_429_BUDGET = 240.0
+RETRY_AFTER_MAX = 120.0  # a Retry-After longer than this is not waited for: the query fails, as before
+_retry_waited = 0.0  # seconds this process has spent waiting on 429s
+
+
+def _sleep(seconds: float) -> None:
+    time.sleep(seconds)
+
+
+def reset_retry_budget() -> None:
+    global _retry_waited
+    _retry_waited = 0.0
+
+
+def retry_after_seconds(exc: BaseException, now: Optional[datetime] = None) -> Optional[float]:
+    """The wait a 429 answer asks for in its Retry-After header (seconds, or an HTTP date), or None."""
+    headers = None
+    if REQUESTS_AVAILABLE and isinstance(exc, requests.HTTPError):
+        headers = getattr(getattr(exc, "response", None), "headers", None)
+    elif isinstance(exc, urllib.error.HTTPError):
+        headers = getattr(exc, "headers", None)
+    raw = headers.get("Retry-After") if headers is not None else None
+    if raw is None:
+        return None
+    raw = str(raw).strip()
+    if raw.isdigit():
+        return float(raw)
+    try:
+        from email.utils import parsedate_to_datetime
+        when = parsedate_to_datetime(raw)
+    except (TypeError, ValueError, IndexError):
+        return None
+    if when is None:
+        return None
+    if when.tzinfo is None:
+        when = when.replace(tzinfo=timezone.utc)
+    return max(0.0, (when - (now or datetime.now(timezone.utc))).total_seconds())
+
+
+def wait_before_retry(exc: BaseException, attempt: int) -> Optional[float]:
+    """Seconds to wait before trying a 429-refused query again, or None when it should not be retried:
+    the attempts are used up, arXiv asks for longer than RETRY_AFTER_MAX, or the run's budget is spent.
+    `attempt` counts the tries already made (1 after the first refusal)."""
+    if attempt > len(RETRY_429_WAITS):
+        return None
+    wait = RETRY_429_WAITS[attempt - 1]
+    asked = retry_after_seconds(exc)
+    if asked is not None:
+        if asked > RETRY_AFTER_MAX:
+            return None
+        wait = max(wait, asked)
+    if _retry_waited + wait > RETRY_429_BUDGET:
+        return None
+    return wait
+
+
+def _fetch(url: str) -> bytes:
+    """One GET. Raises on any HTTP error (the caller classifies it)."""
+    if REQUESTS_AVAILABLE:
+        response = requests.get(url, timeout=30)
+        response.raise_for_status()
+        return response.content
+    with urllib.request.urlopen(url, timeout=30) as response:
+        return response.read()
 
 
 def _empty_save_stats() -> Dict[str, int]:
@@ -113,7 +185,9 @@ def search_arxiv(query: str, max_results: int, sort_by: str = "submittedDate",
 
     Returns a dict with ok=True and entries/total/namespace on success, or
     ok=False with error/error_kind on HTTP (429/5xx), timeout, or parse failure.
+    A 429 is retried after a wait (see RETRY_429_WAITS); it is a failure only when the retries are used up.
     """
+    global _retry_waited
     params = {
         "search_query": query,
         "start": start,
@@ -128,13 +202,19 @@ def search_arxiv(query: str, max_results: int, sort_by: str = "submittedDate",
         print(f"  Searching arXiv: {query[:80]}...")
         print(f"    Start: {start}, Max results: {params['max_results']}")
 
-        if REQUESTS_AVAILABLE:
-            response = requests.get(url, timeout=30)
-            response.raise_for_status()
-            content = response.content
-        else:
-            with urllib.request.urlopen(url, timeout=30) as response:
-                content = response.read()
+        attempt = 0
+        while True:
+            attempt += 1
+            try:
+                content = _fetch(url)
+                break
+            except Exception as e:
+                wait = wait_before_retry(e, attempt) if classify_arxiv_exception(e) == "http_429" else None
+                if wait is None:
+                    raise
+                print(f"  ⏳ arXiv answered 429 (too many requests); waiting {wait:.0f}s, then attempt {attempt + 1} of {len(RETRY_429_WAITS) + 1}")
+                _retry_waited += wait
+                _sleep(wait)
 
         # Parse XML response
         root = ET.fromstring(content)
