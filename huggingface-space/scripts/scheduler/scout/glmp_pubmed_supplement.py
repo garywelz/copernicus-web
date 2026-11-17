@@ -3,6 +3,9 @@
 Supplemental PubMed acquisition for GLMP query term clusters 1–3.
 
 Runs from huggingface-space cwd; imports acquire_pubmed_batch helpers in-process.
+Same rule as the main scout: sort by publication date, a rolling window that
+ends today filtered by the date the record was added to PubMed (EDAT), and the
+existing per-term cap so one term cannot crowd out the others.
 """
 
 from __future__ import annotations
@@ -32,20 +35,21 @@ def main() -> int:
     output_dir = pubmed.OUTPUT_DIR / "glmp_scout"
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    all_papers = []
-    mindate = "2024/01/01"
-    maxdate = datetime.now().strftime("%Y/%m/%d")
-
+    mindate, maxdate = pubmed.rolling_pubmed_dates()
     print(f"GLMP PubMed supplement: {len(ALL_CLUSTERS_1_3)} terms")
+    print(f"  window {mindate} to {maxdate} (edat), sort=pub_date, cap={GLMP_PUBMED_MAX_RESULTS_PER_TERM}")
 
+    all_papers = []
     for term in ALL_CLUSTERS_1_3:
-        query = f'({term}) AND ("2024"[PDAT] : "3000"[PDAT])'
+        query = pubmed.supplement_term_query(term, mindate, maxdate)
         print(f"\nTerm: {term}")
         pmids = pubmed.search_pubmed(
             query,
             GLMP_PUBMED_MAX_RESULTS_PER_TERM,
             mindate=mindate,
             maxdate=maxdate,
+            sort="pub_date",
+            datetype="edat",
         )
         if not pmids:
             continue
@@ -54,10 +58,17 @@ def main() -> int:
         print(f"  fetched {len(papers)} papers")
 
     if all_papers:
-        pubmed.save_papers(all_papers, output_dir, batch_num=int(datetime.now().strftime("%m%d%H")))
+        stats = pubmed.save_papers(all_papers, output_dir, batch_num=int(datetime.now().strftime("%m%d%H")))
+    else:
+        stats = pubmed._empty_save_stats()
 
     print(f"\nTotal GLMP supplement papers: {len(all_papers)}")
     print(f"Saved under: {output_dir}")
+    print(
+        f"SCOUT_STATS fetched={stats['fetched']} "
+        f"new_json={stats['new_files']} "
+        f"updated_json={stats['updated_files']}"
+    )
     return 0
 
 
