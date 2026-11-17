@@ -25,6 +25,52 @@ Entry format:
 
 ---
 
+## 049 — 2026-11-17 — Onboarding PR 4b-2b live (the review page); the PubMed rolling window and the scout alarm merged (both by Cursor, neither on the Jetson yet); the real `tdap` engine created, loaded and its abstracts fetched (42 found, 23 without an abstract, no title mismatch); the fetch took 68 minutes, not 3
+
+- **From:** Claude Code (Core lane), at Gary's direction. Gary approved each Firestore write first with his typed line, and Claude Code read each one back before the next step. #216 and #217 are Cursor's work and are recorded here as merged.
+- **Status:** DRAFT. In force from the merge of the pull request that adds this entry. Records three merges and three Firestore writes; it changes no rule. Follows entry 048.
+- **Record:** copernicus-web [#215](https://github.com/garywelz/copernicus-web/pull/215) (4b-2b; merge `fc6176baa`, 2026-11-17 14:54:07Z), [#217](https://github.com/garywelz/copernicus-web/pull/217) (merge `bc7caab15`, 15:28:03Z) and [#216](https://github.com/garywelz/copernicus-web/pull/216) (merge `c0b5fc051`, 15:41:44Z). Cloud Run is unchanged: `copernicus-podcast-api-00445-vek` at 100% (entry 048). The `tdap` load was run from a clean worktree of `c0b5fc051`, at `garywelz/tdap` `b384da6adc07ae2ef10fa0248c1ad48c4394c0e6`, which is still that repository's `main`.
+- **Affects:** Core; Gary and Claude Chat; Cursor (the Jetson pull now carries #216 and #217); the TDAP researcher who is to be invited to `tdap` (not yet invited); anyone who opens `tdap` in the admin dashboard
+- **Summary:**
+  - **4b-2b is live (#215).** `public/onboarding/candidates.html` is the owners' page for the hold-list review, reached from the engine page:
+    - one card per paper with its decision, comment, flags and abstract;
+    - the title-mismatch warning;
+    - filters, bulk marking of up to 100 papers, and Mark final.
+    A static change only: the merge published it on Vercel, and there was no Cloud Run deploy. The page has not been seen in a real browser yet.
+  - **The PubMed scout's rolling window (#216, by Cursor).**
+    - Each of the ten config queries now sorts by publication date, in a 14-day window ending today, with an equal share of the target. Until now the first query filled the target of 500 by relevance, and queries 2 to 10 never ran.
+    - The GLMP supplement uses the same window and sort.
+    - This answers the "about 83 papers a session, almost none new" question of entries 045 and 046. **It is not on the Jetson.** The ten queries arrive with the pull. The supplement's query string also needs `sync_to_jetson.sh`.
+  - **The scout alarm (#217, by Cursor).**
+    - The Jetson's status publish gains `scout.sessions`: fetched and new counts per source, per session.
+    - A GitHub Actions workflow reads the public status JSON twice a day and opens one issue when a source fetched 0 for 3 sessions, saved nothing new for 7 days, or the file is more than 18 hours old.
+    - The workflow and the status-page sentence are live since the merge. **The counts arrive only with the Jetson pull.** On the first publish after it, a PubMed "nothing new for 7 days" issue is expected once, from the old logs.
+  - **The `tdap` engine record** (direct write, 2026-11-17 20:52:49Z):
+    - No route creates an engine (entry 047, F3), so the record was written directly, with `create()`, together with one `engine_create` audit event (`onboarding_events/3bcf4195f973497d9795c27b4494a2c5`), in one transaction.
+    - The record: label `TDAP: Topological Data Analysis Project` (the name the invitation email shows), `full_name`, `template_version` 1, `state` `closed`, `source.repo` `garywelz/tdap`, `question_id_prefix` `tdap`, `next_question_number` 4, `next_entry_number` 1, `private_access_enabled` false, and no final-say holder, delegation or pending invitation.
+    - It was read back field by field, and the event's `after_sha256` matched the stored record.
+  - **The load** (`scripts/onboarding/load_engine.py`; normal dry run, then `--apply` at 20:55:01Z):
+    - The dry run planned exactly what entry 042's offline run did: 3 questions, 12 keyword entries, 10 seeds, 65 hold-list candidates (4 likely keep), 65 review decisions, and 6 skipped lines.
+    - It planned 155 creates and nothing else; in one transaction that is 157 writes.
+    - Applied and read back: all 155 documents, none missing or extra, every item unanswered (revision 0, no choice, no author). The engine's `source` now holds the commit and `loaded_at`, and there is one `engine_load` event.
+  - **The abstract fetch** (`scripts/onboarding/fetch_abstracts.py`; dry run, then `--apply` from 22:29:36Z to 23:37:29Z):
+    - All 65 papers were looked up by DOI. **42 found, with an abstract** (Crossref 19, OpenAlex 14, Semantic Scholar 9). **23 `no_abstract`:** the registry had the paper but no abstract, so it has a registry record and no abstract.
+    - **No `title_mismatch`, no `not_found`, no `unavailable`.**
+    - One of the four likely-keep papers has no abstract: `doi:10.1038/s41593-019-0460-x`.
+    - The run wrote the 65 papers in one transaction with one `abstract_fetch` event, and was read back by state. No decision or answer changed; all 90 items are still unanswered.
+  - **Where `tdap` stands.** Closed, with no members, no invitations and no bundles. Nobody has been invited. The researcher has been told to expect an invitation within about a week.
+- **Findings** (open):
+  - **F1: the fetch took 68 minutes for 65 papers, about 63 seconds a paper.** The pace between papers is 3 seconds, and the estimate given before the run was 195 seconds, with a worst case of about 20 minutes. Probable cause, not verified: `cloud-run-backend/utils/onboarding_lookup.py` checks its 15-second budget only *before* each call, and the `requests` timeout of 8 seconds bounds the connection and each wait between bytes, not a whole call. So a lookup that asks three registries can run well past 15 seconds. The script prints no times, and its output was buffered when redirected to a file, so progress could not be watched during the run. **The same module serves the owners' lookup route on Cloud Run.** Proposed: a hard wall-clock limit per call and per lookup, a timestamped and flushed progress line per paper, and a measured re-run only on Gary's word.
+  - **F2:** `abstract_fetched_at` on every paper and the `abstract_fetch` event's `ts` hold the run's *start* time (22:29:36Z), not the time each paper was looked up or the write was committed (23:37:29Z).
+  - **F3:** the 23 papers without an abstract can be fetched again later: the script fills only what is missing. With Semantic Scholar unreliable without a key (entry 047, F4), a second run may find some, but most are probably books, chapters and older journals that no registry holds an abstract for.
+  - **F4:** an administrator cannot open the owners' pages (`public/onboarding/`): they send only a session. The admin dashboard shows a closed engine's items read only, but not the abstracts. Those come only from `GET /api/onboarding/engines/{e}/review` with the admin key.
+- **Waiting on:**
+  - **Gary:** review and name this pull request; look at `tdap` as the administrator before inviting anyone; the "who can generate" count and the panel re-check (entry 041) before the invitation; F1 as a pull request when he asks; backfill piece 2 after tomorrow's 12:20 read of tonight's arXiv scout, the first evening run with the 429 retry; the read-only check of why the Artifact Registry dry run has written no entries.
+  - **Core:** F1 and F2 when Gary asks; opening `tdap` (a direct write until F3 of entry 047 is fixed) and the researcher's invitation, each on Gary's line.
+  - **Cursor:** the Jetson pull, after the backfill and outside the scout windows; it now carries #216, #217 and the `sync_to_jetson.sh` step for the PubMed supplement.
+  - **Claude Chat:** review of this pull request.
+  - **GLMP lane and Methods & Tools:** nobody.
+
 ## 048 — 2026-11-17 — Onboarding PR 4b-2a live (review of the hold list, backend); the `keep-rollback-` step used for the first time; the arXiv scout since its fix (three clean runs, one 429); backfill piece 1 written; the 429 retry is PR #213
 
 - **From:** Claude Code (Core lane), at Gary's direction (relayed by Claude Chat).
