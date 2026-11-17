@@ -29,8 +29,8 @@ PANEL = [
     "Gary runs the system, so he has technical access to its database. He doesn't use it to read your private bibliography.",
 ]
 
-HTML = {"engine": "engine.html", "section": "section.html", "panel": "panel.html"}
-SCRIPTS = {"engine": ["common.js", "engine.js"], "section": ["common.js", "section.js"], "panel": []}
+HTML = {"engine": "engine.html", "section": "section.html", "panel": "panel.html", "candidates": "candidates.html"}
+SCRIPTS = {"engine": ["common.js", "engine.js"], "section": ["common.js", "section.js"], "panel": [], "candidates": ["common.js", "candidates.js"]}
 
 
 def read(name):
@@ -43,7 +43,7 @@ def panel_items(page_html):
     return [html_lib.unescape(x) for x in re.findall(r"<li>(.*?)</li>", block, re.S)]
 
 
-@pytest.mark.parametrize("page", ["engine", "section", "panel"])
+@pytest.mark.parametrize("page", ["engine", "section", "panel", "candidates"])
 def test_each_page_has_a_strict_csp_noindex_no_inline_script_or_style_and_only_its_own_files(page):
     t = read(HTML[page])
     assert 'name="robots" content="noindex, nofollow"' in t and 'name="referrer" content="no-referrer"' in t
@@ -58,7 +58,7 @@ def test_each_page_has_a_strict_csp_noindex_no_inline_script_or_style_and_only_i
     assert "<iframe" not in t and "<object" not in t and "<embed" not in t and "<form" not in t
 
 
-@pytest.mark.parametrize("name", ["common.js", "engine.js", "section.js"])
+@pytest.mark.parametrize("name", ["common.js", "engine.js", "section.js", "candidates.js"])
 def test_the_scripts_cannot_render_text_as_html_and_talk_only_to_the_site_api(name):
     js = read(name)
     for token in ("innerHTML", "outerHTML", "insertAdjacentHTML", "document.write", "eval(", "new Function", "setTimeout('", 'setTimeout("', "srcdoc", "javascript:", "createContextualFragment",
@@ -72,7 +72,7 @@ def test_the_scripts_cannot_render_text_as_html_and_talk_only_to_the_site_api(na
     if name != "common.js":
         assert hrefs, "the page builds its links"
     for href in hrefs:
-        assert re.match(r"""^\s*'(section|engine)\.html\?""", href), f"a link is built only from a page name and encodeURIComponent'd parts: {href}"
+        assert re.match(r"""^\s*'(section|engine|candidates)\.html\?""", href), f"a link is built only from a page name and encodeURIComponent'd parts: {href}"
 
 
 def test_the_approved_panel_text_is_in_the_page_exactly_as_static_text_and_in_the_standalone_page():
@@ -84,7 +84,7 @@ def test_the_approved_panel_text_is_in_the_page_exactly_as_static_text_and_in_th
     assert re.search(r'<details class="panel" id="panelBox">\s*<summary>' + re.escape(PANEL_TITLE) + r"</summary>", e), "collapsible, near the top"
     assert e.index('id="panelBox"') < e.index('id="workspace"'), "the panel comes before the workspace"
     assert 'href="panel.html"' in e
-    for name in ("common.js", "engine.js", "section.js"):
+    for name in ("common.js", "engine.js", "section.js", "candidates.js"):
         js = read(name)
         assert "can't even tell" not in js and "never override" not in js and PANEL_TITLE not in js, "the panel text is static HTML, not injected by a script"
 
@@ -100,7 +100,7 @@ def test_the_accept_page_links_to_the_panel_in_a_new_tab_without_losing_the_invi
 
 
 @pytest.mark.parametrize("path", ["/onboarding/engine.html", "/onboarding/section.html", "/onboarding/panel.html", "/onboarding/common.js", "/onboarding/workspace.css",
-                                  "/onboarding/engine.js", "/onboarding/section.js", "/onboarding/accept.html"])
+                                  "/onboarding/engine.js", "/onboarding/section.js", "/onboarding/accept.html", "/onboarding/candidates.html", "/onboarding/candidates.js"])
 def test_vercel_serves_every_workspace_file_with_the_strict_headers(path):
     cfg = json.loads((ROOT / "vercel.json").read_text(encoding="utf-8"))
     route = next(r for r in cfg["routes"] if re.fullmatch(r["src"], path) and r.get("headers") and "X-Robots-Tag" in r["headers"])
@@ -115,13 +115,13 @@ def test_the_meta_csp_of_every_page_matches_the_header_apart_from_frame_ancestor
     cfg = json.loads((ROOT / "vercel.json").read_text(encoding="utf-8"))
     header = next(r for r in cfg["routes"] if r["src"] == "/onboarding/(.*)")["headers"]["Content-Security-Policy"]
     header = "; ".join(p for p in header.split("; ") if not p.startswith("frame-ancestors"))
-    for name in ("engine.html", "section.html", "panel.html", "accept.html"):
+    for name in ("engine.html", "section.html", "panel.html", "accept.html", "candidates.html"):
         assert re.search(r'http-equiv="Content-Security-Policy" content="([^"]+)"', read(name)).group(1) == header, name
 
 
 # ---- what the pages send is what the backend expects ------------------------------------------------------------------------------------------------------
 def js_text():
-    return {n: read(n) for n in ("common.js", "engine.js", "section.js")}
+    return {n: read(n) for n in ("common.js", "engine.js", "section.js", "candidates.js")}
 
 
 def object_keys(source, anchor, nth=0):
@@ -191,6 +191,18 @@ def test_every_request_the_pages_make_is_a_real_route_with_the_fields_the_backen
     assert object_keys(section, "OB.call('POST', base + '/seeds', ") == set(routes.SeedIn.model_fields)
     assert object_keys(section, "OB.call('PUT', base + '/consent/lookups', ") == set(routes.LookupConsentIn.model_fields)
     assert "to: 'other_owner'" in engine and routes.DelegationIn.model_fields["to"].default == "other_owner"
+    # PR 4b-2b: the review page reads the engine and the review, saves one decision through the item route, marks the papers shown in bulk, and marks final
+    cand = js["candidates.js"]
+    for pair in (("GET", "/review"), ("POST", "/review/bulk")):
+        assert pair in table, pair
+    for needle in ("OB.call('GET', base)", "OB.call('GET', base + '/review')", "OB.call('PUT', base + '/items/' + encodeURIComponent(c.paper.item_id), ",
+                   "OB.call('POST', base + '/review/bulk', bulkBody(choice, shown, revs))", "OB.call('POST', base + '/sections/' + SECTION + '/final')"):
+        assert needle in cand, needle
+    assert object_keys(cand, "OB.call('PUT', base + '/items/' + encodeURIComponent(c.paper.item_id), ") == set(routes.ItemSave.model_fields)
+    assert object_keys(cand, "function bulkBody(choice, papers, revs) {\n        return ") == set(routes.ReviewBulkIn.model_fields)
+    assert set(re.search(r"return \{ item_id: p\.item_id, base_revision: [^}]+\}", cand).group(0).replace("return {", "").split(":")[0].split()) == {"item_id"}
+    assert set(routes.BulkPaper.model_fields) == {"item_id", "base_revision"} and "base_revision:" in cand
+    assert "SECTION = 'review'" in cand and "'/sections/' + SECTION + '/final'" in cand
 
 
 def test_the_choices_lists_and_caps_in_the_pages_are_the_templates():
@@ -212,9 +224,16 @@ def test_the_choices_lists_and_caps_in_the_pages_are_the_templates():
     assert len(extra) == 1 and min(extra) >= tpl.LIST_MAX * (tpl.LIST_ITEM_CAP + 1), extra          # the out-of-scope box: 30 lines of 200, with room for the line breaks
     assert re.search(r"maxlength: %d \}\), dis" % tpl.COMMENT_CAP, section)
     titles = dict(re.findall(r"(\w+): '([^']+)'", re.search(r"SECTION_TITLES = \{([^}]+)\}", common).group(1)))
-    # the optional review section (PR 4b-2a) has its own page, which is PR 4b-2b: until then the pages list the four sections every engine has
-    assert titles == {s["key"]: s["title"] for s in tpl.SECTIONS if not s.get("optional")}
+    assert titles == {s["key"]: s["title"] for s in tpl.SECTIONS}                       # every section, the optional review (PR 4b-2b) included
     assert re.search(r"SECTION_KEYS = \[([^\]]+)\]", common).group(1).replace("'", "").replace(" ", "").split(",") == [k for k in tpl.SECTION_KEYS if not tpl.is_optional(k)]
+    assert re.search(r"OPTIONAL_KEYS = \[([^\]]+)\]", common).group(1).replace("'", "").replace(" ", "").split(",") == [k for k in tpl.SECTION_KEYS if tpl.is_optional(k)]
+    assert "SECTION_PAGES = { review: 'candidates.html' }" in common
+    # the review page offers exactly the template's review choices, caps the comment at the template's cap, and bulk-marks no more than the route accepts
+    cand = js["candidates.js"]
+    from utils import onboarding_candidates as candidates
+    assert re.search(r"CHOICES = \[([^\]]+)\]", cand).group(1).replace("'", "").replace(" ", "").split(",") == list(tpl.REVIEW_CHOICES)
+    assert int(re.search(r"COMMENT_CAP = (\d+)", cand).group(1)) == tpl.REVIEW_COMMENT_CAP and "maxlength: COMMENT_CAP" in cand
+    assert int(re.search(r"BULK_MAX = (\d+)", cand).group(1)) == candidates.BULK_MAX == routes.ReviewBulkIn.model_fields["papers"].metadata[1].max_length
     assert re.search(r"ENGINE_RE = /\^\[a-z0-9\]\[a-z0-9-\]\{1,40\}\$/", common) and tpl.ID_RE.pattern.startswith("^[a-z0-9]")
     from utils import onboarding as ob
     assert ob.ENGINE_ID_RE.pattern == r"^[a-z0-9][a-z0-9-]{1,40}$"
@@ -223,10 +242,10 @@ def test_the_choices_lists_and_caps_in_the_pages_are_the_templates():
 
 
 def test_the_pages_are_not_linked_from_any_public_page_and_the_only_link_in_is_the_accept_page():
-    names = {"engine.html", "section.html", "panel.html"}
+    names = {"engine.html", "section.html", "panel.html", "candidates.html"}
     for p in (ROOT / "public").glob("*.html"):
         t = p.read_text(encoding="utf-8", errors="ignore")
         assert not any(("onboarding/" + n) in t for n in names), p.name
-    assert not re.findall(r"onboarding/(engine|section|panel)\.html", (ROOT / "public" / "sitemap.xml").read_text(encoding="utf-8", errors="ignore") if (ROOT / "public" / "sitemap.xml").exists() else "")
+    assert not re.findall(r"onboarding/(engine|section|panel|candidates)\.html", (ROOT / "public" / "sitemap.xml").read_text(encoding="utf-8", errors="ignore") if (ROOT / "public" / "sitemap.xml").exists() else "")
     robots = ROOT / "public" / "robots.txt"
     assert not robots.exists() or "Allow: /onboarding" not in robots.read_text(encoding="utf-8", errors="ignore")

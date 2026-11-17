@@ -4,8 +4,10 @@
     'use strict';
     var API = 'https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app';
     var ENGINE_RE = /^[a-z0-9][a-z0-9-]{1,40}$/;
-    var SECTION_KEYS = ['scope', 'questions', 'keywords', 'seeds'];
-    var SECTION_TITLES = { scope: 'Scope and use case', questions: 'Research questions', keywords: 'Keywords and horizons', seeds: 'Seed papers: confirm' };
+    var SECTION_KEYS = ['scope', 'questions', 'keywords', 'seeds'];          // the sections every engine has
+    var OPTIONAL_KEYS = ['review'];                                           // shown only for an engine that has items in them (PR 4b-2)
+    var SECTION_TITLES = { scope: 'Scope and use case', questions: 'Research questions', keywords: 'Keywords and horizons', seeds: 'Seed papers: confirm', review: 'Hold list: review' };
+    var SECTION_PAGES = { review: 'candidates.html' };                        // a section with its own page; every other section opens in section.html
     var REASONS = {
         not_ready: 'not ready yet', not_delegated: 'not delegated to you', already_final: 'already final', approved: 'already approved', rejected: 'sent back, so revise it first',
         unanswered: 'not answered yet', disagreed: 'an open disagreement'
@@ -58,13 +60,15 @@
         return c;
     }
 
+    function pageFor(key) { return SECTION_PAGES[key] || 'section.html'; }
+
     function scopeText(scope) {
         if (scope === 'all') { return 'all sections'; }
         return (scope || []).map(function (k) { return SECTION_TITLES[k] || k; }).join(', ');
     }
 
-    var pure = { linesOf: linesOf, mergeText: mergeText, mergeLists: mergeLists, problem: problem, describe: describe, scopeText: scopeText, ENGINE_RE: ENGINE_RE,
-                 SECTION_KEYS: SECTION_KEYS, SECTION_TITLES: SECTION_TITLES, REASONS: REASONS };
+    var pure = { linesOf: linesOf, mergeText: mergeText, mergeLists: mergeLists, problem: problem, describe: describe, scopeText: scopeText, pageFor: pageFor, ENGINE_RE: ENGINE_RE,
+                 SECTION_KEYS: SECTION_KEYS, OPTIONAL_KEYS: OPTIONAL_KEYS, SECTION_TITLES: SECTION_TITLES, REASONS: REASONS };
     if (typeof module !== 'undefined' && module.exports) { module.exports = pure; }
     if (!root || !root.document) { return; }
 

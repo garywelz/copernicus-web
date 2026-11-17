@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review the hold list</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+    <!-- No third-party script and no inline script or style: the page loads only its own files and may call only the site's API (design 9). -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app; form-action 'none'; base-uri 'none'">
+    <link rel="stylesheet" href="workspace.css">
+</head>
+<body>
+<main>
+    <p><a id="back" href="engine.html">Back to the engine</a></p>
+    <h1 id="title">Hold list: review</h1>
+    <p id="state" class="note"></p>
+    <p id="msg" role="status"></p>
+    <p id="signin" hidden>Please <a href="/subscriber-login.html">sign in</a> with the account that was invited, then open this page again.</p>
+    <div id="banner" class="banner" hidden></div>
+    <div id="sentBack" class="banner sentback" hidden>
+        <strong>Sent back by the reviewer</strong>
+        <p id="sentBackNote" class="note"></p>
+    </div>
+    <div id="approval" class="banner approval" hidden>
+        <strong id="approvalLine"></strong>
+        <p id="approvalNote" class="note"></p>
+    </div>
+    <div id="finalRow" hidden>
+        <button id="markFinal" class="primary" type="button">Mark this section final</button>
+        <span id="finalNote" class="note"></span>
+    </div>
+
+    <div id="review" hidden>
+        <p class="note">Each paper in the engine's hold list needs a decision: keep it, drop it, or say you are unsure. "Unsure" counts as an answer. Only the decision, the identifier and the title go into the engine's public repository; your comments stay in this workspace. An abstract is shown as the registry gave it, with the registry it came from.</p>
+        <p id="counts" class="waiting"></p>
+
+        <h2>Show</h2>
+        <div id="filters" class="filters">
+            <label>Group <select id="fGroup"></select></label>
+            <label class="choice"><input id="fLikely" type="checkbox"> Only papers flagged as likely keep</label>
+            <label class="choice"><input id="fUnresolved" type="checkbox"> Only unresolved papers (no abstract we can stand behind)</label>
+        </div>
+        <p id="shown" class="note" role="status"></p>
+
+        <div id="bulkBox" hidden>
+            <h2>Mark the papers shown</h2>
+            <p class="note">Gives every paper shown above the same decision, all at once or not at all. Each paper keeps its own comment. At most 100 papers at a time: narrow the filters first if more are shown.</p>
+            <label>Decision <select id="bulkChoice"></select></label>
+            <button id="bulkApply" class="primary" type="button">Mark the papers shown</button>
+            <div id="bulkResult" role="status"></div>
+        </div>
+
+        <h2>Papers</h2>
+        <div id="papers"></div>
+    </div>
+</main>
+<script src="common.js"></script>
+<script src="candidates.js"></script>
+</body>
+</html>

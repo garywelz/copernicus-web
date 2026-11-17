@@ -41,3 +41,7 @@ details.panel li { margin-bottom: 8px; }
 .hist li { margin: 2px 0; white-space: pre-wrap; }
 .sentback { background: #fdecea; border-color: #e0a9a3; }
 .approval { background: #e9f6ec; border-color: #9fd0aa; }
+/* The review of the hold list (PR 4b-2b) */
+.filters label { display: block; margin: 6px 0; }
+.filters select, #bulkBox select { padding: 4px; font-size: 0.95rem; margin-left: 6px; }
+.likely { display: inline-block; background: #e9f6ec; border: 1px solid #9fd0aa; padding: 1px 8px; margin: 4px 0; font-size: 0.85rem; }

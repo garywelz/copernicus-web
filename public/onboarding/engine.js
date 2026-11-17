@@ -15,8 +15,18 @@
         say('msg', OB.problem(out), true);
     }
 
+    // The review of the hold list has its own page (PR 4b-2b); every other section opens in the section editor.
     function sectionLink(key, text) {
+        if (OB.pageFor(key) === 'candidates.html') { return h('a', { href: 'candidates.html?engine=' + encodeURIComponent(engine), text: text }); }
         return h('a', { href: 'section.html?engine=' + encodeURIComponent(engine) + '&section=' + encodeURIComponent(key), text: text });
+    }
+
+    // A delegation can cover an optional section only when this engine has it: its box is added the first time the tracker lists it.
+    function addSectionBox(k) {
+        if (picked.indexOf(k) !== -1) { return; }
+        picked.push(k);
+        $('dsections').appendChild(h('label', { class: 'choice' }, [h('input', { id: 'd_' + k, type: 'checkbox' }), ' ' + OB.SECTION_TITLES[k]]));
+        $('d_' + k).addEventListener('change', syncDelegate);
     }
 
     function renderProgress(p) {
@@ -28,6 +38,7 @@
         sent.forEach(function (s) { sentList.appendChild(h('li', {}, [sectionLink(s.key, s.title), ': ' + s.rejection_note])); });
         var rows = $('sectionRows');
         OB.clear(rows);
+        p.sections.forEach(function (s) { if (OB.OPTIONAL_KEYS.indexOf(s.key) !== -1) { addSectionBox(s.key); } });
         p.sections.forEach(function (s) {
             rows.appendChild(h('tr', {}, [
                 h('td', { text: s.title }), h('td', { text: s.status + (s.ready && s.status === 'draft' ? ' (ready)' : '') }), h('td', { text: s.items }), h('td', { text: s.open }),
