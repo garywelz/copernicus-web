@@ -1152,7 +1152,13 @@ graph TD
             var m = raw.match(/^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})/);
             if (!m) { el.textContent = 'Counts are shown without an "as of" date because the status file did not carry one.'; return; }
             var msg = 'Counts as of ' + m[1] + ' ' + m[2] + ' ET (' + (s.count_source ? 'count source: ' + s.count_source : 'count source not stated') + '), read live from knowledge-engine-status.json.';
+            if (s.scout && typeof s.scout.notice === 'string' && s.scout.notice) {
+                msg += ' ' + s.scout.notice;
+            }
             var t = Date.parse(m[1] + 'T' + m[2] + ':00-04:00');
+            if (!isNaN(t) && (Date.now() - t) > 18 * 3600 * 1000) {
+                msg += ' The knowledge-engine status is more than 18 hours old.';
+            }
             if (!isNaN(t) && (Date.now() - t) > STALE_HOURS * 3600 * 1000) {
                 msg += ' This file is more than ' + STALE_HOURS + ' hours old, so the counts may be out of date.';
             }

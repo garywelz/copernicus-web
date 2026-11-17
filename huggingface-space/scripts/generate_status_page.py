@@ -19,6 +19,8 @@ import ssl
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, Optional
+
+import scout_acquire_counts as scout_counts
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
@@ -361,6 +363,7 @@ def build_status(
     papers_by_initiative: Optional[Dict[str, int]] = None,
     papers_by_initiative_note: Optional[str] = None,
     focus_fallback: Optional[Dict[str, Any]] = None,
+    scout: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     videos_doc = (
         "Live from Cloud Run /api/content/browse?content_type=videos, "
@@ -430,6 +433,14 @@ def build_status(
         )
     if process_databases_error:
         out["notes"]["process_databases_error"] = process_databases_error
+    if scout is not None:
+        out["scout"] = scout
+        out["notes"]["scout"] = (
+            "Per source (pubmed, biorxiv, arxiv) and per session (am, pm): "
+            "fetched and new, from SCOUT_STATS in the daily scout logs. "
+            "A missing log is fetched 0 and new 0. notice is set when a source "
+            "fetched nothing for 3 sessions or saved nothing new for 7 days."
+        )
     if focus_fallback is not None:
         out["rag_focus_fallback"] = focus_fallback
         out["notes"]["rag_focus_fallback"] = (
@@ -525,6 +536,21 @@ def main() -> int:
     if focus_fallback is None:
         print("⚠️  rag_focus_fallback: Firestore read failed or unavailable; status JSON will omit it.")
 
+    scout_block: Optional[Dict[str, Any]] = None
+    scout_log_dir = BASE_DIR / "paper_acquisition_logs" / "daily_scout"
+    if scout_log_dir.is_dir():
+        scout_now = datetime.now(scout_counts.NEW_YORK)
+        sessions = scout_counts.collect_sessions(scout_log_dir, now=scout_now)
+        partial = {"last_updated": scout_now.isoformat(), "scout": {"sessions": sessions}}
+        # Age is ~0 at the moment of writing, so the stale-file alarm is not part of this sentence.
+        notice = scout_counts.notice_text(scout_counts.scout_problems(partial, scout_now))
+        scout_block = {"sessions": sessions}
+        if notice:
+            scout_block["notice"] = notice
+        print(f"   scout sessions: {len(sessions)}")
+        if notice:
+            print(f"   scout notice: {notice}")
+
     status = build_status(
         counts,
         source_label,
@@ -537,6 +563,7 @@ def main() -> int:
         papers_by_initiative=papers_by_initiative,
         papers_by_initiative_note=papers_by_initiative_note,
         focus_fallback=focus_fallback,
+        scout=scout_block,
     )
     out = Path(args.output)
     out.parent.mkdir(parents=True, exist_ok=True)
