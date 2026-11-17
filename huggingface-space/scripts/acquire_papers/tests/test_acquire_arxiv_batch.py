@@ -26,6 +26,8 @@ def arxiv(tmp_path, monkeypatch):
     mod = _load_mod()
     monkeypatch.setattr(mod, "OUTPUT_DIR", tmp_path / "papers")
     monkeypatch.setattr(mod, "DELAY_BETWEEN_QUERIES", 0)
+    monkeypatch.setattr(mod, "_sleep", lambda seconds: None)   # a 429 is now retried after a wait (tests/test_arxiv_retry_429.py); no test sleeps
+    mod.reset_retry_budget()
     return mod
 
 
