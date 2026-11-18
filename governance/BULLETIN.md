@@ -25,6 +25,36 @@ Entry format:
 
 ---
 
+## 050 — 2026-11-18 — No test may reach the network: the backend suite read real production secrets and called OpenAI; a guard now refuses it, and the suite takes 81 seconds instead of hours
+
+- **From:** Claude Code (Core lane), at Gary's direction.
+- **Status:** DRAFT. In force from the merge of the pull request that adds this entry. It adds a rule for the test suite of `cloud-run-backend/`, and changes no service code.
+- **Record:** the pull request that adds this entry. Found by a record-only probe of the full suite on `main` `0bf6e1362` (2026-11-17 to 18), loaded from outside the repository.
+- **Affects:** every agent that runs or writes tests in `cloud-run-backend/` (Core, Cursor, Claude Chat reviewing); Gary
+- **Summary:**
+  - **What the suite was doing, with the machine's own Google sign-in:**
+    - It read **the ElevenLabs API key from Secret Manager** 43 times. Importing `services/podcast_generation_service.py` builds a service at module level, which fetches it.
+    - It read **the admin API key** through `utils/auth.py`, which then copies it into the test process's environment, where later tests and subprocesses inherit it.
+    - Eight tests in `tests/unit/test_paper_confirmation.py` **called OpenAI's embeddings API for real**, with the real key from Secret Manager, because their helper left the relevance gate's embedding function at its default.
+    - `tests/integration/test_live_description_validation.py` **listed every document of the production `episodes` collection** over Firestore's REST API.
+    - Each Secret Manager read refreshed an OAuth token. On the evening of 2026-11-17 two tests in `tests/unit/test_curated_generation.py` took 8.5 hours and 1.9 hours. And the harness subprocess of `tests/unit/test_fix1_sandbox_harness.py`, which makes 9 sign-ins of its own, is the likely cause of its 10 errors that evening (one fixture, a 300-second timeout; not proven).
+    - No key value was printed by this investigation. Whether any earlier test output ever printed one is not known.
+  - **The guard** (`cloud-run-backend/tests/no_network.py`, installed by `tests/conftest.py` before any test module is imported):
+    - It refuses a DNS lookup or socket connection to anything but loopback, `google.auth.default()`, and a gRPC channel to anything but a local address. gRPC's own sockets are not Python's, so they need their own refusal.
+    - The Secret Manager client class is replaced by a stand-in that refuses to be created, as the Firestore client already was (entry 043). Every caller already falls back to its environment variable.
+    - Every Python subprocess a test starts gets the same guard, through `cloud-run-backend/tests/no_network_site/sitecustomize.py`.
+    - **A test during which anything was refused fails**, even when the code under test swallowed the error.
+    - `cloud-run-backend/tests/test_no_real_network.py` fails if the guard is removed or stops refusing.
+  - **Opt-in live tests:** the marker `live`, skipped unless pytest is run with `--run-live`. Only then is the guard lifted, for that test only. The episodes check above is the only one.
+  - **Result:** 2,226 passed and 1 skipped (the live test), in **81 seconds**. The two runs before this took 2 hours and more than 10.5 hours.
+- **Rule from here on:** a test in `cloud-run-backend/` uses fakes for every outside service. One that needs a real service is marked `live`, says in its docstring what it reads, and is never part of a normal run.
+- **Later, not in this change:** the service code that reads secrets at import time (`services/podcast_generation_service.py` builds its services when imported) is why tests reached Secret Manager without asking. Some tests also really sleep: `paper_confirmation.py`'s retry waits make five of them take about 1.5 seconds each.
+- **Waiting on:**
+  - **Gary:** review and name the pull request.
+  - **Cursor and every lane:** write new backend tests to this rule.
+  - **Claude Chat:** review of the pull request.
+  - **Methods & Tools:** nobody.
+
 ## 049 — 2026-11-17 — Onboarding PR 4b-2b live (the review page); the PubMed rolling window and the scout alarm merged (both by Cursor, neither on the Jetson yet); the real `tdap` engine created, loaded and its abstracts fetched (42 found, 23 without an abstract, no title mismatch); the fetch took 68 minutes, not 3
 
 - **From:** Claude Code (Core lane), at Gary's direction. Gary approved each Firestore write first with his typed line, and Claude Code read each one back before the next step. #216 and #217 are Cursor's work and are recorded here as merged.
