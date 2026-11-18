@@ -25,6 +25,79 @@ Entry format:
 
 ---
 
+## 051 — 2026-11-18 — The lookup time limits (#219) and onboarding 4c-1 (#221) live; the attended look at `tdap` and its six findings; the loader reads the scope from the README (#222); `tdap`'s README gains a draft scope and `tdap` is re-loaded; final say cannot be handed over; arXiv backfill piece 2
+
+- **From:** Claude Code (Core lane), at Gary's direction. Every Firestore write, merge, deploy and traffic move below was named by Gary first, and each was read back before the next step.
+- **Status:** DRAFT. In force from the merge of the pull request that adds this entry. Records what is live and what was found; it changes no rule. Follows entries 049 and 050.
+- **Record:**
+  - **copernicus-web:**
+    - [#219](https://github.com/garywelz/copernicus-web/pull/219) (merge `487251f1e`): Cloud Run revision `copernicus-podcast-api-00448-hoq`, image `sha256:d5c204ea38645ccc1570e7890556553fa74ea1893f7c8f0f1b0773e0d82eec2f`, `keep-rollback-d5c204ea3864`.
+    - [#221](https://github.com/garywelz/copernicus-web/pull/221) (merge `ed67001aa`): revision **`copernicus-podcast-api-00451-xaq`**, image `sha256:2886219127e87af890a4b718b1c1330497c061e17bd25824f47dc33ab2ac8a88`, build `556d614d`, `keep-rollback-2886219127e8`. Rollback `00448-hoq`, kept.
+    - [#222](https://github.com/garywelz/copernicus-web/pull/222) (merge `bd724cd5b`; no deploy).
+  - **tdap:** [#3](https://github.com/garywelz/tdap/pull/3) (merge `d05d14734`).
+- **Affects:** Core; Gary and Claude Chat; the TDAP researcher, who is to be invited next; Cursor (the Jetson pull and the backfill)
+- **Summary:**
+  - **#219 live** (entry 049, F1 and F2). Every registry call has a hard wall-clock limit, and a lookup ends within its 15-second budget plus at most one second. `fetch_abstracts.py` prints a timestamped, flushed line per paper and records each paper's own lookup time.
+    - Deployed by `cloud-run-backend/DEPLOY.md`, all steps.
+    - Traffic moved at 13:50:04Z.
+    - **The first 10-minute watch was invalid.** It ran its `gcloud` log filters from Windows PowerShell 5.1, which strips the filters' inner quotes. Every query failed with its error hidden, and the loop logged "0 errors" with no requests seen. Redone through Bash: from 13:50:04Z to 14:03:07Z, 0 ERROR entries, 0 5xx, 6 requests, all 200. **Log filters are run through Bash from now on**, and a watch that sees no request at all is treated as broken.
+  - **The attended look at `tdap`** (W1 to W5, Gary at the browser).
+    - **The steps:** `tdap` was opened by a direct write with an `engine_state` event. A test account was invited (no final say, cannot generate, quota 0) and accepted with lookup consent off. `tdap` was then **closed again before the look**, so the server would refuse any save. Gary looked at the engine page, the sections and the review page with the real 65 papers. The invitation was revoked at 14:50:39Z.
+    - **Nothing changed:** 90 items unanswered, 0 comments. The tdap routes received only GETs and browser preflight requests during the look.
+    - **`tdap` was left** closed, with 0 members; only Gary's account can generate.
+    - **The first revoke was not one.** The admin page showed "Revoked (revoked_member)." although no request had reached the service (finding 6).
+  - **The six findings of the look, and where they went:**
+    1. Cards and "What is left" were headed by internal ids (#221).
+    2. "What is left" stopped at 50 of 90 (#221).
+    3. Scope and use case had 0 items: the loader never read `README.md`, and no route creates a scope item (#222).
+    4. A closed engine's controls looked active, and two split buttons really were enabled (#221).
+    5. **A comment or a resolve was accepted on a closed engine** (#221; Gary decided: closed means read only, and the server answers 409).
+    6. The admin page kept an old result line. A declined confirmation used to return silently (#221).
+  - **#221 (onboarding 4c-1) live.**
+    - Items are named by their own words, with the id in small grey text.
+    - "What is left" is grouped by section, with counts, and links to each item's card.
+    - A closed engine is visibly read only.
+    - Comments and resolves on an engine that is not open answer 409.
+    - The admin result line is dated and cleared.
+
+    Deployed by `DEPLOY.md`:
+    - the spec diff showed the image only;
+    - the smoke test answered the same on the tagged and live URLs: health, the same 41 episode ids, and 15 onboarding routes with no credential and with a bogus session, the comment and resolve routes included;
+    - traffic moved at 18:31:38Z;
+    - the Bash watch from 18:31:38Z to 18:43:09Z saw 0 ERROR entries and 6 requests, all 200;
+    - the tag was removed (its URL answers 404);
+    - the site serves `ed67001aa`.
+  - **#222 (onboarding 4c-2).** `scripts/onboarding/load_engine.py` reads `README.md`, and every load plans the scope section's three items, unanswered.
+    - The statement and the out-of-scope list are pre-filled **only from a heading that names "scope"**. They are read by `utils/onboarding_render.read_scope`, the same rule the bundle writes them by, and a round-trip test enforces that.
+    - **With no such heading** (Gary's decision), the statement starts empty and the README's opening paragraph is shown as reference only.
+    - Only the extracted text is checked: the rest of a README, including a contact address, is not read.
+  - **`tdap`'s README gains a "Scope and use case" section** (tdap#3, Gary's text, a draft for the owners to edit in the form). It sits after the rule that ends the introduction, so the rule is not read as part of the statement.
+  - **`tdap` re-loaded** at `d05d14734`, at 18:51:43Z.
+    - **The writes:** 3 created (`scope-statement`, `use-case`, `out-of-scope`), 0 updated, 155 unchanged, 0 conflict, in 5 writes.
+    - **What was read:** the statement is Gary's two paragraphs, and the out-of-scope list has 2 entries. The use case is empty.
+    - **Now:** 93 items, all unanswered; `tdap` closed with 0 members.
+  - **Final say cannot be handed over** (read from the code; nothing changed).
+    - **Where it comes from:** only from accepting a final-say invitation. Creating one is refused while the engine has a holder or another final-say invitation is outstanding. Accepting is refused for someone who is already a member.
+    - **Clearing it:** the holder is cleared only by revoking their invitation, which also removes them as a member.
+    - **Moving it from one owner to another today** means revoking both and inviting both again, with a gap in which nobody can mark final.
+    - **Delegation does work.** The holder can delegate "all" or chosen sections to another active owner, revocably and audited. But the page names the delegate as "the other owner", so with three or more owners the holder cannot choose whom.
+  - **arXiv backfill piece 2** (Jetson; read and write between 09:06 and 09:12 New York, outside the scout windows):
+    - **Last night's scout:** 20:10, the first evening with the 429 retry, had no 429, no retry and no wait. It fetched 105, 0 new, exit 0.
+    - **Last night's ingest:** 20:15 wrote 0 and failed 0, and every hook was OK.
+    - **The 16 November evening ingest** wrote 278 and failed 0, taking in piece 1.
+    - **Piece 2** covered 2026-10-10 to 2026-10-23: dry run and write matched 332, 62 duplicates, 0 on disk, **270 new, 270 saved**. The files under `arxiv_recent/biology` rose from 989 to 1,259.
+    - **The next piece ends at 2026-10-09.**
+- **Later (not scheduled):**
+  - **A route for the current final-say holder to hand final say to another active owner of the same engine.** The holder decides, never the administrator, and it is audited (Gary, 2026-11-18).
+  - **Delegation with more than two owners:** let the holder choose the delegate.
+  - **The full test suite sometimes stalls on one random test for minutes, on `main` too** (758 s once). It is not reproduced alone or after the tests before it, and the cause is not established.
+- **Waiting on:**
+  - **Gary:** review and name this pull request; the read of this morning's 10:30 ingest, which should take in piece 2's 270 papers; the invitation of the TDAP researcher, proposed separately (open `tdap`, then a final-say invitation); backfill piece 3.
+  - **Core:** the later items, each when Gary asks.
+  - **Cursor:** the Jetson pull, still outstanding; it now also carries the PubMed `sync_to_jetson.sh` step (entry 049).
+  - **Claude Chat:** review of this pull request.
+  - **GLMP lane and Methods & Tools:** nobody.
+
 ## 050 — 2026-11-18 — No test may reach the network: the backend suite read real production secrets and called OpenAI; a guard now refuses it, and the suite takes 81 seconds instead of hours
 
 - **From:** Claude Code (Core lane), at Gary's direction.
