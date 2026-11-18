@@ -25,11 +25,11 @@ Entry format:
 
 ---
 
-## 052 — 2026-11-18 — The access panel and accept page corrected (#224); `tdap` relabelled and opened; the TDAP researcher invited with final say; arXiv backfill piece 3
+## 052 — 2026-11-18 — The access panel and accept page corrected (#224); `tdap` relabelled and opened; the TDAP researcher invited with final say, then re-invited at a second address; arXiv backfill piece 3
 
 - **From:** Claude Code (Core lane), at Gary's direction. Each write below was named by Gary first and read back. Gary sent the invitation himself from the admin page.
 - **Status:** DRAFT. In force from the merge of the pull request that adds this entry. Records what was done; it changes no rule. Follows entry 051.
-- **Record:** copernicus-web [#224](https://github.com/garywelz/copernicus-web/pull/224) (merge `79ca5ec16`; static text, no deploy). Direct writes on `onboarding_engines/tdap`, each in one transaction with one audit event: `engine_label` (`onboarding_events/29f0fe5a679d44a8bd21a26f9c55807a`) and `engine_state` (`onboarding_events/ba3ecd72f1724e5dab9b1ff7600300ee`). Invitation `63cab3d29e4747b4b85078975216e279`. Cloud Run is unchanged: `copernicus-podcast-api-00451-xaq` at 100%.
+- **Record:** copernicus-web [#224](https://github.com/garywelz/copernicus-web/pull/224) (merge `79ca5ec16`; static text, no deploy). Direct writes on `onboarding_engines/tdap`, each in one transaction with one audit event: `engine_label` (`onboarding_events/29f0fe5a679d44a8bd21a26f9c55807a`) and `engine_state` (`onboarding_events/ba3ecd72f1724e5dab9b1ff7600300ee`). Invitations `63cab3d29e4747b4b85078975216e279` (revoked unused) and **`4afc57d2816b44289243fa8af1ccc1da`** (the one in force). Cloud Run is unchanged: `copernicus-podcast-api-00451-xaq` at 100%.
 - **Affects:** Core; Gary and Claude Chat; the TDAP researcher, now invited; Cursor (the Jetson pull and the backfill)
 - **Summary:**
   - **#224: the access panel and the accept page corrected.** Both described the private bibliography (PR 4b-3) as if it existed. It is not built yet, and the text now says so, with every promise about it in the future tense.
@@ -44,6 +44,12 @@ Entry format:
     - **Read back:** unused and not revoked, role `owner`. `tdap`'s `pending_final_say_invite_id` is that invitation, so a second final-say invitation is refused until this one is used, revoked or expired.
     - **The send:** the service logged `email_sent: True` and no email failure.
     - **Still unchanged:** 0 members, all 93 items unanswered, and only Gary's account can generate.
+  - **Re-sent to a second address.**
+    - **The first invitation was revoked unused.** Gary revoked it at 19:45:33Z, before it was used: it has no use time and no account, and one `revoke_invite` event was written. `tdap` had no member, so nothing else changed.
+    - **A new invitation** to the same researcher at another address was sent at 19:48:06Z: **`4afc57d2…`, final say yes, can generate no, quota 0, expiring 2026-11-25 19:48Z** (7 days). The two invitations' address hashes differ, as expected. The service logged `email_sent: True` and no email failure.
+    - **Read back:** the new invitation is unused and not revoked, role `owner`. **`tdap`'s `pending_final_say_invite_id` now points at it.** It is the only open invitation of `tdap` (3 in all: the attended look's, the revoked one, and this one).
+    - **Still unchanged:** 0 members, all 93 items unanswered, and only Gary's account can generate. `tdap` has 15 events.
+    - **Only one link works.** The first email's link no longer works; only the second email's does.
     - **On acceptance:** the researcher becomes `tdap`'s owner with the final say, and gets the "ready to mark final" and "re-opened" notices. The account cannot generate podcasts. Delegation needs a second owner.
   - **arXiv backfill piece 3** (Jetson, 14:07 to 14:18 New York, outside the scout windows, nothing else running; the copy in `/tmp/arxiv_backfill_cd6ef79cd`, identical to `cd6ef79cd`):
     - **A first dry run** of 2026-09-26 to 2026-10-09 gave 363 new, over the cap of 300, and was not written.
@@ -56,7 +62,7 @@ Entry format:
     - **The other hooks:** all OK.
 - **Waiting on:**
   - **Gary:** review and name this pull request; backfill piece 4 (ending 2026-09-28) after tonight's 20:15 ingest has taken in piece 3.
-  - **The TDAP researcher:** to accept the invitation by 2026-11-25.
+  - **The TDAP researcher:** to accept the invitation `4afc57d2…` by 2026-11-25 19:48Z.
   - **Core:** the readback of the acceptance (the membership, final say, consent, and `pending_final_say_invite_id` cleared) when Gary asks; the later items of entry 051.
   - **Cursor:** the Jetson pull, still outstanding.
   - **Claude Chat:** review of this pull request.
