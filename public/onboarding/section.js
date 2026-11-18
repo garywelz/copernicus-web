@@ -61,6 +61,11 @@
         if (Array.isArray(c.question_ids) && c.question_ids.length) { lines.push('Questions: ' + c.question_ids.join(', ')); }
         if (c.added) { lines.push('Added by an owner.'); }
         if (c.split_from) { lines.push('Split from ' + c.split_from + '.'); }
+        // The scope (PR 4c-2): where the loader read it, and, when the README has no Scope heading, its opening paragraph as reference only.
+        if (it.section === 'scope' && c.source) { lines.push('From the repository: ' + c.source + '.'); }
+        if (it.section === 'scope' && c.reference) {
+            lines.push('For reference only, the README\'s opening paragraph (it is not your statement; write the statement in the box below):\n' + c.reference);
+        }
         return lines.length ? h('div', { class: 'context', text: lines.join('\n') }) : null;
     }
 

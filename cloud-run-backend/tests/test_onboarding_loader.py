@@ -79,7 +79,7 @@ def test_dry_run_counts_match_the_tdap_shapes_and_writes_nothing(web, capsys):
     before = snapshot(db)
     code, out, _ = run([], db, capsys)
     assert code == 0 and snapshot(db) == before, (out, _)
-    assert "3 questions, 12 keyword entries, 10 seeds, 65 hold-list candidates (4 likely keep)" in out
+    assert "3 scope items, 3 questions, 12 keyword entries, 10 seeds, 65 hold-list candidates (4 likely keep)" in out
     assert "nothing was written (dry run)" in out and LINE in out
 
 
@@ -176,7 +176,7 @@ def test_rerun_at_the_same_commit_changes_nothing(web, capsys):
     code, out, _ = run(["--apply", "--approval", LINE], db, capsys)
     assert code == 0 and snapshot(db) == before and "no write was made" in out
     code, out, _ = run([], db, capsys)
-    assert code == 0 and "0 create, 0 update (untouched by owners), 0 adopt (a seed an owner added; repository fields only), 155 unchanged, 0 conflict" in out
+    assert code == 0 and "0 create, 0 update (untouched by owners), 0 adopt (a seed an owner added; repository fields only), 158 unchanged, 0 conflict" in out
 
 
 def changed_tree(tmp_path):
@@ -387,20 +387,20 @@ def hold_tree(tmp_path, papers, name="big"):
 
 
 def test_a_plan_over_the_write_limit_is_refused_and_one_at_the_limit_is_not(web, tmp_path, capsys):
-    # the fixture's 25 items + N candidates + N review decisions (PR 4b-2a: one item per hold-list paper) + the engine update + the event:
-    # N = 211 gives 449 (the nearest a whole number of papers comes to the limit), N = 212 gives 451
-    at_limit, over = hold_tree(tmp_path, 211, "at"), hold_tree(tmp_path, 212, "over")
+    # the fixture's 25 items + the 3 scope items (PR 4c-2) + N candidates + N review decisions (PR 4b-2a: one item per hold-list paper) + the engine update + the
+    # event: N = 210 gives exactly 450 (the limit itself is allowed), N = 211 gives 452
+    at_limit, over = hold_tree(tmp_path, 210, "at"), hold_tree(tmp_path, 211, "over")
     web.set(SHA, at_limit)
     db = engine_db()
     code, out, _ = run(["--apply", "--approval", LINE], db, capsys)
-    assert code == 0 and "transaction: 449 writes (limit 450)" in out and len(db.data[le.CANDIDATES]) == 211
-    assert sum(d["section"] == "review" for d in db.data[le.ITEMS].values()) == 211
+    assert code == 0 and "transaction: 450 writes (limit 450)" in out and len(db.data[le.CANDIDATES]) == 210
+    assert sum(d["section"] == "review" for d in db.data[le.ITEMS].values()) == 210
     web.set(SHA, over)
     db = engine_db()
     before = snapshot(db)
     for args in ([], ["--apply", "--approval", LINE]):
         code, out, _ = run(args, db, capsys)
-        assert code == 1 and "REFUSED: the plan has 451 writes, over the limit of 450" in out and "nothing was written" in out
+        assert code == 1 and "REFUSED: the plan has 452 writes, over the limit of 450" in out and "nothing was written" in out
         assert snapshot(db) == before and le.CANDIDATES not in db.data
 
 
@@ -436,7 +436,7 @@ def test_every_hold_list_paper_gets_an_unanswered_review_decision_that_points_at
     web.set(SHA, FIXTURE)
     db = engine_db()
     code, out, _ = run(["--apply", "--approval", LINE], db, capsys)
-    assert code == 0 and "65 review decisions (one per hold-list paper)" in out and "transaction: 157 writes" in out
+    assert code == 0 and "65 review decisions (one per hold-list paper)" in out and "transaction: 160 writes" in out          # 157 before 4c-2, + 3 scope items
     review = sorted((d for d in db.data[le.ITEMS].values() if d["section"] == "review"), key=lambda d: d["order"])
     assert len(review) == 65 and [d["order"] for d in review] == list(range(65))
     for d in review:

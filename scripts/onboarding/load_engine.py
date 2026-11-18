@@ -11,7 +11,14 @@ FILES READ (raw.githubusercontent.com at the pinned commit, a plain GET, no cred
   docs/seeds.csv             REQUIRED   one row per seed: doi (arxiv_id, pmid optional), question_ids, title, admit_policy, status
   docs/seed_papers.md        REQUIRED   display text for the seeds (citation, reference-list source); every seed it lists must also be a row of seeds.csv
   docs/hold_list.md          OPTIONAL   the review queue: `- TITLE -- `identifier`, reason, cited_by=N` under group headings; a bold [..] marker means likely keep
-There are four files. The loader reads nothing else.
+  README.md                  OPTIONAL   the scope (PR 4c-2): the body under its first heading that names "scope", read by the SAME rule the bundle writes it by
+                                        (utils/onboarding_render.read_scope). Only that text is checked and stored; the rest of the README is not read.
+There are five files. The loader reads nothing else.
+
+SCOPE (PR 4c-2; design 2.1; Gary, 2026-11-18): every load plans the scope section's three items, scope-statement, use-case and out-of-scope, like every other
+item UNANSWERED. The statement and the out-of-scope list are pre-filled ONLY from a Scope heading. A README with no such heading gives an empty
+statement; its opening paragraph is shown to the owners as read-only reference (context.reference), never as their statement, and an approved
+statement is then added under a new "## Scope and use case" heading. The use case is never a repository file: it starts empty.
 
 WRITES (only with --apply and the typed approval line; one Firestore transaction):
   onboarding_items       one per question, keyword-list entry, seed and hold-list paper, UNANSWERED (revision 0, no choice, no author). An item an owner has
@@ -70,8 +77,9 @@ base = _load("onboarding_base")
 lint = _load("onboarding_lint")
 tpl = _load("onboarding_template")
 ids = _load("onboarding_ids")
+render = _load("onboarding_render")
 
-FILES = {"focus": "docs/research_focus.json", "seeds": "docs/seeds.csv", "papers": "docs/seed_papers.md", "hold": "docs/hold_list.md"}
+FILES = {"focus": "docs/research_focus.json", "seeds": "docs/seeds.csv", "papers": "docs/seed_papers.md", "hold": "docs/hold_list.md", "readme": "README.md"}
 REQUIRED = ("focus", "seeds", "papers")
 ITEMS, CANDIDATES, ENGINES, EVENTS, BUNDLES = "onboarding_items", "onboarding_candidates", "onboarding_engines", "onboarding_events", "onboarding_bundles"
 OPEN_BUNDLE_STATUSES = ("created", "exported")
@@ -364,9 +372,40 @@ def parse_hold(text):
     return candidates, skipped
 
 
+def parse_scope(readme_text):
+    """(items, notes): the scope section's three items (PR 4c-2). Hostile text in the scope heading's body REFUSES the load, as anywhere else; the opening
+    paragraph is reference only, so one the checks would refuse is left out, with a note, rather than refusing the whole load."""
+    where = FILES["readme"]
+    found = render.read_scope(readme_text)
+    notes = []
+    if readme_text is None:
+        source = "README.md is absent: an approved statement becomes the README"
+    elif found["heading"]:
+        source = f"README.md, under {found['heading'][:120]!r}"
+    else:
+        source = "README.md has no Scope heading: an approved statement is added under a new '## Scope and use case' heading"
+    statement = value_text(found["statement"], tpl.TEXT_CAP, f"{where} scope statement", required=False)
+    if len(found["out_of_scope"]) > tpl.LIST_MAX:
+        raise Refused(f"{where}: the out-of-scope list has more than {tpl.LIST_MAX} entries")
+    out_of_scope = [value_text(s, tpl.LIST_ITEM_CAP, f"{where} out-of-scope entry") for s in found["out_of_scope"]]
+    context = {"source": source}
+    if found["opening"]:
+        try:
+            context["reference"] = value_text(found["opening"], tpl.TEXT_CAP, f"{where} opening paragraph")
+        except Refused as e:
+            notes.append(f"the README's opening paragraph is not shown as reference ({e})")
+    items = [make_item("scope", "scope_statement", "scope-statement", 0, statement, context),
+             make_item("scope", "use_case", "use-case", 1, "", {"source": "not a repository file (design 2.1)"}),
+             make_item("scope", "out_of_scope", "out-of-scope", 2, out_of_scope, {"source": source})]
+    return items, notes
+
+
 def build_plan(engine_id, texts):
+    scope_items, scope_notes = parse_scope(texts.get("readme"))
     items, qids = parse_focus(texts["focus"])
+    items = scope_items + items
     seed_items, notes = parse_seeds(texts["seeds"], texts["papers"], qids)
+    notes = scope_notes + notes
     items += seed_items
     cands, skipped = [], []
     found, skipped = parse_hold(texts["hold"]) if texts["hold"] is not None else ([], [])
@@ -486,7 +525,8 @@ def blocking_bundles(db, engine_id, commit):
 
 
 def counts(plan):
-    return {"questions": sum(i["section"] == "questions" for i in plan["items"]), "keyword_entries": sum(i["section"] == "keywords" for i in plan["items"]),
+    return {"scope_items": sum(i["section"] == "scope" for i in plan["items"]),
+            "questions": sum(i["section"] == "questions" for i in plan["items"]), "keyword_entries": sum(i["section"] == "keywords" for i in plan["items"]),
             "seeds": sum(i["section"] == "seeds" for i in plan["items"]), "candidates": len(plan["candidates"]),
             "review_decisions": sum(i["section"] == "review" for i in plan["items"]),
             "likely_keep": sum(c["flags"]["likely_keep"] for c in plan["candidates"])}
@@ -581,7 +621,7 @@ def main(argv=None, db=None, now=None, out=print):
         plan_hash = sha({"items": [(i["section"], i["item_id"], i["context"]["source_sha256"]) for i in plan["items"]], "candidates": [(x["candidate_id"], x["source_sha256"]) for x in plan["candidates"]]})
         out(f"{'APPLY' if args.apply else 'DRY RUN'}: engine {eid}, {args.repo}@{args.commit[:12]}")
         out(f"  read: " + ", ".join(f"{FILES[k]}{' (absent)' if texts[k] is None else ''}" for k in FILES))
-        out(f"  plan: {c['questions']} questions, {c['keyword_entries']} keyword entries, {c['seeds']} seeds, {c['candidates']} hold-list candidates ({c['likely_keep']} likely keep)"
+        out(f"  plan: {c['scope_items']} scope items, {c['questions']} questions, {c['keyword_entries']} keyword entries, {c['seeds']} seeds, {c['candidates']} hold-list candidates ({c['likely_keep']} likely keep)"
             f", {c['review_decisions']} review decisions (one per hold-list paper)")
         if plan["skipped_hold"] is not None:
             out(f"  skipped {len(plan['skipped_hold'])} bullet lines in {FILES['hold']} (not papers)")
