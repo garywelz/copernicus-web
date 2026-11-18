@@ -21,12 +21,12 @@ PANEL = [
     "Only the owners of this engine and Gary can open this workspace. Anyone else, signed in or not, gets \"not found\". They can't even tell the workspace exists.",
     "Only the owners can change answers. Gary can read, comment, and approve or reject a finished section, but he can't edit your answers, and he can never override a section marked final.",
     "Nothing becomes public until two people have said yes: the advisor (or the other owner, if the advisor has delegated it) marks a section final, then Gary approves it. Only then is it proposed as a change to the engine's public repository, which Gary reviews and merges. What can become public is the scope statement, the research questions, keywords, seed papers and review-queue decisions.",
-    "Your private bibliography stays private. It's never published or added to the corpus, the form never shows it to the other owner, and you can delete it at any time. Entries are marked \"not yet public\" by default, and an entry so marked can never leave the system.",
+    "A private bibliography is planned but not built yet, so there is nothing to look for today. When it arrives, it will stay private: it will never be published or added to the corpus, the form will never show it to the other owner, and you will be able to delete it at any time. Its entries will be marked \"not yet public\" by default, and an entry so marked will never leave the system.",
     "Your email address is never published. Your name appears only as you chose: by role only, unless you picked otherwise.",
     "Your podcasts are private until you make one public. Only Gary can return a public episode to private, but you can delete any of your own episodes at any time, except one the editors have added to the podcast feed.",
     "Every change made in this workspace is recorded, with who made it and when.",
-    "Outside services: if you agreed to lookups, paper titles and identifiers are sent to public scholarly services (Crossref, OpenAlex, arXiv, Semantic Scholar) to find the papers. Making a podcast sends its topic and text to the AI services that write, voice and illustrate it (Google's Gemini, ElevenLabs, and OpenAI's image service). Emails are sent through Google's mail service. Gary's own AI assistants help him check approved changes before they reach the repository.",
-    "Gary runs the system, so he has technical access to its database. He doesn't use it to read your private bibliography.",
+    "Outside services: if you agreed to lookups, paper titles and identifiers are sent to public scholarly services (Crossref, OpenAlex, arXiv, Semantic Scholar) to find the papers. Separately, Gary's own agent may send the identifiers of papers already in the engine's public repository, such as those on the hold list, to the same public scholarly services to fetch their abstracts; nothing an owner types or uploads is sent that way. Making a podcast sends its topic and text to the AI services that write, voice and illustrate it (Google's Gemini, ElevenLabs, and OpenAI's image service). Emails are sent through Google's mail service. Gary's own AI assistants help him check approved changes before they reach the repository.",
+    "Gary runs the system, so he has technical access to its database. When the private bibliography arrives, he will not use that access to read it.",
 ]
 
 HTML = {"engine": "engine.html", "section": "section.html", "panel": "panel.html", "candidates": "candidates.html"}
@@ -87,6 +87,21 @@ def test_the_approved_panel_text_is_in_the_page_exactly_as_static_text_and_in_th
     for name in ("common.js", "engine.js", "section.js", "candidates.js"):
         js = read(name)
         assert "can't even tell" not in js and "never override" not in js and PANEL_TITLE not in js, "the panel text is static HTML, not injected by a script"
+
+
+def test_no_page_describes_the_private_bibliography_as_if_it_were_built_and_the_abstract_fetch_is_disclosed():
+    """Gary, 2026-11-18: the private bibliography (PR 4b-3) is not built yet, so no page may describe it as existing today; and the panel says that Gary's own
+    agent may send the public repository's identifiers to the registries for abstracts (scripts/onboarding/fetch_abstracts.py), never what an owner types."""
+    present_tense = ("Your private bibliography stays private", "doesn't use it to read your private bibliography", "You may delete your own private bibliography")
+    for name in ("engine.html", "panel.html", "accept.html", "section.html", "candidates.html"):
+        t = read(name)
+        assert not any(p in t for p in present_tense), name
+        if "bibliography" in t:
+            assert "not built yet" in t, f"{name} names the bibliography without saying it is not built yet"
+    for name in ("engine.html", "panel.html"):
+        t = read(name)
+        assert "Gary's own agent may send the identifiers of papers already in the engine's public repository" in t and "nothing an owner types or uploads is sent that way" in t
+    assert "A private bibliography is planned but not built yet; when it arrives, you will be able to delete your own at any time." in read("accept.html")
 
 
 def test_the_accept_page_links_to_the_panel_in_a_new_tab_without_losing_the_invitation():
