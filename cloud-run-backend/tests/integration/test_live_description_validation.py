@@ -10,6 +10,12 @@ This test only reads Firestore; it never writes anything. It requires
 credentials for the regal-scholar-453620-r7 project) and network access;
 it skips itself cleanly when neither is available, so a normal `pytest`
 run with no cloud credentials configured is unaffected.
+
+OPT-IN (BULLETIN 050): marked `live`, so it is skipped unless pytest is run
+with --run-live. What it reads: every document of the PRODUCTION Firestore
+collection `episodes` (project regal-scholar-453620-r7, database
+copernicusai), listed page by page over Firestore's REST API with the
+caller's own `gcloud auth print-access-token`. It writes nothing.
 """
 import json
 import subprocess
@@ -64,6 +70,7 @@ def _fetch_all_episodes(token):
 
 
 @pytest.mark.integration
+@pytest.mark.live
 def test_validator_passes_on_every_live_episode_description():
     token = _get_access_token()
     if not token:

@@ -335,7 +335,12 @@ def _integrator(monkeypatch, sources, http):
 
     async def fake_search(**kw):
         return list(sources)
-    it = pri.PodcastResearchIntegrator("fake-key")
+
+    def fake_embed_batch(texts):
+        # The relevance gate's embeddings (BULLETIN 050): without this the integrator used the real OpenAI embedding service, with the real key read from
+        # Secret Manager. The same vector for the topic and every paper: each scores 1.0, so the gate keeps them all and these tests see what they did before.
+        return [[1.0, 0.0] for _ in texts]
+    it = pri.PodcastResearchIntegrator("fake-key", embed_batch=fake_embed_batch)
     monkeypatch.setattr(it.research_pipeline, "comprehensive_search", fake_search)
     monkeypatch.setattr(it.enhanced_research_service, "analyze_multiple_papers", fake_multi)
     monkeypatch.setattr(pri, "analyze_paper_with_gemini", fake_gemini)
