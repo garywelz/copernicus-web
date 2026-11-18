@@ -117,6 +117,19 @@
 
     function clear(node) { while (node.firstChild) { node.removeChild(node.firstChild); } }
 
+    // A "What is left" link names a card by #item-<id> (4c-1, finding 2). Cards are built after the page loads, so the browser cannot scroll to it by itself:
+    // the page calls this once, after its first render. Only an id of the form item-... is looked up.
+    function scrollToHash() {
+        var hash = root.location && typeof root.location.hash === 'string' ? root.location.hash : '';
+        var id = '';
+        try { id = decodeURIComponent(hash.slice(1)); } catch (e) { return false; }
+        if (!/^item-[A-Za-z0-9_.:-]{1,120}$/.test(id) || !doc.getElementById) { return false; }
+        var target = doc.getElementById(id);
+        if (!target || typeof target.scrollIntoView !== 'function') { return false; }
+        target.scrollIntoView();
+        return true;
+    }
+
     function when(iso) {
         if (!iso) { return ''; }
         var d = new Date(iso);
@@ -138,5 +151,6 @@
         return function () { root.clearInterval(id); };
     }
 
-    root.OB = Object.assign({ API: API, call: call, h: h, clear: clear, when: when, param: param, engineId: engineIdOrNull, say: say, poll: poll, sessionToken: sessionToken }, pure);
+    root.OB = Object.assign({ API: API, call: call, h: h, clear: clear, when: when, param: param, engineId: engineIdOrNull, say: say, poll: poll, sessionToken: sessionToken,
+                              scrollToHash: scrollToHash }, pure);
 }(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this)));

@@ -9,10 +9,24 @@
         try { return window.localStorage.getItem(KEY_NAME) || ''; } catch (e) { return ''; }
     }
 
+    // The result line (4c-1, finding 6). On 2026-11-18 it kept showing an earlier "Revoked (revoked_member)." although the new revoke had sent nothing, so it
+    // looked done. Now it starts empty, every action first says what it is doing, every result carries its time, and a list refresh after an action leaves that
+    // action's result in place.
+    function stamp() {
+        var d = new Date(), two = function (n) { return (n < 10 ? '0' : '') + n; };
+        return two(d.getHours()) + ':' + two(d.getMinutes()) + ':' + two(d.getSeconds());
+    }
+
     function say(text, bad) {
         var el = $('result');
-        el.textContent = text;                 // text only: nothing the server or the admin typed is ever rendered as HTML
+        el.textContent = '[' + stamp() + '] ' + text;     // text only: nothing the server or the admin typed is ever rendered as HTML
         el.className = bad ? 'error' : 'ok';
+    }
+
+    function begin(text) {
+        var el = $('result');
+        el.textContent = '[' + stamp() + '] ' + text;
+        el.className = 'note';
     }
 
     function showKeyState() {
@@ -24,6 +38,7 @@
     }
 
     $('saveKey').addEventListener('click', function () {
+        begin('Saving the key…');
         var value = $('adminKey').value.trim();
         if (!value) { say('Enter the admin key first.', true); return; }
         try { window.localStorage.setItem(KEY_NAME, value); } catch (e) { say('This browser would not save the key.', true); return; }
@@ -33,6 +48,7 @@
     });
 
     $('sendInvite').addEventListener('click', function () {
+        begin('Sending the invitation…');
         var quotaRaw = $('invQuota').value.trim();
         var body = {
             engine_id: $('invEngine').value.trim(),
@@ -49,7 +65,7 @@
                 if (r.ok) {
                     $('invEmail').value = '';                       // the address is not kept on the page
                     $('invRevokeId').value = r.out.invite_id || '';
-                    if (body.engine_id) { loadList(); }
+                    if (body.engine_id) { loadList(true); }
                     say('Invitation ' + r.out.invite_id + ' created; expires ' + r.out.expires_at + '. Email sent: ' + (r.out.email_sent ? 'yes' : 'NO (revoke it and try again)') + '.', !r.out.email_sent);
                 } else {
                     say('Not created: ' + (typeof r.out.detail === 'string' ? r.out.detail : r.status), true);
@@ -59,13 +75,17 @@
     });
 
     function revoke(id) {
+        begin('Revoking ' + (id || 'an invitation') + '…');
         if (!id) { say('Enter an invitation id.', true); return; }
-        if (!window.confirm('Revoke invitation ' + id + '? If it was already accepted, the membership is removed and the account can no longer generate.')) { return; }
+        if (!window.confirm('Revoke invitation ' + id + '? If it was already accepted, the membership is removed and the account can no longer generate.')) {
+            say('Not revoked: the confirmation was cancelled, so nothing was sent.', true);
+            return;
+        }
         fetch(API + '/api/admin/onboarding/invites/' + encodeURIComponent(id), { method: 'DELETE', headers: headers() })
             .then(function (res) { return res.json().catch(function () { return {}; }).then(function (out) { return { ok: res.ok, status: res.status, out: out }; }); })
             .then(function (r) {
                 say(r.ok ? 'Revoked (' + r.out.outcome + ').' : 'Not revoked: ' + (typeof r.out.detail === 'string' ? r.out.detail : r.status), !r.ok);
-                if (r.ok && $('invEngine').value.trim()) { loadList(); }
+                if (r.ok && $('invEngine').value.trim()) { loadList(true); }
             })
             .catch(function (e) { say('Not revoked: ' + e.message, true); });
     }
@@ -116,19 +136,26 @@
         box.appendChild(table);
     }
 
-    function loadList() {
+    // `quiet`: a refresh after an invite or a revoke, which must not replace that action's own result on the line.
+    function loadList(quiet) {
+        quiet = quiet === true;
         var engine = $('invEngine').value.trim();
+        if (!quiet) { begin('Loading the invitations…'); }
         if (!engine) { say('Enter the engine id first.', true); return; }
         fetch(API + '/api/admin/onboarding/invites?engine_id=' + encodeURIComponent(engine), { method: 'GET', headers: headers() })
             .then(function (res) { return res.json().catch(function () { return {}; }).then(function (out) { return { ok: res.ok, status: res.status, out: out }; }); })
             .then(function (r) {
-                if (r.ok) { renderList(r.out.invites || []); }
+                if (r.ok) {
+                    renderList(r.out.invites || []);
+                    if (!quiet) { say('Loaded ' + (r.out.invites || []).length + ' invitation(s) for ' + engine + '.', false); }
+                }
                 else { say('Could not load: ' + (typeof r.out.detail === 'string' ? r.out.detail : r.status), true); }
             })
             .catch(function (e) { say('Could not load: ' + e.message, true); });
     }
 
-    $('loadList').addEventListener('click', loadList);
+    $('loadList').addEventListener('click', function () { loadList(false); });
 
+    $('result').textContent = '';          // a fresh page shows no result of any earlier action
     showKeyState();
 }());

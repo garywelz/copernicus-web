@@ -204,7 +204,7 @@ def test_a_disagree_comment_marks_the_item_and_blocks_readiness_until_either_own
     assert section_json(env, ADV, "scope")["items"][1]["disagreed"] is True
     p = row(progress(env), "scope")
     assert (p["disagreed"], p["answered"], p["ready"]) == (1, 2, False)
-    assert {"section": "scope", "item_id": "use-case", "reason": "disagreed"} in progress(env)["left"]
+    assert {"section": "scope", "item_id": "use-case", "label": "Use case", "reason": "disagreed"} in progress(env)["left"]
     assert env.client.post(f"{BASE}/comments/{c['comment_id']}/resolve", headers=H[ADV]).status_code == 200            # the OTHER owner resolves it
     assert section_json(env, ADV, "scope")["items"][1]["disagreed"] is False and row(progress(env), "scope")["ready"] is True
     again = env.client.post(f"{BASE}/comments/{c['comment_id']}/resolve", headers=H[OTH])
@@ -295,6 +295,59 @@ def test_the_left_list_is_capped_but_the_total_is_honest(env):
                                                                                           "value": None, "choice": None, "revision": 0, "comment_count": 0, "history": [], "context": {}, "order": 100 + n}
     p = progress(env)
     assert len(p["left"]) == form.LEFT_LIST_CAP == 50 and p["left_total"] == 70
+
+
+def test_what_is_left_by_section_lists_every_item_with_its_words_and_a_count(env):
+    """4c-1, finding 2: the flat list stops at 50; the grouped one has every unanswered item of every section, with its label and the section's total."""
+    for n in range(60):
+        env.db.data["onboarding_items"][form.item_key(X, "keywords", f"kw-extra-{n}")] = {"engine_id": X, "section": "keywords", "item_id": f"kw-extra-{n}", "type": "keyword_entry",
+                                                                                          "value": {"list": "horizons", "text": f"Horizon number {n}"}, "choice": None, "revision": 0,
+                                                                                          "comment_count": 0, "history": [], "context": {}, "order": 100 + n}
+    p = progress(env)
+    groups = {g["section"]: g for g in p["left_by_section"]}
+    assert sum(g["total"] for g in p["left_by_section"]) == p["left_total"] == 70 and sum(len(g["items"]) for g in p["left_by_section"]) == 70     # nothing cut
+    assert [g["section"] for g in p["left_by_section"]] == [s for s in ("scope", "questions", "keywords", "seeds", "review") if s in groups]       # in the form's order
+    kw = groups["keywords"]
+    assert kw["title"] == "Keywords and horizons" and kw["total"] == len(kw["items"]) >= 60
+    assert {"section": "keywords", "item_id": "kw-extra-7", "label": "Horizon: Horizon number 7", "reason": "unanswered"} in kw["items"]
+    assert [x["item_id"] for x in kw["items"] if x["item_id"].startswith("kw-extra-")] == [f"kw-extra-{n}" for n in range(60)]                     # the items' own order
+
+
+@pytest.mark.parametrize("doc,label", [
+    ({"type": "question", "item_id": "eng-q1", "value": {"wording": "  How   does it work?  ", "terms": []}}, "How does it work?"),
+    ({"type": "question", "item_id": "eng-q2", "value": {"wording": "x" * 300}}, "x" * (form.LABEL_CAP - 1) + "…"),
+    ({"type": "keyword_entry", "item_id": "categories-1a2b", "value": {"list": "categories", "text": "persistent cohomology"}}, "Category: persistent cohomology"),
+    ({"type": "keyword_entry", "item_id": "mute-1a2b", "value": {"list": "mute", "text": "crypto"}}, "Muted: crypto"),
+    ({"type": "seed_confirm", "item_id": "seed-4aa217335994", "context": {"title": "A seed paper", "identifier": "doi:10.1/x"}}, "A seed paper"),
+    ({"type": "seed_confirm", "item_id": "seed-4aa217335994", "context": {"identifier": "doi:10.1/x"}}, "doi:10.1/x"),
+    ({"type": "candidate_decision", "item_id": "cand-9f5342c245bf", "context": {"title": "A held paper"}}, "A held paper"),
+    ({"type": "scope_statement", "item_id": "scope-statement"}, "Scope statement"),
+    ({"type": "use_case", "item_id": "use-case"}, "Use case"),
+    ({"type": "out_of_scope", "item_id": "out-of-scope"}, "Out of scope"),
+    ({"type": "keyword_entry", "item_id": "kw-2", "value": None}, "kw-2"),                       # nothing to say: the id, as a last resort
+])
+def test_an_item_is_named_by_its_own_words_not_its_id(doc, label):
+    assert form.item_label(doc) == label
+
+
+def test_the_section_view_gives_every_item_its_label(env):
+    items = section_json(env, ADV, "scope")["items"]
+    assert {i["item_id"]: i["label"] for i in items} == {"scope-statement": "Scope statement", "use-case": "Use case", "out-of-scope": "Out of scope"}
+
+
+def test_a_closed_engine_refuses_a_comment_and_a_resolve_with_409_and_writes_nothing(env):
+    """4c-1, finding 5 (Gary, 2026-11-18): closed means read only, for comments and their resolution as for answers."""
+    c = comment(env, OTH, "scope-statement").json()
+    env.db.data[ob.ENGINES][X]["state"] = "closed"
+    before = snapshot(env.db)
+    for who in (ADV, OTH):
+        r = comment(env, who, "scope-statement", "Still talking.")
+        assert r.status_code == 409 and r.json()["detail"] == "This engine is not open for edits"
+        assert env.client.post(f"{BASE}/comments/{c['comment_id']}/resolve", headers=H[who]).status_code == 409
+    assert comment(env, None, "scope-statement").status_code == 409                                                 # the administrator too
+    assert snapshot(env.db) == before                                                                                # no comment, no count, no event
+    env.db.data[ob.ENGINES][X]["state"] = "open"
+    assert comment(env, ADV, "scope-statement").status_code == 200 and env.client.post(f"{BASE}/comments/{c['comment_id']}/resolve", headers=H[ADV]).status_code == 200
 
 
 def test_the_content_hash_changes_with_the_content_and_differs_between_sections(env):

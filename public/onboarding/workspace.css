@@ -45,3 +45,13 @@ details.panel li { margin-bottom: 8px; }
 .filters label { display: block; margin: 6px 0; }
 .filters select, #bulkBox select { padding: 4px; font-size: 0.95rem; margin-left: 6px; }
 .likely { display: inline-block; background: #e9f6ec; border: 1px solid #9fd0aa; padding: 1px 8px; margin: 4px 0; font-size: 0.85rem; }
+/* 4c-1: an item is named by its own words; its id is small grey text only (finding 1) */
+.itemid { color: #8a9099; font-size: 0.75rem; font-family: Consolas, monospace; margin-left: 6px; }
+#left .leftgroup { list-style: none; margin: 4px 0 4px -20px; }
+#left .leftgroup summary { cursor: pointer; font-weight: bold; }
+/* 4c-1: a closed engine is read only, and looks it: every disabled control is visibly greyed, not only buttons (finding 4) */
+input:disabled, textarea:disabled, select:disabled { background: #eceef1; color: #6b7178; border-color: #d3d7dc; cursor: not-allowed; }
+input[type="radio"]:disabled, input[type="checkbox"]:disabled { opacity: 0.45; }
+input[type="radio"]:disabled + *, label.choice:has(input:disabled) { color: #8a9099; }
+.card.readonly { background: #f7f8fa; border-style: dashed; }
+.readonly-note { font-weight: bold; color: #6b5300; background: #fff8e1; border: 1px solid #e6d28a; padding: 4px 8px; margin: 6px 0; }
