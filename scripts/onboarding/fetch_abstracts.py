@@ -14,7 +14,7 @@ DRY RUN (the default) reads Firestore, calls NO registry and writes nothing: it 
 --apply (with the typed approval line) looks each of those papers up, one every --pace seconds (default 3: arXiv asks for that), and then writes everything in
 ONE Firestore transaction with ONE `abstract_fetch` event. Per paper it sets, on its onboarding_candidates document:
     lookup_state          found | no_abstract | title_mismatch | not_found | unavailable
-    abstract_fetched_at
+    abstract_fetched_at   the time THIS paper was looked up (BULLETIN 049, F2: it used to be the run's start for every paper); the event's ts is the write's time
     registry_record       {title, authors, year, identifiers, sources}      when a registry had the paper
     abstract, abstract_source                                                when it had an abstract
 The lookup cache is not used and not written.
@@ -25,6 +25,11 @@ stored. Every paper is read again inside the transaction, and one that has gaine
 
 title_mismatch: the registry's title for the identifier does not resemble the hold list's title, so the identifier may point at a different paper. The paper
 shows as unresolved in the form; the abstract is shown with the registry's own title beside it and a warning.
+
+PROGRESS: one line per paper, printed and flushed as soon as that paper is done (redirected output is not held back until the end), with the UTC time and
+the seconds the lookup took:   [23:37:29Z] 12/65 doi:10.1234/x: found (2.4 s)
+Each lookup ends within the lookup module's wall-clock budget (utils/onboarding_lookup.py, TOTAL_BUDGET_SECONDS plus at most one second; BULLETIN 049, F1),
+so a run of N papers takes at most about N * (pace + 16) seconds; the dry run prints that bound beside the usual estimate.
 
 LIMIT: at most --limit papers a run (default and maximum 400; Firestore allows 500 writes in a transaction). More than that is refused, never cut.
 
@@ -65,7 +70,13 @@ def backend():
     return ob, candidates, lookup
 
 
-def main(argv=None, db=None, now=None, out=print, sleep=time.sleep, modules=None):
+def flushed(line):
+    """The default output: every line reaches the console or the file at once (BULLETIN 049, F1: buffered output hid a 68-minute run's progress)."""
+    print(line, flush=True)
+
+
+def main(argv=None, db=None, now=None, out=flushed, sleep=time.sleep, modules=None, clock=None, timer=time.monotonic):
+    """`now` fixes every time (tests); `clock` gives the time of each step (each paper's lookup, then the write) and defaults to the real clock, or to `now`."""
     ap = argparse.ArgumentParser(description="Fetch abstracts for an engine's hold-list papers (see the module docstring).")
     ap.add_argument("--engine-id", required=True)
     ap.add_argument("--apply", action="store_true")
@@ -85,7 +96,8 @@ def main(argv=None, db=None, now=None, out=print, sleep=time.sleep, modules=None
     if args.apply and args.approval.strip() != line:
         print(f"ERROR: --apply needs the exact approval line, typed by Gary:\n  {line}", file=sys.stderr)
         return 2
-    now = now or datetime.now(timezone.utc)
+    if clock is None:
+        clock = (lambda: now) if now is not None else (lambda: datetime.now(timezone.utc))
     ob, candidates, lookup = modules or backend()
     try:
         if db is None:
@@ -109,7 +121,9 @@ def main(argv=None, db=None, now=None, out=print, sleep=time.sleep, modules=None
     if not args.apply:
         for cid, c in todo:
             out(f"  would look up: {c['identifier']}  ({cid}; state now: {c.get('lookup_state') or 'never fetched'})")
-        out(f"  no registry was called and nothing was written (dry run). It would take about {int(len(todo) * args.pace)} seconds. To apply, Gary types the approval line:\n    {line}")
+        bound = int(len(todo) * (args.pace + lookup.TOTAL_BUDGET_SECONDS + 1))
+        out(f"  no registry was called and nothing was written (dry run). It would take about {int(len(todo) * args.pace)} seconds, and at most about {bound} "
+            f"seconds if every registry is slow. To apply, Gary types the approval line:\n    {line}")
         return 0
     if not todo:
         out("  nothing to look up: no registry was called and no write was made")
@@ -119,21 +133,22 @@ def main(argv=None, db=None, now=None, out=print, sleep=time.sleep, modules=None
         if n:
             sleep(args.pace)
         kind = c["identifier"].split(":", 1)[0]
+        at, started = clock(), timer()                                              # this paper's own time (F2)
         try:
-            result = lookup.lookup(None, kind, c["identifier"], now=now)            # None: the lookup cache is neither read nor written
+            result = lookup.lookup(None, kind, c["identifier"], now=at)             # None: the lookup cache is neither read nor written
         except ValueError:
             result = {"state": "unavailable", "results": []}
-        fields = candidates.fetch_update(c, result, now.isoformat())
+        fields = candidates.fetch_update(c, result, at.isoformat())
         state = fields["lookup_state"] if fields else "unchanged"
         seen[state] = seen.get(state, 0) + 1
-        out(f"  {n + 1}/{len(todo)} {c['identifier']}: {state}")
+        out(f"  [{at.astimezone(timezone.utc):%H:%M:%S}Z] {n + 1}/{len(todo)} {c['identifier']}: {state} ({timer() - started:.1f} s)")
         if fields:
             updates[cid] = fields
     if not updates:
         out("  nothing new was learned: no write was made")
         return 0
     try:
-        done = candidates.apply_abstracts(db, engine_id=eid, updates=updates, now=now, request_id=uuid.uuid4().hex)
+        done = candidates.apply_abstracts(db, engine_id=eid, updates=updates, now=clock(), request_id=uuid.uuid4().hex)   # the event's ts: the write's time
     except Exception as e:                                                         # noqa: BLE001
         print(f"ERROR: the write failed ({type(e).__name__}); nothing was written", file=sys.stderr)
         return 2

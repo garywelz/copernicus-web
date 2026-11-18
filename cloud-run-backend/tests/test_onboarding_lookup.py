@@ -5,6 +5,8 @@ in-memory Firestore of tests/fakes_pr2.py stands in for the database. Every pape
 The tests that must be able to fail are each run against the opposite case in the same test: no lookup without consent (and a lookup WITH it), the rate limit
 (the 60th passes, the 61st is refused before any call), the size cap (at the cap passes, one byte over does not), and the "not found" wording."""
 import json
+import threading
+import time
 from datetime import timedelta
 from pathlib import Path
 
@@ -180,11 +182,11 @@ def test_the_response_size_cap_is_exact_one_byte_over_is_no_answer(web, monkeypa
 
 
 def test_the_real_network_function_reads_no_more_than_the_cap_sends_no_credential_and_follows_no_redirect(monkeypatch):
-    seen = {}
+    seen = {"reads": []}
 
     class Raw:
         def read(self, n, decode_content=False):
-            seen["read"] = n
+            seen["reads"].append(n)
             return b"x" * n
 
     class Resp:
@@ -198,7 +200,8 @@ def test_the_real_network_function_reads_no_more_than_the_cap_sends_no_credentia
         return Resp()
     monkeypatch.setattr(lookup.requests, "get", get)
     status, body = lookup._http_get("https://api.crossref.org/works/x", 3)
-    assert status == 200 and len(body) == lookup.MAX_BYTES + 1 == seen["read"] and seen["closed"]
+    assert status == 200 and len(body) == lookup.MAX_BYTES + 1 == sum(seen["reads"]) and seen["closed"]          # read in chunks, and never past the cap
+    assert max(seen["reads"]) <= lookup.READ_CHUNK and len(seen["reads"]) > 1
     assert seen["allow_redirects"] is False and seen["stream"] is True and seen["timeout"] == 3
     assert set(seen["headers"]) == {"User-Agent", "Accept"} and seen["headers"]["User-Agent"] == "onboarding-lookup/1.0"
     assert "@" not in json.dumps(seen["headers"]) and "mailto" not in json.dumps(seen["headers"]).lower()
@@ -217,6 +220,66 @@ def test_the_timeout_is_passed_to_every_call_and_the_total_budget_stops_further_
     out = lookup.lookup(None, "doi", DOI_KEY)
     assert seen == [8, 6.0] and [c["state"] for c in out["checked"]] == ["not_found", "not_found", "unavailable"]       # the third was never asked: the budget was spent
     assert out["state"] == "unavailable"
+
+
+# ---- wall-clock limits (BULLETIN 049, F1: a 65-paper fetch took 68 minutes; requests' timeout never bounded a whole call) --------------------------------
+@pytest.fixture
+def hang(monkeypatch):
+    """A registry that never answers: each call blocks until the test ends (then it is released, so no thread outlives the test)."""
+    release, calls = threading.Event(), []
+
+    def get(url, timeout):
+        calls.append(url)
+        release.wait(30)
+        return 200, crossref()
+    monkeypatch.setattr(lookup, "_http_get", get)
+    yield calls
+    release.set()
+
+
+def test_a_registry_call_that_never_answers_is_cut_off_at_its_own_time_limit(hang, monkeypatch):
+    monkeypatch.setattr(lookup, "TIMEOUT_SECONDS", 0.3)
+    started = time.monotonic()
+    state = lookup._call("crossref", "/works/x", None, time.monotonic() + 10)
+    took = time.monotonic() - started
+    assert state == ("unavailable", None) and hang == ["https://api.crossref.org/works/x"]
+    assert 0.25 <= took < 1.0, took                                                    # the limit, not the 30 seconds the registry would have taken
+
+
+def test_a_whole_lookup_ends_within_its_budget_even_when_every_registry_hangs(hang, monkeypatch):
+    monkeypatch.setattr(lookup, "TIMEOUT_SECONDS", 0.4)
+    monkeypatch.setattr(lookup, "TOTAL_BUDGET_SECONDS", 1.0)
+    started = time.monotonic()
+    out = lookup.lookup(None, "doi", DOI_KEY)
+    took = time.monotonic() - started
+    assert out["state"] == "unavailable" and [c["state"] for c in out["checked"]] == ["unavailable"] * 3
+    assert took < lookup.TOTAL_BUDGET_SECONDS + 1.0, took                             # the documented bound: the budget plus at most one second
+
+
+def test_a_body_that_arrives_a_few_bytes_at_a_time_stops_at_the_deadline(monkeypatch):
+    class Raw:
+        def read(self, n, decode_content=False):
+            time.sleep(0.05)
+            return b"x"                                                                # forever, one byte at a time
+
+    class Resp:
+        status_code, raw = 200, Raw()
+
+        def close(self):
+            pass
+    monkeypatch.setattr(lookup.requests, "get", lambda url, **kw: Resp())
+    started = time.monotonic()
+    with pytest.raises(lookup.CallTimedOut):
+        lookup._http_get("https://api.crossref.org/works/x", 0.3)
+    assert time.monotonic() - started < 1.0
+
+
+def test_an_error_inside_the_worker_is_still_unavailable_and_a_quick_answer_is_unchanged(web, monkeypatch):
+    assert lookup._within(1.0, lambda a: a + 1, 1) == 2
+    with pytest.raises(KeyError):
+        lookup._within(1.0, lambda: {}["x"])
+    monkeypatch.setattr(lookup, "_http_get", lambda url, timeout: (_ for _ in ()).throw(OSError("refused")))
+    assert lookup._call("crossref", "/works/x", None, time.monotonic() + 10) == ("unavailable", None)
 
 
 def test_only_the_four_registries_are_ever_contacted_and_a_pubmed_id_never_goes_to_ncbi(web):
