@@ -142,6 +142,54 @@ def scope_paragraph(items: List[dict]) -> str:
     return "\n\n".join(parts)
 
 
+SCOPE_HEADING_RE = re.compile(r"^(#{1,6})\s+.*\bscope\b", re.I)         # the heading _scope_into writes under; read_scope reads from the same one
+OUT_OF_SCOPE_PREFIX = "Out of scope: "
+
+
+def read_scope(text: Optional[str]) -> Dict[str, Any]:
+    """What an engine's README says about its scope, read by the SAME rule render_readme writes by (PR 4c-2; design 2.1, 6.2), so loading and exporting cannot
+    disagree: the body under the first heading that names "scope", up to the next heading of the same or a higher level. Its last paragraph, when it is the
+    "Out of scope: a; b." line scope_paragraph writes, is the out-of-scope list; the rest is the statement.
+    Returns {"heading", "statement", "out_of_scope", "opening"}. With no such heading, heading is None, statement is "" and out_of_scope is []; "opening" is then
+    the README's opening paragraph (the first paragraph after its title), offered to the owners as reference only, never as their statement (Gary, 2026-11-18)."""
+    out: Dict[str, Any] = {"heading": None, "statement": "", "out_of_scope": [], "opening": ""}
+    if not text:
+        return out
+    lines = text.replace("\r\n", "\n").split("\n")
+    for n, line in enumerate(lines):
+        m = SCOPE_HEADING_RE.match(line)
+        if not m:
+            continue
+        level = len(m.group(1))
+        end = next((k for k in range(n + 1, len(lines)) if re.match(r"^#{1,%d}\s" % level, lines[k])), len(lines))
+        paragraphs = [p.strip() for p in re.split(r"\n\s*\n", "\n".join(lines[n + 1:end]).strip()) if p.strip()]
+        if paragraphs and paragraphs[-1].startswith(OUT_OF_SCOPE_PREFIX) and paragraphs[-1].endswith("."):
+            out["out_of_scope"] = [s.strip() for s in paragraphs.pop()[len(OUT_OF_SCOPE_PREFIX):-1].split("; ") if s.strip()]
+        out["heading"] = line.strip()
+        out["statement"] = "\n\n".join(paragraphs)
+        return out
+    out["opening"] = _opening_paragraph(lines)
+    return out
+
+
+def _opening_paragraph(lines: List[str]) -> str:
+    """The first paragraph after the README's title (its first '# ' heading), or "" when there is no plain paragraph there (a rule, a list, a table, a heading)."""
+    start = next((k + 1 for k, line in enumerate(lines) if re.match(r"^#\s", line)), None)
+    if start is None:
+        return ""
+    k = start
+    while k < len(lines) and not lines[k].strip():
+        k += 1
+    para = []
+    while k < len(lines) and lines[k].strip():
+        para.append(lines[k].strip())
+        k += 1
+    first = para[0] if para else ""
+    if not first or re.match(r"^(#|-{3,}|\*{3,}|[-*+]\s|\||<|>)", first):
+        return ""
+    return " ".join(para)
+
+
 ATTR_BEGIN = "<!-- onboarding:attribution:begin -->"
 ATTR_END = "<!-- onboarding:attribution:end -->"
 

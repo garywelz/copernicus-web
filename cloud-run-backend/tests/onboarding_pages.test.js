@@ -904,3 +904,18 @@ test('4c-1: "What is left" is grouped by section with counts, every line in its 
   await settle();
   assert.strictEqual(done.$('left').textContent, 'Nothing is left to answer.');
 });
+
+// ---- PR 4c-2: the scope read from the README ---------------------------------------------------------------------------------------------------------------
+test('4c-2: a scope card says where the scope came from and shows the README\'s opening paragraph as reference only, as text', async () => {
+  const st = item({ item_id: 'scope-statement', type: 'scope_statement', value: '', context: { source: 'README.md has no Scope heading', reference: 'SYN studies things. ' + HOSTILE } });
+  const page = sectionPage('scope', [st]);
+  await settle();
+  const text = card(page, 'scope-statement').textContent;
+  assert.match(text, /From the repository: README\.md has no Scope heading\./);
+  assert.match(text, /For reference only, the README's opening paragraph \(it is not your statement; write the statement in the box below\):\nSYN studies things\./);
+  assert.strictEqual(textarea(page, 'scope-statement').value, '', 'the reference is never put into the statement box');
+  noMarkupIn(page);
+  const q = sectionPage('questions', [item({ item_id: 'eng-q1', section: 'questions', type: 'question', value: { wording: 'W?', terms: [] }, context: { source: 'x', reference: 'y' } })]);
+  await settle();
+  assert.doesNotMatch(card(q, 'eng-q1').textContent, /For reference only|From the repository/, 'only the scope section shows them');
+});
