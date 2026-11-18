@@ -20,6 +20,7 @@ SECTIONS_COL, ITEMS, COMMENTS = "onboarding_sections", "onboarding_items", "onbo
 HISTORY_CAP = 20           # revisions kept on the item (the audit log keeps every prior value)
 APPROVED_HISTORY_CAP = 20
 LEFT_LIST_CAP = 50
+LEFT_GROUP_CAP = 600       # per section in left_by_section: above every section's own item limit (500 keyword entries), so in practice nothing is cut
 MAX_SPLIT = 5
 COMMENT_KINDS = ("comment", "disagree")
 STATUSES = ("draft", "final", "approved", "rejected")
@@ -61,9 +62,36 @@ def public_comment(c: dict, viewer: dict, engine: dict, comment_id: Optional[str
             "resolved_at": c.get("resolved_at")}
 
 
+LABEL_CAP = 140
+LIST_NAMES = {"categories": "Category", "horizons": "Horizon", "mute": "Muted", "frontier": "Frontier", "flagged": "Flagged"}
+TYPE_NAMES = {"scope_statement": "Scope statement", "use_case": "Use case", "out_of_scope": "Out of scope"}
+
+
+def _short(text: Any) -> str:
+    t = " ".join(str(text).split()) if isinstance(text, str) else ""
+    return t if len(t) <= LABEL_CAP else t[:LABEL_CAP - 1].rstrip() + "…"
+
+
+def item_label(doc: dict) -> str:
+    """The words that name an item for a person (4c-1, finding 1): a question's wording, a keyword entry's list and text, a seed's or a paper's title, or the
+    name of a scope field. The item id is the last resort, never the first. Text only; the pages render it with textContent."""
+    t, value, ctx = doc.get("type"), doc.get("value"), doc.get("context") or {}
+    value = value if isinstance(value, dict) else {}
+    if t == "question":
+        label = _short(value.get("wording"))
+    elif t == "keyword_entry":
+        text = _short(value.get("text"))
+        label = f"{LIST_NAMES.get(value.get('list'), str(value.get('list') or 'Entry').capitalize())}: {text}" if text else ""
+    elif t in ("seed_confirm", "candidate_decision"):
+        label = _short(ctx.get("title")) or _short(ctx.get("identifier"))
+    else:
+        label = TYPE_NAMES.get(t, "")
+    return label or str(doc.get("item_id") or "")
+
+
 def public_item(doc: dict, viewer: dict, engine: dict, comments: Optional[List[dict]] = None) -> dict:
     comments = comments or []
-    return {"item_id": doc.get("item_id"), "section": doc.get("section"), "type": doc.get("type"), "choice": doc.get("choice"), "value": doc.get("value"),
+    return {"item_id": doc.get("item_id"), "label": item_label(doc), "section": doc.get("section"), "type": doc.get("type"), "choice": doc.get("choice"), "value": doc.get("value"),
             "context": doc.get("context") or {}, "revision": doc.get("revision", 0), "answered": doc.get("revision", 0) >= 1,
             "author": author_label(doc.get("author_subscriber_id"), viewer, engine) if doc.get("author_subscriber_id") else None, "updated_at": doc.get("updated_at"),
             "comment_count": doc.get("comment_count", 0), "disagreed": any(c.get("kind") == "disagree" and not c.get("resolved") for c in comments),
@@ -188,7 +216,7 @@ def get_progress(db, engine_id: str, viewer: dict) -> dict:
     """Per section: items open / answered / disagreed / final / approved, whether it is ready; a 'what is left' list; and the 'waiting on' line."""
     items, comments, sec_docs = _items_of(db, engine_id), _comments_of(db, engine_id), _section_docs(db, engine_id)
     disagreed = _disagreed_ids(comments)
-    rows, left, shown = [], [], shown_keys(items)
+    rows, left, left_by_section, shown = [], [], [], shown_keys(items)
     for meta in tpl.SECTIONS:
         if meta["key"] not in shown:
             continue
@@ -196,11 +224,15 @@ def get_progress(db, engine_id: str, viewer: dict) -> dict:
         status = (sec_docs.get(meta["key"]) or {}).get("status", "draft")
         rows.append({"key": meta["key"], "title": meta["title"], "status": status, **section_counts(its, disagreed, status),
                      "rejection_note": review_view(sec_docs.get(meta["key"]) or {}, status)["rejection_note"]})
-        for i in its:
+        group = []
+        for i in sorted(its, key=lambda x: (x.get("order") if isinstance(x.get("order"), (int, float)) else 10 ** 9, str(x.get("item_id")))):
             if i.get("item_id") in disagreed:
-                left.append({"section": meta["key"], "item_id": i["item_id"], "reason": "disagreed"})
+                group.append({"section": meta["key"], "item_id": i["item_id"], "label": item_label(i), "reason": "disagreed"})
             elif i.get("revision", 0) < 1:
-                left.append({"section": meta["key"], "item_id": i["item_id"], "reason": "unanswered"})
+                group.append({"section": meta["key"], "item_id": i["item_id"], "label": item_label(i), "reason": "unanswered"})
+        left.extend(group)
+        if group:
+            left_by_section.append({"section": meta["key"], "title": meta["title"], "total": len(group), "items": group[:LEFT_GROUP_CAP]})
     waiting = []
     if any(r["ready"] and r["status"] in ("draft", "rejected") for r in rows):
         waiting.append(("final_say", "the final-say owner to mark ready sections final"))
@@ -209,7 +241,8 @@ def get_progress(db, engine_id: str, viewer: dict) -> dict:
     if any(r["items"] and not r["ready"] and r["status"] in ("draft", "rejected") for r in rows):
         waiting.append(("owners", "the owners to answer %d item(s) and resolve %d disagreement(s)" % (
             sum(r["open"] for r in rows if r["status"] in ("draft", "rejected")), sum(r["disagreed"] for r in rows if r["status"] in ("draft", "rejected")))))
-    return {"template_version": tpl.TEMPLATE_VERSION, "sections": rows, "left": left[:LEFT_LIST_CAP], "left_total": len(left),
+    # `left` (the first LEFT_LIST_CAP, flat) stays for older pages; `left_by_section` is every section's list, with its total (4c-1, finding 2).
+    return {"template_version": tpl.TEMPLATE_VERSION, "sections": rows, "left": left[:LEFT_LIST_CAP], "left_total": len(left), "left_by_section": left_by_section,
             "waiting_on": {"who": [w[0] for w in waiting], "line": ("Waiting on " + "; ".join(w[1] for w in waiting)) if waiting else "Nothing is waiting."}}
 
 
@@ -534,7 +567,17 @@ def add_seed(db, *, engine_id: str, subscriber_id: str, record: dict, question_i
 
 
 # ---- comments ----------------------------------------------------------------------------------------------------------------------------------
+def _require_open(transaction, db, engine_id: str) -> None:
+    """A closed engine is read only, for comments and their resolution as for answers (Gary, 2026-11-18; 4c-1, finding 5): 409, and nothing is written."""
+    snap = db.collection(ob.ENGINES).document(engine_id).get(transaction=transaction)
+    if not snap.exists:
+        raise FormError(404, "Not found")
+    if (snap.to_dict() or {}).get("state") != "open":
+        raise FormError(409, "This engine is not open for edits")
+
+
 def _add_comment_in(transaction, db, engine_id, section, item_id, comment_id, doc, viewer_actor, now, ip_hash, request_id):
+    _require_open(transaction, db, engine_id)
     item_ref = db.collection(ITEMS).document(item_key(engine_id, section, item_id))
     snap = item_ref.get(transaction=transaction)
     if not snap.exists:
@@ -572,6 +615,7 @@ def add_comment(db, *, engine_id: str, item_id: str, viewer: dict, body: Any, ki
 
 
 def _resolve_in(transaction, db, engine_id, comment_id, sid, now, ip_hash, request_id):
+    _require_open(transaction, db, engine_id)
     ref = db.collection(COMMENTS).document(comment_id)
     snap = ref.get(transaction=transaction)
     c = snap.to_dict() if snap.exists else None

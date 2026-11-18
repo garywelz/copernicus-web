@@ -36,7 +36,7 @@ const stale = (current) => ({ status: 409, data: { detail: { message: 'Someone c
 function findAll(root, pred) { const out = []; root.walk((n) => { if (n.nodeType === 1 && pred(n)) out.push(n); }); return out; }
 function button(root, text) { return findAll(root, (e) => e.tag === 'button' && e.textContent === text)[0]; }
 function card(page, id) {
-  return page.doc.all().filter((e) => /^card/.test(e.className) && e.children[0] && e.children[0].children[0] && e.children[0].children[0].textContent === id)[0];
+  return page.doc.getElementById('item-' + id);          // 4c-1: every card carries its item's anchor (its heading is now the item's words, not its id)
 }
 function box(page, id, sel) { return findAll(card(page, id), sel); }
 const textarea = (page, id) => box(page, id, (e) => e.tag === 'textarea')[0];
@@ -827,6 +827,82 @@ test('4b-1: an added seed card shows the registry title, identifier, authors, ye
   assert.match(text, /A synthetic paper\ndoi:10\.9998\/synthetic\.001\nAda Example, .* \(2021\)\nQuestions: ex-q1, ex-q3\nAdded by an owner\./);
   assert.strictEqual(box(page, 'seed-abc', (e) => e.attrs.type === 'radio' && e.checked).length, 0, 'it starts unanswered');
   noMarkupIn(page);
+});
+
+// ---- 4c-1: the item's own words, a grouped "What is left", and a closed engine that is visibly read only ---------------------------------------------------
+const unresolved = (id) => ({ comment_id: id.repeat(32), item_id: 'eng-q1', kind: 'comment', body: 'Open question', author: 'other owner', role: 'owner', created_at: null,
+                               resolved: false, resolved_by: null, resolved_at: null });
+const question = (over = {}) => item(Object.assign({ item_id: 'eng-q1', section: 'questions', type: 'question', label: 'How does the method recover circular coordinates?',
+                                                     value: { wording: 'How does the method recover circular coordinates?', terms: [] }, comments: [unresolved('e')] }, over));
+const controls = (root) => findAll(root, (e) => ['input', 'textarea', 'select', 'button'].includes(e.tag));
+
+test('4c-1: a card is headed by the item\'s own words, with its id only as small grey text', async () => {
+  const page = sectionPage('questions', [question()]);
+  await settle();
+  const c = card(page, 'eng-q1');
+  assert.ok(c, 'the card carries its anchor item-eng-q1');
+  const head = c.children[0];
+  assert.strictEqual(head.children[0].textContent, 'How does the method recover circular coordinates?');
+  assert.strictEqual(findAll(head, (e) => e.className === 'itemid')[0].textContent, 'eng-q1');
+  const noLabel = sectionPage('scope', [item({ label: undefined })]);
+  await settle();
+  assert.strictEqual(card(noLabel, 'use-case').children[0].children[0].textContent, 'use-case');                       // an older server: the id, as a last resort
+});
+
+test('4c-1: on a closed engine every control on a card is disabled, the card says it is read only, and nothing is sent', async () => {
+  const page = sectionPage('questions', [question()], { engine: { state: 'closed' } });
+  await settle();
+  const c = card(page, 'eng-q1');
+  const all = controls(c);
+  assert.ok(all.length >= 5, 'the choices, the comment box, the disagree box, Add comment and Resolve are all on the card');
+  assert.deepStrictEqual(all.filter((e) => !e.disabled).map((e) => e.tag + ':' + (e.textContent || e.attrs.type || '')), [], 'nothing on a closed engine is enabled');
+  assert.match(c.className, /\breadonly\b/);
+  const note = findAll(c, (e) => /readonly-note/.test(e.className))[0];
+  assert.ok(note && !note.hidden && /Read only: this engine is closed/.test(note.textContent));
+  button(c, 'Add comment').click();
+  button(c, 'Resolve').click();
+  findAll(c, (e) => e.attrs.type === 'radio')[0].click();
+  page.timers.flushTimeouts();
+  await settle();
+  assert.deepStrictEqual([...puts(page), ...posts(page)], [], 'no save, no comment, no resolve is even attempted');
+});
+
+test('4c-1: when the engine opens or closes while the page is open, the cards follow it', async () => {
+  const page = sectionPage('questions', [question()], { engine: { state: 'closed' } });
+  await settle();
+  assert.ok(controls(card(page, 'eng-q1')).every((e) => e.disabled));
+  page.state.engine.state = 'open';
+  page.timers.tickIntervals();
+  await settle();
+  const c = card(page, 'eng-q1');
+  assert.ok(!/\breadonly\b/.test(c.className) && controls(c).filter((e) => e.tag !== 'button' || e.textContent !== 'Merge both').every((e) => !e.disabled), 'open again: usable');
+  page.state.engine.state = 'closed';
+  page.timers.tickIntervals();
+  await settle();
+  assert.ok(controls(card(page, 'eng-q1')).every((e) => e.disabled) && /\breadonly\b/.test(card(page, 'eng-q1').className), 'closed again: read only');
+});
+
+test('4c-1: "What is left" is grouped by section with counts, every line in its own words and linked to its card', async () => {
+  const many = Array.from({ length: 60 }, (_, n) => ({ section: 'keywords', item_id: `horizons-${n}`, label: `Horizon: topic ${n}`, reason: 'unanswered' }));
+  const page = enginePage({ progress: Object.assign(enginePayload().progress, {
+    left: many.slice(0, 50), left_total: 63,
+    left_by_section: [
+      { section: 'questions', title: 'Research questions', total: 3, items: [1, 2, 3].map((n) => ({ section: 'questions', item_id: `eng-q${n}`, label: `Question ${n}?`, reason: n === 2 ? 'disagreed' : 'unanswered' })) },
+      { section: 'keywords', title: 'Keywords and horizons', total: 60, items: many },
+    ] }) });
+  await settle();
+  const groups = findAll(page.$('left'), (e) => e.tag === 'details');
+  assert.deepStrictEqual(groups.map((g) => g.children[0].textContent), ['Research questions: 3 left', 'Keywords and horizons: 60 left']);
+  const links = findAll(page.$('left'), (e) => e.tag === 'a').map((a) => [a.textContent, a.attrs.href]);
+  assert.strictEqual(links.length, 63, 'every item, not the first 50');
+  assert.deepStrictEqual(links[0], ['Question 1?', 'section.html?engine=eng-x&section=questions#item-eng-q1']);
+  assert.deepStrictEqual(links[62], ['Horizon: topic 59', 'section.html?engine=eng-x&section=keywords#item-horizons-59']);
+  assert.ok(findAll(page.$('left'), (e) => e.className === 'itemid').some((e) => e.textContent === 'eng-q2'), 'the id only as small grey text');
+  assert.match(page.$('left').textContent, /Question 2\? \(.+\)/);
+  assert.strictEqual(page.$('leftMore').hidden, true, 'no "Showing 50 of 63"');
+  const done = enginePage({ progress: Object.assign(enginePayload().progress, { left: [], left_total: 0, left_by_section: [] }) });
+  await settle();
+  assert.strictEqual(done.$('left').textContent, 'Nothing is left to answer.');
 });
 
 // ---- PR 4c-2: the scope read from the README ---------------------------------------------------------------------------------------------------------------
