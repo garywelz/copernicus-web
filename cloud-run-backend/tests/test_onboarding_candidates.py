@@ -4,8 +4,10 @@ fetch (scripts/onboarding/fetch_abstracts.py). Offline: the in-memory Firestore 
 canned registry answers. Synthetic papers only."""
 import hashlib
 import importlib.util
+import inspect
 import json
-from datetime import datetime, timezone
+import re
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import pytest
@@ -473,6 +475,38 @@ def test_apply_fetches_each_paper_paced_and_writes_everything_in_one_transaction
     assert "APPLIED: 3 papers written (1 found, 1 no_abstract, 1 title_mismatch)" in out
     shown = review(env).json()
     assert [p["unresolved"] for p in shown["papers"]] == [False, True, True] and shown["papers"][2]["warning"]
+
+
+def test_each_paper_keeps_its_own_lookup_time_the_event_the_writes_time_and_every_line_is_timestamped(env, fetch):
+    """BULLETIN 049, F2: every paper and the event used to carry the run's start time."""
+    with_hold_list(env)
+    canned(fetch.web)
+    steps = [NOW + timedelta(seconds=s) for s in (0, 70, 140, 210)]                  # three lookups a minute apart, then the write
+    ticks, lines = iter(steps), []
+    code = fetch.fa.main(["--engine-id", X, "--apply", "--approval", LINE], db=env.db, out=lines.append, sleep=lambda s: None,
+                         modules=(ob, candidates, lookup), clock=lambda: next(ticks))
+    assert code == 0
+    stamped = [ln for ln in lines if re.match(r"^  \[\d\d:\d\d:\d\dZ\] \d/3 ", ln)]
+    assert [ln.split("]")[0] for ln in stamped] == ["  [18:00:00Z", "  [18:01:10Z", "  [18:02:20Z"]
+    assert all(re.search(r"\(\d+\.\d s\)$", ln) for ln in stamped)                    # and how long that lookup took
+    fetched = sorted(cand(env, n)["abstract_fetched_at"] for n in range(3))
+    assert fetched == [t.isoformat() for t in steps[:3]]                              # three different times, one per paper
+    (e,) = events(env.db, "abstract_fetch")
+    assert e["ts"] == steps[3].isoformat()                                            # the event is dated by the write
+
+
+def test_progress_lines_are_flushed_by_default(fetch, monkeypatch):
+    seen = []
+    monkeypatch.setattr("builtins.print", lambda *a, **k: seen.append((a, k)))
+    fetch.fa.flushed("a line")
+    assert seen == [(("a line",), {"flush": True})]
+    assert inspect.signature(fetch.fa.main).parameters["out"].default is fetch.fa.flushed
+
+
+def test_the_dry_run_states_the_worst_case_time_from_the_lookup_budget(env, fetch):
+    with_hold_list(env)
+    code, out = fetch.run()
+    assert code == 0 and "about 9 seconds" in out and f"at most about {3 * (3 + lookup.TOTAL_BUDGET_SECONDS + 1)} seconds" in out
 
 
 def test_a_later_run_fills_only_what_is_missing(env, fetch):

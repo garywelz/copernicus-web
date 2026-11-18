@@ -5,7 +5,10 @@ contacted: every URL is built here from one of four fixed hosts, redirects are n
 generic client name). A PubMed id is resolved through OpenAlex and then Semantic Scholar; NCBI is not called (decided by Gary, 2026-11-10).
 
 LIMITS: each call has a timeout (TIMEOUT_SECONDS), one lookup has a total budget (TOTAL_BUDGET_SECONDS), and at most MAX_BYTES of any answer is read; a longer
-answer is treated as no answer. The per-person and per-engine rate limits and the consent check are in the route (endpoints/onboarding/routes.py): this
+answer is treated as no answer. Both time limits are WALL-CLOCK limits (BULLETIN 049, finding F1): a call runs in a worker thread and is abandoned as
+`unavailable` when its time is up, whatever the socket is doing (a slow DNS answer, an address that does not connect, a body that arrives a few bytes at a
+time). `requests`' own timeout bounds only each connect and each wait between bytes, never a whole call, so a 65-paper fetch once took 68 minutes. The body is
+read in chunks against the same deadline, so an abandoned call stops soon after. A lookup therefore ends within TOTAL_BUDGET_SECONDS plus at most one second. The per-person and per-engine rate limits and the consent check are in the route (endpoints/onboarding/routes.py): this
 module is never reached for a person who has not agreed to lookups.
 
 THREE OUTCOMES, never two. `found`: a registry returned a record. `not_found`: every registry that was asked answered, and none has it. `unavailable`: a
@@ -27,6 +30,7 @@ import hashlib
 import html
 import json
 import re
+import threading
 import time
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
@@ -43,7 +47,8 @@ USER_AGENT = "onboarding-lookup/1.0"         # a generic client name: no address
 TIMEOUT_SECONDS = 8
 TOTAL_BUDGET_SECONDS = 15
 MAX_BYTES = 512_000
-CACHE = "onboarding_lookup_cache"
+READ_CHUNK = 65_536
+CACHE ="onboarding_lookup_cache"
 CACHE_HOURS = 24
 TITLE_RESULTS = 5
 TITLE_CAP, ABSTRACT_CAP, AUTHOR_CAP, AUTHORS_MAX = 600, 5000, 120, 20
@@ -52,13 +57,47 @@ _TAG = re.compile(r"<[^>]{0,200}>")
 _CONTROL = re.compile(r"[\x00-\x1f\x7f]")
 
 
+class CallTimedOut(Exception):
+    """A call that did not finish inside its wall-clock limit."""
+
+
 def _http_get(url: str, timeout: float) -> Tuple[int, bytes]:
-    """The only network call. Tests replace it. No credential, no redirect; reads at most MAX_BYTES + 1."""
+    """The only network call. Tests replace it. No credential, no redirect; reads at most MAX_BYTES + 1, in chunks, and stops with CallTimedOut once `timeout`
+    seconds have passed since it started (a body that arrives a few bytes at a time cannot hold it open)."""
+    deadline = time.monotonic() + timeout
     r = requests.get(url, headers={"User-Agent": USER_AGENT, "Accept": "application/json, application/atom+xml;q=0.9"}, timeout=timeout, stream=True, allow_redirects=False)
     try:
-        return r.status_code, r.raw.read(MAX_BYTES + 1, decode_content=True)
+        body = b""
+        while len(body) <= MAX_BYTES:
+            if time.monotonic() >= deadline:
+                raise CallTimedOut(url)
+            chunk = r.raw.read(min(READ_CHUNK, MAX_BYTES + 1 - len(body)), decode_content=True)
+            if not chunk:
+                break
+            body += chunk
+        return r.status_code, body
     finally:
         r.close()
+
+
+def _within(seconds: float, fn: Callable, *args):
+    """fn(*args), or CallTimedOut once `seconds` of wall-clock time have passed. The call runs in a daemon thread; one that overruns is abandoned, not waited for
+    (_http_get's own deadline then ends it soon after)."""
+    box: Dict[str, Any] = {}
+
+    def run():
+        try:
+            box["value"] = fn(*args)
+        except BaseException as e:                                  # noqa: BLE001 - handed back to the caller below
+            box["error"] = e
+    worker = threading.Thread(target=run, name="onboarding-lookup-call", daemon=True)
+    worker.start()
+    worker.join(seconds)
+    if worker.is_alive():
+        raise CallTimedOut(f"no answer within {seconds:.1f} s")
+    if "error" in box:
+        raise box["error"]
+    return box["value"]
 
 
 def _url(registry: str, path: str, params: Optional[Dict[str, str]] = None) -> str:
@@ -70,9 +109,10 @@ def _call(registry: str, path: str, params: Optional[Dict[str, str]], deadline: 
     left = deadline - time.monotonic()
     if left <= 0:
         return "unavailable", None
+    limit = min(TIMEOUT_SECONDS, max(1.0, left))
     try:
-        status, body = _http_get(_url(registry, path, params), min(TIMEOUT_SECONDS, max(1.0, left)))
-    except Exception:                                            # noqa: BLE001 - a timeout, a refused connection, a DNS failure: all "unavailable"
+        status, body = _within(limit, _http_get, _url(registry, path, params), limit)
+    except Exception:                                            # noqa: BLE001 - a timeout (ours or the socket's), a refused connection, a DNS failure: all "unavailable"
         return "unavailable", None
     if status == 404:
         return "not_found", None
