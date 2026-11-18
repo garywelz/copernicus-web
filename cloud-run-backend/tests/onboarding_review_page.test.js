@@ -340,6 +340,26 @@ test('a closed engine, or a reader who is not an owner, sees every decision but 
   }
 });
 
+test('4c-1: a paper card is headed by its title, carries its anchor and its id in small grey text, and on a closed engine says it is read only', async () => {
+  const page = open({ engine: { state: 'closed' } });
+  await settle();
+  const one = page.$('item-cand-000000000001');
+  assert.ok(one, 'the card carries its anchor, for the engine page\'s "What is left" links');
+  assert.strictEqual(one.children[0].children[0].textContent, 'Held paper 1');
+  assert.strictEqual(findAll(one, (e) => e.className === 'itemid')[0].textContent, 'cand-000000000001');
+  assert.match(one.className, /\breadonly\b/);
+  const note = findAll(one, (e) => /readonly-note/.test(e.className))[0];
+  assert.ok(note && !note.hidden && /Read only: this engine is closed/.test(note.textContent));
+  assert.deepStrictEqual(findAll(one, (e) => ['input', 'textarea', 'select', 'button'].includes(e.tag) && !e.disabled).map((e) => e.tag), [], 'nothing on the card is enabled');
+  const openPage = open();
+  await settle();
+  const live = openPage.$('item-cand-000000000001');
+  assert.ok(!/\breadonly\b/.test(live.className) && findAll(live, (e) => /readonly-note/.test(e.className))[0].hidden, 'an open engine: no read-only marking');
+  const untitled = open({ papers: [paper(9, { title: null })] });
+  await settle();
+  assert.strictEqual(untitled.$('item-cand-000000000009').children[0].children[0].textContent, 'doi:10.9998/held.9', 'no title: the identifier, never the id first');
+});
+
 test('Mark final shows only to someone who may mark the review, is disabled until it is ready, and posts once', async () => {
   const page = open({ section: { ready: true, open: 0, answered: 3 }, extra: (m, p) => (m === 'POST' && p === `${BASE}/sections/review/final` ? ok({ section: 'review', status: 'final' }) : null) });
   await settle();
@@ -399,7 +419,8 @@ test('the engine page links its "Hold list: review" row and left items to the re
   const links = findAll(page.doc.body, (e) => e.tag === 'a').map((a) => [a.textContent, a.attrs.href]);
   assert.ok(links.some(([t, href]) => t === 'Open' && href === 'candidates.html?engine=eng-x'), JSON.stringify(links));
   assert.ok(links.some(([t, href]) => t === 'Open' && href === 'section.html?engine=eng-x&section=scope'));
-  assert.ok(links.some(([t, href]) => t === 'Hold list: review: cand-000000000001' && href === 'candidates.html?engine=eng-x'));
+  // 4c-1: a left item links to its own card; with no label from the server (an older server), the id is the last resort for its text
+  assert.ok(links.some(([t, href]) => t === 'cand-000000000001' && href === 'candidates.html?engine=eng-x#item-cand-000000000001'), JSON.stringify(links));
   assert.ok(!links.some(([, href]) => /section=review/.test(href || '')));
   assert.ok(page.$('d_review'));
   page.timers.tickIntervals();

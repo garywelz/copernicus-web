@@ -218,6 +218,7 @@
         }
         var more = h('button', { class: 'small', type: 'button', text: 'Add another part' });
         var go = h('button', { class: 'small primary', type: 'button', text: 'Split it' });
+        more.disabled = go.disabled = !ctx.open;          // 4c-1: nothing on a closed engine's card is enabled, even behind the "Split" toggle
         var out = h('span', { class: 'note' });
         form.appendChild(more);
         form.appendChild(go);
@@ -327,11 +328,19 @@
         }
     }
 
+    // A closed engine is read only (4c-1, finding 4): every control of the card is disabled, the card says so, and the server answers 409 to anything sent.
+    function applyOpen(c, it) {
+        c.el.className = 'card' + (it.disagreed ? ' disagreed' : '') + (ctx.open ? '' : ' readonly');
+        c.roEl.hidden = ctx.open;
+        c.commentCtrls.forEach(function (e) { e.disabled = !ctx.open; });
+        c.resolveBtns.forEach(function (b) { b.disabled = !ctx.open; });
+    }
+
     function updateComments(c, it) {
-        var sig = JSON.stringify(it.comments || []);
-        c.el.className = 'card' + (it.disagreed ? ' disagreed' : '');
-        if (c.commentSig === sig) { return; }
+        var sig = JSON.stringify([it.comments || [], ctx.open]);
+        if (c.commentSig === sig) { applyOpen(c, it); return; }
         c.commentSig = sig;
+        c.resolveBtns = [];
         OB.clear(c.commentsEl);
         (it.comments || []).forEach(function (cm) {
             var line = (cm.kind === 'disagree' ? 'Disagrees' : 'Comment') + ' · ' + cm.author + ' · ' + OB.when(cm.created_at) + (cm.resolved ? ' · resolved by ' + cm.resolved_by : '');
@@ -344,16 +353,19 @@
                         .catch(function () { b.disabled = false; say('Network error. Please try again.', true); });
                 });
                 node.appendChild(b);
+                c.resolveBtns.push(b);
             }
             c.commentsEl.appendChild(node);
         });
+        applyOpen(c, it);
     }
 
     function commentForm(c) {
         var ta = h('textarea', { rows: 2, maxlength: 2000 }), dis = h('input', { type: 'checkbox' }), post = h('button', { class: 'small', type: 'button', text: 'Add comment' });
         var out = h('span', { class: 'note' });
+        c.commentCtrls = [ta, dis, post];
         post.addEventListener('click', function () {
-            if (!ta.value.trim()) { return; }
+            if (!ta.value.trim() || !ctx.open) { return; }
             post.disabled = true;
             OB.call('POST', base + '/items/' + encodeURIComponent(c.item.item_id) + '/comments', { body: ta.value, kind: dis.checked ? 'disagree' : 'comment' }).then(function (r) {
                 post.disabled = false;
@@ -366,6 +378,7 @@
     // ---- cards --------------------------------------------------------------------------------------------------------------------------------------------
     function buildBody(c) {
         OB.clear(c.body);
+        c.builtOpen = ctx.open;
         c.read = null;
         c.onChoice = null;
         var ctxBlock = contextBlock(c.item);
@@ -382,13 +395,17 @@
     }
 
     function newCard(it) {
-        var c = { item: it, rev: it.revision, dirty: false, saving: false, conflict: false, version: 0, timer: null, read: null, onChoice: null, metaSig: '', commentSig: '' };
+        var c = { item: it, rev: it.revision, dirty: false, saving: false, conflict: false, version: 0, timer: null, read: null, onChoice: null, metaSig: '', commentSig: '',
+                  commentCtrls: [], resolveBtns: [] };
         c.body = h('div', {});
         c.statusEl = h('div', { class: 'status' });
         c.conflictEl = h('div', { class: 'conflict', hidden: true });
         c.metaEl = h('div', {});
         c.commentsEl = h('div', { class: 'comments' });
-        c.el = h('div', { class: 'card' }, [h('div', { class: 'head' }, [h('strong', { text: it.item_id })]), c.body, c.statusEl, c.conflictEl, c.metaEl, c.commentsEl, commentForm(c)]);
+        c.roEl = h('div', { class: 'note readonly-note', text: 'Read only: this engine is closed, so nothing here can be changed.', hidden: true });
+        // Headed by the item's own words (4c-1, finding 1); the id stays only as small grey text, and as the card's anchor for the "What is left" links.
+        c.el = h('div', { class: 'card', id: 'item-' + it.item_id }, [h('div', { class: 'head' }, [h('strong', { text: it.label || it.item_id }), h('span', { class: 'itemid', text: it.item_id })]),
+            c.roEl, c.body, c.statusEl, c.conflictEl, c.metaEl, c.commentsEl, commentForm(c)]);
         buildBody(c);
         updateMeta(c, it);
         updateComments(c, it);
@@ -399,6 +416,7 @@
         items.forEach(function (it) {
             var c = cards[it.item_id];
             if (!c) { c = cards[it.item_id] = newCard(it); $('items').appendChild(c.el); return; }
+            if (c.builtOpen !== ctx.open && !c.dirty && !c.saving && !c.conflict) { c.item = it; c.rev = it.revision; buildBody(c); }   // the engine opened or closed
             updateMeta(c, it);
             updateComments(c, it);
             var editing = c.el.contains(document.activeElement);
@@ -533,6 +551,7 @@
             renderHeader();
             buildAdders();
             reconcile(r[1].data.items);
+            if (!ctx.scrolled) { ctx.scrolled = true; OB.scrollToHash(); }
         }).catch(function () { say('Network error. Retrying shortly.', true); });
     }
 

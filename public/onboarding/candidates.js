@@ -138,7 +138,8 @@
         var p = c.paper;
         c.byEl.textContent = p.answered ? 'Decided: ' + (CHOICE_WORDS[p.choice] || p.choice) + (p.author ? ' by ' + p.author : '') + (p.updated_at ? ', ' + OB.when(p.updated_at) : '') +
             (p.comment_count ? ' · ' + p.comment_count + ' comment(s) on the section page thread' : '') : 'Not decided yet';
-        c.el.className = 'card' + (p.disagreed ? ' disagreed' : '');
+        c.el.className = 'card' + (p.disagreed ? ' disagreed' : '') + (ctx.open ? '' : ' readonly');     // a closed engine is read only (4c-1, finding 4)
+        if (c.roEl) { c.roEl.hidden = ctx.open; }
     }
 
     function makeCard(p) {
@@ -150,8 +151,11 @@
         c.radios = CHOICES.map(function (ch) { return h('input', { type: 'radio', name: 'd_' + p.item_id, value: ch }); });
         c.comment = h('textarea', { rows: 2, maxlength: COMMENT_CAP, placeholder: 'A comment for the other owner and the reviewer (not published)' });
         var choices = h('div', {}, c.radios.map(function (r, i) { return h('label', { class: 'choice' }, [r, ' ' + CHOICE_WORDS[CHOICES[i]]]); }));
-        c.el = h('div', { class: 'card' }, [h('div', { class: 'head' }, [h('strong', { text: p.title || p.item_id }), c.byEl]), c.textEl, choices,
-                                          h('label', { text: 'Comment' }), c.comment, c.statusEl, c.conflictEl]);
+        c.roEl = h('div', { class: 'note readonly-note', text: 'Read only: this engine is closed, so nothing here can be changed.', hidden: true });
+        // Headed by the paper's title (4c-1, finding 1); the id stays only as small grey text, and as the card's anchor for the engine page's "What is left" links.
+        c.el = h('div', { class: 'card', id: 'item-' + p.item_id }, [h('div', { class: 'head' }, [h('strong', { text: p.title || p.identifier || p.item_id }),
+                                                                                                    h('span', { class: 'itemid', text: p.item_id }), c.byEl]),
+                                                                      c.roEl, c.textEl, choices, h('label', { text: 'Comment' }), c.comment, c.statusEl, c.conflictEl]);
         c.radios.forEach(function (r) { r.addEventListener('change', function () { touched(c, true); }); });
         c.comment.addEventListener('input', function () { touched(c, false); });
         show(c, p);
@@ -291,6 +295,7 @@
             renderCounts(r[1].data.counts);
             renderGroups(r[1].data.groups || []);
             reconcile(ctx.papers);
+            if (!ctx.scrolled) { ctx.scrolled = true; OB.scrollToHash(); }
         }).catch(function () { say('Network error. Retrying shortly.', true); });
     }
 

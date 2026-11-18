@@ -45,14 +45,40 @@
                 h('td', { text: s.answered }), h('td', { text: s.disagreed }), h('td', { text: s.final }), h('td', { text: s.approved }), h('td', {}, [sectionLink(s.key, 'Open')])
             ]));
         });
+        renderLeft(p);
+    }
+
+    // "What is left" (4c-1, findings 1 and 2): grouped by section, each group with its count, every line in the item's own words and linked to its card.
+    // The id is shown only as small grey text. An older server without left_by_section still gets the flat list.
+    function itemLink(key, itemId, text) {
+        var page = OB.pageFor(key) === 'candidates.html' ? 'candidates.html?engine=' + encodeURIComponent(engine)
+            : 'section.html?engine=' + encodeURIComponent(engine) + '&section=' + encodeURIComponent(key);
+        return h('a', { href: page + '#item-' + encodeURIComponent(itemId), text: text });
+    }
+
+    function leftLine(l) {
+        return h('li', {}, [itemLink(l.section, l.item_id, l.label || l.item_id), ' (' + (OB.REASONS[l.reason] || l.reason) + ') ', h('span', { class: 'itemid', text: l.item_id })]);
+    }
+
+    function renderLeft(p) {
         var left = $('left');
         OB.clear(left);
-        p.left.forEach(function (l) {
-            left.appendChild(h('li', {}, [sectionLink(l.section, (OB.SECTION_TITLES[l.section] || l.section) + ': ' + l.item_id), ' (' + (OB.REASONS[l.reason] || l.reason) + ')']));
+        $('leftMore').hidden = true;
+        var groups = p.left_by_section;
+        if (!groups) {
+            p.left.forEach(function (l) { left.appendChild(leftLine(l)); });
+            if (!p.left.length) { left.appendChild(h('li', { text: 'Nothing is left to answer.' })); }
+            $('leftMore').hidden = p.left_total <= p.left.length;
+            if (p.left_total > p.left.length) { $('leftMore').textContent = 'Showing ' + p.left.length + ' of ' + p.left_total + '.'; }
+            return;
+        }
+        if (!groups.length) { left.appendChild(h('li', { text: 'Nothing is left to answer.' })); return; }
+        groups.forEach(function (g) {
+            var list = h('ul', {});
+            g.items.forEach(function (l) { list.appendChild(leftLine(l)); });
+            var shown = g.items.length < g.total ? ' (showing ' + g.items.length + ')' : '';
+            left.appendChild(h('li', { class: 'leftgroup' }, [h('details', {}, [h('summary', { text: g.title + ': ' + g.total + ' left' + shown }), list])]));
         });
-        if (!p.left.length) { left.appendChild(h('li', { text: 'Nothing is left to answer.' })); }
-        $('leftMore').hidden = p.left_total <= p.left.length;
-        if (p.left_total > p.left.length) { $('leftMore').textContent = 'Showing ' + p.left.length + ' of ' + p.left_total + '.'; }
     }
 
     function renderDelegations(list) {
