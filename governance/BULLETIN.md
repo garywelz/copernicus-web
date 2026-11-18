@@ -25,6 +25,43 @@ Entry format:
 
 ---
 
+## 052 — 2026-11-18 — The access panel and accept page corrected (#224); `tdap` relabelled and opened; the TDAP researcher invited with final say; arXiv backfill piece 3
+
+- **From:** Claude Code (Core lane), at Gary's direction. Each write below was named by Gary first and read back. Gary sent the invitation himself from the admin page.
+- **Status:** DRAFT. In force from the merge of the pull request that adds this entry. Records what was done; it changes no rule. Follows entry 051.
+- **Record:** copernicus-web [#224](https://github.com/garywelz/copernicus-web/pull/224) (merge `79ca5ec16`; static text, no deploy). Direct writes on `onboarding_engines/tdap`, each in one transaction with one audit event: `engine_label` (`onboarding_events/29f0fe5a679d44a8bd21a26f9c55807a`) and `engine_state` (`onboarding_events/ba3ecd72f1724e5dab9b1ff7600300ee`). Invitation `63cab3d29e4747b4b85078975216e279`. Cloud Run is unchanged: `copernicus-podcast-api-00451-xaq` at 100%.
+- **Affects:** Core; Gary and Claude Chat; the TDAP researcher, now invited; Cursor (the Jetson pull and the backfill)
+- **Summary:**
+  - **#224: the access panel and the accept page corrected.** Both described the private bibliography (PR 4b-3) as if it existed. It is not built yet, and the text now says so, with every promise about it in the future tense.
+    - The panel's outside-services item gains one sentence. Gary's own agent may send the identifiers of papers already in the engine's public repository, such as the hold list, to the public scholarly services to fetch their abstracts, and nothing an owner types or uploads is sent that way. That disclosure covers `scripts/onboarding/fetch_abstracts.py`, which was decided on 2026-11-10 to need no owner consent.
+    - A static test now fails if any onboarding page describes the bibliography in the present tense.
+    - The site served the new text from 19:06:46Z.
+  - **`tdap` relabelled** at 19:00:35Z, from "TDAP: Topological Data Analysis Project" to **"TDAP (Topological Data Analysis Project)"**. The label names the engine in the invitation email. The email's header cleaning keeps the parentheses, so the subject reads "Gary Welz invited you to the TDAP (Topological Data Analysis Project) engine on CopernicusAI".
+  - **`tdap` opened** at 19:07:24Z, and it stays open, because the invited owner needs to edit.
+    - **The checks first, all as expected:** only Gary's account can generate. `tdap` was closed, with 0 members, no final-say holder, no pending invitation and no delegation; its one earlier invitation (the attended look's test account) was already revoked. 93 items were all unanswered, with 0 comments and 0 bundles. The live revision was `00451-xaq`.
+    - **After the write:** `state` is `open`, and every other field is unchanged.
+  - **The TDAP researcher invited** by Gary from the admin page at 19:28:16Z: invitation `63cab3d2…`, **final say yes, can generate no, quota 0, expiring 2026-11-25 19:28Z** (7 days).
+    - **Read back:** unused and not revoked, role `owner`. `tdap`'s `pending_final_say_invite_id` is that invitation, so a second final-say invitation is refused until this one is used, revoked or expired.
+    - **The send:** the service logged `email_sent: True` and no email failure.
+    - **Still unchanged:** 0 members, all 93 items unanswered, and only Gary's account can generate.
+    - **On acceptance:** the researcher becomes `tdap`'s owner with the final say, and gets the "ready to mark final" and "re-opened" notices. The account cannot generate podcasts. Delegation needs a second owner.
+  - **arXiv backfill piece 3** (Jetson, 14:07 to 14:18 New York, outside the scout windows, nothing else running; the copy in `/tmp/arxiv_backfill_cd6ef79cd`, identical to `cd6ef79cd`):
+    - **A first dry run** of 2026-09-26 to 2026-10-09 gave 363 new, over the cap of 300, and was not written.
+    - **The window used, 2026-09-29 to 2026-10-09:** the dry run and the write both matched 373, with 88 duplicates, 0 on disk, **285 new, 285 saved**, and no failure, incomplete query or 429.
+    - **On disk:** the files under `arxiv_recent/biology` rose from 1,283 to 1,568.
+    - **The next piece ends at 2026-09-28.**
+  - **This morning's 10:30 ingest took in piece 2:**
+    - **Ingest:** wrote 299, failed 0. That is piece 2's 270 plus 24 new from the morning arXiv scout and 5 from bioRxiv.
+    - **Embedding hook:** selected 299, under its cap of 500, with 0 failed and no error.
+    - **The other hooks:** all OK.
+- **Waiting on:**
+  - **Gary:** review and name this pull request; backfill piece 4 (ending 2026-09-28) after tonight's 20:15 ingest has taken in piece 3.
+  - **The TDAP researcher:** to accept the invitation by 2026-11-25.
+  - **Core:** the readback of the acceptance (the membership, final say, consent, and `pending_final_say_invite_id` cleared) when Gary asks; the later items of entry 051.
+  - **Cursor:** the Jetson pull, still outstanding.
+  - **Claude Chat:** review of this pull request.
+  - **GLMP lane and Methods & Tools:** nobody.
+
 ## 051 — 2026-11-18 — The lookup time limits (#219) and onboarding 4c-1 (#221) live; the attended look at `tdap` and its six findings; the loader reads the scope from the README (#222); `tdap`'s README gains a draft scope and `tdap` is re-loaded; final say cannot be handed over; arXiv backfill piece 2
 
 - **From:** Claude Code (Core lane), at Gary's direction. Every Firestore write, merge, deploy and traffic move below was named by Gary first, and each was read back before the next step.
