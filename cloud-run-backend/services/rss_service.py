@@ -1,6 +1,7 @@
 """RSS Feed Management Service for Copernicus Podcast API"""
 
 import asyncio
+import re
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element, SubElement
 from typing import Dict, Any, Optional
@@ -276,11 +277,14 @@ class RSSService:
         return cleaned
     
     @staticmethod
-    def _append_cdata_element(parent: Element, tag: str, text: str) -> Element:
-        """Append an element whose contents will be serialized as CDATA."""
-        safe_text = text.replace("]]>", "]]]]><![CDATA[>")
+    def _append_text_element(parent: Element, tag: str, text: str) -> Element:
+        """Append an element holding `text` as ordinary XML text. The XML library escapes it exactly once, and a podcast app decodes it once.
+
+        It used to write the literal string "<![CDATA[...]]>" as the element's text: the library escaped all of it, HTML included, and a string
+        replacement then restored only the CDATA markers, so the HTML stayed escaped INSIDE the CDATA section, where nothing is decoded. Apps showed
+        it to listeners as "<p style=...>", "<h2>References</h2>" (8 of the 40 items on 2026-11-19), and a ">" in plain text as "&gt;"."""
         element = SubElement(parent, tag)
-        element.text = f"<![CDATA[{safe_text}]]>"
+        element.text = text
         return element
     
     @classmethod
@@ -312,32 +316,24 @@ class RSSService:
         from content_fixes import limit_description_length
         description_markdown = limit_description_length(description_markdown, 4000)
 
-        description_html = cls._markdown_to_html(description_markdown)
-        if transcript_url:
-            description_html += f'\n<p><a href="{transcript_url}">View full transcript</a></p>'
-        if attribution_initials:
-            description_html += f"\n<p>Creator: {attribution_initials}</p>"
-
-        # Create plain text version for RSS description field (Spotify/iTunes compatibility)
-        # Convert from markdown (not HTML) to preserve links as URLs
-        import re
+        # The feed's own text (feed_text.py): simple HTML for <content:encoded> (only the few tags podcast apps accept, no styles, headings as bold
+        # paragraphs) and plain text for <description> and <itunes:summary>. The website keeps its styled rendering; it does not use this.
         import html as html_module
-        
-        description_plain = description_markdown      # already bare: no link markup is left to convert
-        # Remove any remaining HTML if present
-        description_plain = re.sub(r'<[^>]+>', '', description_plain)
-        # Decode HTML entities
-        description_plain = html_module.unescape(description_plain)
-        description_plain = description_plain.strip()
-        
-        # Already limited to 4000 chars above, but double-check plain text version
+        from feed_text import feed_html, feed_plain
+
+        description_html = feed_html(description_markdown)
+        if transcript_url:
+            description_html += f'\n<p><a href="{html_module.escape(transcript_url, quote=True)}">View full transcript</a></p>'
+        if attribution_initials:
+            description_html += f"\n<p>Creator: {html_module.escape(attribution_initials)}</p>"
+
+        description_plain = feed_plain(description_markdown)
+        # feed_plain only removes markup, so the text is no longer than the limited Markdown; checked again all the same
         if len(description_plain) > 4000:
-            # Use limit_description_length which preserves references
             description_plain = limit_description_length(description_plain, 4000)
 
-        # Clean summary text for Spotify (plain text, no HTML)
-        summary_text = extract_itunes_summary(description_markdown or "")
-        summary_text = cls._clean_description_for_spotify(summary_text)
+        # The summary: plain text too
+        summary_text = feed_plain(cls._clean_description_for_spotify(extract_itunes_summary(description_markdown or "")))
 
         generated_at = result.get("generated_at") or podcast_data.get("updated_at") or podcast_data.get("created_at")
         pub_date = cls._parse_iso_datetime(generated_at)
@@ -373,16 +369,16 @@ class RSSService:
         """Create a fully populated RSS <item> element."""
         item_el = Element("item")
 
-        cls._append_cdata_element(item_el, "title", item_data["title"])
+        cls._append_text_element(item_el, "title", item_data["title"])
         SubElement(item_el, "link").text = item_data["episode_link"]
 
         # Use plain text for description field (Spotify/iTunes compatibility)
         # Use HTML for content:encoded (for platforms that support it)
-        cls._append_cdata_element(item_el, "description", item_data.get("description_plain", item_data["description_html"]))
-        cls._append_cdata_element(item_el, f"{{{RSS_NAMESPACES['itunes']}}}summary", item_data["summary"])
-        cls._append_cdata_element(item_el, f"{{{RSS_NAMESPACES['content']}}}encoded", item_data["description_html"])
+        cls._append_text_element(item_el, "description", item_data.get("description_plain", item_data["description_html"]))
+        cls._append_text_element(item_el, f"{{{RSS_NAMESPACES['itunes']}}}summary", item_data["summary"])
+        cls._append_text_element(item_el, f"{{{RSS_NAMESPACES['content']}}}encoded", item_data["description_html"])
 
-        cls._append_cdata_element(item_el, f"{{{RSS_NAMESPACES['itunes']}}}author", "CopernicusAI")
+        cls._append_text_element(item_el, f"{{{RSS_NAMESPACES['itunes']}}}author", "CopernicusAI")
 
         SubElement(
             item_el,
@@ -419,7 +415,7 @@ class RSSService:
             episode_number = int(canonical.split("-")[-1])
         SubElement(item_el, f"{{{RSS_NAMESPACES['itunes']}}}episode").text = str(episode_number)
 
-        cls._append_cdata_element(item_el, "category", item_data["category_label"])
+        cls._append_text_element(item_el, "category", item_data["category_label"])
 
         if item_data["attribution"]:
             person_el = SubElement(item_el, f"{{{RSS_NAMESPACES['podcast']}}}person")
@@ -507,11 +503,9 @@ class RSSService:
             for sorted_item in existing_items:
                 channel.append(sorted_item)
 
-            new_xml_bytes = ET.tostring(root, encoding="utf-8", xml_declaration=True)
-            # Restore CDATA markers (ElementTree escapes them by default)
-            xml_text = new_xml_bytes.decode("utf-8")
-            xml_text = xml_text.replace("&lt;![CDATA[", "<![CDATA[").replace("]]&gt;", "]]>")
-            new_xml_bytes = xml_text.encode("utf-8")
+            # Every text field is ordinary XML text, escaped once here (no CDATA, and no string replacement afterwards: that replacement is what left
+            # HTML escaped inside CDATA sections, see _append_text_element).
+            new_xml_bytes = serialize_feed(root)
             try:
                 blob.upload_from_string(
                     new_xml_bytes,
@@ -582,6 +576,85 @@ class RSSService:
         timestamp_field = "rss_submitted_at" if submitted else "rss_removed_at"
         update_payload[timestamp_field] = datetime.utcnow().isoformat()
         db.collection(EPISODE_COLLECTION_NAME).document(canonical).set(update_payload, merge=True)
+
+
+def serialize_feed(root: Element) -> bytes:
+    """The whole feed as bytes: every field ordinary XML text, escaped once by the library. No CDATA, no string replacement afterwards."""
+    return ET.tostring(root, encoding="utf-8", xml_declaration=True)
+
+
+_ENTITY = re.compile(r"&(?:lt|gt|amp|quot|apos|#\d+|#x[0-9a-fA-F]+);")
+
+
+_ESCAPED_TAG = re.compile(r"&lt;\s*/?\s*[a-zA-Z][a-zA-Z0-9]*[\s&/]")
+_REAL_TAG = re.compile(r"<\s*/?\s*[a-zA-Z][a-zA-Z0-9]*[\s>/]")
+
+
+def text_kind(value: Optional[str], html: bool = False) -> str:
+    """How a podcast app sees a field's (already XML-decoded) text: 'escaped' if it would show markup to the listener, else 'html' or 'plain'.
+    In an HTML field (<content:encoded>, html=True) entities such as &gt; are how HTML writes ">" and are decoded by the app; only an escaped TAG
+    ("&lt;p ...") is shown to the listener. In a plain field (<description>, <itunes:summary>) any entity is shown as written."""
+    if value is None:
+        return "absent"
+    if (_ESCAPED_TAG if html else _ENTITY).search(value):
+        return "escaped"
+    if _REAL_TAG.search(value):
+        return "html"
+    return "plain"
+
+
+def rebuild_feed_text(xml_bytes: bytes, job_for_guid) -> tuple:
+    """(new feed bytes, report): every item's <description>, <itunes:summary> and <content:encoded> rebuilt from its job record with today's builder
+    (feed_text.py), for the items already in the feed (2026-11-19: 8 of 40 showed escaped HTML to listeners). Nothing else in any item changes: title,
+    link, enclosure, guid, date, images, duration and episode number are kept as they are, except a title holding a doubly escaped character, which is
+    decoded once. The creator credit is kept from the item's own <podcast:person>. `job_for_guid(guid, title)` returns the job record, None, or a
+    string giving the reason no single job could be chosen; in either of the last two cases the item is left exactly as it is and reported. (Two
+    different episodes can share a file name: on 2026-11-19 the first job for ever-phys-250032 was another episode, so a job is chosen by title too.) Every rebuilt text must pass the same pre-publish check as a publish: an item whose text fails
+    it is left exactly as it is and reported with the reason (its content needs a separate fix), and the other items are still rebuilt."""
+    import html as html_module
+    root = ET.fromstring(xml_bytes)
+    channel = root.find("channel")
+    if channel is None:
+        raise ValueError("the feed has no channel")
+    tags = {"description": "description", "summary": f"{{{RSS_NAMESPACES['itunes']}}}summary", "encoded": f"{{{RSS_NAMESPACES['content']}}}encoded"}
+    report = []
+    for item in channel.findall("item"):
+        guid = (item.findtext("guid") or "").strip()
+        before = {k: text_kind(item.findtext(t), html=(k == "encoded")) for k, t in tags.items()}
+        title = html_module.unescape((item.findtext("title") or "").strip())
+        job = job_for_guid(guid, title)
+        if not job:
+            report.append({"guid": guid, "rebuilt": False, "reason": "no job record", "before": before})
+            continue
+        if isinstance(job, str):                                                   # the lookup's own reason, e.g. no job with this item's title
+            report.append({"guid": guid, "rebuilt": False, "reason": job, "before": before})
+            continue
+        person = item.find(f"{{{RSS_NAMESPACES['podcast']}}}person")
+        attribution = person.text.strip() if person is not None and person.text else None
+        data = RSSService._build_rss_item_data(job, None, attribution)
+        try:
+            validate_description_before_publish(data["description_plain"])
+            validate_description_before_publish(data["description_html"])
+        except Exception as e:                                                   # noqa: BLE001 - the same check a publish runs; this item stays as it is
+            report.append({"guid": guid, "rebuilt": False, "reason": f"refused by the pre-publish check: {e}", "before": before})
+            continue
+        new = {"description": data["description_plain"], "summary": data["summary"] or (item.findtext(tags["summary"]) or ""), "encoded": data["description_html"]}
+        changed = []
+        for k, tag in tags.items():
+            el = item.find(tag)
+            if el is None:
+                el = SubElement(item, tag)
+            if (el.text or "") != new[k]:
+                changed.append(k)
+            el.text = new[k]
+        title_el = item.find("title")
+        if title_el is not None and title_el.text and _ENTITY.search(title_el.text):
+            title_el.text = html_module.unescape(title_el.text)
+            changed.append("title")
+        report.append({"guid": guid, "rebuilt": True, "changed": changed, "before": before,
+                       "after": {k: text_kind(item.findtext(t), html=(k == "encoded")) for k, t in tags.items()},
+                       "lengths": {k: len(item.findtext(t) or "") for k, t in tags.items()}})
+    return serialize_feed(root), report
 
 
 # Create singleton instance

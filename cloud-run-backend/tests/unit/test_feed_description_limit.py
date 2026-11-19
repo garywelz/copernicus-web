@@ -12,6 +12,7 @@ from xml.etree.ElementTree import QName
 import pytest
 
 from content_fixes import limit_description_length
+from feed_text import feed_plain
 from reference_sections import render_for_feed
 from services.rss_service import RSS_NAMESPACES, RSSService
 
@@ -33,8 +34,15 @@ def visible(html):
     return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html)).strip()
 
 
+def _heading_at(text, name):
+    """Where the References or Hashtags heading starts: "## References" in Markdown, a line of its own ("References") in the feed's plain text."""
+    m = re.search(rf"(?m)^(?:#{{1,6}}\s+)?{name}\s*$", text)
+    return m.start() if m else -1
+
+
 def ref_lines(text):
-    section = text[text.index("## References"):text.index("## Hashtags")] if "## Hashtags" in text else text[text.index("## References"):]
+    start, end = _heading_at(text, "References"), _heading_at(text, "Hashtags")
+    section = text[start:end] if end > start else text[start:]
     return [l for l in section.splitlines() if l.startswith("- ")]
 
 
@@ -98,7 +106,8 @@ def legacy_plain(description, canonical):
 
 
 def narrative(text):
-    return text.split("## References")[0].strip()
+    i = _heading_at(text, "References")
+    return (text[:i] if i >= 0 else text).strip()
 
 
 def dedup(text):
@@ -116,8 +125,9 @@ def test_no_older_items_feed_text_gets_shorter_and_any_that_change_are_listed():
         assert "](" not in new and "<a href" not in new
         if new != old:
             changed.append((canonical, len(old), len(new)))
-            # the only allowed differences: duplicated addresses removed, or more of the narrative kept because the limit now sees the shorter text
-            assert new == dedup(old) or len(narrative(new)) > len(narrative(old)), (canonical, "changed in some other way")
+            # the only allowed differences: the plain form (no Markdown markup, feed_text.feed_plain), duplicated addresses removed, or more of the
+            # narrative kept because the limit now sees the shorter text
+            assert new == feed_plain(dedup(old)) or len(narrative(new)) > len(narrative(feed_plain(old))), (canonical, "changed in some other way")
     print("changed items:", changed)
 
 
