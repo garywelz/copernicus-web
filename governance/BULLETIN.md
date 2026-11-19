@@ -25,6 +25,48 @@ Entry format:
 
 ---
 
+## 053 — 2026-11-19 — The Artifact Registry cleanup went live and deleted exactly the 292 versions its dry run listed; correction: the earlier "no dry-run entries" readings came from an account that cannot see private logs; backfill pieces 3 ingested and 4 written; the `tdap` invitation not yet accepted
+
+- **From:** Claude Code (Core lane), at Gary's direction. Gary read the dry-run entries in Logs Explorer himself, and typed the line that switched the policy to live.
+- **Status:** DRAFT. In force from the merge of the pull request that adds this entry. It records a change to production storage, which cannot be reversed for the deleted images, and corrects entries 047 and 051. It changes no rule. Follows entry 052.
+- **Record:** `gcloud artifacts repositories set-cleanup-policies … --no-dry-run` on `gcr.io` (us) at 2026-11-18 20:18:25Z and on `cloud-run-source-deploy` (us-central1) at 20:18:38Z. Both re-used the same four rules, read back as identical, with only the dry-run setting changed. The settings beforehand were saved locally. The dry run's evidence is Gary's Logs Explorer export, which is kept on Gary's machine and is not in any repository.
+- **Affects:** Core; Gary; anyone deploying `copernicus-podcast-api` (the `keep-rollback-` tag of `cloud-run-backend/DEPLOY.md` is now what keeps a rollback image); Cursor (the Jetson and the backfill)
+- **Summary:**
+  - **Correction to entries 047 and 051.**
+    - Those entries reported no `BatchDeleteVersions` entry and "no data-access entry of any kind" since Data Write logging was enabled on 2026-11-14 15:38:18Z. **Both readings came from this machine's `gcloud` account,** a service account with `logging.logEntries.list` but **without `logging.privateLogEntries.list`** (checked with `testIamPermissions`).
+    - Data Access audit logs are private logs. For such an account a read comes back **empty, not refused**, even though the log exists.
+    - **What the empty readings meant:** they showed nothing about the dry run; it had not failed.
+    - **What Gary found:** read with Gary's own account, the dry run had logged all along. There were **57 `BatchDeleteVersions` calls with `validateOnly: true`**, by the Artifact Registry service agent, from 2026-11-14 22:35Z to 2026-11-18 16:22Z: 14 runs on `cloud-run-source-deploy` and 5 on `gcr.io`, each naming the same versions.
+    - **The rule from here on:** an empty read of a private log proves nothing unless the reader is first shown to hold `logging.privateLogEntries.list`.
+  - **The dry run's delete list:** **173 versions in `gcr.io` and 119 in `cloud-run-source-deploy`, 292 in all.**
+    - **It matches entry 040's simulation exactly,** digest for digest. That was re-run on 2026-11-16 at 02:30Z and also found 292.
+    - **None of the 292 was protected:** none was in use by a Cloud Run revision, job or execution, carried a `keep-rollback-` tag, was among the 10 newest of its image, or was younger than 30 days.
+    - **Tags lost with the images:** besides one-off build-id tags, `copernicus-podcast-api`'s `latest` (an image from 2026-08-26), `enhanced` and `enhanced-v2` (2025-08-09). Nothing used them. `scienceviddb-ingestion:latest`, which two jobs use, was not on the list.
+  - **Before the switch, re-checked against the live state:** all 96 in-use digests in `gcr.io` were covered by a keep rule, and none was in use in `cloud-run-source-deploy`. Twenty other in-use digests are in `gcf-artifacts` (the Cloud Functions images), which has no cleanup policy.
+  - **The live run, read back on 2026-11-19 at about 14:00Z:**
+
+    | Repository | Versions before | Now | Deleted | Deleted and on the list | Deleted and NOT on the list |
+    |---|---|---|---|---|---|
+    | `gcr.io` | 297 | 124 | 173 | 173 | 0 |
+    | `cloud-run-source-deploy` | 166 | 47 | 119 | 119 | 0 |
+
+    - **What remains:** all 96 `keep-rollback-` tagged versions and all 96 in-use digests are still there.
+    - **Sizes:** `gcr.io` went from 121,585 MB to **55,808 MB**. `cloud-run-source-deploy` reports **76,357 MB, almost unchanged**, though 119 of its versions are gone. The cause is not established. The size figure may lag, or the deleted versions' layers may be shared with the 47 that remain. It will be re-read.
+    - **Reversal:** setting the policy back to dry run stops further deletions; it cannot restore the deleted images.
+  - **arXiv backfill:**
+    - **Piece 3 ingested.** Last night's 20:15 ingest **wrote 285, failed 0**, with 0 gate hits. The embedding hook selected 285, under its cap of 500, and completed all 285 with 0 failed and no error. Every hook was OK.
+    - **The evening scouts** all exited 0. arXiv had **no 429, no retry and no wait** (fetched 113, 0 new). PubMed fetched 500, 0 new; bioRxiv fetched 6, 0 new.
+    - **Piece 4** covered 2026-09-18 to 2026-09-28 (Jetson, 08:56 to 08:57 New York, nothing else running). The dry run and the write both matched 248, with 53 duplicates, 0 on disk, **195 new, 195 saved**, and no failure, incomplete query or 429. The files under `arxiv_recent/biology` rose from 1,568 to 1,763.
+    - **The next piece ends at 2026-09-17.**
+  - **`tdap`:** invitation `4afc57d2…` is **not yet accepted**: unused and not revoked, valid until 2026-11-25 19:48Z. `tdap` is open, with 0 members, no final-say holder, and nothing answered.
+- **Waiting on:**
+  - **Gary:** review and name this pull request; backfill piece 5 (ending 2026-09-17) after tonight's 20:15 ingest has taken in piece 4; a re-read of `cloud-run-source-deploy`'s size; whether to give the agents' account private-log access (`roles/logging.privateLogViewer`), an IAM change that needs Gary's approval.
+  - **The TDAP researcher:** to accept by 2026-11-25.
+  - **Core:** the readback of the acceptance when it happens.
+  - **Cursor:** the Jetson pull, still outstanding.
+  - **Claude Chat:** review of this pull request.
+  - **GLMP lane and Methods & Tools:** nobody.
+
 ## 052 — 2026-11-18 — The access panel and accept page corrected (#224); `tdap` relabelled and opened; the TDAP researcher invited with final say, then re-invited at a second address; arXiv backfill piece 3
 
 - **From:** Claude Code (Core lane), at Gary's direction. Each write below was named by Gary first and read back. Gary sent the invitation himself from the admin page.
