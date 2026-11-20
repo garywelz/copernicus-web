@@ -71,12 +71,13 @@ def world(monkeypatch):
     monkeypatch.setattr(firestore, "transactional", lambda f: f)            # a transaction on the fake is just a call
     state = SimpleNamespace(db=FakeDb(), gcs=[])
     monkeypatch.setattr(cs, "db", state.db)
-    import requests
+    # The bucket is listed with the backend's own service account now, never over anonymous HTTP, so the fake stands in for
+    # media_store.list_names rather than for requests.get.
+    import media_store
 
-    def fake_get(url, timeout=10):
-        items = [{"name": "audio/" + n + ".mp3"} for n in state.gcs]
-        return SimpleNamespace(status_code=200, json=lambda: {"items": items})
-    monkeypatch.setattr(requests, "get", fake_get)
+    def fake_list_names(bucket, prefix, client=None):
+        return sorted("audio/" + n + ".mp3" for n in state.gcs if ("audio/" + n).startswith(prefix))
+    monkeypatch.setattr(media_store, "list_names", fake_list_names)
     return state
 
 
