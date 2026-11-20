@@ -92,21 +92,23 @@ class Section:
 
 SECTION_TEMPLATES: Tuple[Tuple[str, str, int, str], ...] = (
     ("opening", "The hook", 12,
-     "The host opens in her own words and makes a listener want to stay: what happened (hundreds of manuscripts released overnight), the one "
-     "paper that experts reportedly believe, and the paper OpenAI withdrew within a day of the release. Two or three plain sentences, one of them a "
-     "question the listener is now asking. No list of sources, no talk of what the episode will or will not cover. She does not read the topic out "
-     "as a title."),
+     "The host opens in her own words and makes a listener want to stay: what happened, the single claim that matters most, and, ONLY where the "
+     "notes record one, a withdrawal or correction. Every particular comes from the notes: no event, number, date or outcome the notes do not give. "
+     "Two or three plain sentences, one of them a question the listener is now asking. No list of sources, no talk of what the episode will or will "
+     "not cover. She does not read the topic out as a title."),
     ("claims", "What is claimed", 30,
-     "What the manuscripts say they show and why each would matter, in plain meaning for a general listener, always attributed (\"OpenAI says\", "
-     "\"the manuscript argues\"). The HOST asks what a listener would ask (what is that, why does it matter) and the EXPERT explains. Include ONE "
-     "general sentence saying that OpenAI's manuscripts are company releases that have not been peer reviewed. Say each full title once, then use a "
-     "short name (\"the 7/8 paper\", \"the ETH paper\", \"the Unique Games paper\"). No formulas or symbols read aloud: explain what a result means."),
+     "What the listed sources say they show and why each would matter, in plain meaning for a general listener, always attributed (\"the "
+     "manuscript argues\", \"the paper reports\", naming the body that released it). The HOST asks what a listener would ask (what is that, why "
+     "does it matter) and the EXPERT explains. Where the list holds a company release, include ONE general sentence saying that a company release "
+     "has not been peer reviewed. Say each full title once, then use a short name for it afterwards. No formulas or symbols read aloud: explain "
+     "what a result means."),
     ("trust", "How far to trust it", 28,
-     "What is and is not established, in exactly the wording given. OpenAI's catalogue lists Lean formalizations that it marks \"unchecked\"; a Lean "
-     "formalization is a catalogue entry, not a verdict. Where a news source calls a version formally verified, say that it is that source's "
-     "description. Where experts are reported to largely agree a version is correct, say who reported it. Include any caveat a source raises. End "
-     "with the withdrawal as the cautionary tale: the manuscript was withdrawn within a day of the release for a sign error in a key step, with no "
-     "technical detail. A withdrawn paper is NEVER named without the word \"withdrawn\" in the same sentence."),
+     "What is and is not established, in exactly the wording the notes give for each source's status, and nothing beyond it. A catalogue listing is "
+     "a listing, never a verdict on correctness. Where a source is quoted calling a result verified, say that it is that source's description. "
+     "Where experts are reported to agree, say who reported it. Include any caveat a source raises. Where, and only where, the notes record that a "
+     "listed source was withdrawn or corrected, close on it as the cautionary note, in the words of its own record and with no technical detail; a "
+     "source recorded as withdrawn is NEVER named without the word \"withdrawn\" in the same sentence. Where the notes record no such thing, say "
+     "nothing of the kind."),
     ("reaction", "The reaction", 28,
      "How people reacted, from enthusiasm to alarm, only from the notes. Each point is attributed to its source by its short spoken name, or to a "
      "person only for the words that source attributes to that person. A reporter's own phrase belongs to the outlet, not to a person quoted."),
@@ -344,18 +346,19 @@ SHOW_RULES = (
     "Answer with JSON only: {\"dialogue\": \"HOST: ...\\nEXPERT: ...\"}.\n"
     "SENTENCE RULES (each one is checked by a program after you write):\n"
     "1. A work's title and a person's name never share a sentence. Say what a person said without naming any title; name a title without naming any person.\n"
-    "2. Never say the title of an article, post, essay or statement from the commentary. Refer to it by its outlet or writer: \"Quanta's report\", "
-    "\"the Nature news story\", \"Tao's essay\", \"the Fields Medalists' declaration\".\n"
-    "3. A WITHDRAWN manuscript is named in ONE sentence that says it was withdrawn within a day of the release because of a sign error in a key step. "
-    "Give no technical detail and no date. No other sentence mentions it, by title, by its subject or by \"it\" or \"that paper\".\n"
-    "4. Say that OpenAI's manuscripts are company releases that have not been peer reviewed in ONE general sentence of its own. When you then name a "
-    "manuscript, give its title and what OpenAI says it shows; do not write \"the company release <title> is ...\" in a sentence that states a claim.\n"
+    "2. Never say the title of an article, post, essay or statement from the commentary. Refer to it by the spoken name the source list gives it, "
+    "which names its outlet or its writer.\n"
+    "3. A source the status records show as WITHDRAWN is named in ONE sentence, which says it was withdrawn and says no more than that record says. "
+    "Give no technical detail and no date of your own, and invent no reason. Where no record shows a withdrawal, write no sentence about one. "
+    "No other sentence mentions a withdrawn source, by title, by its subject or by \"it\" or \"that paper\".\n"
+    "4. Where the list holds a company release, say in ONE general sentence of its own that a company release has not been peer reviewed. When you "
+    "then name such a manuscript, give its title and what the body that released it says it shows; do not write \"the company release <title> is "
+    "...\" in a sentence that states a claim.\n"
     "5. Say what the commentary reported in your own words. Never use eight or more words in a row from a note, and never reproduce a quoted fragment.\n"
-    "6. Say each manuscript's full title at most once in the whole script, then use a short name (\"the 7/8 paper\", \"the ETH paper\", \"the Unique Games "
-    "paper\"). If a title contains a formula, use only the short name.\n"
-    "7. Name each commentary source by its SPOKEN NAME as given in the source list (for example Quanta, Wikipedia, Nature, Scientific American, the "
-    "Washington Times, Tao's own web page, the Fields Medalists' declaration), never by its label or website. Name a source only where you attribute a "
-    "statement to it; do not list the sources.\n"
+    "6. Say each manuscript's full title at most once in the whole script, then use a short name drawn from that title or from what the paper is "
+    "about. If a title contains a formula, use only the short name.\n"
+    "7. Name each commentary source by its SPOKEN NAME as given in the source list, never by its label or website, and never by a name the list "
+    "does not give. Name a source only where you attribute a statement to it; do not list the sources.\n"
     "8. Attribute to a person only the words the source attributes to that person. A reporter's own phrase or judgement is attributed to the outlet.\n"
     "9. Write real dialogue: the HOST asks what a curious listener would ask and the EXPERT explains in plain words. Never say what the episode will not "
     "cover or what it avoids.\n"

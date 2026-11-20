@@ -27,20 +27,21 @@ def test_the_reaction_section_is_the_one_dropped_without_commentary():
 
 def test_the_goals_tell_the_story():
     goals = {t[0]: t[3] for t in csr.SECTION_TEMPLATES}
-    assert "within a day of the release" in goals["opening"] and "a question" in goals["opening"] and "will or will not cover" in goals["opening"]
+    assert "from the notes" in goals["opening"] and "a question" in goals["opening"] and "will or will not cover" in goals["opening"]
     assert "HOST asks" in goals["claims"] and "ONE general sentence" in goals["claims"] and "short name" in goals["claims"] and "No formulas" in goals["claims"]
-    assert "formally verified" in goals["trust"] and "unchecked" in goals["trust"] and "within a day of the release" in goals["trust"] and "NEVER named" in goals["trust"]
+    assert "that source's description" in goals["trust"] and "where the notes record" in goals["trust"].lower() and "NEVER named" in goals["trust"]
     assert "A reporter's own phrase belongs to the outlet" in goals["reaction"]
 
 
 def test_the_rules_say_no_formulas_one_full_title_spoken_names_person_attribution_and_real_dialogue():
     rules = csr.SHOW_RULES
     assert "never read a formula or symbolic statement aloud" in rules
-    assert "full title at most once" in rules and "the 7/8 paper" in rules and "the ETH paper" in rules
-    assert "SPOKEN NAME" in rules and "Tao's own web page" in rules and "the Fields Medalists' declaration" in rules and "do not list the sources" in rules
+    assert "full title at most once" in rules and "a short name drawn from that title" in rules
+    assert "SPOKEN NAME" in rules and "never by a name the list does not give" in rules and "do not list the sources" in rules
     assert "Attribute to a person only the words the source attributes to that person" in rules and "attributed to the outlet" in rules
     assert "the HOST asks what a curious listener would ask" in rules and "Never say what the episode will not cover" in rules
-    assert "within a day of the release because of a sign error in a key step" in rules and "no technical detail" in rules.replace("Give no", "give no")
+    assert "says no more than that record says" in rules and "invent no reason" in rules
+    assert "no technical detail" in rules.replace("Give no", "give no")
 
 
 def test_each_commentary_outlet_has_a_short_spoken_name_and_never_zenodo():
