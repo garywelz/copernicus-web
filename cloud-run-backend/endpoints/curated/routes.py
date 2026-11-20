@@ -8,6 +8,7 @@ Confirmation (network) happens before the list is touched; the list is then chan
 confirmation leaves the list exactly as it was and two simultaneous edits cannot overwrite each other.
 """
 
+import hashlib
 from datetime import datetime, timezone
 from typing import Any, Callable, Dict, List
 import uuid
@@ -21,7 +22,8 @@ import curated_web_release as cwr
 import openai_math_index as omi
 import paper_confirmation as pc
 from config.database import db
-from models.curated import AddCommentary, AddCompanyRelease, AddPaperWithSuppliedAbstract, AddSourceItems, CreateSourceList, CheckSuppliedScript, GenerateCuratedEpisode, OverrideItemClass, SetCheckedBy
+from models.curated import (AddCommentary, AddCompanyRelease, AddPaperWithSuppliedAbstract, AddSourceItems, AttachReleaseText,
+                            CheckSuppliedScript, CreateSourceList, GenerateCuratedEpisode, OverrideItemClass, SetCheckedBy)
 from models.podcast import PodcastRequest
 from utils.auth import verify_admin_api_key
 from utils.logging import structured_logger
@@ -220,6 +222,67 @@ async def add_paper_with_supplied_abstract(list_id: str, body: AddPaperWithSuppl
             "refused": [_summary(r) | {"input": r.get("input")} for r in refused]}
 
 
+@router.post("/api/admin/curated/lists/{list_id}/items/{item_id}/release-text")
+async def attach_release_text(list_id: str, item_id: str, body: AttachReleaseText):
+    """Attach more of a company release's own text to that release's item. The text goes to the private store; the item keeps its hash,
+    length, source path and note, so the list records what was attached without reproducing it. Draft lists only.
+
+    This is what the commentary route was being used for before: a manuscript's own statement added as a separate commentary item made the
+    list hold "commentary", which keeps the reaction section in the plan (`curated_script.plan_sections`) with no reaction material to
+    write it from, and described a company as a commentator on its own work. Attached text belongs to the manuscript itself."""
+    _require_db()
+    snap = db.collection(COLLECTION).document(list_id).get()
+    if not snap.exists:
+        raise HTTPException(status_code=404, detail="No such source list")
+    doc = snap.to_dict() or {}
+    _require_draft(doc)
+    item = next((i for i in doc.get("items") or [] if i.get("item_id") == item_id), None)
+    if item is None:
+        raise HTTPException(status_code=404, detail="No such item in this list")
+    if item.get("class") != cs.COMPANY_RELEASE:
+        raise HTTPException(status_code=422, detail="Only a company release carries attached text; a registry paper carries its abstract")
+    if (item.get("confirmation") or {}).get("status") != cs.CONFIRMED:
+        raise HTTPException(status_code=422, detail="The item is not confirmed")
+    text = body.text.strip()
+    if not text:
+        raise HTTPException(status_code=422, detail="The text is empty")
+    sha = hashlib.sha256(text.encode("utf-8")).hexdigest()
+    _private_ref(list_id, item_id).set({"list_id": list_id, "item_id": item_id, "text": text, "text_sha256": sha, "created_at": _now()})
+
+    def apply(d: Dict[str, Any]):
+        _require_draft(d)
+        target = next((i for i in d.get("items") or [] if i.get("item_id") == item_id), None)
+        if target is None:
+            raise HTTPException(status_code=404, detail="No such item in this list")
+        target["release_text"] = {"sha256": sha, "chars": len(text), "source_path": body.source_path.strip(),
+                                  "note": (body.note or "").strip() or None, "attached_at": _now()}
+        return _summary(target) | {"release_text": target["release_text"]}
+
+    out = _mutate(list_id, apply)
+    structured_logger.info("Release text attached", list_id=list_id, item_id=item_id, chars=len(text))
+    return {"list_id": list_id, "item_id": item_id, **out}
+
+
+@router.delete("/api/admin/curated/lists/{list_id}/items/{item_id}/release-text")
+async def clear_release_text(list_id: str, item_id: str):
+    """Remove attached text and the private document that holds it. Draft lists only."""
+    _require_db()
+
+    def apply(d: Dict[str, Any]):
+        _require_draft(d)
+        target = next((i for i in d.get("items") or [] if i.get("item_id") == item_id), None)
+        if target is None or not target.get("release_text"):
+            raise HTTPException(status_code=404, detail="That item has no attached text")
+        target.pop("release_text", None)
+
+    _mutate(list_id, apply)
+    try:
+        _private_ref(list_id, item_id).delete()
+    except Exception as e:  # noqa: BLE001 - the list no longer points at it; a leftover private document is harmless and reported
+        structured_logger.warning("Could not delete attached release text", list_id=list_id, error_type=type(e).__name__)
+    return {"list_id": list_id, "item_id": item_id, "release_text": None}
+
+
 @router.delete("/api/admin/curated/lists/{list_id}/items/{item_id}")
 async def strike_item(list_id: str, item_id: str):
     def apply(doc: Dict[str, Any]):
@@ -292,7 +355,7 @@ async def generate_episode(body: GenerateCuratedEpisode):
         raise HTTPException(status_code=404, detail="No such source list")
     doc = snap.to_dict() or {}
     texts = {i["item_id"]: _private_text(body.list_id, i["item_id"]) for i in doc.get("items") or []
-             if i.get("class") == cs.COMMENTARY and i.get("approved")}
+             if (i.get("class") == cs.COMMENTARY and i.get("approved")) or i.get("release_text")}
     texts = {k: v for k, v in texts.items() if v is not None}
     try:
         run = curated_mode.CuratedRun.from_list_doc(doc, topic=body.topic, private_texts=texts)
@@ -334,7 +397,7 @@ async def dry_run_script(body: GenerateCuratedEpisode):
         raise HTTPException(status_code=404, detail="No such source list")
     doc = snap.to_dict() or {}
     texts = {i["item_id"]: _private_text(body.list_id, i["item_id"]) for i in doc.get("items") or []
-             if i.get("class") == cs.COMMENTARY and i.get("approved")}
+             if (i.get("class") == cs.COMMENTARY and i.get("approved")) or i.get("release_text")}
     texts = {k: v for k, v in texts.items() if v is not None}
     try:
         run = curated_mode.CuratedRun.from_list_doc(doc, topic=body.topic, private_texts=texts, title=body.title)
@@ -384,7 +447,7 @@ async def check_supplied_script(body: CheckSuppliedScript):
         raise HTTPException(status_code=404, detail="No such source list")
     doc = snap.to_dict() or {}
     texts = {i["item_id"]: _private_text(body.list_id, i["item_id"]) for i in doc.get("items") or []
-             if i.get("class") == cs.COMMENTARY and i.get("approved")}
+             if (i.get("class") == cs.COMMENTARY and i.get("approved")) or i.get("release_text")}
     texts = {k: v for k, v in texts.items() if v is not None}
     try:
         run = curated_mode.CuratedRun.from_list_doc(doc, topic=body.topic, private_texts=texts, title=body.title)
