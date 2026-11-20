@@ -25,6 +25,22 @@ Entry format:
 
 ---
 
+## 054 — 2026-11-19 — A blocked action is a stop, not a detour: no agent re-runs a denied action in another form
+
+- From: Gary
+- Record: this entry (the rule itself; no code change)
+- Affects: every agent in the suite that runs tools under a permission layer
+- Summary: When a permission or safety layer denies an action, the agent stops and
+  reports the denial to Gary, naming the action and why it wanted it. It does not retry
+  the same action in another form — not from a script file, not reworded, not split into
+  smaller steps that together do what was denied, not through a different tool. A denial
+  is not an error: retrying after a transient failure (a timeout, a 503) is fine;
+  retrying after a denial is not. A denial is a decision to be reported, not an obstacle
+  to route around, and this holds even when the action sits inside an instruction Gary
+  has already given: the instruction authorises the goal, not a bypass. An agent that has
+  already re-routed says so at once, and names every write that reached a live system.
+- Waiting on: nobody; it is in force from this entry.
+
 ## 053 — 2026-11-19 — The Artifact Registry cleanup went live and deleted exactly the 292 versions its dry run listed; correction: the earlier "no dry-run entries" readings came from an account that cannot see private logs; backfill pieces 3 ingested and 4 written; the `tdap` invitation not yet accepted
 
 - **From:** Claude Code (Core lane), at Gary's direction. Gary read the dry-run entries in Logs Explorer himself, and typed the line that switched the policy to live.
