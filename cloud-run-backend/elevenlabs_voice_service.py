@@ -18,6 +18,8 @@ import media_store
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
+import voice_roster
+
 logger = logging.getLogger(__name__)
 
 @dataclass
@@ -294,14 +296,8 @@ class ElevenLabsVoiceService:
         import re
         
         # Map voice IDs to names (for reverse lookup if needed)
-        VOICE_ID_TO_NAME = {
-            "XrExE9yKIg1WjnnlVkGX": "Matilda",
-            "EXAVITQu4vr4xnSDxMaL": "Bella",
-            "JBFqnCBsd6RMkjVDRZzb": "Sam",
-            "pNInz6obpgDQGcFmaJgB": "Adam",
-            "pqHfZKP75CvOlQylNhV4": "Bryan",
-            "onwK4e9ZLuTAKqWW03F9": "Daniel"
-        }
+        # The roster is the one place a voice id is named (voice_roster.ROSTER); a name no longer decides a role.
+        VOICE_ID_TO_NAME = voice_roster.id_to_name()
         
         # Build name-to-role mapping ONCE at start, prioritizing selected voice IDs
         name_to_role = {}
@@ -1082,18 +1078,12 @@ class ElevenLabsVoiceService:
         # --- End of Edit ---
         
         # Map voice IDs to names for script parsing
-        VOICE_ID_TO_NAME = {
-            "XrExE9yKIg1WjnnlVkGX": "Matilda",  # Female, Professional
-            "EXAVITQu4vr4xnSDxMaL": "Bella",     # Female, British
-            "JBFqnCBsd6RMkjVDRZzb": "Sam",       # Female, American
-            "pNInz6obpgDQGcFmaJgB": "Adam",      # Male, Authoritative
-            "pqHfZKP75CvOlQylNhV4": "Bryan",     # Male, American
-            "onwK4e9ZLuTAKqWW03F9": "Daniel"     # Male, British
-        }
+        # The roster is the one place a voice id is named (voice_roster.ROSTER); a name no longer decides a role.
+        VOICE_ID_TO_NAME = voice_roster.id_to_name()
         
         # Determine speaker names from voice IDs
-        host_name = VOICE_ID_TO_NAME.get(host_voice_id, "Matilda") if host_voice_id else "Matilda"
-        expert_name = VOICE_ID_TO_NAME.get(expert_voice_id, "Adam") if expert_voice_id else "Adam"
+        host_name = voice_roster.name_for(host_voice_id, "Matilda")
+        expert_name = voice_roster.name_for(expert_voice_id, "Adam")
         
         # Override voice IDs if provided (Phase 2.2: Voice Selection)
         if host_voice_id:
