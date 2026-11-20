@@ -359,8 +359,13 @@ class FakeService:
         self.calls.append({"job_id": job_id, "list_id": list_doc["list_id"], "topic": request.topic, "category": request.category,
                            "duration": request.duration, "subscriber_id": subscriber_id})
         job = self.db.other["podcast_jobs"][job_id]
+        # a job that completes has media: `generated` is now reported from the job's own result, not from the checks passing
         job.update({"status": self.fail or "completed", "error_type": "curated_check_failed" if self.fail else None,
-                    "curated_run": {"mode": "curated_sources", "published": False}})
+                    "curated_run": {"mode": "curated_sources", "published": False},
+                    **({} if self.fail else {"tts_characters": 42,
+                                             "result": {"canonical_filename": "ever-math-260099",
+                                                        "audio_url": "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/"
+                                                                     "audio/ever-math-260099.mp3"}})})
         self.db.other["podcast_jobs"][job_id] = job
 
 

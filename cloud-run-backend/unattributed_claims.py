@@ -1,0 +1,110 @@
+"""Factual claims no source supports.
+
+The attribution check reads a sentence the script credits to a listed paper and asks whether that paper's abstract bears it out. A sentence
+that credits nobody is never examined, so the strongest assertions can pass by citing nothing: on 2026-11-19 four runs asserted that a named
+company had withdrawn a manuscript "for a sign error", twice in episodes whose lists held no company source at all, and a phage episode's
+draft widened its subject from bacteriophage genomes to "a virus, or even a cell".
+
+This check is deterministic. It reads the words of the sources (title and abstract of every listed item) and refuses three kinds of
+unattributed assertion:
+
+* `withdrawal_without_record` - a withdrawal, retraction or correction asserted when no listed item's status record shows one;
+* `scope_widened` - a subject term the sources never use (a cell, an organism, a patient) asserted as part of what was done;
+* `named_body_without_source` - a company, laboratory or institution named in an assertion when no listed source names it.
+
+Each violation names the sentence and says what the sources do say, so the writer can cut it or bring it back inside the sources.
+"""
+import re
+from typing import Any, Dict, List, Optional, Sequence
+
+# Subject terms that widen a paper's scope. A term is refused only when NO source uses it: a genuine cell paper is unaffected.
+SCOPE_TERMS = (
+    "cell", "cells", "cellular", "organism", "organisms", "human", "humans", "patient", "patients", "clinical",
+    "therapy", "therapies", "therapeutic", "cure", "cures", "disease", "diseases", "tissue", "tissues",
+    "embryo", "embryos", "animal", "animals", "mouse", "mice", "plant", "plants",
+)
+WITHDRAWAL = re.compile(r"\b(withdrawn|withdrew|withdrawal|retracted|retraction|corrigend\w*|a correction to)\b", re.I)
+# A body that releases work. Named here only as a shape to look for in an assertion; the sources decide whether naming it is allowed.
+BODY = re.compile(r"\b(OpenAI|Anthropic|Google|DeepMind|Meta|Microsoft|NVIDIA|IBM|Baker lab|ETH(?: Zurich)?|MIT|Stanford|Harvard|Oxford|"
+                  r"Cambridge|Nature|Science|Quanta)\b")
+HEDGE = re.compile(r"\b(could|would|might|may|if |whether|hope|hopes|expect|expects|watch for|remains? open|unclear|not yet|no record|"
+                   r"do(?:es)? not (?:indicate|record|say)|there is no)\b", re.I)
+SPEAKER = re.compile(r"^\s*(HOST|EXPERT)\s*:\s*", re.I)
+
+
+def source_text(sources: Sequence[Any]) -> str:
+    """Every word the listed sources offer: titles, abstracts and the evidence text of a supplied item."""
+    parts: List[str] = []
+    for s in sources or []:
+        for attr in ("title", "abstract", "evidence_text", "venue"):
+            v = getattr(s, attr, None)
+            if v is None and isinstance(s, dict):
+                v = s.get(attr)
+            if isinstance(v, str):
+                parts.append(v)
+    return " ".join(parts).lower()
+
+
+def sentences(script: str):
+    """Each sentence of spoken dialogue, with its speaker, in order."""
+    for line in (script or "").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        m = SPEAKER.match(line)
+        who, body = (m.group(1).upper(), line[m.end():]) if m else ("?", line)
+        for s in re.findall(r"[^.!?]+[.!?]+", body) or ([body] if body else []):
+            s = s.strip()
+            if s:
+                yield who, s
+
+
+def _attributed(sentence: str, attributed: Sequence[str]) -> bool:
+    """True when the attribution check already examined this sentence (it quoted it)."""
+    flat = re.sub(r"\s+", " ", sentence).strip().lower()
+    return any(flat and flat in re.sub(r"\s+", " ", q or "").strip().lower() for q in attributed or [])
+
+
+def check(script: str, sources: Sequence[Any], attributed_quotes: Sequence[str] = (),
+          withdrawal_on_record: bool = False) -> List[Dict[str, Any]]:
+    """Violations in `script`. `sources` are the listed items; `attributed_quotes` the sentences the attribution check already read;
+    `withdrawal_on_record` is True only when a listed item's status record shows a withdrawal or correction."""
+    text = source_text(sources)
+    out: List[Dict[str, Any]] = []
+    for who, s in sentences(script):
+        if _attributed(s, attributed_quotes):
+            continue
+        hedged = bool(HEDGE.search(s))
+        if WITHDRAWAL.search(s) and not withdrawal_on_record and not hedged:
+            out.append({"check": "unattributed_claim", "kind": "withdrawal_without_record", "where": who, "find": s,
+                        "message": f"{s!r} asserts a withdrawal, retraction or correction, but no listed source's status record shows one. "
+                                   "Remove the sentence."})
+            continue
+        widened = sorted({t for t in SCOPE_TERMS if re.search(rf"\b{t}\b", s, re.I) and t not in text})
+        if widened and not hedged:
+            out.append({"check": "unattributed_claim", "kind": "scope_widened", "where": who, "find": s,
+                        "message": f"{s!r} brings in {', '.join(widened)}, which no listed source mentions. Say only what the sources are "
+                                   "about, or remove the sentence."})
+            continue
+        named = sorted({m.group(0) for m in BODY.finditer(s) if m.group(0).lower() not in text})
+        if named and not hedged:
+            out.append({"check": "unattributed_claim", "kind": "named_body_without_source", "where": who, "find": s,
+                        "message": f"{s!r} names {', '.join(named)}, which no listed source names. Remove the name, or attribute the "
+                                   "sentence to a source that names it."})
+    return out
+
+
+def summary(violations: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
+    kinds: Dict[str, int] = {}
+    for v in violations or []:
+        kinds[v["kind"]] = kinds.get(v["kind"], 0) + 1
+    return {"passed": not violations, "count": len(violations or []), "kinds": kinds}
+
+
+def feedback(violations: Sequence[Dict[str, Any]]) -> Optional[str]:
+    """Instructions for the next attempt."""
+    if not violations:
+        return None
+    lines = [f"- {v['message']}" for v in violations[:8]]
+    return ("Some sentences assert things no listed source supports. A sentence that credits no source is still a claim:\n"
+            + "\n".join(lines))

@@ -66,3 +66,17 @@ def test_opening_requires_every_particular_to_come_from_the_notes():
     opening = templates()["opening"].lower()
     assert "from the notes" in opening, "the opening template must say its particulars come from the notes"
     assert "hundreds" not in opening and "overnight" not in opening
+
+
+def test_the_trust_template_raises_a_withdrawal_only_on_a_record():
+    """The template must not invite the subject at all where no record shows one: an episode whose sources record no withdrawal produced a
+    HOST/EXPERT exchange about withdrawn studies, which is honest but has no business being there."""
+    trust = templates()["trust"].lower()
+    assert "where the notes record no such thing, say nothing of the kind" in trust,         "the trust template must tell the writer to be silent about a withdrawal that no record shows"
+    assert "only where" in trust or "where, and only where" in trust
+
+
+def test_a_run_knows_whether_a_withdrawal_is_on_record():
+    """The check needs a plain answer from the run, not an inference from wording."""
+    import curated_mode
+    assert hasattr(curated_mode.CuratedRun, "has_withdrawal_on_record")
