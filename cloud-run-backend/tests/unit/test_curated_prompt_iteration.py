@@ -18,9 +18,10 @@ def test_the_sentence_rules_name_each_failure_the_dry_runs_showed():
     rules = csr.SHOW_RULES
     assert "SENTENCE RULES" in rules and "each one is checked by a program" in rules
     assert "A work's title and a person's name never share a sentence" in rules                                    # the false unlisted-work flags
-    assert "Never say the title of an article" in rules and "Quanta's report" in rules                            # an article title that contained "Proved"
-    assert "ONE sentence that says it was withdrawn" in rules and 'by "it" or "that paper"' in rules               # a withdrawn paper named again by its subject
-    assert "company releases that have not been peer reviewed in ONE general sentence" in rules and "the company release <title> is" in rules   # the class label read as an attribution
+    # an article title can itself assert a result ("Proved"), so a commentary source is spoken of by the name the list gives it, never by its title
+    assert "Never say the title of an article" in rules and "the spoken name the source list gives it" in rules
+    assert "is named in ONE sentence, which says it was withdrawn" in rules and 'by "it" or "that paper"' in rules  # a withdrawn paper named again by its subject
+    assert "a company release has not been peer reviewed" in rules and "the company release <title> is" in rules   # the class label read as an attribution
     assert "eight or more words in a row from a note" in rules and "never reproduce a quoted fragment" in rules    # copied runs
     assert "a section over its upper limit is rejected" in rules
 
