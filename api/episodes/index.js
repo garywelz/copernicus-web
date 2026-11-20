@@ -239,6 +239,7 @@ async function handler(req, res) {
           ${audioUrl ? `<a class="listen" href="${audioUrl}">▶️ Listen</a>` : ''}
           ${animationPlayerUrl ? `<a class="animate" href="${animationPlayerUrl}">▶ Animated chart</a>` : ''}
           <a class="download" href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml">📡 RSS Feed</a>
+          <a class="download" href="https://www.youtube.com/@copernicusaifyi" target="_blank" rel="noopener noreferrer">▶ YouTube</a>
         </div>
       </footer>
     </main>
