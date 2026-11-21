@@ -118,6 +118,16 @@ class CuratedRun:
             raise CuratedListError("the episode needs a topic")
         items = [dict(i) for i in items]
         for i in items:
+            if i["class"] == cs.COMPANY_RELEASE and i.get("release_text"):
+                # The manuscript's own words, attached to the manuscript itself: no separate item, no title of its own, so the naming
+                # check cannot tie two items against one mention, and the list still holds no commentary.
+                text = (private_texts or {}).get(i["item_id"])
+                if text is None:
+                    raise CuratedListError("the attached text of a company release is missing from the private store")
+                if hashlib.sha256(text.encode("utf-8")).hexdigest() != (i["release_text"] or {}).get("sha256"):
+                    raise CuratedListError("the attached text of a company release is not the text the list was approved with")
+                i["evidence_text"] = ((i.get("evidence_text") or "") + "\n\n" + text).strip()
+                continue
             if i["class"] != cs.COMMENTARY:
                 continue
             text = (private_texts or {}).get(i["item_id"])

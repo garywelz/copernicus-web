@@ -68,6 +68,13 @@ def list_objects(bucket_name: str, episode_id: str, client: Any = None) -> List[
     return [found[n] for n in sorted(found)]
 
 
+def list_names(bucket_name: str, prefix: str, client: Any = None) -> List[str]:
+    """Object names under `prefix`, read with the service account the backend already runs as. Nothing in the backend lists a bucket over
+    anonymous HTTP: that only works while a bucket grants `allUsers` the right to list it, which is a posture we do not want to depend on."""
+    c = _client(client)
+    return sorted(blob.name for blob in c.bucket(bucket_name).list_blobs(prefix=prefix))
+
+
 def promote(episode_id: str, client: Any = None) -> Dict[str, Any]:
     """Copy an episode's files from the private bucket to the public bucket and verify every copy (MD5, CRC32C and size).
 
