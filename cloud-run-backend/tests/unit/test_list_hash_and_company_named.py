@@ -111,6 +111,29 @@ def test_a_title_of_two_content_words_can_be_named():
     assert len(nw._words(paper.title)) == 2, "the title really does reduce to two content words"
 
 
+def test_a_different_title_containing_both_words_is_still_unlisted():
+    """The short-title match is exact. A work whose title merely contains "irrationality exponent" must be reported as unlisted, not read
+    as the listed manuscript."""
+    listed = SimpleNamespace(pid="P1", title="The irrationality exponent of pi is 2", authors=["OpenAI"], year=2026,
+                             abstract="We prove it.", venue=None, record_type="company_release", source_class="company_release")
+    for other in ("Bounds on the irrationality exponent of other constants",
+                  "An irrationality exponent survey",
+                  "Irrationality, exponent growth and continued fractions"):
+        mention = {"quote": f'a paper titled "{other}"', "authors": [], "year": None,
+                   "title_words": other.split(), "where": "script"}
+        assert nw.match_mention(mention, [listed]) is None, other
+
+
+def test_the_exact_short_title_still_matches_whatever_order_it_is_given_in():
+    listed = SimpleNamespace(pid="P1", title="The irrationality exponent of pi is 2", authors=["OpenAI"], year=2026,
+                             abstract="We prove it.", venue=None, record_type="company_release", source_class="company_release")
+    for words in (["The", "irrationality", "exponent", "of", "pi", "is", "2"], ["irrationality", "exponent"],
+                  ["exponent", "of", "irrationality"]):
+        mention = {"quote": "the manuscript on the irrationality exponent", "authors": [], "year": None,
+                   "title_words": words, "where": "script"}
+        assert nw.match_mention(mention, [listed]) == "P1", words
+
+
 def test_a_partial_title_of_a_longer_work_still_does_not_match():
     paper = SimpleNamespace(pid="P1", title="Generative design of bacteriophages with genome language models", authors=["King"],
                             year=2026, abstract="We report it.", venue="Science", record_type="journal", source_class="peer_reviewed")
