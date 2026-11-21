@@ -192,16 +192,13 @@ class CanonicalService:
                 raise CanonicalAllocationError(f"Could not read existing episodes to reserve an ID: {type(e).__name__}") from e
 
             try:
-                gcs_list_url = (
-                    f"https://storage.googleapis.com/storage/v1/b/{self.gcs_bucket}/o"
-                    f"?prefix=audio/ever-{request_category}-{year_yy}"
-                )
-                gcs_response = requests.get(gcs_list_url, timeout=10)
-                if gcs_response.status_code == 200:
-                    for item in gcs_response.json().get("items") or []:
-                        name = (item.get("name") or "").split("/")[-1]
-                        if name:
-                            existing_names.append(name)
+                # Read with the service account the backend runs as, never over anonymous HTTP: an unauthenticated list only
+                # succeeds while the bucket grants `allUsers` the right to list it.
+                import media_store
+                for name in media_store.list_names(self.gcs_bucket, f"audio/ever-{request_category}-{year_yy}"):
+                    leaf = name.split("/")[-1]
+                    if leaf:
+                        existing_names.append(leaf)
             except Exception as e:
                 structured_logger.warning(
                     "Could not list GCS for evergreen episode numbers",
@@ -215,33 +212,30 @@ class CanonicalService:
                 
                 # Check for existing news files with same date and category to determine serial number
                 try:
-                    gcs_list_url = f"https://storage.googleapis.com/storage/v1/b/{self.gcs_bucket}/o?prefix=audio/news-{request_category}-{date_str}"
-                    gcs_response = requests.get(gcs_list_url, timeout=10)
-                    if gcs_response.status_code == 200:
-                        gcs_data = gcs_response.json()
-                        existing_files = gcs_data.get('items', [])
-                        
-                        # Highest serial seen (by count or by name), then the stored counter, which never goes down
-                        seen = [int(n.rsplit("-", 1)[-1].split(".")[0]) for n in
-                                [(i.get("name") or "").split("/")[-1] for i in existing_files]
-                                if n.rsplit("-", 1)[-1].split(".")[0].isdigit()]
-                        floor = max([len(existing_files)] + seen)
-                        serial_number = await asyncio.to_thread(
-                            reserve_sequence, db, counter_key("news", request_category, date_str), floor)
-                        serial_str = str(serial_number).zfill(4)  # Pad to 4 digits (0001, 0002, etc.)
-                        
-                        canonical_filename = f"news-{request_category}-{date_str}-{serial_str}"
-                        structured_logger.debug("Determined NEWS filename",
-                                              filename=canonical_filename,
-                                              category=request_category,
-                                              date=date_str,
-                                              serial=serial_str)
-                    else:
-                        # GCS list unavailable: the stored counter alone still never repeats a serial
-                        serial_number = await asyncio.to_thread(
-                            reserve_sequence, db, counter_key("news", request_category, date_str), 0)
-                        canonical_filename = f"news-{request_category}-{date_str}-{str(serial_number).zfill(4)}"
-                        structured_logger.debug("Determined NEWS filename (GCS list unavailable)", filename=canonical_filename)
+                    # Read with the backend's own service account, not over anonymous HTTP (see media_store.list_names). A listing that
+                    # cannot be read leaves `existing_files` empty, exactly as a non-200 answer used to, and the stored counter still
+                    # never repeats a serial.
+                    import media_store
+                    try:
+                        existing_files = media_store.list_names(self.gcs_bucket, f"audio/news-{request_category}-{date_str}")
+                    except Exception as list_error:
+                        structured_logger.warning("Could not list the bucket for news serials", error=str(list_error))
+                        existing_files = []
+                    # Highest serial seen (by count or by name), then the stored counter, which never goes down
+                    seen = [int(n.rsplit("-", 1)[-1].split(".")[0]) for n in
+                            [f.split("/")[-1] for f in existing_files]
+                            if n.rsplit("-", 1)[-1].split(".")[0].isdigit()]
+                    floor = max([len(existing_files)] + seen)
+                    serial_number = await asyncio.to_thread(
+                        reserve_sequence, db, counter_key("news", request_category, date_str), floor)
+                    serial_str = str(serial_number).zfill(4)  # Pad to 4 digits (0001, 0002, etc.)
+                    
+                    canonical_filename = f"news-{request_category}-{date_str}-{serial_str}"
+                    structured_logger.debug("Determined NEWS filename",
+                                          filename=canonical_filename,
+                                          category=request_category,
+                                          date=date_str,
+                                          serial=serial_str)
                 except CanonicalAllocationError:
                     raise
                 except Exception as e:
