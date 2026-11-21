@@ -35,16 +35,30 @@ SPEAKER = re.compile(r"^\s*(HOST|EXPERT)\s*:\s*", re.I)
 
 
 def source_words(sources: Sequence[Any]) -> frozenset:
-    """Every WORD the listed sources offer, as whole words: titles, abstracts and the evidence text of a supplied item. Whole words matter:
-    a substring test finds "cell" in "excellent" and "MIT" in "transmitted", and would then let a widening through as if it were sourced."""
+    """Every WORD the listed sources offer, as whole words: titles, abstracts, the evidence text of a supplied item, and the body that
+    released or published it. Whole words matter: a substring test finds "cell" in "excellent" and "MIT" in "transmitted", and would then
+    let a widening through as if it were sourced.
+
+    The releasing body counts because a company release IS that company's statement: a list holding OpenAI's manuscript supports naming
+    OpenAI, whether or not the manuscript's text happens to spell the name. Without it the writer is pushed into "this company's own
+    manuscript", which then fails the naming check and makes a coverage statement that must name the company impossible to write."""
     parts: List[str] = []
     for s in sources or []:
-        for attr in ("title", "abstract", "evidence_text", "venue"):
+        for attr in ("title", "abstract", "evidence_text", "venue", "company"):
             v = getattr(s, attr, None)
             if v is None and isinstance(s, dict):
                 v = s.get(attr)
             if isinstance(v, str):
                 parts.append(v)
+        pin = getattr(s, "pin", None) or (s.get("pin") if isinstance(s, dict) else None)
+        if isinstance(pin, dict):
+            for key in ("company", "repo"):            # a web release records its company; a repository release records "openai/math"
+                if isinstance(pin.get(key), str):
+                    parts.append(pin[key])
+        authors = getattr(s, "authors", None) or (s.get("authors") if isinstance(s, dict) else None)
+        for a in authors or []:                        # a company release's author IS the company ("OpenAI")
+            if isinstance(a, str):
+                parts.append(a)
     return frozenset(re.findall(r"[a-z0-9]+", " ".join(parts).lower()))
 
 

@@ -183,7 +183,10 @@ def match_mention(mention: Dict[str, Any], confirmed: Sequence[Any], named_befor
         if by_surname or by_group or by_group_in_quote:
             if year_ok:
                 candidates.append((c, len((tw | qw) & _words(c.title)) if tw or qw else 0))
-        elif not names and title_overlap >= 3:
+        # A mention that names no author is matched on its title alone: three content words, or EVERY content word of a title that has
+        # fewer than three. "The irrationality exponent of pi is 2" keeps only {irrationality, exponent} once stopwords and short words
+        # are dropped, so a sentence naming it exactly could never be matched and the listed manuscript was reported as unlisted.
+        elif not names and (title_overlap >= 3 or (title_overlap and title_overlap == len(_words(c.title)))):
             candidates.append((c, title_overlap))
     if not candidates:
         return None

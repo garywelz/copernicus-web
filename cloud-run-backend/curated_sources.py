@@ -368,8 +368,10 @@ def list_hash(pin: Dict[str, Any], items: Sequence[Dict[str, Any]]) -> str:
     Any edit to what is approved changes it; a re-confirmation that changes nothing material does not."""
     rows = sorted(({"id": i["item_id"], "class": i["class"], "key": item_key(i["identifiers"]), "title": i.get("title"),
                     "evidence_sha256": i.get("text_sha256") or hashlib.sha256((i.get("evidence_text") or "").encode()).hexdigest(),
-                    # text attached to a company release is part of what is approved: swapping it changes the hash
-                    "release_text_sha256": (i.get("release_text") or {}).get("sha256"),
+                    # Text attached to a company release is part of what is approved: swapping it changes the hash. The key appears ONLY
+                    # for an item that has attached text, so a list without any hashes exactly as it did before attaching existed; adding
+                    # the key unconditionally invalidated every list approved earlier, which cannot be re-approved once frozen.
+                    **({"release_text_sha256": (i["release_text"] or {}).get("sha256")} if i.get("release_text") else {}),
                     "blob_sha": _pin_of(i), "status": i.get("result_status"),
                     "checked_by": i.get("checked_by")}
                    for i in approved_items(items)), key=lambda r: r["id"])
