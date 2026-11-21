@@ -71,6 +71,15 @@ class CheckSuppliedScript(BaseModel):
     generate: bool = False
 
 
+class AttachReleaseText(BaseModel):
+    """More of a company release's OWN text, attached to that release's item: the manuscript's statement of its result, its introduction, or
+    the summary of its reasoning trace, copied from the pinned commit. It is not a separate source and has no title of its own, so the naming
+    check cannot tie two items against one mention, and attaching it does not make the list hold commentary."""
+    text: str = Field(..., min_length=1, max_length=20000)
+    source_path: str = Field(..., min_length=1, max_length=400)      # the path inside the pinned repository the text was copied from
+    note: Optional[str] = Field(None, max_length=200)                # what the passage is ("statement of the main result")
+
+
 class AddCommentary(BaseModel):
     """Commentary the producer pasted (journalism, a blog, a statement). The text is private: it is stored apart from the list and never returned
     by any list route."""
