@@ -65,3 +65,42 @@ def test_the_service_names_voices_from_the_roster_and_not_from_its_own_map():
 def test_describe_reads_as_a_roster_line():
     assert vr.describe("cjVigY5qzO86Huf0OWal") == "Eric (male, middle aged, american): smooth, trustworthy"
     assert "not in the roster" in vr.describe("nope")
+
+
+# --- the roles the voices actually read -------------------------------------------------------------------------------------------
+SCRIPT = ("HOST: What did the paper show?\n"
+          "EXPERT: It designed an enzyme from scratch.\n"
+          "HOST: And what is left open?\n"
+          "EXPERT: Whether the design holds outside the laboratory.\n")
+
+
+def segments_for(host_id, expert_id, script=SCRIPT):
+    from elevenlabs_voice_service import ElevenLabsVoiceService
+    svc = ElevenLabsVoiceService.__new__(ElevenLabsVoiceService)
+    svc.voice_configs = {}
+    return ElevenLabsVoiceService._parse_script_segments(svc, script, host_voice_id=host_id, expert_voice_id=expert_id)
+
+
+def test_bill_and_bella_as_experts_read_only_the_expert_lines():
+    """Bill used to mean "questioner" and Bella "host" in a table of guessed names, whatever voice the episode was given."""
+    for expert_id, name in (("pqHfZKP75CvOlQylNhV4", "Bill"), ("hpp4J3VqNfWAUOO0d1Us", "Bella")):
+        segs = segments_for(vr.DEFAULT_HOST_ID, expert_id)
+        roles = [x["speaker"] for x in segs]
+        assert roles == ["host", "expert", "host", "expert"], f"{name}: {roles}"
+        expert_lines = " ".join(x["content"] for x in segs if x["speaker"] == "expert")
+        assert "designed an enzyme" in expert_lines and "What did the paper show" not in expert_lines
+
+
+def test_a_bare_name_no_voice_answers_to_does_not_start_a_speaker():
+    script = "HOST: A question.\nMarcus: and a line that names nobody in this episode.\nEXPERT: An answer.\n"
+    segs = segments_for(vr.DEFAULT_HOST_ID, "cjVigY5qzO86Huf0OWal", script)
+    assert [x["speaker"] for x in segs] == ["host", "expert"]
+    assert "names nobody" in segs[0]["content"], "the stray line stays with the speaker who was talking"
+
+
+def test_the_service_no_longer_guesses_a_role_from_a_name():
+    text = (BACKEND / "elevenlabs_voice_service.py").read_text(encoding="utf-8")
+    assert "fallback_mappings" not in text
+    assert '"bill": "questioner"' not in text and '"bella": "host"' not in text
+    assert "voice_roster.role_for_label(" in text, "a label decides the role"
+    assert "voice_roster.voice_for_role(" in text, "a role decides the voice"
