@@ -95,7 +95,8 @@ SECTION_TEMPLATES: Tuple[Tuple[str, str, int, str], ...] = (
      "The host opens in her own words and makes a listener want to stay: what happened, the single claim that matters most, and, ONLY where the "
      "notes record one, a withdrawal or correction. Every particular comes from the notes: no event, number, date or outcome the notes do not give. "
      "Two or three plain sentences, one of them a question the listener is now asking. No list of sources, no talk of what the episode will or will "
-     "not cover. She does not read the topic out as a title."),
+     "not cover. She does not read the topic out as a title. No greeting and no welcome: the first sentence is about the subject, not about the "
+     "programme, and she does not name the show, introduce herself or her guest, or say what day it is. The recorded opening already does that."),
     ("claims", "What is claimed", 30,
      "What the listed sources say they show and why each would matter, in plain meaning for a general listener, always attributed (\"the "
      "manuscript argues\", \"the paper reports\", naming the body that released it). The HOST asks what a listener would ask (what is that, why "
@@ -113,7 +114,8 @@ SECTION_TEMPLATES: Tuple[Tuple[str, str, int, str], ...] = (
      "How people reacted, from enthusiasm to alarm, only from the notes. Each point is attributed to its source by its short spoken name, or to a "
      "person only for the words that source attributes to that person. A reporter's own phrase belongs to the outlet, not to a person quoted."),
     ("closing", "What to watch", 8,
-     "What to watch next: what is still open and what would settle it. No new claim, no new source."),
+     "What to watch next: what is still open and what would settle it. No new claim, no new source. No sign-off, no thanks to the listener and no "
+     "mention of a next episode: the recorded ending does that."),
 )
 
 

@@ -13,7 +13,7 @@ import curated_sources as cs
 import rejection_log
 from curated_attribution import check_attributions_for
 from named_work_check import check_naming, check_reply_text, check_request
-from script_style import banned_phrase_hits, prompt_list
+from script_style import banned_phrase_hits, greeting_hits, prompt_list
 from speech_text import notation_problems
 from topic_checks import missing_coverage_statements, read_aloud_sentences, uncovered_named_things
 from utils.script_validation import calculate_maximum_words_for_duration, calculate_minimum_words_for_duration
@@ -161,6 +161,7 @@ async def _generate(request, research_context, check_llm, writer_llm, job_id, on
         state["naming"] = naming
         bad_notation = notation_problems(script, "")
         banned = banned_phrase_hits(script, "")
+        greetings = greeting_hits(script)
         read_aloud = read_aloud_sentences(script, request.topic)
         missing_cov = missing_coverage_statements(script, uncovered)
         curated = run.checks(script)
@@ -182,6 +183,9 @@ async def _generate(request, research_context, check_llm, writer_llm, job_id, on
         attempts.append(entry)
         viol = csr.collect_violations(naming, attribution, bad_notation, banned, read_aloud, missing_cov, curated)
         viol += [{"check": v["check"], "kind": v["kind"], "find": v["find"], "message": v["message"]} for v in unattributed]
+        viol += [{"check": "greeting", "kind": "greeting_or_sign_off", "find": g["sentence"],
+                  "message": f'"{g["sentence"]}" greets the listener or names the programme. The recorded opening and ending do that: '
+                             f'open on the subject and end on what to watch.'} for g in greetings]
         reject(rejection_log.naming_items(n, naming.violations) + rejection_log.notation_items(n, bad_notation) + rejection_log.banned_items(n, banned)
                + rejection_log.read_aloud_items(n, read_aloud) + rejection_log.coverage_items(n, missing_cov) + rejection_log.curated_items(n, curated))
         return viol
@@ -315,6 +319,7 @@ async def check_supplied_script(request, research_context, check_llm: csr.LlmCal
     naming.mentions = [m for p in passes for m in p.mentions]
     bad_notation = notation_problems(script, "")
     banned = banned_phrase_hits(script, "")
+    greetings = greeting_hits(script)
     read_aloud = read_aloud_sentences(script, request.topic)
     missing_cov = missing_coverage_statements(script, uncovered)
     curated = run.checks(script)
@@ -333,6 +338,9 @@ async def check_supplied_script(request, research_context, check_llm: csr.LlmCal
         entry["attribution"] = attribution.summary()
     violations = csr.collect_violations(naming, attribution, bad_notation, banned, read_aloud, missing_cov, curated)
     violations += [{"check": v["check"], "kind": v["kind"], "find": v["find"], "message": v["message"]} for v in unattributed]
+    violations += [{"check": "greeting", "kind": "greeting_or_sign_off", "find": g["sentence"],
+                    "message": f'"{g["sentence"]}" greets the listener or names the programme; the recorded opening and ending do that.'}
+                   for g in greetings]
     if words > max_words:
         violations.append({"check": "length", "kind": "too_long", "find": None, "message": f"The script has {words} words; the most for this duration is {max_words}."})
     if words < min_words:

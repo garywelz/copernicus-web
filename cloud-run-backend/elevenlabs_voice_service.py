@@ -18,6 +18,8 @@ import media_store
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
+import voice_roster
+
 logger = logging.getLogger(__name__)
 
 @dataclass
@@ -294,14 +296,8 @@ class ElevenLabsVoiceService:
         import re
         
         # Map voice IDs to names (for reverse lookup if needed)
-        VOICE_ID_TO_NAME = {
-            "XrExE9yKIg1WjnnlVkGX": "Matilda",
-            "EXAVITQu4vr4xnSDxMaL": "Bella",
-            "JBFqnCBsd6RMkjVDRZzb": "Sam",
-            "pNInz6obpgDQGcFmaJgB": "Adam",
-            "pqHfZKP75CvOlQylNhV4": "Bryan",
-            "onwK4e9ZLuTAKqWW03F9": "Daniel"
-        }
+        # The roster is the one place a voice id is named (voice_roster.ROSTER); a name no longer decides a role.
+        VOICE_ID_TO_NAME = voice_roster.id_to_name()
         
         # Build name-to-role mapping ONCE at start, prioritizing selected voice IDs
         name_to_role = {}
@@ -332,40 +328,9 @@ class ElevenLabsVoiceService:
             name_to_role["brian"] = name_to_role["bryan"]
             logger.info(f"🎙️ Mapped 'brian' as variant of 'bryan' to '{name_to_role['bryan']}' role")
         
-        # Add fallback mappings for common names (only if not already mapped above)
-        fallback_mappings = {
-            "matilda": "host",
-            "bella": "host",  # Default fallback
-            "sam": "host",
-            "adam": "expert",  # Default fallback
-            "bryan": "expert",  # Default fallback (only if not mapped above)
-            "brian": "expert",  # Default fallback (variant of Bryan, only if not mapped above)
-            "daniel": "expert",
-            "bill": "questioner",
-            "lily": "correspondent",
-            # Legacy names
-            "sarah": "host",
-            "mary": "questioner",
-            "susan": "host",
-            "maya": "host",
-            "elena": "correspondent",
-            "anna": "questioner",
-            "emma": "host",
-            "gary": "expert",
-            "tom": "expert",
-            "bob": "correspondent",
-            "james": "expert",
-            "marcus": "expert",
-            "david": "questioner",
-            "john": "correspondent",
-            "michael": "expert",
-        }
-        
-        # Only add fallback mappings if they don't conflict with selected voices
-        for name, role in fallback_mappings.items():
-            if name not in name_to_role:
-                name_to_role[name] = role
-        
+        # No table of guessed names. A role comes from the script's own HOST:/EXPERT: label; a bare "Name:" line is matched
+        # only against the voices this episode actually uses, so a name never decides a role on its own. ("bill" used to mean
+        # questioner and "bella" host, whatever voice the episode had been given.)
         logger.info(f"🎭 Name-to-role mapping: {name_to_role}")
         
         # Debug: Log the first 500 characters of the script
@@ -415,7 +380,7 @@ class ElevenLabsVoiceService:
                         segments.append({"speaker": current_speaker, "content": clean_text})
                 
                 # Start new speaker
-                current_speaker = role_match.group(1).lower()
+                current_speaker = voice_roster.role_for_label(role_match.group(1)) or role_match.group(1).lower()
                 current_content = [role_match.group(2).strip()] if role_match.group(2).strip() else []
                 
             elif role_dash_match:
@@ -426,22 +391,29 @@ class ElevenLabsVoiceService:
                         segments.append({"speaker": current_speaker, "content": clean_text})
                 
                 # Start new speaker
-                current_speaker = role_dash_match.group(1).lower()
+                current_speaker = voice_roster.role_for_label(role_dash_match.group(1)) or role_dash_match.group(1).lower()
                 current_content = [role_dash_match.group(2).strip()] if role_dash_match.group(2).strip() else []
                 
             elif name_match:
+                first_name = name_match.group(1).strip().lower()
+                text = name_match.group(2).strip()
+
+                # Only a name this episode's own voices answer to starts a new speaker; anything else is more of what the current
+                # speaker is saying, which is safer than guessing a role from a name. The previous speaker's content is therefore
+                # saved only once it is certain this line really is a new speaker.
+                mapped_role = name_to_role.get(first_name)
+                if mapped_role is None:
+                    if current_speaker:
+                        current_content.append(line)
+                        continue
+                    mapped_role = voice_roster.HOST
+
                 # Save previous speaker's content if any
                 if current_speaker and current_content:
                     clean_text = self._preprocess_text_for_natural_speech(' '.join(current_content))
                     if clean_text:
                         segments.append({"speaker": current_speaker, "content": clean_text})
-                
-                # Start new speaker
-                first_name = name_match.group(1).strip().lower()
-                text = name_match.group(2).strip()
-                
-                # Use the pre-built name-to-role mapping (prioritizes selected voices)
-                mapped_role = name_to_role.get(first_name, "host")
+
                 current_speaker = mapped_role
                 logger.debug(f"🎭 Mapped speaker name '{first_name}' to role '{mapped_role}'")
                 current_content = [text] if text else []
@@ -1082,28 +1054,20 @@ class ElevenLabsVoiceService:
         # --- End of Edit ---
         
         # Map voice IDs to names for script parsing
-        VOICE_ID_TO_NAME = {
-            "XrExE9yKIg1WjnnlVkGX": "Matilda",  # Female, Professional
-            "EXAVITQu4vr4xnSDxMaL": "Bella",     # Female, British
-            "JBFqnCBsd6RMkjVDRZzb": "Sam",       # Female, American
-            "pNInz6obpgDQGcFmaJgB": "Adam",      # Male, Authoritative
-            "pqHfZKP75CvOlQylNhV4": "Bryan",     # Male, American
-            "onwK4e9ZLuTAKqWW03F9": "Daniel"     # Male, British
-        }
+        # The roster is the one place a voice id is named (voice_roster.ROSTER); a name no longer decides a role.
+        VOICE_ID_TO_NAME = voice_roster.id_to_name()
         
         # Determine speaker names from voice IDs
-        host_name = VOICE_ID_TO_NAME.get(host_voice_id, "Matilda") if host_voice_id else "Matilda"
-        expert_name = VOICE_ID_TO_NAME.get(expert_voice_id, "Adam") if expert_voice_id else "Adam"
+        host_name = voice_roster.name_for(host_voice_id, "Matilda")
+        expert_name = voice_roster.name_for(expert_voice_id, "Adam")
         
-        # Override voice IDs if provided (Phase 2.2: Voice Selection)
-        if host_voice_id:
-            self.voice_configs['host'].voice_id = host_voice_id
-            self.voice_configs['host'].speaker_name = host_name
-            logger.info(f"🎙️ Using custom host voice: {host_voice_id} ({host_name})")
-        if expert_voice_id:
-            self.voice_configs['expert'].voice_id = expert_voice_id
-            self.voice_configs['expert'].speaker_name = expert_name
-            logger.info(f"🎙️ Using custom expert voice: {expert_voice_id} ({expert_name})")
+        # Each role reads in the voice chosen for that role (voice_roster.voice_for_role), whatever the voice is called.
+        for role, chosen in ((voice_roster.HOST, host_voice_id), (voice_roster.EXPERT, expert_voice_id)):
+            voice_id = voice_roster.voice_for_role(role, host_voice_id=host_voice_id, expert_voice_id=expert_voice_id)
+            self.voice_configs[role].voice_id = voice_id
+            self.voice_configs[role].speaker_name = voice_roster.name_for(voice_id, self.voice_configs[role].speaker_name)
+            logger.info(f"🎙️ {role}: {voice_id} ({self.voice_configs[role].speaker_name})"
+                        f"{'' if chosen else ' — the roster default'}")
         
         logger.info(f"🎵 Generating multi-voice audio with bumpers for {canonical_filename}")
         

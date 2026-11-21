@@ -93,3 +93,21 @@ def banned_feedback(hits: List[Dict[str, Any]], phrases: Optional[List[str]] = N
 
 def prompt_list(phrases: Optional[List[str]] = None) -> str:
     return ", ".join(f'"{p}"' for p in (phrases if phrases is not None else load_banned_phrases()))
+
+# --- greetings and sign-offs ------------------------------------------------------------------------------------------------------
+# The recorded opening and ending already name the programme, so a script that greets the listener says it twice. These are checked in
+# the SCRIPT only, never in a description or a prompt: a prompt may legitimately quote one as an example of what not to write.
+GREETING_PHRASES = (
+    "welcome to", "welcome back", "i'm your host", "i am your host", "joining me today", "joining me is",
+    "thanks for listening", "thank you for listening", "thanks for joining", "that's all for today",
+    "until next time", "see you next time", "stay tuned", "in this episode", "on today's episode", "today we're discussing",
+)
+
+
+def greeting_hits(script: str, phrases: Optional[List[str]] = None) -> List[Dict[str, str]]:
+    """Every greeting, show-name introduction or sign-off in a script. Each hit: phrase, matched, sentence."""
+    out: List[Dict[str, str]] = []
+    for phrase in (phrases if phrases is not None else GREETING_PHRASES):
+        for m in _pattern(phrase).finditer(script or ""):
+            out.append({"phrase": phrase, "matched": m.group(0), "sentence": _sentence_around(script, m.start(), m.end())})
+    return out
