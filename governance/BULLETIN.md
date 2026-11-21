@@ -25,6 +25,23 @@ Entry format:
 
 ---
 
+## 055 — 2026-11-20 — Shared prompt text carried one episode's facts; the public bucket lets anyone list it
+
+- From: the engine's own dry runs, reported to Gary
+- Record: copernicus-web #229 and #231 and #233 (merged), #230 and #232 (open)
+- Affects: anyone generating episodes, and anyone relying on the public bucket
+- Summary: A generator's shared section templates and show rules asserted particulars from
+  one episode — a volume of releases, a withdrawn manuscript, a specific error, named
+  outlets and people — and were handed to the writer on every run, so those assertions
+  appeared in unrelated episodes where no source supported them and no check examined
+  them: the status and attribution checks only read a sentence that names a listed source.
+  Shared prompt text must carry shapes only, with every particular coming from the run's
+  own sources. Separately, the public bucket grants anonymous read *and list*, so every
+  object name in it is enumerable by anyone; the code paths that depended on that listing
+  are removed, and the permission is to be narrowed next.
+- Waiting on: Gary, for the traffic line on the deploy of the merged work, and for the
+  merge lines on the two open PRs.
+
 ## 054 — 2026-11-19 — A blocked action is a stop, not a detour: no agent re-runs a denied action in another form
 
 - From: Gary
