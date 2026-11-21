@@ -278,7 +278,21 @@ def _extract_json_from_response(text: str) -> dict:
 
 class PodcastGenerationService:
     """Service for generating podcasts with research-driven content"""
-    
+
+    @staticmethod
+    def _episodes_voiced_before(job_id: str) -> int:
+        """How many episodes have been voiced before this one, which is where the expert rotation has got to. Counted from the jobs that
+        recorded an expert, so it does not drift when a job fails before speech. A count that cannot be read returns 0, and the rotation
+        simply starts again rather than failing a run."""
+        try:
+            from firebase_admin import firestore as admin_firestore
+            client = admin_firestore.client()
+            rows = client.collection('podcast_jobs').where('voices.expert_chosen_by', '==', 'rotation').get()
+            return sum(1 for r in rows if r.id != job_id)
+        except Exception as e:                                          # noqa: BLE001 - the rotation is a nicety; a run must not fail for it
+            structured_logger.warning("Could not count voiced episodes for the expert rotation", error=str(e))
+            return 0
+
     def __init__(self, vertex_ai_model=None):
         """Initialize the podcast generation service"""
         self.vertex_ai_model = vertex_ai_model
@@ -782,7 +796,8 @@ Create a compelling {request.duration} research podcast script about "{request.t
 
 **CRITICAL SHOW REQUIREMENTS:**
 - The show name is ALWAYS "{CHANNEL_NAME_SPOKEN}" - never use any other title
-- HOST must introduce the show as "Welcome to {CHANNEL_NAME_SPOKEN}"
+- The HOST does NOT greet the listener, welcome anyone, name the show or introduce the speakers: the recorded opening already does
+  that. The first line is about the subject. There is no sign-off at the end either.
 - The HOST speaker must be named "{host_name}" (use this exact name for all HOST lines)
 - The EXPERT speaker must be named "{expert_name}" (use this exact name for all EXPERT lines)
 - All speakers use FIRST NAMES ONLY - NO surnames, titles, or honorifics
@@ -805,11 +820,11 @@ Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this
 - **MUST** use speaker labels at the beginning of each line: "{host_name.upper()}:", "{expert_name.upper()}:", "QUESTIONER:"
 - **CRITICAL: Use the exact names "{host_name}" for HOST and "{expert_name}" for EXPERT in all speaker labels**
 - **DO NOT** write in narrative format - write as a conversation between speakers
-- **NEVER** start with "Welcome to {CHANNEL_NAME_SPOKEN}" without a speaker label
+- **NEVER** open with a greeting, a welcome or the show's name, with or without a speaker label
 - **NEVER** use phrases like "{host_name} explains" or "{expert_name} adds" - use speaker labels instead
 - **EXAMPLE FORMAT:**
-  {host_name.upper()}: Welcome to {CHANNEL_NAME_SPOKEN}. Today we're discussing {request.topic}.
-  {expert_name.upper()}: Thank you for having me. This is a fascinating area of research.
+  {host_name.upper()}: {request.topic} has been out of reach for decades. That changed this year.
+  {expert_name.upper()}: It did, and the reason is worth going through carefully.
   QUESTIONER: Can you explain what makes this topic so significant?
   {host_name.upper()}: That's a great question. Let's dive into the details.
 
@@ -2585,6 +2600,21 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 job_ref.update({'tts_started_at': datetime.utcnow().isoformat()})
             except Exception as mark_error:
                 raise RuntimeError("Could not record the start of speech generation; no speech was requested") from mark_error
+            # The host is the anchor host (or a series' own, when one is ever set); the expert comes round the roster, one per episode,
+            # unless the request names one. The choice is recorded on the job so an episode's voices can be read back afterwards.
+            import voice_roster
+            host_voice_id = request.host_voice_id or voice_roster.host_for_series(getattr(request, "category", None))
+            if request.expert_voice_id:
+                expert_voice_id, expert_source = request.expert_voice_id, "requested"
+            else:
+                voiced_before = await asyncio.to_thread(self._episodes_voiced_before, job_id)
+                expert_voice_id, expert_source = voice_roster.expert_for_episode(voiced_before, host_voice_id), "rotation"
+            try:
+                job_ref.update({"voices": {"host_voice_id": host_voice_id, "host_name": voice_roster.name_for(host_voice_id),
+                                           "expert_voice_id": expert_voice_id, "expert_name": voice_roster.name_for(expert_voice_id),
+                                           "expert_chosen_by": expert_source}})
+            except Exception as voice_record_error:                     # noqa: BLE001 - the voices are still used; the record is reported
+                structured_logger.warning("Could not record the episode's voices", job_id=job_id, error=str(voice_record_error))
             try:
                 audio_url = await self.elevenlabs_voice_service.generate_multi_voice_audio_with_bumpers(
                     content["script"],
@@ -2592,8 +2622,8 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     canonical_filename,
                     intro_path="bumpers/copernicus-intro.mp3",
                     outro_path="bumpers/copernicus-outro.mp3",
-                    host_voice_id=request.host_voice_id,
-                    expert_voice_id=request.expert_voice_id,
+                    host_voice_id=host_voice_id,
+                    expert_voice_id=expert_voice_id,
                     tts_usage=tts_usage,
                 )
             finally:

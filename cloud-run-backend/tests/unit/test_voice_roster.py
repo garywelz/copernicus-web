@@ -104,3 +104,103 @@ def test_the_service_no_longer_guesses_a_role_from_a_name():
     assert '"bill": "questioner"' not in text and '"bella": "host"' not in text
     assert "voice_roster.role_for_label(" in text, "a label decides the role"
     assert "voice_roster.voice_for_role(" in text, "a role decides the voice"
+
+
+# --- the rotation ------------------------------------------------------------------------------------------------------------------
+def test_the_rotation_never_pairs_the_host_with_a_too_similar_expert():
+    """Matilda is a middle-aged American woman, and so is Bella: two of those are hard to tell apart as the two speakers."""
+    order = vr.rotation_for(vr.DEFAULT_HOST_ID)
+    assert "hpp4J3VqNfWAUOO0d1Us" not in order, "Bella matches Matilda in gender and accent"
+    assert vr.DEFAULT_HOST_ID not in order, "the host does not also take the expert chair"
+    for vid in order:
+        assert not vr.too_similar(vr.DEFAULT_HOST_ID, vid), vr.describe(vid)
+    assert len(order) == 7, order
+
+
+def test_too_similar_needs_both_gender_and_accent():
+    assert vr.too_similar("XrExE9yKIg1WjnnlVkGX", "hpp4J3VqNfWAUOO0d1Us") is True      # both female American
+    assert vr.too_similar("XrExE9yKIg1WjnnlVkGX", "Xb7hH8MSUJpSbSDYk0k2") is False     # female, but British
+    assert vr.too_similar("XrExE9yKIg1WjnnlVkGX", "cjVigY5qzO86Huf0OWal") is False     # American, but male
+
+
+def test_the_rotation_comes_round_in_a_fixed_order():
+    order = vr.rotation_for(vr.DEFAULT_HOST_ID)
+    picks = [vr.expert_for_episode(n) for n in range(len(order) * 2)]
+    assert picks[:len(order)] == list(order)
+    assert picks[len(order):] == list(order), "it comes round again in the same order"
+    assert vr.expert_for_episode(0) == vr.DEFAULT_EXPERT_ID
+
+
+def test_a_requested_expert_still_wins():
+    text = (BACKEND / "services" / "podcast_generation_service.py").read_text(encoding="utf-8")
+    assert "if request.expert_voice_id:" in text
+    assert 'expert_voice_id, expert_source = request.expert_voice_id, "requested"' in text
+
+
+def test_the_voice_used_is_recorded_on_the_job():
+    text = (BACKEND / "services" / "podcast_generation_service.py").read_text(encoding="utf-8")
+    assert '"voices": {"host_voice_id"' in text
+    for field in ("expert_voice_id", "expert_name", "host_name", "expert_chosen_by"):
+        assert field in text, f"the record should name {field}"
+
+
+def test_a_series_may_be_given_its_own_host_but_none_is():
+    assert vr.SERIES_HOST == {}, "no series has its own host yet"
+    assert vr.host_for_series("Biology") == vr.DEFAULT_HOST_ID
+    assert vr.host_for_series(None) == vr.DEFAULT_HOST_ID
+    assert vr.host_for_series("a series that does not exist") == vr.DEFAULT_HOST_ID
+
+
+def test_a_series_host_changes_the_rotation_it_is_paired_with(monkeypatch):
+    """Whatever host a series is ever given, the rotation drops the experts too like it."""
+    monkeypatch.setitem(vr.SERIES_HOST, "physics", "cjVigY5qzO86Huf0OWal")        # Eric: a middle-aged American man
+    host = vr.host_for_series("Physics")
+    assert host == "cjVigY5qzO86Huf0OWal"
+    order = vr.rotation_for(host)
+    assert "cjVigY5qzO86Huf0OWal" not in order and "pqHfZKP75CvOlQylNhV4" not in order, "Bill is also an American man"
+    assert "Xb7hH8MSUJpSbSDYk0k2" in order and "hpp4J3VqNfWAUOO0d1Us" in order
+
+
+# --- what a script may never do ---------------------------------------------------------------------------------------------------
+def test_the_speakers_are_never_given_character_names():
+    """The voices have names in the roster; the script's speakers are HOST and EXPERT and nothing else."""
+    rules = __import__("curated_script").SHOW_RULES
+    assert "Nobody has a first name" in rules
+    assert "Every non-empty line starts with HOST: or EXPERT:" in rules
+    for name in ("Matilda", "Adam", "Eric", "Alice", "Bella", "Bill"):
+        assert name not in rules, f"the rules must not put {name} in a script"
+    templates = {t[0]: t[3] for t in __import__("curated_script").SECTION_TEMPLATES}
+    for key, text in templates.items():
+        for name in ("Matilda", "Adam", "Eric", "Alice", "Bella", "Bill"):
+            assert name not in text, f"the {key} template names {name}"
+
+
+def test_the_opening_goes_straight_into_the_topic():
+    """No greeting, no welcome, no show name, no sign-off: the bumpers do that, and a script that does it too repeats itself."""
+    import curated_script as cs
+    opening = {t[0]: t[3] for t in cs.SECTION_TEMPLATES}["opening"]
+    assert "No greeting" in opening and "no welcome" in opening
+    assert "does not name the show" in opening
+    closing = {t[0]: t[3] for t in cs.SECTION_TEMPLATES}["closing"]
+    assert "no sign-off" in closing or "No sign-off" in closing
+    from script_style import GREETING_PHRASES, greeting_hits
+    for phrase in ("welcome to", "thanks for listening", "i'm your host", "in this episode", "until next time"):
+        assert phrase in GREETING_PHRASES, f"{phrase!r} should be refused outright"
+    greeted = "HOST: Welcome to the programme. In this episode we look at enzymes.\nEXPERT: Thanks for listening.\n"
+    kinds_found = {h["phrase"] for h in greeting_hits(greeted)}
+    assert {"welcome to", "in this episode", "thanks for listening"} <= kinds_found
+    assert greeting_hits("HOST: For decades this was out of reach.\nEXPERT: It was.\n") == []
+
+
+def test_both_check_paths_refuse_a_greeting():
+    text = (BACKEND / "curated_pipeline.py").read_text(encoding="utf-8")
+    assert text.count("greeting_hits(script)") == 2, "the generated and the supplied path both check it"
+    assert text.count('"kind": "greeting_or_sign_off"') == 2
+
+
+def test_the_ordinary_prompt_no_longer_tells_the_host_to_greet():
+    """Ordinary mode instructed the host to introduce the show as "Welcome to ..." and gave an example that greeted and thanked."""
+    text = (BACKEND / "services" / "podcast_generation_service.py").read_text(encoding="utf-8")
+    assert "Welcome to {CHANNEL_NAME_SPOKEN}" not in text
+    assert "does NOT greet the listener" in text
+    assert "Thank you for having me" not in text

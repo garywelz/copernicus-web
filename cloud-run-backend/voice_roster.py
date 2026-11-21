@@ -44,7 +44,51 @@ ROSTER: Dict[str, Dict[str, str]] = {
 DEFAULT_HOST_ID = "XrExE9yKIg1WjnnlVkGX"
 DEFAULT_EXPERT_ID = "cjVigY5qzO86Huf0OWal"       # Eric: calm and measured, the roster's default expert
 
+# The eight voices chosen for the expert chair, in the order they come round. The order is fixed so a run is reproducible from a count,
+# and the two voices kept only for older episodes (Adam, Sarah) are not in it.
+ROTATION = (
+    "cjVigY5qzO86Huf0OWal",      # Eric: male, middle aged, American
+    "Xb7hH8MSUJpSbSDYk0k2",      # Alice: female, middle aged, British
+    "pqHfZKP75CvOlQylNhV4",      # Bill: male, old, American
+    "SAz9YHcvj6GT2YYXdXww",      # River: neutral, middle aged, American
+    "onwK4e9ZLuTAKqWW03F9",      # Daniel: male, middle aged, British
+    "hpp4J3VqNfWAUOO0d1Us",      # Bella: female, middle aged, American
+    "IKne3meq5aSn9XLyUdCD",      # Charlie: male, young, Australian
+    "JBFqnCBsd6RMkjVDRZzb",      # George: male, middle aged, British
+)
+
 EXPERT_IDS = tuple(vid for vid in ROSTER if vid != DEFAULT_HOST_ID)
+
+# A series may be given its own host later (a male host for one series, say). Nothing sets this today: an empty map means every series
+# uses the anchor host, and a series named here would use the host it names instead.
+SERIES_HOST: Dict[str, str] = {}
+
+
+def host_for_series(series: Optional[str] = None) -> str:
+    """The host a series reads in: the anchor host unless that series has been given its own, which none has."""
+    return SERIES_HOST.get((series or "").strip().lower(), DEFAULT_HOST_ID)
+
+
+def too_similar(host_voice_id: str, expert_voice_id: str) -> bool:
+    """Whether two voices are too alike to be the two speakers: the same gender AND the same accent. With Matilda as host that rules out
+    Bella, who is also a middle-aged American woman; the listener needs to be able to tell who is talking."""
+    h, e = ROSTER.get(host_voice_id), ROSTER.get(expert_voice_id)
+    if not h or not e:
+        return False
+    return h["gender"] == e["gender"] and h["accent"] == e["accent"]
+
+
+def rotation_for(host_voice_id: Optional[str] = None) -> tuple:
+    """The rotation with every voice too like the host taken out, in the fixed order."""
+    host = host_voice_id or DEFAULT_HOST_ID
+    return tuple(vid for vid in ROTATION if vid != host and not too_similar(host, vid))
+
+
+def expert_for_episode(count: int, host_voice_id: Optional[str] = None) -> str:
+    """The expert whose turn it is. `count` is how many episodes have been voiced before this one, so the roster comes round in order and a
+    choice can be reproduced from the count alone."""
+    order = rotation_for(host_voice_id) or (DEFAULT_EXPERT_ID,)
+    return order[int(count) % len(order)]
 
 
 def name_for(voice_id: Optional[str], default: str = "") -> str:
