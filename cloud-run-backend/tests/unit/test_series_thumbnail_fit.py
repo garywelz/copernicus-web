@@ -134,6 +134,7 @@ def test_the_two_fields_are_optional_on_both_curated_requests_and_ride_on_the_po
 def test_both_curated_routes_pass_the_fields_and_report_a_thumbnail_warning():
     text = (ROOT / "endpoints" / "curated" / "routes.py").read_text(encoding="utf-8")
     assert text.count("thumbnail_title=body.thumbnail_title, thumbnail_subtitle=body.thumbnail_subtitle") == 2        # generate and check-script, not the dry run
-    assert text.count('["thumbnail_warning"] =') == 2 and text.count('out["thumbnail_warning"] =') == 1 and text.count('answer["thumbnail_warning"] =') == 1
+    # both curated routes report a thumbnail warning; the supplied route does it through _supplied_answer, whose dict is `out`
+    assert text.count('["thumbnail_warning"] =') == 2 and text.count('out["thumbnail_warning"] =') == 2
     job = (ROOT / "services" / "podcast_generation_service.py").read_text(encoding="utf-8")
     assert 'thumbnail_title=getattr(request, "thumbnail_title", None),' in job and 'thumbnail_subtitle=getattr(request, "thumbnail_subtitle", None),' in job

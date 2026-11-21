@@ -434,6 +434,30 @@ async def dry_run_script(body: GenerateCuratedEpisode):
             "model_calls": gen.model_calls, "model_calls_total": sum(gen.model_calls.values())}
 
 
+def _supplied_answer(answer: Dict[str, Any], job_id: str, data: Dict[str, Any]) -> Dict[str, Any]:
+    """What `check-script` reports once a job has run. The checks passing does not mean an episode exists: a job can pass every check and
+    then fail (a source analysis that cannot be read, a voicing error), as job 036f703c did on 2026-11-19 while the route still answered
+    `passed: true, generated: true`. The answer therefore reports what the JOB did, and an episode counts as made only when its media is
+    recorded and the job completed."""
+    out = dict(answer)
+    result = data.get("result") or {}
+    made = bool(result.get("audio_url")) and data.get("status") == "completed"
+    out.update({"generated": made, "job_id": job_id, "job_status": data.get("status"), "error_type": data.get("error_type"),
+                "status": "pass" if made else "failed_after_checks", "written": "an episode" if made else "nothing",
+                "canonical_filename": result.get("canonical_filename"), "tts_characters": data.get("tts_characters")})
+    if made:
+        # Where the audio actually is. `result["audio_url"]` is the address it will have once the episode is published, so on a private
+        # episode it names an object that does not exist yet and answers 404 (as the link reported on 2026-11-20 did).
+        import media_store
+        out["media_state"] = result.get("media_state")
+        out["audio_location"] = media_store.media_uri(result)
+    if not made:
+        out["error"] = data.get("error") or "the checks passed but the job did not produce an episode"
+    if (data.get("thumbnail") or {}).get("thumbnail_error_message"):
+        out["thumbnail_warning"] = data["thumbnail"]["thumbnail_error_message"]
+    return out
+
+
 # --- pasted commentary (the paste fallback; no automated fetch) ---------------------------------------------------------------------------
 @router.post("/api/admin/curated/check-script")
 async def check_supplied_script(body: CheckSuppliedScript):
@@ -493,10 +517,7 @@ async def check_supplied_script(body: CheckSuppliedScript):
                                              supplied={"script": body.script, "title": body.title})
     job = db.collection('podcast_jobs').document(job_id).get()
     data = (job.to_dict() or {}) if job.exists else {}
-    answer.update({"generated": True, "job_id": job_id, "job_status": data.get("status"), "error_type": data.get("error_type")})
-    if (data.get("thumbnail") or {}).get("thumbnail_error_message"):
-        answer["thumbnail_warning"] = data["thumbnail"]["thumbnail_error_message"]
-    return answer
+    return _supplied_answer(answer, job_id, data)
 
 
 @router.post("/api/admin/curated/lists/{list_id}/commentary")
