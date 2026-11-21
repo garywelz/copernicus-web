@@ -27,6 +27,25 @@ def public_url(name: str) -> str:
     return f"https://storage.googleapis.com/{PUBLIC_BUCKET}/{name}"
 
 
+def private_uri(name: str) -> str:
+    """Where a file actually is while its episode is private. `public_url` records the address a file will have AFTER promotion, so on a
+    private record it names an object that does not exist yet and answers 404. A record therefore carries this too, and a reader who needs
+    the file while the episode is private uses `media_uri`."""
+    return f"gs://{PRIVATE_BUCKET}/{name}"
+
+
+def media_uri(record: Dict[str, Any], field: str = "audio_url") -> Optional[str]:
+    """Where the file named by `field` can be fetched right now: the public URL once the episode is public, otherwise the private gs:// URI.
+    Never returns a public URL for media that is still private."""
+    url = record.get(field)
+    if not url:
+        return None
+    if record.get("media_state") == "public":
+        return url
+    name = url.split(f"{PUBLIC_BUCKET}/", 1)[-1] if f"{PUBLIC_BUCKET}/" in url else url
+    return private_uri(name)
+
+
 def episode_prefixes(episode_id: str) -> List[str]:
     """Object-name prefixes that belong to one episode, in either bucket."""
     return [f"audio/{episode_id}.", f"transcripts/{episode_id}-", f"thumbnails/{episode_id}-", f"episode-images/{episode_id}-",

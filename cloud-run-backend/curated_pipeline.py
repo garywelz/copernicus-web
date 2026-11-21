@@ -7,6 +7,7 @@ from dataclasses import dataclass, field
 from typing import Any, Awaitable, Callable, Dict, List, Optional
 
 import curated_checks as cc
+import unattributed_claims as uclaims
 import curated_script as csr
 import curated_sources as cs
 import rejection_log
@@ -168,14 +169,19 @@ async def _generate(request, research_context, check_llm, writer_llm, job_id, on
             named = [c for c in confirmed if c.pid in naming.named_pids]
             attribution = await model_call("attribution_check", lambda: check_attributions_for(script, named, check_counted, curated_run=run))
             reject(rejection_log.attribution_items(n, attribution.checked, withheld))
+        # A sentence that credits no source is never read by the attribution check, so the strongest assertions can pass by citing nothing.
+        unattributed = uclaims.check(script, confirmed, attributed_quotes=[c.get("quote", "") for c in (attribution.checked if attribution else [])],
+                                     withdrawal_on_record=run.has_withdrawal_on_record())
         entry = {"attempt": n, **naming.summary(), "unspeakable_notation": bad_notation,
                  "banned_phrases": [{"phrase": h["phrase"], "matched": h["matched"], "where": h["where"]} for h in banned],
                  "curated_checks": cc.summary(curated), "topic_read_aloud": len(read_aloud), "coverage_statement_missing": missing_cov,
-                 "words": len(script.split()), "naming_reporting_attributions_exempt": len(exempted)}
+                 "words": len(script.split()), "naming_reporting_attributions_exempt": len(exempted),
+                 "unattributed_claims": uclaims.summary(unattributed)}
         if attribution is not None:
             entry["attribution"] = attribution.summary()
         attempts.append(entry)
         viol = csr.collect_violations(naming, attribution, bad_notation, banned, read_aloud, missing_cov, curated)
+        viol += [{"check": v["check"], "kind": v["kind"], "find": v["find"], "message": v["message"]} for v in unattributed]
         reject(rejection_log.naming_items(n, naming.violations) + rejection_log.notation_items(n, bad_notation) + rejection_log.banned_items(n, banned)
                + rejection_log.read_aloud_items(n, read_aloud) + rejection_log.coverage_items(n, missing_cov) + rejection_log.curated_items(n, curated))
         return viol
@@ -320,9 +326,13 @@ async def check_supplied_script(request, research_context, check_llm: csr.LlmCal
              "banned_phrases": [{"phrase": h["phrase"], "matched": h["matched"], "where": h["where"]} for h in banned],
              "curated_checks": cc.summary(curated), "topic_read_aloud": len(read_aloud), "coverage_statement_missing": missing_cov,
              "words": words, "naming_reporting_attributions_exempt": len({v.get("quote") for v in exempted}), "naming_passes": len(passes)}
+    unattributed = uclaims.check(script, confirmed, attributed_quotes=[c.get("quote", "") for c in (attribution.checked if attribution else [])],
+                                 withdrawal_on_record=run.has_withdrawal_on_record())
+    entry["unattributed_claims"] = uclaims.summary(unattributed)
     if attribution is not None:
         entry["attribution"] = attribution.summary()
     violations = csr.collect_violations(naming, attribution, bad_notation, banned, read_aloud, missing_cov, curated)
+    violations += [{"check": v["check"], "kind": v["kind"], "find": v["find"], "message": v["message"]} for v in unattributed]
     if words > max_words:
         violations.append({"check": "length", "kind": "too_long", "find": None, "message": f"The script has {words} words; the most for this duration is {max_words}."})
     if words < min_words:

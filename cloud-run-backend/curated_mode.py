@@ -150,6 +150,10 @@ class CuratedRun:
         st = item.get("result_status") or cc.STATUS_UNVERIFIED
         return st if st in cc.STATUSES else cc.STATUS_UNVERIFIED
 
+    def has_withdrawal_on_record(self) -> bool:
+        """True only when a listed item's own status record shows it withdrawn. Nothing else licenses a script to mention a withdrawal."""
+        return any(self.status_of(i) == cc.STATUS_WITHDRAWN for i in self.items)
+
     def companies(self) -> List[str]:
         """The companies whose releases are in the list, in list order (OpenAI when there is none)."""
         names = list(dict.fromkeys(company_of(i) for i in self.items if i["class"] == cs.COMPANY_RELEASE))
