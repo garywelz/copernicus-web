@@ -445,6 +445,12 @@ def _supplied_answer(answer: Dict[str, Any], job_id: str, data: Dict[str, Any]) 
     out.update({"generated": made, "job_id": job_id, "job_status": data.get("status"), "error_type": data.get("error_type"),
                 "status": "pass" if made else "failed_after_checks", "written": "an episode" if made else "nothing",
                 "canonical_filename": result.get("canonical_filename"), "tts_characters": data.get("tts_characters")})
+    if made:
+        # Where the audio actually is. `result["audio_url"]` is the address it will have once the episode is published, so on a private
+        # episode it names an object that does not exist yet and answers 404 (as the link reported on 2026-11-20 did).
+        import media_store
+        out["media_state"] = result.get("media_state")
+        out["audio_location"] = media_store.media_uri(result)
     if not made:
         out["error"] = data.get("error") or "the checks passed but the job did not produce an episode"
     if (data.get("thumbnail") or {}).get("thumbnail_error_message"):

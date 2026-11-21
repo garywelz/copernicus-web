@@ -67,10 +67,6 @@ def test_a_sentence_the_attribution_check_already_read_is_left_to_it():
     assert uc.check(script, PHAGE, attributed_quotes=quoted) == []
 
 
-def test_a_hedge_about_what_might_follow_is_not_an_assertion():
-    script = "EXPERT: We should watch for whether such designs could ever be used in patients.\n"
-    assert uc.check(script, PHAGE) == []
-
 
 def test_summary_and_feedback_name_each_kind():
     v = uc.check("EXPERT: One manuscript was withdrawn for a sign error. HOST: Could this work in a cell?\n", PHAGE)
@@ -107,7 +103,25 @@ def test_check_script_reports_the_job_outcome_not_the_check_outcome(monkeypatch)
     assert "could not be read" in reported["error"]
 
 
-def test_check_script_reports_a_real_episode_as_generated():
+def test_check_script_says_where_private_media_actually_is():
+    """The answer carried a public URL for a private episode, which 404s; it now carries where the audio really is."""
+    done = {"status": "completed", "tts_characters": 6235,
+            "result": {"audio_url": "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-bio-260014.mp3",
+                       "canonical_filename": "ever-bio-260014", "media_state": "private"}}
+    reported = curated_routes._supplied_answer({"passed": True}, "job-3", done)
+    assert reported["media_state"] == "private"
+    assert reported["audio_location"] == "gs://regal-scholar-453620-r7-private-media/audio/ever-bio-260014.mp3"
+
+
+def test_check_script_keeps_the_public_address_once_an_episode_is_public():
+    done = {"status": "completed",
+            "result": {"audio_url": "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-bio-260013.mp3",
+                       "canonical_filename": "ever-bio-260013", "media_state": "public"}}
+    reported = curated_routes._supplied_answer({"passed": True}, "job-4", done)
+    assert reported["audio_location"].startswith("https://storage.googleapis.com/")
+
+
+def test_a_real_episode_is_reported_as_generated():
     done = {"status": "completed", "tts_characters": 6235,
             "result": {"audio_url": "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-bio-260014.mp3",
                        "canonical_filename": "ever-bio-260014"}}

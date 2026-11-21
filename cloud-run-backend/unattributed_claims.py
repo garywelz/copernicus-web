@@ -27,13 +27,16 @@ WITHDRAWAL = re.compile(r"\b(withdrawn|withdrew|withdrawal|retracted|retraction|
 # A body that releases work. Named here only as a shape to look for in an assertion; the sources decide whether naming it is allowed.
 BODY = re.compile(r"\b(OpenAI|Anthropic|Google|DeepMind|Meta|Microsoft|NVIDIA|IBM|Baker lab|ETH(?: Zurich)?|MIT|Stanford|Harvard|Oxford|"
                   r"Cambridge|Nature|Science|Quanta)\b")
-HEDGE = re.compile(r"\b(could|would|might|may|if |whether|hope|hopes|expect|expects|watch for|remains? open|unclear|not yet|no record|"
-                   r"do(?:es)? not (?:indicate|record|say)|there is no)\b", re.I)
+# A hedge is not an exemption. Only an explicit NEGATION keeps a withdrawal sentence: saying there is no record of one is not a claim of one.
+# "It could have been withdrawn" is still a claim about a withdrawal, and "it could cure diseases in patients" still brings in patients.
+NEGATED = re.compile(r"\bno record\b|\bthere (?:is|are|was|were) no\b|\bnot been\b|\bwas not\b|\bwere not\b|\bnone of\b|\bneither\b|"
+                     r"\bdo(?:es)? not (?:indicate|record|say|show|mention)\b|\bnothing (?:in|on) the record\b", re.I)
 SPEAKER = re.compile(r"^\s*(HOST|EXPERT)\s*:\s*", re.I)
 
 
-def source_text(sources: Sequence[Any]) -> str:
-    """Every word the listed sources offer: titles, abstracts and the evidence text of a supplied item."""
+def source_words(sources: Sequence[Any]) -> frozenset:
+    """Every WORD the listed sources offer, as whole words: titles, abstracts and the evidence text of a supplied item. Whole words matter:
+    a substring test finds "cell" in "excellent" and "MIT" in "transmitted", and would then let a widening through as if it were sourced."""
     parts: List[str] = []
     for s in sources or []:
         for attr in ("title", "abstract", "evidence_text", "venue"):
@@ -42,7 +45,7 @@ def source_text(sources: Sequence[Any]) -> str:
                 v = s.get(attr)
             if isinstance(v, str):
                 parts.append(v)
-    return " ".join(parts).lower()
+    return frozenset(re.findall(r"[a-z0-9]+", " ".join(parts).lower()))
 
 
 def sentences(script: str):
@@ -59,6 +62,13 @@ def sentences(script: str):
                 yield who, s
 
 
+def _in_sources(term: str, words: frozenset) -> bool:
+    """Whether the sources use `term`, matched as whole words. A term of several words ("Baker lab", "ETH Zurich") counts only when the
+    sources use every word of it."""
+    pieces = re.findall(r"[a-z0-9]+", term.lower())
+    return bool(pieces) and all(p in words for p in pieces)
+
+
 def _attributed(sentence: str, attributed: Sequence[str]) -> bool:
     """True when the attribution check already examined this sentence (it quoted it)."""
     flat = re.sub(r"\s+", " ", sentence).strip().lower()
@@ -69,25 +79,26 @@ def check(script: str, sources: Sequence[Any], attributed_quotes: Sequence[str] 
           withdrawal_on_record: bool = False) -> List[Dict[str, Any]]:
     """Violations in `script`. `sources` are the listed items; `attributed_quotes` the sentences the attribution check already read;
     `withdrawal_on_record` is True only when a listed item's status record shows a withdrawal or correction."""
-    text = source_text(sources)
+    words = source_words(sources)
     out: List[Dict[str, Any]] = []
     for who, s in sentences(script):
         if _attributed(s, attributed_quotes):
             continue
-        hedged = bool(HEDGE.search(s))
-        if WITHDRAWAL.search(s) and not withdrawal_on_record and not hedged:
+        negated = bool(NEGATED.search(s))
+        if WITHDRAWAL.search(s) and not withdrawal_on_record and not negated:
             out.append({"check": "unattributed_claim", "kind": "withdrawal_without_record", "where": who, "find": s,
                         "message": f"{s!r} asserts a withdrawal, retraction or correction, but no listed source's status record shows one. "
-                                   "Remove the sentence."})
+                                   "Remove the sentence. A hedge does not help: 'may have been withdrawn' is still a claim about one."})
             continue
-        widened = sorted({t for t in SCOPE_TERMS if re.search(rf"\b{t}\b", s, re.I) and t not in text})
-        if widened and not hedged:
+        widened = sorted({t for t in SCOPE_TERMS if re.search(rf"\b{t}\b", s, re.I) and not _in_sources(t, words)})
+        if widened:
             out.append({"check": "unattributed_claim", "kind": "scope_widened", "where": who, "find": s,
                         "message": f"{s!r} brings in {', '.join(widened)}, which no listed source mentions. Say only what the sources are "
-                                   "about, or remove the sentence."})
+                                   "about, or remove the sentence. A hedge does not help: what might one day be done to a patient is still "
+                                   "about patients."})
             continue
-        named = sorted({m.group(0) for m in BODY.finditer(s) if m.group(0).lower() not in text})
-        if named and not hedged:
+        named = sorted({m.group(0) for m in BODY.finditer(s) if not _in_sources(m.group(0), words)})
+        if named:
             out.append({"check": "unattributed_claim", "kind": "named_body_without_source", "where": who, "find": s,
                         "message": f"{s!r} names {', '.join(named)}, which no listed source names. Remove the name, or attribute the "
                                    "sentence to a source that names it."})
