@@ -11,12 +11,34 @@
 from __future__ import annotations
 
 import re
+import unicodedata
 from typing import Any, Dict, List, Sequence
 
 from search_queries import stem, term_hits
 
 _SENTENCE_SPLIT = re.compile(r"(?<=[.!?])\s+|\n+")
 _STOP_CAPS = {"the", "a", "an", "in", "on", "of", "and", "or", "for", "to", "with", "from", "what", "how", "why", "when", "where", "is", "are"}
+
+# A company or a laboratory is never a thing the reviewed papers must "not cover". Asked for such a sentence, the model wrote "The papers
+# reviewed here do not cover OpenAI.", which says nothing and names the company as if it were a subject. The coverage statement is about the
+# CLAIM, so the body that made the claim is not a name this check collects (episode 017, 2026-11-22).
+_BODIES = {"openai", "anthropic", "google", "deepmind", "microsoft", "meta", "nvidia", "ibm", "apple", "amazon", "xai", "mistral",
+           "huggingface", "epoch", "quanta", "arxiv", "github", "lean", "mathlib"}
+
+# Dashes that join two names ("Mezard-Parisi", "Mézard–Parisi", "Landau—Siegel"). Every form must compare equal, and a name must be able to
+# begin at a letter outside ASCII: the old token pattern started at [A-Za-z], so "Mézard-Parisi" was collected as the fragment "zard-Parisi"
+# and no comparison with any source could ever succeed (episode 221, 2026-11-22).
+_DASHES = "‐‑‒–—―−"
+_NAME_CHAR = r"[^\W\d_]"                     # a letter in any script, not a digit or underscore
+_NAME_TOKEN = re.compile(rf"{_NAME_CHAR}[{_DASHES}\-\w]*", re.UNICODE)
+
+
+def fold(s: str) -> str:
+    """A name as it must be compared: accents removed, every dash form a plain hyphen, lower case. "Mézard–Parisi" and "Mezard-Parisi"
+    both become "mezard-parisi", so a source that spells it one way covers a topic that spells it the other."""
+    s = unicodedata.normalize("NFKD", s or "")
+    s = "".join(ch for ch in s if not unicodedata.combining(ch))
+    return re.sub(rf"[{_DASHES}]", "-", s).lower()
 
 
 class CoverageStatementError(Exception):
@@ -42,31 +64,46 @@ def named_things(topic: str) -> List[str]:
     full stop), words in quotation marks or backticks, and words with a digit, a hyphen or a capital inside (GPT-4, CRISPR-Cas9, iPhone)."""
     text = topic or ""
     found: List[str] = []
-    for m in re.finditer(r"[`\"‘“']([A-Za-z][A-Za-z0-9\-]{3,30})[`\"’”']", text):
+    for m in re.finditer(rf"[`\"‘“']({_NAME_CHAR}[{_DASHES}\-\w]{{3,30}})[`\"’”']", text, re.UNICODE):
         found.append(m.group(1))
-    tokens = list(re.finditer(r"[A-Za-z][A-Za-z0-9\-]*", text))
+    tokens = list(_NAME_TOKEN.finditer(text))
     for i, m in enumerate(tokens):
         w = m.group(0)
-        if len(w) < 4 or w.lower() in _STOP_CAPS:
+        if len(w) < 4 or w.lower() in _STOP_CAPS or fold(w).strip("-") in _BODIES:
             continue
         before = text[:m.start()].rstrip()
         clause_start = i == 0 or before.endswith((":", ".", "?", "!", ";", "—", "-"))
-        inner_caps = any(c.isupper() for c in w[1:]) or any(c.isdigit() for c in w) or "-" in w
+        inner_caps = any(c.isupper() for c in w[1:]) or any(c.isdigit() for c in w) or "-" in fold(w)
         if inner_caps or (w[0].isupper() and not clause_start):
             found.append(w)
     out, seen = [], set()
     for w in found:
-        if stem(w) not in seen:
-            seen.add(stem(w))
+        if stem(fold(w)) not in seen:
+            seen.add(stem(fold(w)))
             out.append(w)
     return out
 
 
+def _covers(text: str, name: str) -> bool:
+    """Whether `text` covers `name`, comparing accent-free and with every dash form alike. A name joined by a dash is covered when both of
+    its parts are present, so "Mézard–Parisi" is covered by a source that writes "Mezard-Parisi", "Mezard and Parisi" or either surname
+    beside the other."""
+    hay, needle = fold(text), fold(name).strip("-")
+    if not needle:
+        return False
+    if term_hits(hay, [needle]):
+        return True
+    parts = [p for p in needle.split("-") if len(p) > 2]
+    return bool(parts) and all(term_hits(hay, [p]) for p in parts)
+
+
 def uncovered_named_things(topic: str, confirmed_papers: Sequence[Any]) -> List[str]:
-    """Names in the topic that appear in no confirmed paper's title or abstract."""
+    """Names in the topic that appear in no confirmed source's title, abstract or attached release text. A company or laboratory is not
+    collected at all: the coverage statement is about the claim, never about who made it."""
     out = []
     for name in named_things(topic):
-        if not any(term_hits(f"{p.title} {getattr(p, 'abstract', '') or ''}", [name]) for p in confirmed_papers):
+        texts = [f"{p.title} {getattr(p, 'abstract', '') or ''} {getattr(p, 'evidence_text', '') or ''}" for p in confirmed_papers]
+        if not any(_covers(t, name) for t in texts):
             out.append(name)
     return out
 
@@ -91,8 +128,10 @@ def missing_coverage_statements(script: str, uncovered: Sequence[str]) -> List[s
     missing = []
     sents = sentences(script)
     for name in uncovered:
-        word = re.compile(r"(?<![A-Za-z0-9])" + re.escape(name) + r"(?:'s|’s|s)?(?![A-Za-z0-9])", re.I)
-        if not any(word.search(s) and any(p.search(s) for p in _NOT_COVERED) for s in sents):
+        # The sentence is matched folded, so a script that writes "Mezard-Parisi" satisfies a name spelt "Mézard–Parisi" and the other way
+        # round. Without this the script could not say the sentence the check demands.
+        word = re.compile(r"(?<![a-z0-9])" + re.escape(fold(name).strip("-")) + r"(?:'s|s)?(?![a-z0-9])")
+        if not any(word.search(fold(s)) and any(p.search(s) for p in _NOT_COVERED) for s in sents):
             missing.append(name)
     return missing
 

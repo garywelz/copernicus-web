@@ -67,6 +67,33 @@ def _mutate(list_id: str, mutator: Callable[[Dict[str, Any]], Any]):
     return _run_in_transaction(_mutate_in, list_id, mutator)
 
 
+def _note_job_on_list(list_id: str, job_id: str) -> bool:
+    """Append `job_id` to the list's `jobs` array, and DO NOT fail the run if that write cannot be made.
+
+    The array is a convenience for reading a list's history. The link of record is on the job itself, which carries `curated_list_id` and
+    `curated_list_hash`, so the array can be rebuilt from the jobs collection at any time; nothing in this service reads it.
+
+    It used to be written with the transaction that fails the whole request. On 2026-11-22 a run of 017 died here with "The referenced
+    transaction has expired or is no longer valid" AFTER the job document was written and BEFORE generation began, leaving a job stuck at
+    `pending` and throwing away a script that had passed every check. One retry covers the transient case; a second failure is logged as an
+    error naming both ids, and the run goes on."""
+    for attempt in (1, 2):
+        try:
+            _mutate(list_id, lambda d: d.setdefault("jobs", []).append(job_id))
+            return True
+        except HTTPException:
+            raise                                               # a missing list, or a status refusal: the caller must see it
+        except Exception as e:                                  # noqa: BLE001 - a breadcrumb must not cost a checked script
+            if attempt == 1:
+                structured_logger.warning("Could not note the job on its source list; retrying once",
+                                          job_id=job_id, list_id=list_id, error=str(e), error_type=type(e).__name__)
+                continue
+            structured_logger.error("Could not note the job on its source list; the run continues and the list's jobs array is now "
+                                    "incomplete. Rebuild it from podcast_jobs.curated_list_id if it is needed.",
+                                    job_id=job_id, list_id=list_id, error=str(e), error_type=type(e).__name__)
+    return False
+
+
 def _require_draft(doc: Dict[str, Any]) -> None:
     if doc.get("status") != "draft":
         raise HTTPException(status_code=409, detail="This list is approved and frozen; make a new list to change anything")
@@ -374,7 +401,7 @@ async def generate_episode(body: GenerateCuratedEpisode):
         'job_id': job_id, 'status': 'pending', 'created_at': _now(), 'updated_at': _now(), 'request': request.model_dump(),
         'subscriber_id': subscriber_id, 'submitted_to_rss': False, 'mode': 'curated_sources',
         'curated_list_id': run.list_id, 'curated_list_hash': run.list_hash})
-    _mutate(body.list_id, lambda d: d.setdefault("jobs", []).append(job_id))
+    _note_job_on_list(body.list_id, job_id)
     structured_logger.info("Curated generation started", job_id=job_id, list_id=run.list_id)
     await service.run_curated_generation_job(job_id, doc, request, subscriber_id=subscriber_id, private_texts=texts, title=body.title)
     job = db.collection('podcast_jobs').document(job_id).get()
@@ -425,7 +452,7 @@ async def dry_run_script(body: GenerateCuratedEpisode):
                                                               job_id="dry-run", with_metadata=True)
     except curated_script.ScriptPipelineError as e:
         return {**base, "status": "failed", "error_type": type(e).__name__, "error": str(e),
-                "violations": [{k: v for k, v in x.items() if k in ("check", "kind", "find", "message")} for x in getattr(e, "violations", [])],
+                "violations": [curated_script.reported_violation(x) for x in getattr(e, "violations", [])],
                 **getattr(e, "diagnostics", {})}
     script = gen.content["script"]
     return {**base, "status": "ok", "words": len(script.split()), "tts_characters": len(script), "title": gen.content["title"],
@@ -478,6 +505,7 @@ async def check_supplied_script(body: CheckSuppliedScript):
     except curated_mode.CuratedListError as e:
         raise HTTPException(status_code=409, detail=str(e))
     import curated_pipeline
+    import curated_script
     import paper_confirmation
     from named_work_check import make_gemini_llm_call
     from podcast_research_integrator import PodcastResearchContext
@@ -495,7 +523,7 @@ async def check_supplied_script(body: CheckSuppliedScript):
     answer = {"list_id": run.list_id, "list_hash": run.list_hash, "title": body.title, "passed": checked.passed, "status": "pass" if checked.passed else "fail",
               "words": checked.words, "tts_characters": len(body.script), "limits": {"min_words": checked.min_words, "max_words": checked.max_words},
               "length_ok": checked.length_ok, "format_problems": checked.format_problems, "check_results": checked.entry,
-              "violations": [{k: v for k, v in x.items() if k in ("check", "kind", "find", "message")} for x in checked.violations],
+              "violations": [curated_script.reported_violation(x) for x in checked.violations],
               "attribution_detail": checked.attribution.detail() if hasattr(checked.attribution, "detail") else [],
               "model_calls": checked.model_calls, "written": "nothing", "generated": False, "published": False}
     if not (body.generate and checked.passed):
@@ -511,7 +539,7 @@ async def check_supplied_script(body: CheckSuppliedScript):
         'job_id': job_id, 'status': 'pending', 'created_at': _now(), 'updated_at': _now(), 'request': request.model_dump(),
         'subscriber_id': subscriber_id, 'submitted_to_rss': False, 'mode': 'curated_sources', 'supplied_script': True,
         'curated_list_id': run.list_id, 'curated_list_hash': run.list_hash})
-    _mutate(body.list_id, lambda d: d.setdefault("jobs", []).append(job_id))
+    _note_job_on_list(body.list_id, job_id)
     structured_logger.info("Curated generation from a supplied script started", job_id=job_id, list_id=run.list_id)
     await service.run_curated_generation_job(job_id, doc, request, subscriber_id=subscriber_id, private_texts=texts, title=body.title,
                                              supplied={"script": body.script, "title": body.title})

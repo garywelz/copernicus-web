@@ -74,6 +74,8 @@ def violation_label(v: Dict[str, Any]) -> str:
     if v["kind"] == "unlisted_work":
         who = ", ".join(v.get("authors") or []) or "a work"
         return f"{who}{' (' + str(v['year']) + ')' if v.get('year') else ''}: \"{v['quote'][:80]}\""
+    if v["kind"] == "unsourced_result":
+        return f"a named result the sources do not name: \"{v['quote'][:80]}\""
     return f"a link-in-the-description phrase not attached to a listed paper: \"{v['quote'][:80]}\""
 
 
@@ -162,6 +164,117 @@ def _group_sets(paper: Any) -> List[set]:
     return [_name_tokens(a) for a in paper.authors if any(m in _norm(a).split() for m in GROUP_MARKERS) and _name_tokens(a)]
 
 
+# A phrase that ends in one of these is the name of a RESULT - a theorem, a conjecture, a formula - not the title of a paper. The checker
+# can only ask "which listed paper is this?", and for "the free group factor alternative" the right answer is "none, and that is fine"
+# (episodes 287 and 221, 2026-11-22). A named result still may not be invented: its own words must be in the sources.
+RESULT_NOUNS = ("theorem", "theorems", "conjecture", "conjectures", "formula", "formulas", "formulae", "hypothesis", "hypotheses",
+                "lemma", "lemmas", "lemmata", "alternative", "alternatives", "inequality", "inequalities", "problem", "problems",
+                "principle", "principles")
+
+
+_DASHES = re.compile(r"[‐‑‒–—―−-]")
+
+
+def unhyphenate(s: str) -> str:
+    """Every dash form becomes a space, so a joined name is compared part by part: "Mézard–Parisi", "Mezard-Parisi" and "Mezard Parisi"
+    all give the words {mezard, parisi}. `_norm` deletes dashes without a space in their place, which fuses the two surnames into one
+    token that no source could ever match."""
+    return _DASHES.sub(" ", s or "")
+
+
+def _source_text(confirmed: Sequence[Any]) -> str:
+    """Everything the list vouches for: titles, abstracts, and any release text attached to an item (which `curated_mode` supplies as the
+    item's abstract)."""
+    parts = []
+    for c in confirmed:
+        parts += [c.title or "", getattr(c, "abstract", "") or "", getattr(c, "evidence_text", "") or ""]
+    return _norm(unhyphenate(" ".join(parts)))
+
+
+def names_a_result(phrase: str) -> bool:
+    """Whether `phrase` reads as the name of a result rather than the title of a work."""
+    words = _norm(phrase).split()
+    return bool(words) and words[-1] in RESULT_NOUNS
+
+
+def reads_as_a_result(mention: Dict[str, Any], phrase: str, text: str) -> bool:
+    """Whether this mention may be treated as the name of a result at all.
+
+    A result noun is not enough on its own. A YEAR makes it a citation, and a title in QUOTATION MARKS is being given as the title of a
+    work: "Smith's 2019 paper 'The Kadison-Singer Problem'" ends in a result noun but is a paper, and must stay an unlisted work however
+    many of its words happen to appear in the sources. An author alone disqualifies nothing, because a result is often named after someone:
+    "Kaplansky's direct-finiteness conjecture" is a conjecture, not a paper by Kaplansky."""
+    if mention.get("year"):
+        return False
+    if not names_a_result(phrase):
+        return False
+    return not _is_quoted(text, phrase)
+
+
+def result_is_sourced(phrase: str, confirmed: Sequence[Any]) -> bool:
+    """A named result passes only if EVERY content word of its name is in the sources, the result noun included. "the free group factor
+    alternative" passes when an attached manuscript names that alternative, and is refused when the sources only happen to speak of free
+    group factors: dropping the head word was what let an unsourced name through, since "factor" is already inside "factors".
+
+    A dash-joined name also passes when every part of it is present, so "Mezard-Parisi" is sourced by a text that writes "Mézard–Parisi".
+    A bare result noun ("the theorem") names nothing and never passes."""
+    haystack = _source_text(confirmed)
+    said = _words(unhyphenate(phrase))
+    if not said or not (said - set(RESULT_NOUNS)):
+        return False
+    return all(re.search(rf"(?<![a-z0-9]){re.escape(w)}(?:e?s)?(?![a-z0-9])", haystack) for w in said)
+
+
+def _is_quoted(text: str, phrase: str) -> bool:
+    """Whether the phrase appears inside quotation marks or backticks in the checked text: a quoted phrase is being given AS a title."""
+    want = _norm(phrase)
+    if not want:
+        return False
+    for m in _QUOTED_SPAN.finditer(text or ""):
+        inner = next((g for g in m.groups() if g), "")
+        if want and want in _norm(inner):
+            return True
+    return False
+
+
+def is_own_subject(mention: Dict[str, Any], confirmed: Sequence[Any], text: str) -> bool:
+    """A mention with no author, no year and no quoted title whose content words are all words of a listed title is the episode's own
+    subject matter, not a separate work: "the Mézard–Parisi formula" inside an episode about the listed manuscript of that name."""
+    if mention.get("authors") or mention.get("year"):
+        return False
+    phrase = " ".join(mention.get("title_words") or []) or (mention.get("quote") or "")
+    if not phrase or _is_quoted(text, phrase):
+        return False
+    said = _words(unhyphenate(phrase))
+    return bool(said) and any(said <= _words(unhyphenate(c.title)) for c in confirmed)
+
+
+def _all_words(s: str) -> set:
+    """Every word, short ones kept. `_words` drops anything under four letters, which is what makes two titles that differ only in "Two"
+    and "Odd" compare equal."""
+    return {w for w in re.findall(r"[a-z0-9]+", _norm(s))}
+
+
+def _full_title_ranking(mention: Dict[str, Any], pool: Sequence) -> Optional[str]:
+    """The pid of the one paper in `pool` whose FULL title (short words included) the mention fits best, or None.
+
+    It fires ONLY when the tied candidates' titles are the same set of words to `_words`, which means the thing that tells them apart is a
+    word under four letters ("...in Characteristic Two" against "...in Odd Characteristic"). A tie between candidates whose titles DO
+    differ is a mention too vague to choose between them, and that must keep failing closed: "a 2011 paper by Alama" naming two of Alama's
+    2011 papers matches neither.
+    """
+    tied = [c for c, _ in pool]
+    if len(tied) < 2 or len({frozenset(_words(c.title)) for c in tied}) != 1:
+        return None
+    said = _all_words(" ".join(mention.get("title_words") or [])) | _all_words(mention.get("quote") or "")
+    if not said:
+        return None
+    scored = sorted(((len(said & _all_words(c.title)), c.pid) for c in tied), reverse=True)
+    if scored[0][0] >= 2 and scored[0][0] > scored[1][0]:
+        return scored[0][1]
+    return None
+
+
 def match_mention(mention: Dict[str, Any], confirmed: Sequence[Any], named_before: Sequence[str] = ()) -> Optional[str]:
     """pid of the confirmed paper this mention refers to, or None. Deterministic. `named_before` is the pids already matched
     earlier in the same text, used only to resolve a later "Alama's 2011 research" that gives no title."""
@@ -202,6 +315,12 @@ def match_mention(mention: Dict[str, Any], confirmed: Sequence[Any], named_befor
     ranked = sorted(pool, key=lambda x: x[1], reverse=True)
     if ranked[0][1] >= 2 and ranked[0][1] > ranked[1][1]:
         return ranked[0][0].pid
+    # Two listed works can be indistinguishable to `_words`, which keeps only words of four letters or more: "...Direct-Finiteness
+    # Conjecture in Characteristic Two" and "...in Odd Characteristic" differ only in "Two" and "Odd", so both scored 5 and the tie refused
+    # two titles that were on the list (episode 197, 2026-11-22). Before giving up, compare the whole title, short words included.
+    whole = _full_title_ranking(mention, pool)
+    if whole:
+        return whole
     # No title decides. A mention that gives no title at all ("Alama's 2011 research") refers back to a paper already named
     # in the text, but only when exactly one of the competing papers has been named before it.
     if not tw:
@@ -392,9 +511,23 @@ async def check_naming(script: str, description: str, confirmed_papers: Sequence
                 else:
                     unknown_position_matched = True
         elif m["authors"] or m["title_words"]:
+            where_text = script if m["where"] == "script" else body
+            phrase = " ".join(m["title_words"] or []) or (m["quote"] or "")
+            if is_own_subject(m, confirmed_papers, where_text):
+                m["ignored"] = "the episode's own subject"
+                continue
+            if reads_as_a_result(m, phrase, where_text):
+                # Not a work, so "which listed paper is this?" is the wrong question. It must still be in the sources.
+                if result_is_sourced(phrase, confirmed_papers):
+                    m["ignored"] = "a named result, sourced"
+                    continue
+                result.violations.append({"kind": "unsourced_result", "where": m["where"], "quote": m["quote"],
+                                          "authors": m["authors"], "year": m["year"], "title_words": m["title_words"],
+                                          "context": context_around(where_text, m["quote"])})
+                continue
             result.violations.append({"kind": "unlisted_work", "where": m["where"], "quote": m["quote"],
                                       "authors": m["authors"], "year": m["year"], "title_words": m["title_words"],
-                                      "context": context_around(script if m["where"] == "script" else body, m["quote"])})
+                                      "context": context_around(where_text, m["quote"])})
     for hit in quoted_title_matches(script, confirmed_papers):
         if hit["pid"] in seen_pids:
             continue

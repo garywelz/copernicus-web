@@ -26,6 +26,10 @@ PUBLISHED = [
     # (canonical name, the duration it was made for, what it is)
     ("ever-bio-260013", "7-10 minutes", "Designing an enzyme from scratch: AI-made proteases"),
     ("ever-bio-260014", "7-10 minutes", "Can an AI write a working genome?"),
+    # The two mathematics episodes, which carry a company release with its manuscript text attached. Their lists are the first fixtures
+    # with release text: it is inlined as the item's evidence_text, which is where curated_mode puts it at run time.
+    ("ever-math-260016", "6-8 minutes", "OpenAI says the irrationality exponent of pi is 2. Is it?"),
+    ("ever-math-260017", "4-6 minutes", "OpenAI says the free group factors are isomorphic. Are they?"),
 ]
 
 
@@ -35,10 +39,21 @@ def load(name):
     return script, doc
 
 
+def private_texts(name):
+    """The text the private store holds for this list, by item id: a company release's attached manuscript text. The list document is kept
+    exactly as the service returns it, so its list_hash still verifies, and the text arrives the way production supplies it."""
+    path = FIXTURES / f"{name}.private.json"
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+
+
+def run_for(name):
+    script, doc = load(name)
+    return script, curated_mode.CuratedRun.from_list_doc(doc, private_texts=private_texts(name))
+
+
 @pytest.mark.parametrize("name,duration,title", PUBLISHED)
 def test_a_published_script_raises_no_unattributed_claim(name, duration, title):
-    script, doc = load(name)
-    run = curated_mode.CuratedRun.from_list_doc(doc)
+    script, run = run_for(name)
     violations = uc.check(script, run.confirmed_papers())
     assert violations == [], f"{title}: " + "; ".join(f"[{v['kind']}] {v['find']}" for v in violations)
 
@@ -59,8 +74,7 @@ def test_a_published_script_reads_aloud_and_is_formatted(name, duration, title):
 
 @pytest.mark.parametrize("name,duration,title", PUBLISHED)
 def test_a_published_script_passes_the_curated_checks(name, duration, title):
-    script, doc = load(name)
-    run = curated_mode.CuratedRun.from_list_doc(doc)
+    script, run = run_for(name)
     found = run.checks(script)
     assert found == [], f"{title}: {cc.summary(found)}"
 
