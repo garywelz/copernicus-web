@@ -131,6 +131,22 @@ def test_a_gloss_on_the_status_wording_passes(sentence):
         assert ok is True, f"{sentence} -> {why}"
 
 
+def test_a_finding_dressed_as_a_negation_is_not_a_gloss():
+    """A bare "is not" made any negative sentence a gloss, so a verdict could be given as one."""
+    c = checker(L003)
+    for sentence in ("OpenAI's catalogue indicates the result is not in doubt.",
+                     "The catalogue shows the proof is not incomplete.",
+                     "According to the catalogue the argument is not disputed."):
+        ok, why = c.check_status(sentence)
+        assert ok is False, f"{sentence} -> passed with: {why}"
+
+
+def test_the_plain_gloss_still_passes_without_that_alternative():
+    c = checker(L003)
+    ok, why = c.check_status("A catalogue listing does not mean the formalization has been independently checked.")
+    assert ok is True, why
+
+
 def test_a_gloss_may_not_credit_anyone_with_checking_anything():
     c = checker(L003)
     for sentence in ("The catalogue has independently checked these formalizations.",

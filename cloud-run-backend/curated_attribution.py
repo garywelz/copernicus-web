@@ -74,8 +74,10 @@ _ITEM_REFERENCE = re.compile(r"\b(?:this|that|these|those|both|each|all (?:two|t
                              r"|\bfor (?:it|them|this one)\b|\ball three\b|\ball of them\b", re.I)
 _COLLECTIVE = re.compile(r"\b(?:these|those|both|all three|all four|all of them|each of (?:them|these))\b", re.I)
 # What makes a sentence a limit on the status rather than a claim from it.
+# Only specific limiting constructions. A bare "is not" was too broad: "OpenAI's catalogue indicates the result is not in doubt" is a
+# finding dressed as a negation, and it was read as a gloss.
 _LIMITING = re.compile(r"\bdoes(?:\s+not|n['’]t)\s+mean\b|\bnot\s+(?:been\s+)?independent\w*\b|\bha(?:s|ve)\s+not\s+been\b"
-                       r"|\b(?:is|are|was|were)\s+not\b|\bno guarantee\b|\bsays nothing\b|\bonly means\b|\bnot a verdict\b"
+                       r"|\bno guarantee\b|\bsays nothing\b|\bonly means\b|\bnot a verdict\b"
                        r"|\bhas its own\b|\bits own stated\b|\bunchecked\b", re.I)
 # An assertion that something WAS examined. Allowed in a gloss only inside a limiting construction ("has not been independently checked").
 _EXAMINED = re.compile(r"\bindependently\s+(?:reviewed|checked|verified|validated|confirmed|examined)\b|\bpeer[- ]reviewed\b"
