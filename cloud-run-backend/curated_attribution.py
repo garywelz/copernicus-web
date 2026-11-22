@@ -24,6 +24,7 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import curated_checks as cc
+import curated_mode
 import curated_sources as cs
 from attribution_check import AttributionCheckUnavailable, AttributionResult, LlmCall, check_attributions
 from json_reply import parse_json_reply
@@ -47,6 +48,11 @@ INSTRUCTIONS = (
     "Return JSON: {\"verdicts\": [{\"n\": 1, \"verdict\": \"supported\", \"credited_person\": null, \"person_words_belong_to_someone_else\": false, "
     "\"reason\": \"one short sentence\"}]}. One entry per sentence. Never put a backslash or LaTeX command in the JSON."
 )
+
+def _depossess(token: str) -> str:
+    """"openai's" -> "openai". A credited subject is often possessive, and the tokeniser keeps the apostrophe."""
+    return re.sub(r"[’']s?$", "", token)
+
 
 _GENERIC_SUBJECTS = {"experts", "mathematicians", "researchers", "reviewers", "scientists", "critics", "reporters", "commentators", "observers", "people",
                      "others", "some", "many", "they", "he", "she", "it", "we", "who", "which", "that", "one", "both", "each", "all", "nobody", "host",
@@ -196,7 +202,12 @@ class Router:
         self.sources = commentary_sources(run)
         self.releases = [i for i in run.items if i["class"] != cs.COMMENTARY]
         self.person_index = {s.item_id: _person_tokens(s) for s in self.sources}
-        vocab: set = {"openai", "lean"}
+        # The companies whose releases are listed. Naming one IS naming a listed source: a list holding OpenAI's manuscripts supports
+        # "OpenAI's claim", and the required coverage statement has to name the company to say what the other papers do not cover.
+        # Taken from the items rather than hard-coded, so a release from any other company works the same way.
+        self.companies = {t for i in self.releases if i["class"] == cs.COMPANY_RELEASE
+                          for t in cc.words(curated_mode.company_of(i))}
+        vocab: set = {"lean"} | self.companies
         for s in self.sources:
             vocab |= s.tokens
             for n in s.names + s.authors:
@@ -218,11 +229,12 @@ class Router:
         sources: Dict[str, Source] = {}
         unknown: List[str] = []
         for toks in credited_subjects(sentence):
-            low = [t for t in cc.words(" ".join(toks))]
+            # "OpenAI's" must read as "openai": cc.words keeps the apostrophe, so a possessive would otherwise match nothing.
+            low = [_depossess(t) for t in cc.words(" ".join(toks))]
             if not low or all(t in _GENERIC_SUBJECTS for t in low):
                 continue
-            if all(t in {"openai", "lean"} for t in low):
-                continue
+            if all(t in {"lean"} | self.companies for t in low):
+                continue                               # the company whose release is listed, or the catalogue: not a person to check
             keyed = [t for t in low if len(t) >= 3]
             hit = [s for s in self.sources if any(t in self.person_index[s.item_id] for t in keyed)]
             if hit:
@@ -231,7 +243,7 @@ class Router:
                     sources[s.item_id] = s
             elif not any(t in self.vocab for t in keyed):
                 unknown.append(" ".join(toks))
-            elif not any(t in {"openai", "lean"} or t in _GENERIC_SUBJECTS for t in keyed):
+            elif not any(t in {"lean"} | self.companies or t in _GENERIC_SUBJECTS for t in keyed):
                 pass                                   # a word the list knows (a title word, say), used as a subject: not a person to check
         return list(sources.values()), unknown
 
