@@ -133,6 +133,37 @@ def test_a_listed_title_that_ends_in_a_result_noun_is_matched_before_the_result_
     assert nw.match_mention(mention(L197[2].title), L197) == "P3", "and it still matches its own manuscript first"
 
 
+def test_a_citation_with_a_year_is_a_paper_even_when_it_ends_in_a_result_noun():
+    """"Smith's 2019 paper 'The Kadison-Singer Problem'" is a work. The exemption may not be a way to name an unlisted paper by calling it
+    a result, so a year disqualifies it however many of its words are in the sources."""
+    sourced = [P("P1", "The Kadison-Singer Problem and the paving conjecture",
+                 abstract="On the Kadison-Singer problem, the paving conjecture and Smith's approach.")]
+    text = "Smith's 2019 paper \"The Kadison-Singer Problem\" is often cited here."
+    m = mention("The Kadison-Singer Problem", authors=["Smith"], year=2019, quote=text)
+    assert nw.result_is_sourced("The Kadison-Singer Problem", sourced), "its words ARE in the sources"
+    assert not nw.reads_as_a_result(m, "The Kadison-Singer Problem", text), "and it is still not a result"
+
+
+def test_a_quoted_title_is_a_work_even_with_no_year():
+    """Quotation marks give something AS a title."""
+    text = 'the manuscript "The Kadison-Singer Problem" claims a proof'
+    m = mention("The Kadison-Singer Problem", quote=text)
+    assert not nw.reads_as_a_result(m, "The Kadison-Singer Problem", text)
+
+
+def test_an_author_alone_does_not_disqualify_a_result():
+    """A result is often named after someone: "Kaplansky's direct-finiteness conjecture" is a conjecture, not a paper by Kaplansky."""
+    text = "the proof settles Kaplansky's direct-finiteness conjecture for torsion-free groups"
+    m = mention("Kaplansky's direct-finiteness conjecture", authors=["Kaplansky"])
+    assert nw.reads_as_a_result(m, "Kaplansky's direct-finiteness conjecture", text)
+    assert nw.result_is_sourced("Kaplansky's direct-finiteness conjecture", L197), "P2 and P4 name it in their titles"
+
+
+def test_the_free_group_factor_alternative_is_still_read_as_a_result():
+    m = mention("the free group factor alternative", quote=ALTERNATIVE)
+    assert nw.reads_as_a_result(m, "the free group factor alternative", ALTERNATIVE)
+
+
 def test_the_named_result_passes_when_an_attached_manuscript_names_it():
     listed = [P("P1", "An isomorphism of the free group factors",
                 abstract="We settle the problem using the free group factor alternative of the interpolated factors.")] + L287[1:]

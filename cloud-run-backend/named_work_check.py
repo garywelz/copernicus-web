@@ -197,6 +197,20 @@ def names_a_result(phrase: str) -> bool:
     return bool(words) and words[-1] in RESULT_NOUNS
 
 
+def reads_as_a_result(mention: Dict[str, Any], phrase: str, text: str) -> bool:
+    """Whether this mention may be treated as the name of a result at all.
+
+    A result noun is not enough on its own. A YEAR makes it a citation, and a title in QUOTATION MARKS is being given as the title of a
+    work: "Smith's 2019 paper 'The Kadison-Singer Problem'" ends in a result noun but is a paper, and must stay an unlisted work however
+    many of its words happen to appear in the sources. An author alone disqualifies nothing, because a result is often named after someone:
+    "Kaplansky's direct-finiteness conjecture" is a conjecture, not a paper by Kaplansky."""
+    if mention.get("year"):
+        return False
+    if not names_a_result(phrase):
+        return False
+    return not _is_quoted(text, phrase)
+
+
 def result_is_sourced(phrase: str, confirmed: Sequence[Any]) -> bool:
     """A named result passes only if EVERY content word of its name is in the sources, the result noun included. "the free group factor
     alternative" passes when an attached manuscript names that alternative, and is refused when the sources only happen to speak of free
@@ -502,7 +516,7 @@ async def check_naming(script: str, description: str, confirmed_papers: Sequence
             if is_own_subject(m, confirmed_papers, where_text):
                 m["ignored"] = "the episode's own subject"
                 continue
-            if names_a_result(phrase):
+            if reads_as_a_result(m, phrase, where_text):
                 # Not a work, so "which listed paper is this?" is the wrong question. It must still be in the sources.
                 if result_is_sourced(phrase, confirmed_papers):
                     m["ignored"] = "a named result, sourced"
