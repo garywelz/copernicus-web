@@ -1,0 +1,181 @@
+{
+ "list_id": "2c52e174cbaf4b5aa141272d1b52883e",
+ "list_hash": "3f1f26b5b4afa75ed0fff0251ccc792f1a1d1a3aad671cd639fa44096d9db783",
+ "refused": [],
+ "topic": "OpenAI's manuscript claiming the free group factors are isomorphic, the history of the problem and the status of the claim",
+ "approved_at": "2026-11-22T01:40:13Z",
+ "items": [
+  {
+   "class": "company_release",
+   "year": 2026,
+   "evidence_text": "We solve the free group factor isomorphism problem affirmatively by proving that $`L(\\mathbb F_2)`$ and $`L(\\mathbb F_3)`$ are isomorphic as tracial von Neumann algebras. The classical free group factor alternative then implies that all interpolated free group factors, including $`L(\\mathbb F_\\infty)`$, are isomorphic and have fundamental group $`\\mathbb R_{\\gt 0}`$.",
+   "result_status": "unverified",
+   "item_id": "83388873552f",
+   "url": "https://github.com/openai/math/tree/4eaee87548250b2682affda7d05d947c05554bae/preprints/An-isomorphism-of-the-free-group-factors-September-23-2026",
+   "added_by": "gary",
+   "input": "preprints/An-isomorphism-of-the-free-group-factors-September-23-2026",
+   "identifiers": {
+    "repo": "openai/math",
+    "path": "preprints/An-isomorphism-of-the-free-group-factors-September-23-2026",
+    "commit": "4eaee87548250b2682affda7d05d947c05554bae",
+    "family": "287"
+   },
+   "release_text": {
+    "source_path": "preprints/An-isomorphism-of-the-free-group-factors-September-23-2026/build/",
+    "attached_at": "2026-11-22T01:40:12Z",
+    "chars": 5069,
+    "note": "the statement of the main result and the introduction",
+    "sha256": "7320669da25546fa69e45254bbc0ad7de1736f493e7cd1a48148d8be92111f2d"
+   },
+   "authors": [
+    "OpenAI"
+   ],
+   "title": "An isomorphism of the free group factors",
+   "confirmation": {
+    "year": 2026,
+    "path": "preprints/An-isomorphism-of-the-free-group-factors-September-23-2026",
+    "file": "An-isomorphism-of-the-free-group-factors-September-23-2026.pdf",
+    "commit": "4eaee87548250b2682affda7d05d947c05554bae",
+    "family_title": "Isomorphism of the free group factors",
+    "url": "https://github.com/openai/math/tree/4eaee87548250b2682affda7d05d947c05554bae/preprints/An-isomorphism-of-the-free-group-factors-September-23-2026",
+    "repo": "openai/math",
+    "status": "confirmed",
+    "map_note": null,
+    "readme_blob_sha": "23c057607b8068ba2c62ab43585a7043cc6f35ca",
+    "registry": "openai_math",
+    "confirmed_at": "2026-11-22T01:40:09Z",
+    "authors": [
+     "OpenAI"
+    ],
+    "blob_sha": "e393673c9818ed039fda5a970c9422a8537fe07e",
+    "abstract": "We solve the free group factor isomorphism problem affirmatively by proving that $`L(\\mathbb F_2)`$ and $`L(\\mathbb F_3)`$ are isomorphic as tracial von Neumann algebras. The classical free group factor alternative then implies that all interpolated free group factors, including $`L(\\mathbb F_\\infty)`$, are isomorphic and have fundamental group $`\\mathbb R_{\\gt 0}`$.",
+    "title": "An isomorphism of the free group factors",
+    "source_class": "company_release",
+    "family": "287"
+   },
+   "approved": true,
+   "venue": null,
+   "relevance_score": null,
+   "status_basis": {
+    "lean_catalogue_entries": 176,
+    "in_lean_catalogue": false,
+    "readme_present": true,
+    "commit": "4eaee87548250b2682affda7d05d947c05554bae",
+    "withdrawal_notice": false
+   }
+  },
+  {
+   "class": "preprint",
+   "year": 2012,
+   "evidence_text": "By solving a free analog of the Monge-Ampère equation, we prove a non-commutative analog of Brenier's monotone transport theorem: if an $n$-tuple of self-adjoint non-commutative random variables $Z_{1},...,Z_{n}$ satisfies a regularity condition (its conjugate variables $ξ_{1},...,ξ_{n}$ should be analytic in $Z_{1},...,Z_{n}$ and $ξ_{j}$ should be close to $Z_{j}$ in a certain analytic norm), then there exist invertible non-commutative functions $F_{j}$ of an $n$-tuple of semicircular variables $S_{1},...,S_{n}$, so that $Z_{j}=F_{j}(S_{1},...,S_{n})$. Moreover, $F_{j}$ can be chosen to be monotone, in the sense that $F_{j}=\\mathscr{D}_{j}g$ and $g$ is a non-commutative function with a positive definite Hessian. In particular, we can deduce that $C^{*}(Z_{1},...,Z_{n})\\cong C^{*}(S_{1},...,S_{n})$ and $W^{*}(Z_{1},...,Z_{n})\\cong L(\\mathbb{F}(n))$. Thus our condition is a useful way to recognize when an $n$-tuple of operators generate a free group factor. We obtain as a consequence that the q-deformed free group factors $Γ_{q}(\\mathbb{R}^{n})$ are isomorphic (for sufficiently small $q$, with bound depending on $n$) to free group factors. We also partially prove a conjecture of Voiculescu by showing that free Gibbs states which are small perturbations of a semicircle law generate free group factors. Lastly, we show that entrywise monotone transport maps for certain Gibbs measure on matrices are well-approximated by the matricial transport maps given by free monotone transport.",
+   "item_id": "287291b861a5",
+   "url": "https://arxiv.org/abs/1204.2182v3",
+   "added_by": "gary",
+   "input": "1204.2182",
+   "identifiers": {
+    "arxiv_version": "v3",
+    "arxiv": "1204.2182"
+   },
+   "authors": [
+    "A. Guionnet",
+    "D. Shlyakhtenko"
+   ],
+   "title": "Free Monotone Transport",
+   "confirmation": {
+    "year": 2012,
+    "record_type": null,
+    "url": "https://arxiv.org/abs/1204.2182v3",
+    "abstract_source": null,
+    "status": "confirmed",
+    "ids": {
+     "pmid": null,
+     "arxiv_version": "v3",
+     "arxiv": "1204.2182",
+     "doi": null
+    },
+    "registry": "arxiv",
+    "confirmed_at": "2026-11-22T01:40:10Z",
+    "authors": [
+     "A. Guionnet",
+     "D. Shlyakhtenko"
+    ],
+    "abstract": "By solving a free analog of the Monge-Ampère equation, we prove a non-commutative analog of Brenier's monotone transport theorem: if an $n$-tuple of self-adjoint non-commutative random variables $Z_{1},...,Z_{n}$ satisfies a regularity condition (its conjugate variables $ξ_{1},...,ξ_{n}$ should be analytic in $Z_{1},...,Z_{n}$ and $ξ_{j}$ should be close to $Z_{j}$ in a certain analytic norm), then there exist invertible non-commutative functions $F_{j}$ of an $n$-tuple of semicircular variables $S_{1},...,S_{n}$, so that $Z_{j}=F_{j}(S_{1},...,S_{n})$. Moreover, $F_{j}$ can be chosen to be monotone, in the sense that $F_{j}=\\mathscr{D}_{j}g$ and $g$ is a non-commutative function with a positive definite Hessian. In particular, we can deduce that $C^{*}(Z_{1},...,Z_{n})\\cong C^{*}(S_{1},...,S_{n})$ and $W^{*}(Z_{1},...,Z_{n})\\cong L(\\mathbb{F}(n))$. Thus our condition is a useful way to recognize when an $n$-tuple of operators generate a free group factor. We obtain as a consequence that the q-deformed free group factors $Γ_{q}(\\mathbb{R}^{n})$ are isomorphic (for sufficiently small $q$, with bound depending on $n$) to free group factors. We also partially prove a conjecture of Voiculescu by showing that free Gibbs states which are small perturbations of a semicircle law generate free group factors. Lastly, we show that entrywise monotone transport maps for certain Gibbs measure on matrices are well-approximated by the matricial transport maps given by free monotone transport.",
+    "title": "Free Monotone Transport",
+    "pid": "P1",
+    "venue": null,
+    "title_match": 1.0,
+    "pin": null,
+    "source_class": "preprint"
+   },
+   "approved": true,
+   "venue": null,
+   "relevance_score": null
+  },
+  {
+   "class": "preprint",
+   "year": 2026,
+   "evidence_text": "We show that von Neumann algebras of fundamental groups of closed orientable surfaces of genus $g\\geq2$ are free group factors on $2g-1$generators. The key technical ingredient involves a proof that the element $w=ABA^{-1}B^{-1}$ of the free group $\\mathbb{F}_{2}=\\langle A,B\\rangle$ is freely complemented in the group factor: $L(\\mathbb{F}_{2})=W^{*}(w)*W^{*}(v)$ for some Haar unitary $v\\in L(\\mathbb{F}_{2})$ that is freely independent from $w$. Combined with previous results, we conclude that for an arbitrary finitely generated torsion-free non-elementary discrete subgroup $Γ\\subset PSL_{2}(\\mathbb{R})$, $L(Γ)$ is a free group factor, settling a conjecture of de la Harpe and Voiculescu. This result was obtained using OpenAI's ChatGPT Pro 6.0.",
+   "item_id": "50d7921399f9",
+   "url": "https://arxiv.org/abs/2609.11074v1",
+   "added_by": "gary",
+   "input": "2609.11074",
+   "identifiers": {
+    "arxiv_version": "v1",
+    "arxiv": "2609.11074"
+   },
+   "authors": [
+    "D. Shlyakhtenko"
+   ],
+   "title": "On the II$_{1}$ Factors of Fuchsian Groups",
+   "confirmation": {
+    "year": 2026,
+    "record_type": null,
+    "url": "https://arxiv.org/abs/2609.11074v1",
+    "abstract_source": null,
+    "status": "confirmed",
+    "ids": {
+     "pmid": null,
+     "arxiv_version": "v1",
+     "arxiv": "2609.11074",
+     "doi": null
+    },
+    "registry": "arxiv",
+    "confirmed_at": "2026-11-22T01:40:10Z",
+    "authors": [
+     "D. Shlyakhtenko"
+    ],
+    "abstract": "We show that von Neumann algebras of fundamental groups of closed orientable surfaces of genus $g\\geq2$ are free group factors on $2g-1$generators. The key technical ingredient involves a proof that the element $w=ABA^{-1}B^{-1}$ of the free group $\\mathbb{F}_{2}=\\langle A,B\\rangle$ is freely complemented in the group factor: $L(\\mathbb{F}_{2})=W^{*}(w)*W^{*}(v)$ for some Haar unitary $v\\in L(\\mathbb{F}_{2})$ that is freely independent from $w$. Combined with previous results, we conclude that for an arbitrary finitely generated torsion-free non-elementary discrete subgroup $Γ\\subset PSL_{2}(\\mathbb{R})$, $L(Γ)$ is a free group factor, settling a conjecture of de la Harpe and Voiculescu. This result was obtained using OpenAI's ChatGPT Pro 6.0.",
+    "title": "On the II$_{1}$ Factors of Fuchsian Groups",
+    "pid": "P1",
+    "venue": null,
+    "title_match": 1.0,
+    "pin": null,
+    "source_class": "preprint"
+   },
+   "approved": true,
+   "venue": null,
+   "relevance_score": null
+  }
+ ],
+ "created_at": "2026-11-22T01:40:08Z",
+ "title": "The free group factors are isomorphic (v2)",
+ "created_by": "admin",
+ "status": "approved",
+ "updated_at": "2026-11-22T15:53:24Z",
+ "pin": {
+  "repo": "openai/math",
+  "commit": "4eaee87548250b2682affda7d05d947c05554bae"
+ },
+ "minimum": {
+  "required": 3,
+  "met": true,
+  "counts": {
+   "peer_reviewed": 0,
+   "preprint": 2,
+   "company_release": 1,
+   "commentary": 0,
+   "withdrawn": 0,
+   "non_commentary": 3
+  }
+ }
+}

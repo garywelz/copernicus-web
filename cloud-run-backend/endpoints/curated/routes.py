@@ -452,7 +452,7 @@ async def dry_run_script(body: GenerateCuratedEpisode):
                                                               job_id="dry-run", with_metadata=True)
     except curated_script.ScriptPipelineError as e:
         return {**base, "status": "failed", "error_type": type(e).__name__, "error": str(e),
-                "violations": [{k: v for k, v in x.items() if k in ("check", "kind", "find", "message")} for x in getattr(e, "violations", [])],
+                "violations": [curated_script.reported_violation(x) for x in getattr(e, "violations", [])],
                 **getattr(e, "diagnostics", {})}
     script = gen.content["script"]
     return {**base, "status": "ok", "words": len(script.split()), "tts_characters": len(script), "title": gen.content["title"],
@@ -505,6 +505,7 @@ async def check_supplied_script(body: CheckSuppliedScript):
     except curated_mode.CuratedListError as e:
         raise HTTPException(status_code=409, detail=str(e))
     import curated_pipeline
+    import curated_script
     import paper_confirmation
     from named_work_check import make_gemini_llm_call
     from podcast_research_integrator import PodcastResearchContext
@@ -522,7 +523,7 @@ async def check_supplied_script(body: CheckSuppliedScript):
     answer = {"list_id": run.list_id, "list_hash": run.list_hash, "title": body.title, "passed": checked.passed, "status": "pass" if checked.passed else "fail",
               "words": checked.words, "tts_characters": len(body.script), "limits": {"min_words": checked.min_words, "max_words": checked.max_words},
               "length_ok": checked.length_ok, "format_problems": checked.format_problems, "check_results": checked.entry,
-              "violations": [{k: v for k, v in x.items() if k in ("check", "kind", "find", "message")} for x in checked.violations],
+              "violations": [curated_script.reported_violation(x) for x in checked.violations],
               "attribution_detail": checked.attribution.detail() if hasattr(checked.attribution, "detail") else [],
               "model_calls": checked.model_calls, "written": "nothing", "generated": False, "published": False}
     if not (body.generate and checked.passed):

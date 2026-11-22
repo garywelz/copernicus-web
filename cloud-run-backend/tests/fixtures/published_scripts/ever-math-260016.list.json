@@ -1,0 +1,226 @@
+{
+ "list_id": "b160c2b0a3f5486a996deb87c4f1d47b",
+ "list_hash": "2ce11fb7a806a72824ee1d341c730a20bd327ec440e08bce97a6f0370b3ed433",
+ "refused": [],
+ "topic": "OpenAI's manuscript claiming the irrationality exponent of pi is 2, the history of the problem and the status of the claim",
+ "approved_at": "2026-11-22T01:06:20Z",
+ "items": [
+  {
+   "class": "company_release",
+   "year": 2026,
+   "evidence_text": "We prove the conjecture that the irrationality exponent of π is 2. As a consequence, the classical Flint–Hills series $`\\sum_{n\\ge1}1/(n^3\\sin^2 n)`$ converges, with angles in radians.",
+   "result_status": "unverified",
+   "item_id": "d35899007b43",
+   "url": "https://github.com/openai/math/tree/4eaee87548250b2682affda7d05d947c05554bae/preprints/The-irrationality-exponent-of-pi-is-2-September-24-2026",
+   "added_by": "gary",
+   "input": "preprints/The-irrationality-exponent-of-pi-is-2-September-24-2026",
+   "identifiers": {
+    "repo": "openai/math",
+    "path": "preprints/The-irrationality-exponent-of-pi-is-2-September-24-2026",
+    "commit": "4eaee87548250b2682affda7d05d947c05554bae",
+    "family": "017"
+   },
+   "release_text": {
+    "source_path": "preprints/The-irrationality-exponent-of-pi-is-2-September-24-2026/build/main.tex",
+    "attached_at": "2026-11-22T01:06:20Z",
+    "chars": 2837,
+    "note": "the statement of the main result, the introduction and the trace summary",
+    "sha256": "45532929f14c6dea0b7775629b0d2d5c6e63dbde8c0e63657bac7fb1f61369c1"
+   },
+   "authors": [
+    "OpenAI"
+   ],
+   "title": "The irrationality exponent of pi is 2",
+   "confirmation": {
+    "year": 2026,
+    "path": "preprints/The-irrationality-exponent-of-pi-is-2-September-24-2026",
+    "file": "paper.pdf",
+    "commit": "4eaee87548250b2682affda7d05d947c05554bae",
+    "family_title": "The irrationality exponent of π is 2",
+    "url": "https://github.com/openai/math/tree/4eaee87548250b2682affda7d05d947c05554bae/preprints/The-irrationality-exponent-of-pi-is-2-September-24-2026",
+    "repo": "openai/math",
+    "status": "confirmed",
+    "map_note": null,
+    "readme_blob_sha": "f5b171d49b516bc8891745f8b9c847e09be6306a",
+    "registry": "openai_math",
+    "confirmed_at": "2026-11-22T01:05:48Z",
+    "authors": [
+     "OpenAI"
+    ],
+    "blob_sha": "85118d5a6bc63ab5d06df03cce4efdffd2113155",
+    "abstract": "We prove the conjecture that the irrationality exponent of π is 2. As a consequence, the classical Flint–Hills series $`\\sum_{n\\ge1}1/(n^3\\sin^2 n)`$ converges, with angles in radians.",
+    "title": "The irrationality exponent of pi is 2",
+    "source_class": "company_release",
+    "family": "017"
+   },
+   "approved": true,
+   "venue": null,
+   "relevance_score": null,
+   "status_basis": {
+    "lean_catalogue_entries": 176,
+    "in_lean_catalogue": false,
+    "readme_present": true,
+    "commit": "4eaee87548250b2682affda7d05d947c05554bae",
+    "withdrawal_notice": false
+   }
+  },
+  {
+   "class": "preprint",
+   "year": 2019,
+   "evidence_text": "We use a variant of Salikhov's ingenious proof that the irrationality measure of $π$ is at most $7.606308\\dots$ to prove that, in fact, it is at most $7.103205334137\\dots$. Accompanying Maple package: While this article has a fully rigorous human-made and human-readable proof of the claim in the title, it was discovered thanks to the Maple package available from http://sites.math.rutgers.edu/~zeilberg/mamarim/mamarimhtml/pimeas.html",
+   "item_id": "2b735f94cf9a",
+   "url": "https://arxiv.org/abs/1912.06345v2",
+   "added_by": "gary",
+   "input": "1912.06345",
+   "identifiers": {
+    "arxiv_version": "v2",
+    "arxiv": "1912.06345"
+   },
+   "authors": [
+    "Doron Zeilberger",
+    "Wadim Zudilin"
+   ],
+   "title": "The Irrationality Measure of Pi is at most 7.103205334137...",
+   "confirmation": {
+    "year": 2019,
+    "record_type": null,
+    "url": "https://arxiv.org/abs/1912.06345v2",
+    "abstract_source": null,
+    "status": "confirmed",
+    "ids": {
+     "pmid": null,
+     "arxiv_version": "v2",
+     "arxiv": "1912.06345",
+     "doi": null
+    },
+    "registry": "arxiv",
+    "confirmed_at": "2026-11-22T01:05:48Z",
+    "authors": [
+     "Doron Zeilberger",
+     "Wadim Zudilin"
+    ],
+    "abstract": "We use a variant of Salikhov's ingenious proof that the irrationality measure of $π$ is at most $7.606308\\dots$ to prove that, in fact, it is at most $7.103205334137\\dots$. Accompanying Maple package: While this article has a fully rigorous human-made and human-readable proof of the claim in the title, it was discovered thanks to the Maple package available from http://sites.math.rutgers.edu/~zeilberg/mamarim/mamarimhtml/pimeas.html",
+    "title": "The Irrationality Measure of Pi is at most 7.103205334137...",
+    "pid": "P1",
+    "venue": null,
+    "title_match": 1.0,
+    "pin": null,
+    "source_class": "preprint"
+   },
+   "approved": true,
+   "venue": null,
+   "relevance_score": null
+  },
+  {
+   "class": "preprint",
+   "year": 2011,
+   "evidence_text": "It is not known whether the Flint Hills series $\\sum_{n=1}^{\\infty} \\frac{1}{n^3\\cdot\\sin(n)^2}$ converges. We show that this question is closely related to the irrationality measure of $π$, denoted $μ(π)$. In particular, convergence of the Flint Hills series would imply $μ(π) \\leq 2.5$ which is much stronger than the best currently known upper bound $μ(π)\\leq 7.6063...$. This result easily generalizes to series of the form $\\sum_{n=1}^{\\infty} \\frac{1}{n^u\\cdot |\\sin(n)|^v}$ where $u,v>0$. We use the currently known bound for $μ(π)$ to derive conditions on $u$ and $v$ that guarantee convergence of such series.",
+   "item_id": "4fdd0bcc2510",
+   "url": "https://arxiv.org/abs/1104.5100v1",
+   "added_by": "gary",
+   "input": "1104.5100",
+   "identifiers": {
+    "arxiv_version": "v1",
+    "arxiv": "1104.5100"
+   },
+   "authors": [
+    "Max A. Alekseyev"
+   ],
+   "title": "On convergence of the Flint Hills series",
+   "confirmation": {
+    "year": 2011,
+    "record_type": null,
+    "url": "https://arxiv.org/abs/1104.5100v1",
+    "abstract_source": null,
+    "status": "confirmed",
+    "ids": {
+     "pmid": null,
+     "arxiv_version": "v1",
+     "arxiv": "1104.5100",
+     "doi": null
+    },
+    "registry": "arxiv",
+    "confirmed_at": "2026-11-22T01:06:02Z",
+    "authors": [
+     "Max A. Alekseyev"
+    ],
+    "abstract": "It is not known whether the Flint Hills series $\\sum_{n=1}^{\\infty} \\frac{1}{n^3\\cdot\\sin(n)^2}$ converges. We show that this question is closely related to the irrationality measure of $π$, denoted $μ(π)$. In particular, convergence of the Flint Hills series would imply $μ(π) \\leq 2.5$ which is much stronger than the best currently known upper bound $μ(π)\\leq 7.6063...$. This result easily generalizes to series of the form $\\sum_{n=1}^{\\infty} \\frac{1}{n^u\\cdot |\\sin(n)|^v}$ where $u,v>0$. We use the currently known bound for $μ(π)$ to derive conditions on $u$ and $v$ that guarantee convergence of such series.",
+    "title": "On convergence of the Flint Hills series",
+    "pid": "P1",
+    "venue": null,
+    "title_match": 1.0,
+    "pin": null,
+    "source_class": "preprint"
+   },
+   "approved": true,
+   "venue": null,
+   "relevance_score": null
+  },
+  {
+   "class": "preprint",
+   "year": 2026,
+   "evidence_text": "We introduce two independent numerator exponents into the Zeilberger--Zudilin integral and specialize them to \\[ A_1=A_2=\\frac{1857}{2785}. \\] The resulting integer linear forms in $1$ and $π$ prove \\[ μ(π)<7.101862832357. \\] This lowers the Zeilberger--Zudilin upper bound $7.103205334137\\ldots$ by more than $0.001342501780$; the difference between the unrounded bounds is $0.0013425017806509\\ldots$, approximately $0.01890\\%$. The same parameter point is a strict two-dimensional local minimizer of the explicit auxiliary upper-bound function in its admissible arithmetic chamber. This is a local statement about that function, not a claim that the point is a global optimizer among all constructions.",
+   "item_id": "5160a26037db",
+   "url": "https://arxiv.org/abs/2609.11276v2",
+   "added_by": "gary",
+   "input": "2609.11276",
+   "identifiers": {
+    "arxiv_version": "v2",
+    "arxiv": "2609.11276"
+   },
+   "authors": [
+    "Yufei Bai"
+   ],
+   "title": "The irrationality measure of π is at most 7.101862832357",
+   "confirmation": {
+    "year": 2026,
+    "record_type": null,
+    "url": "https://arxiv.org/abs/2609.11276v2",
+    "abstract_source": null,
+    "status": "confirmed",
+    "ids": {
+     "pmid": null,
+     "arxiv_version": "v2",
+     "arxiv": "2609.11276",
+     "doi": null
+    },
+    "registry": "arxiv",
+    "confirmed_at": "2026-11-22T01:06:08Z",
+    "authors": [
+     "Yufei Bai"
+    ],
+    "abstract": "We introduce two independent numerator exponents into the Zeilberger--Zudilin integral and specialize them to \\[ A_1=A_2=\\frac{1857}{2785}. \\] The resulting integer linear forms in $1$ and $π$ prove \\[ μ(π)<7.101862832357. \\] This lowers the Zeilberger--Zudilin upper bound $7.103205334137\\ldots$ by more than $0.001342501780$; the difference between the unrounded bounds is $0.0013425017806509\\ldots$, approximately $0.01890\\%$. The same parameter point is a strict two-dimensional local minimizer of the explicit auxiliary upper-bound function in its admissible arithmetic chamber. This is a local statement about that function, not a claim that the point is a global optimizer among all constructions.",
+    "title": "The irrationality measure of π is at most 7.101862832357",
+    "pid": "P1",
+    "venue": null,
+    "title_match": 1.0,
+    "pin": null,
+    "source_class": "preprint"
+   },
+   "approved": true,
+   "venue": null,
+   "relevance_score": null
+  }
+ ],
+ "created_at": "2026-11-22T01:04:52Z",
+ "title": "Is pi as irrational as it can be? (v5)",
+ "created_by": "admin",
+ "status": "approved",
+ "updated_at": "2026-11-22T15:40:55Z",
+ "pin": {
+  "repo": "openai/math",
+  "commit": "4eaee87548250b2682affda7d05d947c05554bae"
+ },
+ "minimum": {
+  "required": 3,
+  "met": true,
+  "counts": {
+   "peer_reviewed": 0,
+   "preprint": 3,
+   "company_release": 1,
+   "commentary": 0,
+   "withdrawn": 0,
+   "non_commentary": 4
+  }
+ }
+}

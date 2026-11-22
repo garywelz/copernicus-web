@@ -617,6 +617,18 @@ class ScriptBuilder:
         raise ScriptRepairFailed(final)
 
 
+def reported_violation(v: Dict[str, Any]) -> Dict[str, Any]:
+    """One violation as a route reports it. Besides the message, a naming refusal carries what the extractor actually found - the authors,
+    the year, the title words and the passage - because without those fields a refusal cannot be diagnosed from the response at all: the
+    three refusals of 2026-11-22 had to be reconstructed locally from the listed titles to see why they fired."""
+    out = {k: v[k] for k in ("check", "kind", "find", "message") if k in v}
+    raw = v.get("raw") or {}
+    mention = {k: raw.get(k) for k in ("authors", "year", "title_words", "quote", "where") if raw.get(k) is not None}
+    if mention:
+        out["mention"] = mention
+    return out
+
+
 # --- the checks of the assembled script, as violations -------------------------------------------------------------------------------------
 def collect_violations(naming=None, attribution=None, notation: Sequence[str] = (), banned: Sequence[Dict[str, Any]] = (), read_aloud: Sequence[str] = (),
                        missing_cov: Sequence[str] = (), curated: Sequence[Dict[str, Any]] = ()) -> List[Dict[str, Any]]:
@@ -628,6 +640,11 @@ def collect_violations(naming=None, attribution=None, notation: Sequence[str] = 
         if v["kind"] == "unlisted_work":
             out.append({"check": "naming", "kind": "unlisted_work", "find": q, "raw": v,
                         "message": f"This names a work that is not on the allowed list: \"{q[:160]}\". Describe it generically, with no title, or remove it."})
+        elif v["kind"] == "unsourced_result":
+            out.append({"check": "naming", "kind": "unsourced_result", "find": q, "raw": v,
+                        "message": f"This names a result - a theorem, conjecture or formula - that the sources do not name: \"{q[:160]}\". "
+                                   "A named result must come from the listed sources. Use the wording the sources use, or say it without "
+                                   "naming a result."})
         else:
             out.append({"check": "naming", "kind": v["kind"], "find": q, "raw": v,
                         "message": f"This phrase points to a link for a paper that is not named in the section: \"{q[:160]}\". Remove it."})
