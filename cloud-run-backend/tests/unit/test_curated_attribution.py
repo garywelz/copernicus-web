@@ -175,7 +175,7 @@ def test_catalogue_statements_that_disagree_with_the_records_fail():
              ("The catalogue's own review status for the eleven-twelfths paper is unchecked.", "not 'has a Lean formalization, unchecked'"),
              ("OpenAI's notice says the proof in the withdrawn paper contains a wrong sign mistake.", "does not mention a mistake"),
              ("OpenAI's notice says the withdrawn paper was withdrawn on October twelfth.", "date given is not the one"),
-             ("OpenAI's catalogue lists a Lean formalization for the paper.", "names no listed paper"),
+             ("OpenAI's catalogue lists a Lean formalization for the paper.", "does not say for which listed manuscript"),
              ("OpenAI's catalogue says the ETH paper was formally verified.", "verifying or confirming"),
              ("OpenAI's notice says the ETH paper was withdrawn.", "do not say that the paper named was withdrawn"),
              ("The catalogue has many entries.", "cannot confirm")]
