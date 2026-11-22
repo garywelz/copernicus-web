@@ -66,6 +66,25 @@ _STATUS_CUE = re.compile(r"\bcatalog(?:ue)?s?\b|\bnotice\b|\breview status\b", r
 _LEAN_LISTED = re.compile(r"\blists?\b[^.]{0,40}\blean\b|\blean formali[sz]ation", re.I)
 _UNCHECKED = re.compile(r"\bunchecked\b", re.I)
 _ATTESTING = re.compile(r"\bverified\b|\bmachine[- ]checked\b|\bchecked by experts\b|\breviewed by experts\b|\bconfirmed\b|\bproved\b|\bproven\b", re.I)
+# A sentence that speaks about a PARTICULAR listed manuscript, by pointing at one or by taking several together. Such a sentence is judged
+# against those items' status records. A sentence with none of this, which only says what a catalogue listing is and is not, asserts nothing
+# about any item and is a gloss.
+_ITEM_REFERENCE = re.compile(r"\b(?:this|that|these|those|both|each|all (?:two|three|four))\s+(?:specific\s+|other\s+)?"
+                             r"(?:manuscripts?|papers?|preprints?|releases?|formali[sz]ations?|results?|claims?)\b"
+                             r"|\bfor (?:it|them|this one)\b|\ball three\b|\ball of them\b", re.I)
+_COLLECTIVE = re.compile(r"\b(?:these|those|both|all three|all four|all of them|each of (?:them|these))\b", re.I)
+# What makes a sentence a limit on the status rather than a claim from it.
+# Only specific limiting constructions. A bare "is not" was too broad: "OpenAI's catalogue indicates the result is not in doubt" is a
+# finding dressed as a negation, and it was read as a gloss.
+_LIMITING = re.compile(r"\bdoes(?:\s+not|n['’]t)\s+mean\b|\bnot\s+(?:been\s+)?independent\w*\b|\bha(?:s|ve)\s+not\s+been\b"
+                       r"|\bno guarantee\b|\bsays nothing\b|\bonly means\b|\bnot a verdict\b"
+                       r"|\bhas its own\b|\bits own stated\b|\bunchecked\b", re.I)
+# An assertion that something WAS examined. Allowed in a gloss only inside a limiting construction ("has not been independently checked").
+_EXAMINED = re.compile(r"\bindependently\s+(?:reviewed|checked|verified|validated|confirmed|examined)\b|\bpeer[- ]reviewed\b"
+                       r"|\bha(?:s|ve)\s+been\s+(?:checked|reviewed|verified|validated)\b"
+                       r"|\b(?:was|were)\s+(?:checked|reviewed|verified|validated|examined)\b", re.I)
+# A withdrawal is a record about a particular manuscript, never a gloss on the wording.
+_WITHDRAWAL_CLAIM = re.compile(r"\bwithdr(?:awn|ew|awal)\b|\bnotice\b|\bretract\w*\b", re.I)
 _MONTHS = ("january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december")
 _ONES = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
          "sixteen", "seventeen", "eighteen", "nineteen", "twenty"]
@@ -261,17 +280,54 @@ class Router:
             return [i for i in self.releases if self.run.status_of(i) == cc.STATUS_WITHDRAWN]
         return []
 
+    def is_status_gloss(self, sentence: str) -> bool:
+        """Whether the sentence only says what a catalogue listing IS, claiming nothing about any listed manuscript.
+
+        "The presence of a Lean formalization in OpenAI's catalogue does not mean it has been independently checked for correctness." is
+        true of every entry, states the limit of the record rather than a finding from it, and matches the module's own documentation. It
+        was refused because any sentence mentioning a Lean formalization was read as claiming one for a paper, which left 197 and 003
+        unable to explain a status they are required to explain (2026-11-22).
+
+        A gloss may not assert anything: it must name no item, point at none, take none together, credit nobody with examining anything
+        except inside a limiting phrase, and - where it does mention a Lean formalization - only say what that listing does not mean.
+        """
+        if _ATTESTING.search(sentence):
+            return False
+        if self.releases_named(sentence) or _ITEM_REFERENCE.search(sentence):
+            return False                                    # it speaks about particular items: judge it against their records
+        if _WITHDRAWAL_CLAIM.search(sentence):
+            return False                                    # a withdrawal is a record about a manuscript, judged against the notice
+        if _EXAMINED.search(sentence) and not _LIMITING.search(sentence):
+            return False                                    # it says something WAS examined
+        # It must state a LIMIT of the record. Any other assertion about the catalogue - "the catalogue has many entries" - is a claim the
+        # status records cannot confirm, and keeps failing as one.
+        return bool(_LIMITING.search(sentence))
+
+    def lean_scope(self, sentence: str, named: List[Dict[str, Any]]):
+        """Which listed items a Lean claim is about, or None with the reason it cannot be told."""
+        if named:
+            return named, ""
+        if _COLLECTIVE.search(sentence):
+            # "these manuscripts", "all three": every release the list holds must have the record, or the sentence overstates.
+            releases = [i for i in self.releases if i["class"] == cs.COMPANY_RELEASE]
+            if releases:
+                return releases, ""
+        return None, "it says the catalogue lists a Lean formalization but does not say for which listed manuscript; name the manuscript"
+
     def check_status(self, sentence: str) -> Tuple[bool, str]:
         run = self.run
         named = self.releases_named(sentence)
         claims = 0
         if _ATTESTING.search(sentence):
             return False, "the catalogue or a notice is credited with verifying or confirming a result; it records a listing or a withdrawal, not a verdict"
+        if self.is_status_gloss(sentence):
+            return True, "a gloss on the status wording that claims nothing about any listed manuscript"
         if _LEAN_LISTED.search(sentence):
             claims += 1
-            if not named:
-                return False, "it says the catalogue lists a Lean formalization but names no listed paper that could be checked"
-            for i in named:
+            scope, why = self.lean_scope(sentence, named)
+            if scope is None:
+                return False, why
+            for i in scope:
                 if not (i.get("status_basis") or {}).get("in_lean_catalogue"):
                     return False, f"the catalogue record does not list a Lean formalization for {run.pids[i['item_id']]}"
         if _UNCHECKED.search(sentence):

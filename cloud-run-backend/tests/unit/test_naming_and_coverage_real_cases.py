@@ -112,6 +112,59 @@ def test_a_shortened_form_of_a_listed_title_is_the_episodes_own_subject():
     assert nw.is_own_subject(m, L221, "and the Mézard–Parisi formula is the subject here")
 
 
+# --- 221 again: a result named after people, extracted with no title ----------------------------------------------------------------
+# The three sentences exactly as the dry run of 2026-11-22 returned them, with the mention the extractor built for each: the two surnames
+# as AUTHORS and no title words at all.
+SENTENCES_221 = [
+    "The claim about the Mézard–Parisi formula for diluted spin glasses comes from a company release.",
+    "For the claim about the Mézard–Parisi formula, independent verification by the scientific community is crucial.",
+    "So, with these various works, how established are these claims, particularly the one about the Mézard–Parisi formula?",
+]
+
+
+def _as_extracted(sentence):
+    return {"quote": sentence, "title_words": [], "authors": ["Mézard", "Parisi"], "year": None, "where": "script"}
+
+
+def test_the_result_name_comes_from_inside_the_quote_never_the_whole_sentence():
+    for sentence in SENTENCES_221:
+        got = nw.result_name(_as_extracted(sentence), sentence)
+        assert got == "mezard parisi formula", f"{sentence[:60]} -> {got!r}"
+
+
+def test_all_three_real_sentences_are_exempt_because_the_listed_manuscript_names_the_formula():
+    for sentence in SENTENCES_221:
+        name = nw.result_name(_as_extracted(sentence), sentence)
+        assert name and nw.result_is_sourced(name, L221), sentence[:60]
+
+
+def test_the_sentence_that_ends_in_a_result_noun_is_no_longer_treated_differently():
+    """Two of the three sentences do not end in a result noun and one does. That must make no difference now."""
+    names = {nw.result_name(_as_extracted(s), s) for s in SENTENCES_221}
+    assert len(names) == 1, names
+
+
+def test_a_result_named_after_people_that_no_source_names_is_still_refused():
+    m = {"quote": "the proof rests on the Smith–Jones conjecture", "title_words": [], "authors": ["Smith", "Jones"],
+         "year": None, "where": "script"}
+    name = nw.result_name(m, m["quote"])
+    assert name == "smith jones conjecture"
+    assert not nw.result_is_sourced(name, L221)
+
+
+def test_a_surname_far_from_any_result_noun_yields_no_name():
+    """Only a surname followed within a word or two by a result noun is a result name; otherwise the mention stays a work."""
+    m = {"quote": "Panchenko wrote at length about spin distributions and, much later in a different context, a formula",
+         "title_words": [], "authors": ["Panchenko"], "year": None, "where": "script"}
+    assert nw.result_name(m, m["quote"]) == ""
+
+
+def test_a_year_still_defeats_the_fallback():
+    m = {"quote": "the 2010 Panchenko formula for diluted models", "title_words": [], "authors": ["Panchenko"], "year": 2010,
+         "where": "script"}
+    assert nw.result_name(m, m["quote"]) == ""
+
+
 # --- 287: a named result is not a work ------------------------------------------------------------------------------------------------
 ALTERNATIVE = ("A classical result for these algebras, the free group factor alternative, says that if two of the factors are "
                "isomorphic then all of the interpolated ones are.")
