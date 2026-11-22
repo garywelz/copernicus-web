@@ -162,13 +162,20 @@ class EnhancedResearchService:
             complexity=complexity
         )
         
-        try:
-            response = await self._call_google_ai(prompt, max_tokens=3000)
-            analysis_data = parse_json_reply(response)
-            return self._validate_paper_analysis(analysis_data)
-        except Exception as e:
-            print(f"❌ Paper analysis error: {e}")
-            return self._create_fallback_analysis(paper)
+        # The model's answer is usually JSON and occasionally JSON wrapped in prose, or cut short. That is a shape failure, not a
+        # failure of the source: asked again, the same prompt parses. A curated run refuses to go on when an approved source has no
+        # analysis, so one more attempt here is the difference between an episode and a dead run. Two attempts, then the fallback.
+        last_error = None
+        for attempt in (1, 2):
+            try:
+                response = await self._call_google_ai(prompt, max_tokens=3000)
+                analysis_data = parse_json_reply(response)
+                return self._validate_paper_analysis(analysis_data)
+            except Exception as e:
+                last_error = e
+                print(f"❌ Paper analysis error (attempt {attempt} of 2): {type(e).__name__}: {e}")
+        print(f"❌ Paper analysis failed twice for {paper.title[:60]!r}: {type(last_error).__name__}")
+        return self._create_fallback_analysis(paper)
 
     async def _find_paper_connections(
         self, 

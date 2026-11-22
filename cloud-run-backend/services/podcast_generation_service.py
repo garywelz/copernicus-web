@@ -280,15 +280,18 @@ class PodcastGenerationService:
     """Service for generating podcasts with research-driven content"""
 
     @staticmethod
-    def _episodes_voiced_before(job_id: str) -> int:
-        """How many episodes have been voiced before this one, which is where the expert rotation has got to. Counted from the jobs that
-        recorded an expert, so it does not drift when a job fails before speech. A count that cannot be read returns 0, and the rotation
-        simply starts again rather than failing a run."""
+    def _rotation_position(job_id: str) -> int:
+        """Where this job sits in the expert rotation. Counted from the jobs that recorded a rotation pick, plus this one, so two episodes
+        in a row never take the same voice; a count taken without this job stays put until the write lands. Jobs that failed before speech
+        recorded no pick, so the cycle does not drift. A count that cannot be read returns 0 and the rotation starts again rather than
+        failing a run."""
         try:
             from firebase_admin import firestore as admin_firestore
             client = admin_firestore.client()
             rows = client.collection('podcast_jobs').where('voices.expert_chosen_by', '==', 'rotation').get()
-            return sum(1 for r in rows if r.id != job_id)
+            # The job being created counts: it is about to record a pick of its own. Without it the count stays put until the write
+            # lands, and two episodes in a row take the same voice.
+            return sum(1 for r in rows if r.id != job_id) + 1
         except Exception as e:                                          # noqa: BLE001 - the rotation is a nicety; a run must not fail for it
             structured_logger.warning("Could not count voiced episodes for the expert rotation", error=str(e))
             return 0
@@ -2607,8 +2610,8 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             if request.expert_voice_id:
                 expert_voice_id, expert_source = request.expert_voice_id, "requested"
             else:
-                voiced_before = await asyncio.to_thread(self._episodes_voiced_before, job_id)
-                expert_voice_id, expert_source = voice_roster.expert_for_episode(voiced_before, host_voice_id), "rotation"
+                position = await asyncio.to_thread(self._rotation_position, job_id)
+                expert_voice_id, expert_source = voice_roster.expert_for_episode(position, host_voice_id), "rotation"
             try:
                 job_ref.update({"voices": {"host_voice_id": host_voice_id, "host_name": voice_roster.name_for(host_voice_id),
                                            "expert_voice_id": expert_voice_id, "expert_name": voice_roster.name_for(expert_voice_id),

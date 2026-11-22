@@ -18,6 +18,7 @@ import media_store
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
+import pronunciation
 import voice_roster
 
 logger = logging.getLogger(__name__)
@@ -474,13 +475,15 @@ class ElevenLabsVoiceService:
         """Synthesize a single text segment using ElevenLabs. If `usage` (a tts_usage.TtsUsage) is given, the characters of
         this request are counted on it. This is the one place a request is made, so the count is exact per attempt: a request
         that fails (an error status, a dropped connection, a timeout) still sent its characters and is counted as failed."""
+        # How the words are SAID. The script, the transcript and the notes keep their real spelling; only this request's text changes.
+        spoken = pronunciation.for_speech(text)
         if usage is not None:
-            usage.sent(voice_config.voice_id, text)
+            usage.sent(voice_config.voice_id, spoken)
         try:
-            return await self._request_speech(text, voice_config)
+            return await self._request_speech(spoken, voice_config)
         except BaseException:
             if usage is not None:
-                usage.failed(text)
+                usage.failed(spoken)
             raise
 
     async def _request_speech(self, text: str, voice_config: ElevenLabsVoiceConfig) -> tuple[bytes, float]:
