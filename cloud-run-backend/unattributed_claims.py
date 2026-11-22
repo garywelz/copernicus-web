@@ -59,7 +59,7 @@ def source_words(sources: Sequence[Any]) -> frozenset:
         for a in authors or []:                        # a company release's author IS the company ("OpenAI")
             if isinstance(a, str):
                 parts.append(a)
-    return frozenset(re.findall(r"[a-z0-9]+", " ".join(parts).lower()))
+    return frozenset(stem(w) for w in re.findall(r"[a-z0-9]+", " ".join(parts).lower()))
 
 
 def sentences(script: str):
@@ -76,10 +76,24 @@ def sentences(script: str):
                 yield who, s
 
 
+def stem(word: str) -> str:
+    """A light stem, so a plural matches its singular and the other way about: "diseases" and "disease-associated" are the same subject,
+    and so are "therapeutic" and "therapeutics". Only the common English endings, and never below three letters, so "cell" is untouched
+    and "excellent" still stems to itself."""
+    w = word.lower()
+    if len(w) > 4 and w.endswith("ies"):
+        return w[:-3] + "y"
+    # One trailing "s" only. Stripping "es" as well would be asymmetric: "diseases" would become "diseas" while "disease", which the
+    # source says, stays as it is, and the two would never meet.
+    if len(w) > 3 and w.endswith("s") and not w.endswith("ss"):
+        return w[:-1]
+    return w
+
+
 def _in_sources(term: str, words: frozenset) -> bool:
-    """Whether the sources use `term`, matched as whole words. A term of several words ("Baker lab", "ETH Zurich") counts only when the
-    sources use every word of it."""
-    pieces = re.findall(r"[a-z0-9]+", term.lower())
+    """Whether the sources use `term`, matched as whole words and compared by stem. A term of several words ("Baker lab", "ETH Zurich")
+    counts only when the sources use every word of it."""
+    pieces = [stem(p) for p in re.findall(r"[a-z0-9]+", term.lower())]
     return bool(pieces) and all(p in words for p in pieces)
 
 
