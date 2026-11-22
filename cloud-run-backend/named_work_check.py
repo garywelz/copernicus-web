@@ -211,6 +211,41 @@ def reads_as_a_result(mention: Dict[str, Any], phrase: str, text: str) -> bool:
     return not _is_quoted(text, phrase)
 
 
+def result_name_in(mention: Dict[str, Any], quote: str) -> str:
+    """The result name inside `quote`: the mention's own surnames, followed within a word or two by a result noun. Empty if there is none.
+
+    A result named after people is extracted as its people, with no title: the model returned "the Mézard–Parisi formula" as a mention with
+    authors ["Mézard", "Parisi"] and NO title words. Falling back to the whole quoted sentence made the reading depend on whether that
+    sentence happened to end in a result noun - "...about the Mézard–Parisi formula?" did and two neighbouring sentences did not, so one
+    came back as an unsourced result and two as unlisted works (episode 221, 2026-11-22). A sentence is not a name; only this span is.
+    """
+    names = {_norm(a).split()[-1] for a in (mention.get("authors") or []) if _norm(a)} - set(GROUP_MARKERS)
+    if not names:
+        return ""
+    toks = _norm(unhyphenate(quote)).split()
+    for i, tok in enumerate(toks):
+        if tok not in names:
+            continue
+        start = i
+        while start > 0 and toks[start - 1] in names:       # "mezard parisi", both surnames
+            start -= 1
+        for j in range(i + 1, min(i + 4, len(toks))):       # within a word or two of the last surname
+            if toks[j] in RESULT_NOUNS:
+                return " ".join(toks[start:j + 1])
+    return ""
+
+
+def result_name(mention: Dict[str, Any], text: str) -> str:
+    """The name of the result this mention refers to, or "" if it is not a named result at all. The one place that decision is made."""
+    said = " ".join(mention.get("title_words") or []).strip()
+    if said:
+        return said if reads_as_a_result(mention, said, text) else ""
+    if mention.get("year"):
+        return ""
+    inner = result_name_in(mention, mention.get("quote") or "")
+    return inner if inner and not _is_quoted(text, inner) else ""
+
+
 def result_is_sourced(phrase: str, confirmed: Sequence[Any]) -> bool:
     """A named result passes only if EVERY content word of its name is in the sources, the result noun included. "the free group factor
     alternative" passes when an attached manuscript names that alternative, and is refused when the sources only happen to speak of free
@@ -516,9 +551,10 @@ async def check_naming(script: str, description: str, confirmed_papers: Sequence
             if is_own_subject(m, confirmed_papers, where_text):
                 m["ignored"] = "the episode's own subject"
                 continue
-            if reads_as_a_result(m, phrase, where_text):
+            named_result = result_name(m, where_text)
+            if named_result:
                 # Not a work, so "which listed paper is this?" is the wrong question. It must still be in the sources.
-                if result_is_sourced(phrase, confirmed_papers):
+                if result_is_sourced(named_result, confirmed_papers):
                     m["ignored"] = "a named result, sourced"
                     continue
                 result.violations.append({"kind": "unsourced_result", "where": m["where"], "quote": m["quote"],
