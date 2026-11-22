@@ -280,17 +280,23 @@ class PodcastGenerationService:
     """Service for generating podcasts with research-driven content"""
 
     @staticmethod
-    def _episodes_voiced_before(job_id: str) -> int:
-        """How many episodes have been voiced before this one, which is where the expert rotation has got to. Counted from the jobs that
-        recorded an expert, so it does not drift when a job fails before speech. A count that cannot be read returns 0, and the rotation
-        simply starts again rather than failing a run."""
+    def _rotation_position(job_id: str) -> int:
+        """How many episodes recorded a rotation pick before this one. That count is the rotation's position, so the roster comes round in
+        order and a pick can be reproduced from the count alone. A job that failed before speech recorded no pick, so the cycle does not
+        drift; this job's own pick, if it is a retry, is excluded so a retry keeps its voice.
+
+        It must use the service's own Firestore client. It asked `firebase_admin` for one, which is not a dependency of this service, so the
+        import raised ModuleNotFoundError on every run, the count was always 0 and every episode took the first voice in the rotation. Both
+        episodes voiced on 2026-11-22 came out in Eric's voice for that reason, and the logs carry
+        "Could not count voiced episodes for the expert rotation: No module named 'firebase_admin'" for each."""
         try:
-            from firebase_admin import firestore as admin_firestore
-            client = admin_firestore.client()
-            rows = client.collection('podcast_jobs').where('voices.expert_chosen_by', '==', 'rotation').get()
+            if db is None:
+                raise RuntimeError("Firestore is not available")
+            rows = db.collection('podcast_jobs').where('voices.expert_chosen_by', '==', 'rotation').get()
             return sum(1 for r in rows if r.id != job_id)
         except Exception as e:                                          # noqa: BLE001 - the rotation is a nicety; a run must not fail for it
-            structured_logger.warning("Could not count voiced episodes for the expert rotation", error=str(e))
+            structured_logger.error("Could not count voiced episodes for the expert rotation; it will start again at the first voice",
+                                    job_id=job_id, error=str(e), error_type=type(e).__name__)
             return 0
 
     def __init__(self, vertex_ai_model=None):
@@ -2607,8 +2613,8 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             if request.expert_voice_id:
                 expert_voice_id, expert_source = request.expert_voice_id, "requested"
             else:
-                voiced_before = await asyncio.to_thread(self._episodes_voiced_before, job_id)
-                expert_voice_id, expert_source = voice_roster.expert_for_episode(voiced_before, host_voice_id), "rotation"
+                position = await asyncio.to_thread(self._rotation_position, job_id)
+                expert_voice_id, expert_source = voice_roster.expert_for_episode(position, host_voice_id), "rotation"
             try:
                 job_ref.update({"voices": {"host_voice_id": host_voice_id, "host_name": voice_roster.name_for(host_voice_id),
                                            "expert_voice_id": expert_voice_id, "expert_name": voice_roster.name_for(expert_voice_id),
