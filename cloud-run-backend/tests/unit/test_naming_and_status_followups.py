@@ -15,7 +15,7 @@ import curated_sources as cs
 import named_work_check as nw
 import pytest
 
-from tests.unit.test_status_gloss_and_lean_scope import L003, checker, release
+from tests.unit.test_status_gloss_and_lean_scope import L003, L197, checker, release
 
 
 # ---------------------------------------------------------------- 197: the possessive surname
@@ -139,17 +139,59 @@ def test_the_result_is_not_in_doubt_refusal_still_stands():
     assert ok is False, why
 
 
-def test_some_of_these_works_is_a_reference_to_items_not_a_gloss():
-    """"works" now counts as pointing at items, so the sentence is judged against the records rather than waved through as a gloss."""
+def test_a_listing_is_not_progress_towards_verification():
+    """The record itself settles this: the catalogue gives `scope: "Partial progress."` and `review.status: unchecked`, and it does not
+    say the Lean file states the paper's theorem. So a listing is no step towards the result being verified, and "a step towards
+    verification" goes beyond the record however carefully the rest of the sentence hedges."""
     c = checker(L003)
     sentence = ("The existence of a formalization for some of these works is a step towards verification, but the 'unchecked' status "
                 "from the catalogue means we cannot yet consider them formally confirmed.")
-    assert c.is_status_gloss(sentence) is False
-    # Judged against the records it holds: P1 and P3 do have entries, their status is 'unchecked', and the sentence says no more than
-    # that. I had called this refusal fair when reporting the dry run; it was the stated REASON that was wrong, not the verdict only -
-    # the substance is in the records, so it passes once the records are what it is checked against.
+    assert c.is_status_gloss(sentence) is False, "it points at items and claims progress"
     ok, why = c.check_status(sentence)
-    assert ok is True, why
+    assert ok is False, why
+    assert "does not say the Lean file states the paper's theorem" in why, why
+
+
+PROGRESS_CLAIMS = [
+    "The listing is a step towards verification.",
+    "A Lean entry in the catalogue is progress towards a verified proof.",
+    "The formalization brings the proof closer to being verified.",
+    "A catalogue listing is evidence that the result is correct.",
+    "The entry represents partial verification of the theorem.",
+    "Listing the formalization is an advance towards confirming the claim.",
+    "That the catalogue lists it moves the result towards validation.",
+    "The formalization is a milestone on the way to verification.",
+    "Verification is underway, as the catalogue entry shows.",
+]
+
+
+@pytest.mark.parametrize("sentence", PROGRESS_CLAIMS)
+def test_progress_towards_verification_fails_in_any_wording(sentence):
+    for items in (L003, L197):
+        ok, why = checker(items).check_status(sentence)
+        assert ok is False, f"{sentence} -> passed with: {why}"
+
+
+def test_denying_progress_is_still_a_gloss():
+    """Saying a listing is NOT a step towards verification states the limit, which is exactly what a script should say."""
+    c = checker(L003)
+    for sentence in ("A catalogue listing is not a step towards verification.",
+                     "A listed formalization is no evidence that the proof is correct.",
+                     "A listing does not mean any progress towards verification has been made."):
+        ok, why = c.check_status(sentence)
+        assert ok is True, f"{sentence} -> {why}"
+
+
+def test_the_plain_glosses_are_untouched_by_the_progress_rule():
+    """The wording that must keep passing: none of it claims progress."""
+    c = checker(L003)
+    for sentence in ("This means that while a formalization is listed, its correctness has not been independently confirmed by the "
+                     "catalogue itself.",
+                     "A Lean formalization listed in the catalogue has not been independently checked.",
+                     "The catalogue records a listing, not a verdict.",
+                     "It is a listing by OpenAI itself, with its own stated review status."):
+        ok, why = c.check_status(sentence)
+        assert ok is True, f"{sentence} -> {why}"
 
 
 def test_a_review_status_claim_still_fails_where_no_entry_has_one():

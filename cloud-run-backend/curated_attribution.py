@@ -78,6 +78,7 @@ _COLLECTIVE = re.compile(r"\b(?:these|those|both|all three|all four|all of them|
 # finding dressed as a negation, and it was read as a gloss.
 _LIMITING = re.compile(r"\bdoes(?:\s+not|n['’]t)\s+mean\b|\bnot\s+(?:been\s+)?independent\w*\b|\bha(?:s|ve)\s+not\s+been\b"
                        r"|\bno guarantee\b|\bsays nothing\b|\bonly means\b|\bnot a verdict\b"
+                       r"|\bn(?:ot|o)\s+(?:a\s+|any\s+)?(?:step|progress|advance|evidence)\b"
                        r"|\bhas its own\b|\bits own stated\b|\bunchecked\b", re.I)
 # An assertion that something WAS examined. Allowed in a gloss only inside a limiting construction ("has not been independently checked").
 _EXAMINED = re.compile(r"\bindependently\s+(?:reviewed|checked|verified|validated|confirmed|examined)\b|\bpeer[- ]reviewed\b"
@@ -108,6 +109,17 @@ _STATUS_VOCAB = {"preprint", "preprints", "peer", "reviewed", "review", "reviews
                  "such", "as", "of", "the", "a", "an", "to", "in", "on", "still", "any", "all", "both", "awaiting", "await",
                  "awaits", "pending", "however", "so", "therefore", "neither", "nor", "one", "two", "three", "titled", "called",
                  "company", "release", "releases", "manuscript", "manuscripts", "paper", "papers", "own", "openai"}
+
+# Progress towards verification claimed from a catalogue listing. The status module documents what the record does and does not say:
+# `scope: "Partial progress."`, `review.status: unchecked`, and "it does not say the Lean file states the paper's theorem". A listing is
+# therefore not a step, an advance or evidence towards the result being verified, however hedged the sentence is.
+_PROGRESS_TOWARD = re.compile(
+    r"\b(?:step|steps|stepping|progress|progresses|advance|advances|advancement|move|moves|moving|closer|nearer|partial|partway|"
+    r"headway|milestone|towards?|underway|on the way|en route)\b[^.?!]{0,40}"
+    r"\b(?:verif\w*|confirm\w*|validat\w*|correctness|checked|checking)\b"
+    r"|\b(?:verif\w*|confirm\w*|validat\w*|correctness)\b[^.?!]{0,40}"
+    r"\b(?:step|steps|progress|advance\w*|closer|nearer|partial|partway|headway|milestone|underway)\b"
+    r"|\bevidence\b[^.?!]{0,40}\b(?:verif\w*|confirm\w*|validat\w*|correctness)\b", re.I)
 
 # A withdrawal is a record about a particular manuscript, never a gloss on the wording.
 _WITHDRAWAL_CLAIM = re.compile(r"\bwithdr(?:awn|ew|awal)\b|\bnotice\b|\bretract\w*\b", re.I)
@@ -336,6 +348,8 @@ class Router:
         """
         if _asserted_outside_a_limit(_ATTESTING, sentence):
             return False                                    # it credits somebody with a verdict
+        if _asserted_outside_a_limit(_PROGRESS_TOWARD, sentence):
+            return False                                    # it reads the listing as progress towards verification
         if self.releases_named(sentence) or _ITEM_REFERENCE.search(sentence):
             return False                                    # it speaks about particular items: judge it against their records
         if _WITHDRAWAL_CLAIM.search(sentence):
@@ -363,6 +377,10 @@ class Router:
         claims = 0
         if _asserted_outside_a_limit(_ATTESTING, sentence):
             return False, "the catalogue or a notice is credited with verifying or confirming a result; it records a listing or a withdrawal, not a verdict"
+        if _asserted_outside_a_limit(_PROGRESS_TOWARD, sentence):
+            return False, ("the listing is read as progress towards verification; the catalogue record says the entry's review status is "
+                           "unchecked and does not say the Lean file states the paper's theorem, so it is no step towards the result "
+                           "being verified")
         if self.is_status_gloss(sentence):
             return True, "a gloss on the status wording that claims nothing about any listed manuscript"
         if _LEAN_LISTED.search(sentence):
