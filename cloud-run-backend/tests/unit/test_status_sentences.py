@@ -217,3 +217,64 @@ def test_the_pipeline_uses_the_check_and_the_prompt_block():
     script_mod = (backend / "curated_script.py").read_text(encoding="utf-8")
     assert "status_sentences.prompt_block(run)" in script_mod
     assert "status_sentences_found" in script_mod
+
+
+# --- a clause that speaks for several sources at once --------------------------------------------------------------------------------
+PREPRINT_B = item("i9", cs.PREPRINT, "On the Replica Symmetric Solution in General Diluted Spin Glasses", authors=["Arnab Sen"])
+
+
+def test_a_collective_clause_counts_for_every_preprint_it_covers():
+    """221's wording: three preprints, one sentence. Saying it once per source reads as a list."""
+    run = FakeRun([PREPRINT, PREPRINT_B])
+    assert ss.check(script_of("An opening.", "Both are preprints, so they have not been peer reviewed."), run) == []
+
+
+def test_a_collective_clause_counts_for_several_company_releases():
+    other = item("i10", cs.COMPANY_RELEASE, "A second manuscript")
+    run = FakeRun([PLAIN, other])
+    said = "These two have not been peer reviewed or independently checked."
+    assert ss.check(script_of(said), run) == []
+
+
+def test_a_collective_clause_that_names_a_peer_reviewed_paper_is_refused():
+    """The failure it must catch: a journal paper lumped in with preprints."""
+    run = FakeRun([PREPRINT, JOURNAL])
+    said = ('Both "Spin systems on Bethe lattices" and "De novo design of cysteine proteases" are preprints, so they have not been '
+            "peer reviewed.")
+    kinds = [x["kind"] for x in ss.check(script_of(said), run)]
+    assert "status_not_stated" in kinds, kinds
+
+
+def test_the_plural_wording_alone_is_not_collective():
+    """Without "both", "these" or "all three" the plural covers only its own subject, so the other source is still unstated."""
+    run = FakeRun([PREPRINT, PREPRINT_B])
+    kinds = [x["kind"] for x in ss.check(script_of("Some papers are preprints, so they have not been peer reviewed."), run)]
+    assert kinds.count("status_not_stated") == 2, kinds
+
+
+def test_a_lean_entry_and_a_withdrawal_have_no_collective_form():
+    assert ss.collective_clause_for(ss.clause_for(WITH_LEAN, cc.STATUS_HAS_LEAN)) is None
+    assert ss.collective_clause_for(ss.clause_for(WITHDRAWN, cc.STATUS_WITHDRAWN)) is None
+
+
+def test_saying_it_collectively_and_again_on_its_own_is_a_repeat():
+    run = FakeRun([PREPRINT, PREPRINT_B])
+    both = "Both are preprints, so they have not been peer reviewed."
+    v = ss.check(script_of(both, ss.required(run)[0]["sentence"]), run)
+    assert [x["kind"] for x in v] == ["status_stated_twice"], v
+
+
+def test_the_prompt_offers_the_collective_wording():
+    run = FakeRun([PREPRINT, PREPRINT_B])
+    block = ss.prompt_block(run)
+    assert "preprints, so they have not been peer reviewed" in block
+    assert "must cover only sources that really have that status" in block
+
+
+def test_the_collective_verdict_is_also_the_same_twice():
+    run = FakeRun([PREPRINT, PREPRINT_B, JOURNAL])
+    script = script_of("Both are preprints, so they have not been peer reviewed.", "A closing line.")
+    first = ss.check(script, run)
+    assert first == ss.check(script, FakeRun([PREPRINT, PREPRINT_B, JOURNAL]))
+    for _ in range(4):
+        assert ss.check(script, run) == first

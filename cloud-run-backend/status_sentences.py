@@ -76,6 +76,23 @@ def clause_for(item: Dict[str, Any], status: str) -> Optional[str]:
     return None
 
 
+# The same words in the plural, for a clause that covers several sources at once: "Both are preprints, so they have not been peer
+# reviewed" is how a person says it, and saying it once per source instead reads as a list. Only the two clauses that can sensibly be
+# shared have a collective form; a Lean entry and a withdrawal are facts about one manuscript and are always stated singly.
+COLLECTIVE_CLAUSES = {
+    "a preprint, so it has not been peer reviewed": "preprints, so they have not been peer reviewed",
+    "has not been peer reviewed or independently checked": "have not been peer reviewed or independently checked",
+}
+# What makes a sentence collective. Without one of these the plural wording is not read as covering anybody but its own subject.
+COLLECTIVE_REF = re.compile(r"\b(?:both|these|those|all three|all four|all of them|all of these|each of them|neither|none of these|"
+                            r"the others|the rest)\b", re.I)
+
+
+def collective_clause_for(clause: str) -> Optional[str]:
+    """The plural form of `clause`, or None where the fact belongs to one manuscript alone."""
+    return COLLECTIVE_CLAUSES.get(clause)
+
+
 def sentence_for(item: Dict[str, Any], status: str) -> Optional[str]:
     """The clause as a sentence that can stand on its own, for the prompt and for a message that says what to write."""
     clause = clause_for(item, status)
@@ -119,6 +136,12 @@ def _sentences(script: str):
 def _names_this_one(sentence: str, item_id: str, results: Dict[str, Dict[str, Any]]) -> bool:
     """Whether `sentence` names THIS source rather than a sibling whose title shares its words. Of every source the sentence could be
     read as naming, the one whose title it carries most of wins; a tie names none of them, so nothing is charged on a guess."""
+    # A title carried whole decides, before any word counting: "A preprint paper 1" and "A preprint paper 2" differ only in a digit, and
+    # the word comparison drops digits, so counting words cannot tell them apart while reading plainly can.
+    flat = _flat(sentence)
+    whole = [iid for iid, rec in results.items() if (rec.get("title") or "").strip() and _flat(rec["title"]) in flat]
+    if len(whole) == 1:
+        return whole[0] == item_id
     scored = []
     said = set(cc.words(sentence))
     for iid, rec in results.items():
@@ -132,6 +155,36 @@ def _names_this_one(sentence: str, item_id: str, results: Dict[str, Dict[str, An
     return scored[0][1] == item_id
 
 
+def _collective_hits(req: Dict[str, Any], said: Sequence[str], flat: Sequence[str], results: Dict[str, Dict[str, Any]]) -> List[int]:
+    """The sentences that state this source's status as one of several, or [] if there are none.
+
+    A collective clause counts for every source it covers, and only if every source it refers to really has that status. The sources it
+    refers to are the ones it NAMES; a sentence that names a source whose own clause is different - a peer-reviewed paper lumped in with
+    preprints - covers nobody, and the sources it was meant to cover are reported as unstated. Judged on the record alone, as the "these
+    manuscripts" Lean rule is.
+    """
+    plural = collective_clause_for(req["clause"])
+    if not plural:
+        return []
+    want = _flat(plural)
+    found = []
+    for i, f in enumerate(flat):
+        if want not in f or not COLLECTIVE_REF.search(said[i]):
+            continue
+        named = [iid for iid, rec in results.items() if cc.mentions(said[i], rec)]
+        # Every source the sentence names must be one this clause is true of.
+        if any(_clause_of(iid, results) != req["clause"] for iid in named):
+            continue
+        found.append(i)
+    return found
+
+
+def _clause_of(item_id: str, results: Dict[str, Dict[str, Any]]) -> Optional[str]:
+    """The clause a source requires, from the record carried on its result row."""
+    rec = results.get(item_id) or {}
+    return rec.get("_clause")
+
+
 def check(script: str, run) -> List[Dict[str, Any]]:
     """Violations, deterministically: a status not stated, stated twice, or stated in words this module did not write.
 
@@ -141,14 +194,29 @@ def check(script: str, run) -> List[Dict[str, Any]]:
     said = list(_sentences(script))
     flat = [_flat(s) for s in said]
     results = {r["item_id"]: r for r in run.results()}
+    # Each row carries the clause its source requires, so a collective sentence can be judged against every source it names - including a
+    # peer-reviewed one, whose clause is None.
+    by_id = {i["item_id"]: i for i in run.items}
+    for iid, rec in results.items():
+        rec["_clause"] = clause_for(by_id[iid], run.status_of(by_id[iid])) if iid in by_id else None
     out: List[Dict[str, Any]] = []
 
     for req in want:
         # The clause must appear VERBATIM, but it may sit inside the sentence that introduces the claim rather than stand alone: the
         # integrated form is what the published episodes use and what reads best aloud. Exactness is kept where it matters - the words
         # are the code's - while the sentence's shape is the writer's.
+        # A singular hit must NAME this source. Two preprints share a clause word for word, so a sentence about one of them would
+        # otherwise satisfy both, and a sentence each would look like a repeat to both.
         target = _flat(req["clause"])
-        hits = [i for i, f in enumerate(flat) if target in f]
+        hits = [i for i, f in enumerate(flat) if target in f and _names_this_one(said[i], req["item_id"], results)]
+        shared = _collective_hits(req, said, flat, results)
+        if shared and not hits:
+            hits = shared                               # covered by a clause that speaks for several sources at once
+        elif shared and hits:
+            out.append({"check": "status_sentence", "kind": "status_stated_twice", "pid": req["pid"], "find": said[shared[0]],
+                        "message": f"The status of {req['pid']} is stated on its own and again in a sentence covering several sources. "
+                                   f"Keep one of them: {req['sentence']}"})
+            continue
         if not hits:
             out.append({"check": "status_sentence", "kind": "status_not_stated", "pid": req["pid"], "find": req["sentence"],
                         "message": f"The status of {req['pid']} is never stated. Say it once, in these words, either as a sentence of its "
@@ -182,4 +250,9 @@ def prompt_block(run) -> str:
     for r in want:
         lines.append(f"- [{r['pid']}] {r['sentence']}")
         lines.append(f"      the exact words: “{r['title']}” **{r['clause']}**")
+    shared = sorted({collective_clause_for(r["clause"]) for r in want if collective_clause_for(r["clause"])})
+    if shared:
+        lines.append("Where several sources share a status you may say it once for all of them, with these words instead: "
+                     + "; ".join(f"“... are {s}”" for s in shared)
+                     + ". A sentence like that must cover only sources that really have that status.")
     return "\n".join(lines)
