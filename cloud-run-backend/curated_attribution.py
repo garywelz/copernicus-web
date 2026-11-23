@@ -78,7 +78,11 @@ _COLLECTIVE = re.compile(r"\b(?:these|those|both|all three|all four|all of them|
 # finding dressed as a negation, and it was read as a gloss.
 _LIMITING = re.compile(r"\bdoes(?:\s+not|n['’]t)\s+mean\b|\bnot\s+(?:been\s+)?independent\w*\b|\bha(?:s|ve)\s+not\s+been\b"
                        r"|\bno guarantee\b|\bsays nothing\b|\bonly means\b|\bnot a verdict\b"
-                       r"|\bn(?:ot|o)\s+(?:a\s+|any\s+)?(?:step|progress|advance|evidence)\b"
+                       r"|\bn(?:ot|o)\s+(?:a\s+|any\s+)?(?:step|progress|advance)\b"
+                       # "no evidence" limits the record only where it denies SUPPORT for the result. "The catalogue shows no evidence
+                       # against the proof" is a finding in the catalogue's favour, not a limit on what it says.
+                       r"|\bn(?:ot|o)\s+(?:any\s+)?evidence\b[^.?!]{0,40}"
+                       r"\b(?:correct\w*|verif\w*|confirm\w*|validat\w*|sound|proven|proved|holds)\b"
                        r"|\bhas its own\b|\bits own stated\b|\bunchecked\b", re.I)
 # An assertion that something WAS examined. Allowed in a gloss only inside a limiting construction ("has not been independently checked").
 _EXAMINED = re.compile(r"\bindependently\s+(?:reviewed|checked|verified|validated|confirmed|examined)\b|\bpeer[- ]reviewed\b"

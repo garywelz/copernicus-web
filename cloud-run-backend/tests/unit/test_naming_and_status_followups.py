@@ -182,6 +182,22 @@ def test_denying_progress_is_still_a_gloss():
         assert ok is True, f"{sentence} -> {why}"
 
 
+def test_no_evidence_limits_the_record_only_where_it_denies_support():
+    """"No evidence" on its own is not a limit on what the record says. "The catalogue shows no evidence against the proof" is a finding
+    in the catalogue's favour, and the records support no such thing."""
+    c = checker(L003)
+    for refused in ("The catalogue shows no evidence against the proof.",
+                    "There is no evidence of a problem with the formalization.",
+                    "The catalogue found no evidence of errors in the manuscript."):
+        ok, why = c.check_status(refused)
+        assert ok is False, f"{refused} -> passed with: {why}"
+    for allowed in ("A listing is no evidence that the proof is correct.",
+                    "A listed formalization is no evidence of verification.",
+                    "An entry in the catalogue is not any evidence that the theorem holds."):
+        ok, why = c.check_status(allowed)
+        assert ok is True, f"{allowed} -> {why}"
+
+
 def test_the_plain_glosses_are_untouched_by_the_progress_rule():
     """The wording that must keep passing: none of it claims progress."""
     c = checker(L003)
