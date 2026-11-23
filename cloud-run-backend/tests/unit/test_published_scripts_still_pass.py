@@ -33,6 +33,45 @@ PUBLISHED = [
 ]
 
 
+# The three phrase classes added on 2026-11-23. These four episodes went out before the rule existed and each one contains some; the
+# sentences are kept here as a matter of record. The rule is NOT relaxed for anything written from now on, and the fixtures are exactly
+# as the episodes went out. An episode already published cannot be unpublished by a test.
+PUBLISHED_BEFORE_THE_PHRASE_RULE = ("unsourced_history", "unsourced_consensus", "unsourced_evaluation")
+
+HISTORY_ON_RECORD = {
+    "ever-bio-260013": [
+        ("unsourced_history",
+         "For decades, scientists have aimed to design enzymes from scratch, building proteins that can perform specific chemical reactions not found in nature."),
+        ("unsourced_consensus",
+         "It doesn't guarantee absolute truth, but it does mean the scientific community has evaluated the claims and found them to be supported by the presented data and methodology."),
+        ("unsourced_evaluation",
+         "So, with these promising results, what are the next steps for this field?"),
+        ("unsourced_evaluation",
+         "Demonstrating the ability to design enzymes for a wider range of chemical reactions, especially those with high energy barriers, would be a significant advance."),
+        ("unsourced_evaluation",
+         "Also, the ability to design enzymes that are stable and function reliably under various real-world conditions would be crucial."),
+    ],
+    "ever-bio-260014": [
+        ("unsourced_history",
+         "For decades, scientists have been able to read and edit the genetic code of life."),
+        ("unsourced_evaluation",
+         "It's a significant step beyond simply understanding existing life."),
+        ("unsourced_evaluation",
+         "The peer-review process is a crucial step in scientific validation, where experts scrutinize the methods, results, and conclusions."),
+    ],
+    "ever-math-260016": [
+        ("unsourced_history",
+         "OpenAI has released a manuscript claiming a proof of a long-standing conjecture about the mathematical constant pi."),
+    ],
+    "ever-math-260017": [
+        ("unsourced_history",
+         "A long-standing problem in mathematics, known as the free group factor isomorphism problem, has recently seen a claimed solution."),
+        ("unsourced_consensus",
+         "What would be the next steps for the mathematical community to confirm or refute these claims?"),
+    ],
+}
+
+
 def load(name):
     script = (FIXTURES / f"{name}.txt").read_text(encoding="utf-8")
     doc = json.loads((FIXTURES / f"{name}.list.json").read_text(encoding="utf-8"))
@@ -54,8 +93,23 @@ def run_for(name):
 @pytest.mark.parametrize("name,duration,title", PUBLISHED)
 def test_a_published_script_raises_no_unattributed_claim(name, duration, title):
     script, run = run_for(name)
-    violations = uc.check(script, run.confirmed_papers())
+    violations = [v for v in uc.check(script, run.confirmed_papers()) if v["kind"] not in PUBLISHED_BEFORE_THE_PHRASE_RULE]
     assert violations == [], f"{title}: " + "; ".join(f"[{v['kind']}] {v['find']}" for v in violations)
+
+
+@pytest.mark.parametrize("name,duration,title", PUBLISHED)
+def test_the_phrase_classes_a_published_script_predates_are_exactly_the_ones_on_record(name, duration, title):
+    """These four episodes went out before unsourced history, consensus and evaluation were refused, and each one contains some. The
+    sentences are listed in HISTORY_ON_RECORD so they are a matter of record rather than a silence: a NEW one in any fixture fails here,
+    and the rule itself is not loosened for anything written from now on.
+
+    An episode already published cannot be unpublished by a test, and the fixtures are kept exactly as the episodes went out.
+    """
+    script, run = run_for(name)
+    found = sorted((v["kind"], v["find"]) for v in uc.check(script, run.confirmed_papers())
+                   if v["kind"] in PUBLISHED_BEFORE_THE_PHRASE_RULE)
+    assert found == sorted(HISTORY_ON_RECORD[name]), (
+        f"{title}: the pre-existing phrases have changed.\n  now: " + "\n  now: ".join(f"[{k}] {s}" for k, s in found))
 
 
 @pytest.mark.parametrize("name,duration,title", PUBLISHED)
