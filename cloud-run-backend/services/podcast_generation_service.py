@@ -102,6 +102,7 @@ from config.constants import (
     DEFAULT_SUBSCRIBER_EMAIL,
     ERROR_NOTIFICATION_EMAIL,
     DEFAULT_ARTWORK_URL,
+    EPISODE_IMAGE_MODEL,
 )
 from config.database import db
 from utils.generation_quota import refund_failed_job
@@ -1661,7 +1662,7 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
                     prompt_len=len(attempt["prompt"]),
                 )
                 payload = {
-                    "model": attempt.get("model", "gpt-image-1"),
+                    "model": attempt.get("model", EPISODE_IMAGE_MODEL),
                     "prompt": attempt["prompt"],
                     "n": 1,
                     "size": "1024x1024",
@@ -1849,7 +1850,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     }
                     
                     payload = {
-                        "model": "gpt-image-1",
+                        "model": EPISODE_IMAGE_MODEL,
                         "prompt": prompt,
                         "n": 1,
                         "size": "1536x1024",
@@ -1891,10 +1892,15 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                                      image_number=i+1,
                                                      status_code=response.status_code)
                     else:
-                        structured_logger.warning("DALL-E API error for episode image",
-                                                 canonical_filename=canonical_filename,
-                                                 image_number=i+1,
-                                                 status_code=response.status_code)
+                        # The body, not only the status. For weeks every run logged "status_code: 400" and nothing else, so every episode
+                        # fell back to the same series artwork and the feed showed one repeating image. The body said, in one line, that
+                        # the model had been retired: "The model 'gpt-image-1' does not exist." The key is never logged.
+                        structured_logger.error("Episode image request refused",
+                                                canonical_filename=canonical_filename,
+                                                image_number=i+1,
+                                                model=EPISODE_IMAGE_MODEL,
+                                                status_code=response.status_code,
+                                                body=response.text[:1000])
                 
                 except Exception as e:
                     structured_logger.error("Error generating episode image",

@@ -836,9 +836,11 @@ def ensure_source_paper_reference(description: str, citation: str) -> str:
 def dalle_thumbnail_attempts(title: str, topic: str) -> list:
     """Image API payloads to try before the geometric fallback.
 
-    dall-e-3 is gone on this OpenAI account (`The model 'dall-e-3' does not exist`).
-    Use gpt-image-1 / gpt-image-1-mini with low/medium quality, no style param.
+    The model name is read from config.constants, pinned to a dated version. An undated name has been retired under this code twice:
+    `The model 'dall-e-3' does not exist`, and then the same of 'gpt-image-1' on every run for weeks. Low and medium quality, no style
+    param.
     """
+    from config.constants import EPISODE_IMAGE_MODEL, EPISODE_IMAGE_MODEL_CHEAP
     topic_bit = (topic or title or "scientific research").strip()[:160]
     title_bit = (title or topic_bit).strip()[:120]
     compact = (
@@ -852,9 +854,9 @@ def dalle_thumbnail_attempts(title: str, topic: str) -> list:
         "deep cosmic blue and emerald green, cinematic light, no text, no letters, no labels."
     )
     return [
-        {"model": "gpt-image-1", "quality": "medium", "prompt": compact[:1000]},
-        {"model": "gpt-image-1", "quality": "low", "prompt": shorter},
-        {"model": "gpt-image-1-mini", "quality": "medium", "prompt": shorter},
+        {"model": EPISODE_IMAGE_MODEL, "quality": "medium", "prompt": compact[:1000]},
+        {"model": EPISODE_IMAGE_MODEL, "quality": "low", "prompt": shorter},
+        {"model": EPISODE_IMAGE_MODEL_CHEAP, "quality": "medium", "prompt": shorter},
     ]
 
 

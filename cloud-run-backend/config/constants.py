@@ -88,3 +88,13 @@ def _category_value_to_slug(category_value: Optional[str]) -> Optional[str]:
     return None
 
 
+
+
+# --- the image model ----------------------------------------------------------------------------------------------------------------
+# PINNED to a dated version, and read in one place so both request sites agree. An undated name has now been retired under this code
+# twice: "dall-e-3 does not exist" once, and then "The model 'gpt-image-1' does not exist" on every run for weeks, which sent every
+# episode to the same series artwork and showed one repeating image in the feed (found 2026-11-23). A dated name makes the next
+# retirement a deliberate bump of this line instead of a silent 400. EPISODE_IMAGE_MODEL overrides it without a deploy.
+EPISODE_IMAGE_MODEL = os.getenv("EPISODE_IMAGE_MODEL", "gpt-image-2-2026-04-21")
+# The cheaper model kept as a second attempt for the thumbnail. It exists on this account; it is not dated, so it is a fallback only.
+EPISODE_IMAGE_MODEL_CHEAP = os.getenv("EPISODE_IMAGE_MODEL_CHEAP", "gpt-image-1-mini")
