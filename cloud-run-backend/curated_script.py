@@ -377,7 +377,9 @@ SHOW_RULES = (
 
 def system_prompt(run, plan: Sequence[Section], notes: Sequence[Note], banned: str = "") -> str:
     outline = "\n".join(f"{n}. {s.title}: {s.budget} words ({s.lo} to {s.hi})" for n, s in enumerate(plan, 1))
-    parts = [SHOW_RULES, run.prompt_block(include_excerpts=False), allowed_works_block(run), facts_block(run), notes_block(notes),
+    import status_sentences
+    parts = [SHOW_RULES, run.prompt_block(include_excerpts=False), allowed_works_block(run), facts_block(run),
+             status_sentences.prompt_block(run), notes_block(notes),
              "**THE PLAN (the sections are written one at a time; stay inside your section's words):**\n" + outline]
     if banned:
         parts.append("Never use any of these words or phrases: " + banned)
@@ -639,10 +641,15 @@ def reported_violation(v: Dict[str, Any]) -> Dict[str, Any]:
 
 # --- the checks of the assembled script, as violations -------------------------------------------------------------------------------------
 def collect_violations(naming=None, attribution=None, notation: Sequence[str] = (), banned: Sequence[Dict[str, Any]] = (), read_aloud: Sequence[str] = (),
-                       missing_cov: Sequence[str] = (), curated: Sequence[Dict[str, Any]] = ()) -> List[Dict[str, Any]]:
+                       missing_cov: Sequence[str] = (), curated: Sequence[Dict[str, Any]] = (),
+                       status_sentences_found: Sequence[Dict[str, Any]] = ()) -> List[Dict[str, Any]]:
     """Turn the results of every post-generation check into violations the repair can act on. `naming` and `attribution` are the result objects
     of named_work_check and attribution_check (or None); the rest are the lists those checks return."""
     out: List[Dict[str, Any]] = []
+    # The status sentences are written by status_sentences.py and not by the model: a missing one, a repeat, or the same standing stated in
+    # other words each come back with the exact sentence to use.
+    for v in status_sentences_found or ():
+        out.append({"check": "status_sentence", "kind": v["kind"], "find": v.get("find") or "", "raw": v, "message": v["message"]})
     for v in (naming.violations if naming is not None else []):
         q = v.get("quote") or ""
         if v["kind"] == "unlisted_work":

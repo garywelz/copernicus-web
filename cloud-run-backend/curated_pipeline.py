@@ -7,6 +7,7 @@ from dataclasses import dataclass, field
 from typing import Any, Awaitable, Callable, Dict, List, Optional
 
 import curated_checks as cc
+import status_sentences
 import unattributed_claims as uclaims
 import curated_script as csr
 import curated_sources as cs
@@ -181,7 +182,8 @@ async def _generate(request, research_context, check_llm, writer_llm, job_id, on
         if attribution is not None:
             entry["attribution"] = attribution.summary()
         attempts.append(entry)
-        viol = csr.collect_violations(naming, attribution, bad_notation, banned, read_aloud, missing_cov, curated)
+        status_said = status_sentences.check(script, run)
+        viol = csr.collect_violations(naming, attribution, bad_notation, banned, read_aloud, missing_cov, curated, status_said)
         viol += [{"check": v["check"], "kind": v["kind"], "find": v["find"], "message": v["message"]} for v in unattributed]
         viol += [{"check": "greeting", "kind": "greeting_or_sign_off", "find": g["sentence"],
                   "message": f'"{g["sentence"]}" greets the listener or names the programme. The recorded opening and ending do that: '
@@ -336,7 +338,8 @@ async def check_supplied_script(request, research_context, check_llm: csr.LlmCal
     entry["unattributed_claims"] = uclaims.summary(unattributed)
     if attribution is not None:
         entry["attribution"] = attribution.summary()
-    violations = csr.collect_violations(naming, attribution, bad_notation, banned, read_aloud, missing_cov, curated)
+    status_said = status_sentences.check(script, run)
+    violations = csr.collect_violations(naming, attribution, bad_notation, banned, read_aloud, missing_cov, curated, status_said)
     violations += [{"check": v["check"], "kind": v["kind"], "find": v["find"], "message": v["message"]} for v in unattributed]
     violations += [{"check": "greeting", "kind": "greeting_or_sign_off", "find": g["sentence"],
                     "message": f'"{g["sentence"]}" greets the listener or names the programme; the recorded opening and ending do that.'}

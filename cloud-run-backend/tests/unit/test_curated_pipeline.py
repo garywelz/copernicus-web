@@ -50,11 +50,33 @@ def context():
         confirmed_papers=conf, dropped_candidates=[], requested_pid=None, curated=r)
 
 
+def status_lines():
+    """The status clauses the code requires, as the stub writer would place them.
+
+    The stub writes filler words, so it states no source's status, and `status_sentences` refuses a script that leaves one unstated. These
+    tests are about the pipeline's mechanics - repair, retries, metadata - not about the status wording, so the double carries the
+    sentences the code wrote. The rule itself is unchanged, and the published fixtures in test_published_scripts_still_pass.py are
+    untouched.
+    """
+    import status_sentences
+    lines = [f"EXPERT: {r['sentence']}" for r in status_sentences.required(context().curated)]
+    # One per section, in the roomiest sections first: a status sentence is about 15 tokens and the opening's whole budget is 20.
+    roomy = [s.key for s in sorted(PLAN, key=lambda s: -s.budget)]
+    return {roomy[i]: [ln] for i, ln in enumerate(lines)}
+
+
 def filler(section, n=None, line=None):
-    """A clean section of exactly n words (default: its budget); `line` replaces the second line."""
+    """A clean section of exactly n words (default: its budget); `line` replaces the second line.
+
+    The first section also carries the required status sentences, so the script states each source's status exactly once.
+    """
     n = n or section.budget
+    extra = status_lines().get(section.key, [])
+    n -= sum(len(ln.split()) for ln in extra)            # every token counts toward the section's budget, the speaker label included
     half = n // 2
     first = "HOST: " + " ".join(f"{section.key}a{i}" for i in range(half - 1)) + "."
+    if extra:
+        first = "\n".join([first] + extra)
     rest = n - half
     second = line or ("EXPERT: " + " ".join(f"{section.key}b{i}" for i in range(rest - 1)) + ".")
     if line:
