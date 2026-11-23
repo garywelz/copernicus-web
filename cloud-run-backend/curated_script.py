@@ -367,7 +367,12 @@ SHOW_RULES = (
     "8. Attribute to a person only the words the source attributes to that person. A reporter's own phrase or judgement is attributed to the outlet.\n"
     "9. Write real dialogue: the HOST asks what a curious listener would ask and the EXPERT explains in plain words. Never say what the episode will not "
     "cover or what it avoids.\n"
-    "10. Stay inside your section's word range. Count your words before you answer; a section over its upper limit is rejected.")
+    "10. Stay inside your section's word range. Count your words before you answer; a section over its upper limit is rejected.\n"
+    "11. Write no history, no consensus and no verdict of your own. Never say how long a problem has stood (\"for decades\", \"for over a "
+    "century\", \"long-standing\"), never date a problem or a conjecture, never say what a community thinks, accepts or will do (\"the "
+    "mathematical community\", \"widely accepted\", \"experts believe\"), and never judge the work (\"important contribution\", "
+    "\"breakthrough\", \"significant step forward\", \"partial resolution\", \"promising\", \"remarkable\"). Use such a term only where a "
+    "source's own words use it. Where you have nothing sourced to say about importance or history, say nothing.")
 
 
 def system_prompt(run, plan: Sequence[Section], notes: Sequence[Note], banned: str = "") -> str:

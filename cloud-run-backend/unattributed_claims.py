@@ -23,6 +23,37 @@ SCOPE_TERMS = (
     "therapy", "therapies", "therapeutic", "cure", "cures", "disease", "diseases", "tissue", "tissues",
     "embryo", "embryos", "animal", "animals", "mouse", "mice", "plant", "plants",
 )
+# Three classes of phrase a script reaches for when it has nothing to say: a history no source dates, a consensus no source reports, and a
+# judgement no source makes. Every one of these passed every check on 2026-11-23, in all four scripts at once: "For decades,
+# mathematicians have studied...", "proposed by a mathematician in the 1950s", "the mathematical community has not yet confirmed",
+# "a significant step", "could significantly advance our understanding". They are refused by the same rule as a widened scope: the term is
+# allowed only where the sources themselves use it, so an abstract that calls its own problem long-standing lets the script say so too.
+UNDATED_HISTORY = (
+    "for decades", "for centuries", "for generations", "for years", "for many years", "for some time", "for over a century",
+    "for more than a century", "over a century", "after so many years", "for a long time", "long-standing", "longstanding",
+    "has challenged", "have challenged", "has puzzled", "have puzzled", "has eluded", "have eluded", "has baffled",
+    "historically", "in the 1950s", "in the 1960s", "in the 1970s", "in the 1980s", "in the 1990s", "since the 1950s",
+)
+CONSENSUS = (
+    "the mathematical community", "the scientific community", "the research community", "the physics community",
+    "widely accepted", "widely believed", "widely regarded", "generally accepted", "generally believed",
+    "experts believe", "experts agree", "mathematicians believe", "mathematicians agree", "scientists believe",
+    "scientists agree", "the consensus", "established knowledge", "textbook knowledge",
+)
+EVALUATION = (
+    "important contribution", "important contributions", "important implications", "important development", "breakthrough",
+    "breakthroughs", "significant step", "significant steps", "step forward", "significant advance", "significant advances",
+    "significant result", "significant results", "significant aspect", "major advance", "major breakthrough", "major claim",
+    "partial resolution", "landmark", "remarkable", "profound", "groundbreaking", "ground-breaking", "seminal",
+    "particularly interesting", "intriguing", "promising", "crucial", "pivotal", "fundamental assumptions",
+    "central goal", "more robust", "significantly advance", "significantly advances",
+)
+# Words that carry no weight when asking whether the sources use a phrase. Without this, "for decades" would count as sourced because an
+# abstract contains the word "for".
+_PHRASE_STOPWORDS = frozenset(
+    ("for", "the", "a", "an", "in", "on", "of", "to", "and", "or", "has", "have", "had", "is", "are", "was", "were", "been",
+     "be", "so", "such", "after", "over", "more", "than", "this", "that", "it", "its", "their", "very", "much", "many", "most")
+)
 WITHDRAWAL = re.compile(r"\b(withdrawn|withdrew|withdrawal|retracted|retraction|corrigend\w*|a correction to)\b", re.I)
 # A body that releases work. Named here only as a shape to look for in an assertion; the sources decide whether naming it is allowed.
 BODY = re.compile(r"\b(OpenAI|Anthropic|Google|DeepMind|Meta|Microsoft|NVIDIA|IBM|Baker lab|ETH(?: Zurich)?|MIT|Stanford|Harvard|Oxford|"
@@ -97,6 +128,23 @@ def _in_sources(term: str, words: frozenset) -> bool:
     return bool(pieces) and all(p in words for p in pieces)
 
 
+def _phrase_in_sources(phrase: str, words: frozenset) -> bool:
+    """Whether the sources use `phrase`, judging only its distinctive words. "for decades" is sourced when a source speaks of decades, not
+    merely because every abstract contains the word "for"."""
+    pieces = [stem(p) for p in re.findall(r"[a-z0-9]+", phrase.lower()) if p not in _PHRASE_STOPWORDS and len(p) > 2]
+    return bool(pieces) and all(p in words for p in pieces)
+
+
+def _unsourced_phrases(sentence: str, phrases: Sequence[str], words: frozenset) -> List[str]:
+    """Which of `phrases` the sentence uses and no listed source does, matched as whole words."""
+    found = []
+    for p in phrases:
+        pattern = r"\b" + r"[\s\-]+".join(re.escape(w) for w in p.split()) + r"\b"
+        if re.search(pattern, sentence, re.I) and not _phrase_in_sources(p, words):
+            found.append(p)
+    return sorted(set(found))
+
+
 def _attributed(sentence: str, attributed: Sequence[str]) -> bool:
     """True when the attribution check already examined this sentence (it quoted it)."""
     flat = re.sub(r"\s+", " ", sentence).strip().lower()
@@ -130,6 +178,16 @@ def check(script: str, sources: Sequence[Any], attributed_quotes: Sequence[str] 
             out.append({"check": "unattributed_claim", "kind": "named_body_without_source", "where": who, "find": s,
                         "message": f"{s!r} names {', '.join(named)}, which no listed source names. Remove the name, or attribute the "
                                    "sentence to a source that names it."})
+            continue
+        for kind, phrases, what in (("unsourced_history", UNDATED_HISTORY, "dates the work or says how long the problem has stood"),
+                                    ("unsourced_consensus", CONSENSUS, "says what a community thinks, accepts or will do"),
+                                    ("unsourced_evaluation", EVALUATION, "judges how important or how good the work is")):
+            hits = _unsourced_phrases(s, phrases, words)
+            if hits:
+                out.append({"check": "unattributed_claim", "kind": kind, "where": who, "find": s, "terms": hits,
+                            "message": f"{s!r} {what} with {', '.join(repr(h) for h in hits)}, which no listed source uses. Say what the "
+                                       "sources say, or cut the phrase. The sources decide: where one of them uses the term, the script "
+                                       "may use it too."})
     return out
 
 
