@@ -451,8 +451,12 @@ async def dry_run_script(body: GenerateCuratedEpisode):
         gen = await curated_pipeline.generate_curated_content(request, context, make_gemini_llm_call(key), curated_pipeline.make_writer_llm(key),
                                                               job_id="dry-run", with_metadata=True)
     except curated_script.ScriptPipelineError as e:
+        refused = getattr(e, "script", "") or ""
         return {**base, "status": "failed", "error_type": type(e).__name__, "error": str(e),
                 "violations": [curated_script.reported_violation(x) for x in getattr(e, "violations", [])],
+                # The text the checks refused, so a sentence can be mended in its own context. A dry run writes nothing, so returning it
+                # publishes nothing; it is the same script the violations quote.
+                **({"refused_script": refused, "words": len(refused.split())} if refused else {}),
                 **getattr(e, "diagnostics", {})}
     script = gen.content["script"]
     return {**base, "status": "ok", "words": len(script.split()), "tts_characters": len(script), "title": gen.content["title"],

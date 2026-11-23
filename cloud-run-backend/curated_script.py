@@ -69,8 +69,11 @@ class SectionFormatError(ScriptPipelineError):
 class ScriptRepairFailed(ScriptPipelineError):
     """The script still violates a check after the repairs and the one full regeneration. The episode fails; nothing is published."""
 
-    def __init__(self, violations: Sequence[Dict[str, Any]]):
+    def __init__(self, violations: Sequence[Dict[str, Any]], script: str = ""):
         self.violations = list(violations)
+        # The script the checks refused. A dry run returned the violations but not the text they came from, so a sentence could only be
+        # mended by reading it out of a violation's `find` field, and the surrounding script was invisible (2026-11-22).
+        self.script = script or ""
         kinds = sorted({v["kind"] for v in self.violations})
         super().__init__("The script still failed the checks after repair and one full regeneration (" + ", ".join(kinds) + "), so no episode was generated.")
 
@@ -614,7 +617,7 @@ class ScriptBuilder:
                                    "unlocated": [f"{v['check']}:{v['kind']}" for v in lost]})
                 if not repaired:
                     break         # nothing changed (every revision was refused, or nothing could be located): another round would ask the same again
-        raise ScriptRepairFailed(final)
+        raise ScriptRepairFailed(final, self.assemble(self.sections) if self.sections else "")
 
 
 def reported_violation(v: Dict[str, Any]) -> Dict[str, Any]:

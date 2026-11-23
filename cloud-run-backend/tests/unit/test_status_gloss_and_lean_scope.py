@@ -63,6 +63,9 @@ def checker(items):
     c.run = FakeRun(items)
     c.releases = list(items)
     c.companies = {"openai"}
+    c.sources = []                  # no commentary on these lists
+    c.person_index = {}
+    c.vocab = {"lean"} | c.companies
     return c
 
 

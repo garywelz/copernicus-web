@@ -175,6 +175,11 @@ RESULT_NOUNS = ("theorem", "theorems", "conjecture", "conjectures", "formula", "
 _DASHES = re.compile(r"[‐‑‒–—―−-]")
 
 
+def depossess(token: str) -> str:
+    """"kaplanskys" -> "kaplansky". `_norm` removes the apostrophe, so a possessive arrives with its s attached."""
+    return token[:-1] if len(token) > 4 and token.endswith("s") and not token.endswith("ss") else token
+
+
 def unhyphenate(s: str) -> str:
     """Every dash form becomes a space, so a joined name is compared part by part: "Mézard–Parisi", "Mezard-Parisi" and "Mezard Parisi"
     all give the words {mezard, parisi}. `_norm` deletes dashes without a space in their place, which fuses the two surnames into one
@@ -222,12 +227,15 @@ def result_name_in(mention: Dict[str, Any], quote: str) -> str:
     names = {_norm(a).split()[-1] for a in (mention.get("authors") or []) if _norm(a)} - set(GROUP_MARKERS)
     if not names:
         return ""
+    names |= {depossess(n) for n in names}
     toks = _norm(unhyphenate(quote)).split()
     for i, tok in enumerate(toks):
-        if tok not in names:
+        # A result is usually named in the possessive, and `_norm` drops the apostrophe: "Kaplansky's" becomes "kaplanskys", which never
+        # equalled the author "kaplansky", so three sentences naming Kaplansky's conjecture were refused (episode 197, 2026-11-22).
+        if tok not in names and depossess(tok) not in names:
             continue
         start = i
-        while start > 0 and toks[start - 1] in names:       # "mezard parisi", both surnames
+        while start > 0 and (toks[start - 1] in names or depossess(toks[start - 1]) in names):   # "mezard parisi", both surnames
             start -= 1
         for j in range(i + 1, min(i + 4, len(toks))):       # within a word or two of the last surname
             if toks[j] in RESULT_NOUNS:
@@ -338,6 +346,21 @@ def match_mention(mention: Dict[str, Any], confirmed: Sequence[Any], named_befor
         # than be read as this one.
         elif not names and (title_overlap >= 3 or (tw and tw == _words(c.title))):
             candidates.append((c, title_overlap))
+    if not candidates and tw:
+        # The mention gives a listed title EXACTLY, but an author who is not the listed one. The model credited the conjecture's namesake:
+        # "For A Counterexample to Kaplansky's Direct-Finiteness Conjecture in Characteristic Two, OpenAI's catalogue lists a Lean
+        # formalization" arrived with authors ["Kaplansky"], so the author branch found nothing and the title branch was never reached,
+        # and a manuscript named in full was reported as unlisted (episode 197, 2026-11-22). The title decides and the author is recorded
+        # as misattributed, which `persons_credited` reports in its own right. Exactness matters: a work that merely shares words with a
+        # listed title stays unlisted.
+        # Both sides must split dashes the same way: "Direct-Finiteness" is one token in `tw` and two in an unhyphenated title.
+        said_u = _words(unhyphenate(" ".join(mention.get("title_words") or [])))
+        exact = [c for c in confirmed if said_u == _words(unhyphenate(c.title))]
+        pid = exact[0].pid if len(exact) == 1 else (_full_title_ranking(mention, [(c, 0) for c in exact]) if len(exact) > 1 else None)
+        if pid:
+            if names:
+                mention["author_misattributed"] = True
+            return pid
     if not candidates:
         return None
     if len(candidates) == 1 or not (year or tw):
