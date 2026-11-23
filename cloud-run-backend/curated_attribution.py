@@ -70,7 +70,7 @@ _ATTESTING = re.compile(r"\bverified\b|\bmachine[- ]checked\b|\bchecked by exper
 # against those items' status records. A sentence with none of this, which only says what a catalogue listing is and is not, asserts nothing
 # about any item and is a gloss.
 _ITEM_REFERENCE = re.compile(r"\b(?:this|that|these|those|both|each|all (?:two|three|four))\s+(?:specific\s+|other\s+)?"
-                             r"(?:manuscripts?|papers?|preprints?|releases?|formali[sz]ations?|results?|claims?)\b"
+                             r"(?:manuscripts?|papers?|preprints?|releases?|formali[sz]ations?|results?|claims?|works?)\b"
                              r"|\bfor (?:it|them|this one)\b|\ball three\b|\ball of them\b", re.I)
 _COLLECTIVE = re.compile(r"\b(?:these|those|both|all three|all four|all of them|each of (?:them|these))\b", re.I)
 # What makes a sentence a limit on the status rather than a claim from it.
@@ -78,11 +78,53 @@ _COLLECTIVE = re.compile(r"\b(?:these|those|both|all three|all four|all of them|
 # finding dressed as a negation, and it was read as a gloss.
 _LIMITING = re.compile(r"\bdoes(?:\s+not|n['’]t)\s+mean\b|\bnot\s+(?:been\s+)?independent\w*\b|\bha(?:s|ve)\s+not\s+been\b"
                        r"|\bno guarantee\b|\bsays nothing\b|\bonly means\b|\bnot a verdict\b"
+                       r"|\bn(?:ot|o)\s+(?:a\s+|any\s+)?(?:step|progress|advance)\b"
+                       # "no evidence" limits the record only where it denies SUPPORT for the result. "The catalogue shows no evidence
+                       # against the proof" is a finding in the catalogue's favour, not a limit on what it says.
+                       r"|\bn(?:ot|o)\s+(?:any\s+)?evidence\b[^.?!]{0,40}"
+                       r"\b(?:correct\w*|verif\w*|confirm\w*|validat\w*|sound|proven|proved|holds)\b"
                        r"|\bhas its own\b|\bits own stated\b|\bunchecked\b", re.I)
 # An assertion that something WAS examined. Allowed in a gloss only inside a limiting construction ("has not been independently checked").
 _EXAMINED = re.compile(r"\bindependently\s+(?:reviewed|checked|verified|validated|confirmed|examined)\b|\bpeer[- ]reviewed\b"
                        r"|\bha(?:s|ve)\s+been\s+(?:checked|reviewed|verified|validated)\b"
                        r"|\b(?:was|were)\s+(?:checked|reviewed|verified|validated|examined)\b", re.I)
+def _asserted_outside_a_limit(pattern: "re.Pattern[str]", sentence: str) -> bool:
+    """Whether `pattern` matches somewhere that is NOT inside a limiting construction.
+
+    A limit is written before what it limits: "its correctness has not been independently confirmed" states a limit, while "the catalogue
+    confirmed it, which does not mean much" states a finding and then shrugs. So a match counts as asserted unless a limiting phrase opens
+    before it. 003 was refused twice for sentences of the first kind, because any attesting word at all disqualified them (2026-11-22).
+    """
+    limits = [m.start() for m in _LIMITING.finditer(sentence)]
+    first_limit = min(limits) if limits else None
+    return any(first_limit is None or m.start() < first_limit for m in pattern.finditer(sentence))
+
+
+# The publication status a class already records: "not peer reviewed", "not yet published". True of every preprint and every company
+# release by definition, and never stated in an abstract.
+_NOT_PEER_REVIEWED = re.compile(r"\b(?:not|never|without|yet to be|awaiting|pending)\b[^.?!]{0,60}"
+                                r"\b(?:peer[- ]reviewed|peer[- ]review|published|publication)\b", re.I)
+_CLASS_WORD = re.compile(r"\bpreprints?\b", re.I)
+# Everything a class-status sentence may say besides the sources' own words. Nothing here asserts a finding.
+_STATUS_VOCAB = {"preprint", "preprints", "peer", "reviewed", "review", "reviews", "publication", "publications", "published",
+                 "process", "full", "formal", "formally", "status", "yet", "undergone", "undergo", "undergoing", "journal",
+                 "journals", "other", "others", "also", "these", "those", "this", "that", "they", "them", "it", "its", "their",
+                 "there", "have", "has", "had", "not", "never", "been", "are", "is", "was", "were", "and", "or", "but", "like",
+                 "such", "as", "of", "the", "a", "an", "to", "in", "on", "still", "any", "all", "both", "awaiting", "await",
+                 "awaits", "pending", "however", "so", "therefore", "neither", "nor", "one", "two", "three", "titled", "called",
+                 "company", "release", "releases", "manuscript", "manuscripts", "paper", "papers", "own", "openai"}
+
+# Progress towards verification claimed from a catalogue listing. The status module documents what the record does and does not say:
+# `scope: "Partial progress."`, `review.status: unchecked`, and "it does not say the Lean file states the paper's theorem". A listing is
+# therefore not a step, an advance or evidence towards the result being verified, however hedged the sentence is.
+_PROGRESS_TOWARD = re.compile(
+    r"\b(?:step|steps|stepping|progress|progresses|advance|advances|advancement|move|moves|moving|closer|nearer|partial|partway|"
+    r"headway|milestone|towards?|underway|on the way|en route)\b[^.?!]{0,40}"
+    r"\b(?:verif\w*|confirm\w*|validat\w*|correctness|checked|checking)\b"
+    r"|\b(?:verif\w*|confirm\w*|validat\w*|correctness)\b[^.?!]{0,40}"
+    r"\b(?:step|steps|progress|advance\w*|closer|nearer|partial|partway|headway|milestone|underway)\b"
+    r"|\bevidence\b[^.?!]{0,40}\b(?:verif\w*|confirm\w*|validat\w*|correctness)\b", re.I)
+
 # A withdrawal is a record about a particular manuscript, never a gloss on the wording.
 _WITHDRAWAL_CLAIM = re.compile(r"\bwithdr(?:awn|ew|awal)\b|\bnotice\b|\bretract\w*\b", re.I)
 _MONTHS = ("january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december")
@@ -115,6 +157,23 @@ def _fold(text: str) -> str:
 def _has_phrase(folded_sentence: str, phrase: str) -> bool:
     p = _fold(phrase)
     return bool(p) and re.search(rf"(?<![a-z0-9']){re.escape(p)}(?![a-z0-9'])", folded_sentence) is not None
+
+
+def _closest_by_title(folded_sentence: str, matched: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Of several releases an alias matched, the one whose FULL title the sentence carries most of - or all of them when nothing decides.
+
+    Two manuscripts in one family answer to the same words: 003 holds "The Quasi-Riemann Hypothesis: A Zero-Free Half-Plane Re s > 7/8"
+    and "The Quasi-Riemann Hypothesis (alternate 11/12 proof)", and `cc.mentions` matched both for a sentence naming the first. A Lean
+    claim then had to hold for BOTH, so a sentence about the half-plane manuscript - which does have a Lean entry - was refused because the
+    alternate proof does not (2026-11-22). The sentence said which one it meant; taking every match threw that away.
+    """
+    if len(matched) < 2:
+        return matched
+    said = set(folded_sentence.split())
+    scored = sorted(((len(said & set(cc.words(i.get("title") or ""))), n, i) for n, i in enumerate(matched)), key=lambda x: (-x[0], x[1]))
+    if scored[0][0] > scored[1][0]:
+        return [scored[0][2]]
+    return matched                                          # nothing distinguishes them: every one must hold, as before
 
 
 def _surname(name: str) -> str:
@@ -271,11 +330,11 @@ class Router:
         folded = _fold(sentence)
         by_alias = [i for i in self.releases if any(_has_phrase(folded, a) for a in _release_aliases(i))]
         if by_alias:
-            return by_alias
+            return _closest_by_title(folded, by_alias)
         results = {r["item_id"]: r for r in self.run.results()}
         named = [i for i in self.releases if i["class"] == cs.COMPANY_RELEASE and cc.mentions(sentence, results[i["item_id"]])]
         if named:
-            return named
+            return _closest_by_title(folded, named)
         if re.search(r"\bwithdrawn (?:paper|manuscript)\b", sentence, re.I):
             return [i for i in self.releases if self.run.status_of(i) == cc.STATUS_WITHDRAWN]
         return []
@@ -291,13 +350,15 @@ class Router:
         A gloss may not assert anything: it must name no item, point at none, take none together, credit nobody with examining anything
         except inside a limiting phrase, and - where it does mention a Lean formalization - only say what that listing does not mean.
         """
-        if _ATTESTING.search(sentence):
-            return False
+        if _asserted_outside_a_limit(_ATTESTING, sentence):
+            return False                                    # it credits somebody with a verdict
+        if _asserted_outside_a_limit(_PROGRESS_TOWARD, sentence):
+            return False                                    # it reads the listing as progress towards verification
         if self.releases_named(sentence) or _ITEM_REFERENCE.search(sentence):
             return False                                    # it speaks about particular items: judge it against their records
         if _WITHDRAWAL_CLAIM.search(sentence):
             return False                                    # a withdrawal is a record about a manuscript, judged against the notice
-        if _EXAMINED.search(sentence) and not _LIMITING.search(sentence):
+        if _asserted_outside_a_limit(_EXAMINED, sentence):
             return False                                    # it says something WAS examined
         # It must state a LIMIT of the record. Any other assertion about the catalogue - "the catalogue has many entries" - is a claim the
         # status records cannot confirm, and keeps failing as one.
@@ -318,8 +379,12 @@ class Router:
         run = self.run
         named = self.releases_named(sentence)
         claims = 0
-        if _ATTESTING.search(sentence):
+        if _asserted_outside_a_limit(_ATTESTING, sentence):
             return False, "the catalogue or a notice is credited with verifying or confirming a result; it records a listing or a withdrawal, not a verdict"
+        if _asserted_outside_a_limit(_PROGRESS_TOWARD, sentence):
+            return False, ("the listing is read as progress towards verification; the catalogue record says the entry's review status is "
+                           "unchecked and does not say the Lean file states the paper's theorem, so it is no step towards the result "
+                           "being verified")
         if self.is_status_gloss(sentence):
             return True, "a gloss on the status wording that claims nothing about any listed manuscript"
         if _LEAN_LISTED.search(sentence):
@@ -361,6 +426,40 @@ class Router:
             return False, "a statement about the catalogue or a notice that the status records cannot confirm"
         return True, "agrees with the list's status records"
 
+    # -- the publication status a class already records -------------------------------------------------------------------------------------------------
+    def class_status_only(self, sentence: str) -> Tuple[bool, str]:
+        """Whether the sentence says no more than the publication status the ITEM'S CLASS already records.
+
+        "As a preprint, it has not yet undergone the full peer-review process" is true of every item the list classes `preprint`, but an
+        abstract never states its own publication status, so the sentence was judged against the abstract and refused. The pipeline asks a
+        script to give each source's status and then refused it for doing so (episode 221, 2026-11-22).
+
+        It passes only if the sentence asserts NOTHING else: every content word must be status vocabulary, or a word from a listed title,
+        or a listed author's surname. "...which are important contributions to the field, but their findings are still undergoing
+        scientific scrutiny" keeps failing, because "important", "contributions", "scrutiny" are in no source.
+        """
+        if not _NOT_PEER_REVIEWED.search(sentence):
+            return False, ""
+        named = [i for i in self.run.items if cc.mentions(sentence, {"item_id": i["item_id"], "title": i.get("title") or "",
+                                                                     "authors": i.get("authors") or [], "year": i.get("year")})]
+        by_class = [i for i in self.run.items if i["class"] == cs.PREPRINT] if _CLASS_WORD.search(sentence) else []
+        scope = named or by_class
+        if not scope:
+            return False, ""
+        for i in scope:
+            if i["class"] not in (cs.PREPRINT, cs.COMPANY_RELEASE):
+                return False, ""                            # a peer-reviewed item is not "not peer reviewed"; judge it as content
+        allowed = set(_STATUS_VOCAB)
+        for i in self.run.items:
+            allowed |= set(cc.words(i.get("title") or ""))
+            for a in (i.get("authors") or []):
+                allowed |= set(cc.words(a))
+        extra = [w for w in cc.words(sentence) if _depossess(w) not in allowed and w not in allowed and not w.isdigit()]
+        if extra:
+            return False, ""
+        classes = ", ".join(sorted({self.run.pids[i["item_id"]] for i in scope}))
+        return True, f"the publication status the list already records for {classes}"
+
     # -- routing ----------------------------------------------------------------------------------------------------------------------------------------
     def route(self, sentence: str) -> Routed:
         folded = _fold(sentence)
@@ -374,6 +473,9 @@ class Router:
         if _STATUS_CUE.search(sentence):
             ok, why = self.check_status(sentence)
             return Routed(sentence, "status", ["the list's status records"], "supported" if ok else "unsupported", why, passed=ok)
+        ok, why = self.class_status_only(sentence)
+        if ok:
+            return Routed(sentence, "status", ["the list's status records"], "supported", why, passed=True)
         return Routed(sentence, "content")
 
 
