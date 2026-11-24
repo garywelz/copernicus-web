@@ -127,7 +127,8 @@ def test_a_given_thumbnail_title_and_subtitle_are_drawn_instead_of_a_title_that_
                                               thumbnail_title="Is ETH false?", thumbnail_subtitle="The Exponential Time Hypothesis"))
     assert url == svc.media_store.public_url("thumbnails/x-4-thumb.png")
     assert set(FakeStorage.store) == {"thumbnails/x-4-thumb.png", "episode-images/x-4-artwork-3000.png"}
-    assert seen == [(("Is ETH false?",), {"subtitle": "The Exponential Time Hypothesis"})] and rec["thumbnail_source"] == "series_template"
+    assert seen == [(("Is ETH false?",), {"subtitle": "The Exponential Time Hypothesis", "episode_id": "x-4"})]
+    assert rec["thumbnail_source"] == "series_template"
     assert "thumbnail_error_message" not in rec
 
 
@@ -135,14 +136,14 @@ def test_a_given_thumbnail_title_alone_is_drawn_whole_with_no_subtitle(monkeypat
     s, rec = service(monkeypatch), {}
     seen = spy(monkeypatch)
     run(s.generate_and_upload_thumbnail("Episode title: with a colon", "t", "x-5", curated=True, record=rec, thumbnail_title="Is ETH false?"))
-    assert seen == [(("Is ETH false?",), {"subtitle": ""})]
+    assert seen == [(("Is ETH false?",), {"subtitle": "", "episode_id": "x-5"})]
 
 
 def test_without_a_given_title_the_episode_title_is_drawn_exactly_as_before(monkeypatch):
     s, rec = service(monkeypatch), {}
     seen = spy(monkeypatch)
     run(s.generate_and_upload_thumbnail("722 papers overnight: OpenAI's mathematics release", "t", "x-6", curated=True, record=rec))
-    assert seen == [(("722 papers overnight: OpenAI's mathematics release",), {})]
+    assert seen == [(("722 papers overnight: OpenAI's mathematics release",), {"episode_id": "x-6"})]
 
 
 def test_the_two_fields_are_optional_on_both_curated_requests_and_ride_on_the_podcast_request():

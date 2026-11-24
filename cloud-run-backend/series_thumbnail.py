@@ -6,8 +6,10 @@ The font is Inter (SIL Open Font License 1.1), stored at assets/fonts/Inter-Vari
 """
 from __future__ import annotations
 
+import hashlib
 import io
 import os
+import random
 from typing import List, Optional, Sequence, Tuple
 
 from PIL import Image, ImageDraw, ImageFont
@@ -83,9 +85,37 @@ def _fit(s: str, weight: int, size: float, max_width: float, tracking: float) ->
     return size if w <= max_width else size * max_width / w
 
 
-def lattice(d, x, y, w, h, k):
-    """Neutral motif for an episode with no subject motif of its own: a drawn grid with a few gold nodes. `k` scales line weights (1 at 1280 wide)."""
-    rows = 6
+# One colour per field, the same six the site uses, keyed by the code in a canonical id (ever-math-260020 -> math). The panel they fill
+# carries no text, so the title's contrast is untouched; each is dark enough for the white grid and the gold nodes to read on it.
+FIELD_COLOURS = {
+    "bio": (0x14, 0x53, 0x2D), "chem": (0x5B, 0x21, 0x75), "phys": (0x0F, 0x3F, 0x73),
+    "math": (0x8C, 0x1D, 0x18), "compsci": (0x33, 0x41, 0x55), "news": (0x7A, 0x4A, 0x00),
+}
+
+
+def field_colour(episode_id: Optional[str]) -> Tuple[int, int, int]:
+    """The panel colour for an episode, from the field in its canonical id. An id of another shape keeps the series ink."""
+    part = (episode_id or "").split("-")
+    return FIELD_COLOURS.get(part[1], INK) if len(part) > 1 else INK
+
+
+def _seed(episode_id: Optional[str]) -> Optional[int]:
+    """A number fixed by the id. The same id always gives the same number, on any machine and in any process - Python's own hash() is
+    salted per process and would give an episode a different cover every time it was drawn."""
+    if not episode_id:
+        return None
+    return int(hashlib.sha256(episode_id.encode("utf-8")).hexdigest()[:16], 16)
+
+
+def lattice(d, x, y, w, h, k, seed: Optional[int] = None, panel: Tuple[int, int, int] = INK):
+    """The motif panel: a drawn grid with gold nodes. `k` scales line weights (1 at 1280 wide).
+
+    With a `seed` the grid and its nodes are chosen from that number, so every episode gets a pattern of its own and the same episode
+    gets the same pattern every time it is drawn. Without one the original fixed arrangement is kept, so an episode with no id - and
+    every existing test - draws exactly what it drew before.
+    """
+    rng = random.Random(seed) if seed is not None else None
+    rows = rng.choice((5, 6, 7)) if rng else 6
     cell = h / rows
     cols = max(3, round(w / cell))
     cw = w / cols
@@ -93,11 +123,16 @@ def lattice(d, x, y, w, h, k):
         d.line([(x + i * cw, y), (x + i * cw, y + h)], fill=LINE, width=max(1, round(3 * k)))
     for j in range(rows + 1):
         d.line([(x, y + j * cell), (x + w, y + j * cell)], fill=LINE, width=max(1, round(3 * k)))
-    nodes = [(1, 1), (2, 2), (cols - 1, 1), (1, 3), (cols - 2, 3), (2, 4), (cols - 1, 5), (cols // 2, 3)]
+    if rng:
+        # Nodes on the grid's crossings, never on the outer edge, so none is clipped by the panel.
+        spots = [(c, r) for c in range(1, cols) for r in range(1, rows)]
+        nodes = rng.sample(spots, min(len(spots), rng.choice((6, 7, 8, 9))))
+    else:
+        nodes = [(1, 1), (2, 2), (cols - 1, 1), (1, 3), (cols - 2, 3), (2, 4), (cols - 1, 5), (cols // 2, 3)]
     r = 13 * k
     for c, rr in nodes:
         cx, cy = x + c * cw, y + rr * cell
-        d.ellipse([cx - r - 4 * k, cy - r - 4 * k, cx + r + 4 * k, cy + r + 4 * k], fill=INK)
+        d.ellipse([cx - r - 4 * k, cy - r - 4 * k, cx + r + 4 * k, cy + r + 4 * k], fill=panel)
         d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=GOLD)
 
 
@@ -183,7 +218,7 @@ def _subtitle_size(sub: str, base: float, max_width: float, ss: int, scale: floa
     return size
 
 
-def render_16x9(title: str, ss: int = 2, subtitle: Optional[str] = None) -> bytes:
+def render_16x9(title: str, ss: int = 2, subtitle: Optional[str] = None, episode_id: Optional[str] = None) -> bytes:
     """1280 x 720 PNG. Grid: white title panel x 0-800, ink motif panel x 800-1280; the bottom-right 220 x 90 px is kept clear (panel colour only). No word of the
     title or the subtitle is ever cut: a title is shrunk and wrapped to fit, and one that cannot be set legibly raises TitleDoesNotFit before anything is drawn."""
     lines, sub = title_parts(title, subtitle)
@@ -192,17 +227,18 @@ def render_16x9(title: str, ss: int = 2, subtitle: Optional[str] = None) -> byte
     W, H = 1280 * ss, 720 * ss
     img = Image.new("RGB", (W, H), WHITE)
     d = ImageDraw.Draw(img)
-    d.rectangle([800 * ss, 0, W, H], fill=INK)
+    panel = field_colour(episode_id)
+    d.rectangle([800 * ss, 0, W, H], fill=panel)
     _text(d, (70 * ss, 76 * ss), SERIES_MARK, font(25 * ss, 500), INK, tracking=0.1)
     for i, (line, size, baseline) in enumerate(placed):
         _text(d, ((66 if i == 0 else 68) * ss, baseline), line, font(size, 800), INK, tracking=-0.01)
     if sub:
         _text(d, (72 * ss, 630 * ss), sub, font(sub_size, 500), INK, alpha=0.8)
-    lattice(d, 900 * ss, 60 * ss, 280 * ss, 540 * ss, ss)
+    lattice(d, 900 * ss, 60 * ss, 280 * ss, 540 * ss, ss, _seed(episode_id), panel)
     return _png(img.resize((1280, 720), Image.BOX) if ss != 1 else img)
 
 
-def render_square(title: str, ss: int = 1, subtitle: Optional[str] = None) -> bytes:
+def render_square(title: str, ss: int = 1, subtitle: Optional[str] = None, episode_id: Optional[str] = None) -> bytes:
     """3000 x 3000 PNG. Grid: white title panel y 0-1830, ink motif panel y 1830-3000, 200 px margin. No word is ever cut (see render_16x9)."""
     lines, sub = title_parts(title, subtitle)
     placed = _title_lines(lines, "square", ss)
@@ -210,13 +246,14 @@ def render_square(title: str, ss: int = 1, subtitle: Optional[str] = None) -> by
     W = 3000 * ss
     img = Image.new("RGB", (W, W), WHITE)
     d = ImageDraw.Draw(img)
-    d.rectangle([0, 1830 * ss, W, W], fill=INK)
+    panel = field_colour(episode_id)
+    d.rectangle([0, 1830 * ss, W, W], fill=panel)
     _text(d, (200 * ss, 250 * ss), SERIES_MARK, font(78 * ss, 500), INK, tracking=0.1)
     for line, size, baseline in placed:
         _text(d, (190 * ss, baseline), line, font(size, 800), INK, tracking=-0.01)
     if sub:
         _text(d, (200 * ss, 1720 * ss), sub, font(sub_font_size, 500), INK, alpha=0.8)
-    lattice(d, 300 * ss, 1990 * ss, 2400 * ss, 780 * ss, 2.3 * ss)
+    lattice(d, 300 * ss, 1990 * ss, 2400 * ss, 780 * ss, 2.3 * ss, _seed(episode_id), panel)
     return _png(img.resize((3000, 3000), Image.BOX) if ss != 1 else img)
 
 
