@@ -103,6 +103,7 @@ from config.constants import (
     ERROR_NOTIFICATION_EMAIL,
     DEFAULT_ARTWORK_URL,
     EPISODE_IMAGE_MODEL,
+    EPISODE_IMAGES_ENABLED,
 )
 from config.database import db
 from utils.generation_quota import refund_failed_job
@@ -1597,18 +1598,41 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
         try:
             from google.cloud import storage
             bucket = storage.Client().bucket(media_store.PRIVATE_BUCKET)
-            if thumbnail_title or thumbnail_subtitle:
+            given = bool(thumbnail_title or thumbnail_subtitle)
+            if given:
                 args, kw = (thumbnail_title or title,), {"subtitle": thumbnail_subtitle or ""}
             else:
                 args, kw = (title,), {}
-            thumb = await asyncio.to_thread(series_thumbnail.render_16x9, *args, **kw)
-            square = await asyncio.to_thread(series_thumbnail.render_square, *args, **kw)
+            try:
+                thumb = await asyncio.to_thread(series_thumbnail.render_16x9, *args, **kw)
+                square = await asyncio.to_thread(series_thumbnail.render_square, *args, **kw)
+            except series_thumbnail.TitleDoesNotFit:
+                # The template refuses a title it cannot set legibly, and the episode then falls back to the channel's cover: that is how
+                # 197 and 221 lost their art. Rather than lose it, derive a shorter form from the EPISODE'S OWN words - the colon split,
+                # the subject with the rest underneath - which is what both were fixed with by hand. Deriving only happens after the
+                # title has actually failed, so a title that fits is still drawn exactly once, exactly as before.
+                import thumbnail_title as tt
+                if given:
+                    raise                       # the producer chose these words: tell them they do not fit rather than substitute others
+                derived = await asyncio.to_thread(tt.derive, title)
+                if derived is None:
+                    raise
+                structured_logger.info("Thumbnail title shortened to fit the series template",
+                                       canonical_filename=canonical_filename, episode_title=title,
+                                       thumbnail_title=derived[0], thumbnail_subtitle=derived[1])
+                record.update({"thumbnail_title": derived[0], "thumbnail_subtitle": derived[1]})
+                args, kw = (derived[0],), ({"subtitle": derived[1]} if derived[1] else {})
+                thumb = await asyncio.to_thread(series_thumbnail.render_16x9, *args, **kw)
+                square = await asyncio.to_thread(series_thumbnail.render_square, *args, **kw)
             bucket.blob(f"thumbnails/{canonical_filename}-thumb.png").upload_from_string(thumb, content_type="image/png")
             bucket.blob(f"episode-images/{canonical_filename}-artwork-3000.png").upload_from_string(square, content_type="image/png")
             record.update({"thumbnail_source": "series_template", "artwork_url": media_store.public_url(f"episode-images/{canonical_filename}-artwork-3000.png")})
             return media_store.public_url(f"thumbnails/{canonical_filename}-thumb.png")
         except series_thumbnail.TitleDoesNotFit as e:
-            structured_logger.error("Series thumbnail not drawn: the title does not fit", canonical_filename=canonical_filename, error=str(e))
+            # An error, naming the episode: the fallback to the channel's cover is a real loss and may not pass unremarked. Reaching here
+            # now means no derived form fits either, so a thumbnail_title has to be given by hand.
+            structured_logger.error("Series thumbnail not drawn: no form of the title fits the series template",
+                                    canonical_filename=canonical_filename, episode_title=title, error=str(e))
             record.update({"thumbnail_source": "default_artwork", "thumbnail_error": "TitleDoesNotFit", "thumbnail_error_message": str(e)})
             return DEFAULT_ARTWORK_URL
         except Exception as e:
@@ -1754,11 +1778,20 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
             List of public image URLs
         """
         image_urls = []
-        
+
+        # OFF by default. These images cost money per episode and nothing reads them: they are not the feed's artwork (that is the series
+        # template's square), they are not the thumbnail, and no page or record points at them. Two of them were made for
+        # ever-math-260020 on 2026-11-23, the first in weeks after the model pin, and changed nothing a listener sees. The step and its
+        # pinned model stay here, and nothing already stored is removed, so turning EPISODE_IMAGES_ENABLED on brings it back.
+        if not EPISODE_IMAGES_ENABLED:
+            structured_logger.info("Episode images are switched off; no image request made",
+                                   canonical_filename=canonical_filename)
+            return []
+
         try:
             import requests
             from google.cloud import storage
-            
+
             # Limit to 1-2 images
             num_images = max(1, min(2, num_images))
             

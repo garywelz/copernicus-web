@@ -98,3 +98,7 @@ def _category_value_to_slug(category_value: Optional[str]) -> Optional[str]:
 EPISODE_IMAGE_MODEL = os.getenv("EPISODE_IMAGE_MODEL", "gpt-image-2-2026-04-21")
 # The cheaper model kept as a second attempt for the thumbnail. It exists on this account; it is not dated, so it is a fallback only.
 EPISODE_IMAGE_MODEL_CHEAP = os.getenv("EPISODE_IMAGE_MODEL_CHEAP", "gpt-image-1-mini")
+# The extra DALL-E "episode images" are OFF. They cost money per episode and nothing reads them: the feed's artwork is the series
+# template's square, the thumbnail is its 16:9, and no page or record points at these. The step and its pinned model stay in place, so
+# this switch brings them back when something uses them.
+EPISODE_IMAGES_ENABLED = os.getenv("EPISODE_IMAGES_ENABLED", "").strip().lower() in ("1", "true", "yes", "on")
