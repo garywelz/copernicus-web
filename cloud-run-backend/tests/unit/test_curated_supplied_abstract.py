@@ -101,7 +101,10 @@ def test_only_a_journal_article_takes_a_supplied_abstract():
     assert item["confirmation"]["status"] == cs.REFUSED
     doi = "10.1000/b"
     item = supply(Registries(crossref_by_doi={doi: no_abstract("book", doi)}), doi=doi)
-    assert item["confirmation"]["reason"].startswith("unsupported_record_type")
+    # A book is now a class of its own rather than an unsupported type, so the refusal names the actual reason: an abstract supplied by
+    # hand stands in for a journal article's missing abstract, and a book chapter is evidenced by its passage instead (curated_chapter).
+    assert item["confirmation"]["status"] == cs.REFUSED
+    assert item["confirmation"]["reason"] == "supplied_abstract_needs_a_journal_article"
 
 
 def test_a_doi_the_registry_does_not_know_is_refused_and_a_down_registry_raises():

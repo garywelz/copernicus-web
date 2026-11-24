@@ -16,13 +16,14 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException
 from google.cloud import firestore
 
+import curated_chapter as cch
 import curated_mode
 import curated_sources as cs
 import curated_web_release as cwr
 import openai_math_index as omi
 import paper_confirmation as pc
 from config.database import db
-from models.curated import (AddCommentary, AddCompanyRelease, AddPaperWithSuppliedAbstract, AddSourceItems, AttachReleaseText,
+from models.curated import (AddCommentary, AddCompanyRelease, AddPaperWithSuppliedAbstract, AddScholarlyChapter, AddSourceItems, AttachReleaseText,
                             CheckSuppliedScript, CreateSourceList, GenerateCuratedEpisode, OverrideItemClass, SetCheckedBy)
 from models.podcast import PodcastRequest
 from utils.auth import verify_admin_api_key
@@ -587,6 +588,56 @@ async def add_commentary(list_id: str, body: AddCommentary):
         raise
     structured_logger.info("Curated commentary added", list_id=list_id, item_id=item["item_id"], characters=item["text_chars"])
     return {"list_id": list_id, "added": _summary(item), "text_chars": item["text_chars"], "text_sha256": item["text_sha256"], "limits": item["limits"]}
+
+
+@router.post("/api/admin/curated/lists/{list_id}/chapter")
+async def add_scholarly_chapter(list_id: str, body: AddScholarlyChapter):
+    """Add a chapter in a scholarly book that no registry can confirm, evidenced by the passage the producer transcribed from it.
+
+    A chapter WITH a usable DOI does not come through here: it is pasted like any other identifier and confirmed from its Crossref record,
+    which names the class by itself. This route is for the scholarship that has no such record - a chapter reachable only by a JSTOR stable
+    number or a handle, or one that exists on paper - where the evidence is the passage and nothing else. The passage goes to the private
+    store; the list keeps its hash, its length and where it came from. Draft lists only."""
+    _require_db()
+    try:
+        confirmation = cch.confirm(body.identifier, body.title, body.excerpt, book_title=body.book_title or "",
+                                   authors=body.authors or "", year=body.year or "", source_note=body.source_note or "")
+    except cch.ChapterRefused as e:
+        raise HTTPException(status_code=422, detail=str(e))
+    snap = db.collection(COLLECTION).document(list_id).get()
+    if not snap.exists:
+        raise HTTPException(status_code=404, detail="No such source list")
+    _require_draft(snap.to_dict() or {})
+    identifiers = cch.identifiers_of(confirmation)
+    text = body.excerpt.strip()
+    item = {"item_id": cs.item_id(identifiers), "input": body.identifier.strip()[:cs.MAX_ITEM_CHARS], "class": cs.SCHOLARLY_CHAPTER,
+            "added_by": "gary", "identifiers": identifiers, "title": confirmation["title"], "authors": confirmation.get("authors"),
+            "year": confirmation.get("year"), "confirmation": confirmation, "approved": False,
+            "evidence_text": "", "result_status": None}
+    _private_ref(list_id, item["item_id"]).set({"list_id": list_id, "item_id": item["item_id"], "text": text,
+                                                "text_sha256": confirmation["excerpt_sha256"], "created_at": _now()})
+
+    def apply(doc: Dict[str, Any]):
+        _require_draft(doc)
+        items = doc.setdefault("items", [])
+        existing = next((i for i in items if i.get("item_id") == item["item_id"]), None)
+        if existing is not None and (existing.get("confirmation") or {}).get("status") == cs.CONFIRMED:
+            raise HTTPException(status_code=409, detail="This chapter is already in the list; strike it first to replace it")
+        if existing is not None:
+            items[:] = [i for i in items if i.get("item_id") != item["item_id"]]
+        elif len(items) >= cs.MAX_ITEMS_PER_LIST:
+            raise HTTPException(status_code=409, detail=f"A list holds at most {cs.MAX_ITEMS_PER_LIST} items")
+        items.append(item)
+    try:
+        _mutate(list_id, apply)
+    except HTTPException:
+        _private_ref(list_id, item["item_id"]).delete()     # nothing was added: do not leave the passage behind
+        raise
+    structured_logger.info("Curated scholarly chapter added", list_id=list_id, item_id=item["item_id"],
+                           scheme=confirmation["scheme"], characters=confirmation["excerpt_chars"])
+    return {"list_id": list_id, "added": _summary(item),
+            "excerpt_chars": confirmation["excerpt_chars"], "excerpt_sha256": confirmation["excerpt_sha256"],
+            "identifier": confirmation["url"]}
 
 
 @router.get("/api/admin/curated/lists/{list_id}/commentary/{item_id}")

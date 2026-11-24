@@ -231,14 +231,18 @@ def check_spoken_names(script: str, names: Sequence[str] = VOICE_NAMES) -> List[
 # --- class labels -----------------------------------------------------------------------------------------------------------------
 _NOT_PEER = re.compile(r"\b(?:not|n't|never been|hasn't been|has not been|isn't|is not|yet to be|without)\b[^.]{0,30}\bpeer[- ]review", re.I)
 _PREPRINT = re.compile(r"\bpre-?prints?\b", re.I)
+# "a chapter in his book", "a book chapter", "the chapter": any of these tells a listener the source is a book, which is the thing that
+# must not be left out. The word "book" alone does not, because an episode may mention a book it is not citing.
+_CHAPTER = re.compile(r"\bchapters?\b", re.I)
 
 
 def check_class_labels(script: str, items: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """If the script names a preprint it must say preprint; if it names a company release it must say it is not peer reviewed.
+    """If the script names a preprint it must say preprint; if it names a company release it must say it is not peer reviewed; if it
+    names a chapter in a scholarly book it must call it a chapter, so a listener is never left taking a book for a journal article.
     (At least once in the episode; the first-mention rule is carried by the prompt.)"""
     sentences = split_sentences(dialogue_text(script))
     text = " ".join(sentences)
-    named = {"preprint": False, "company_release": False}
+    named = {"preprint": False, "company_release": False, "scholarly_chapter": False}
     for it in items:
         cls = it.get("class")
         if cls in named and any(mentions(s, it) for s in sentences):
@@ -249,6 +253,9 @@ def check_class_labels(script: str, items: Sequence[Dict[str, Any]]) -> List[Dic
     if named["company_release"] and not _NOT_PEER.search(text):
         out.append({"check": "class_label", "kind": "company_release_not_labelled",
                     "quote": "a named company release is never said to be not peer reviewed"})
+    if named["scholarly_chapter"] and not _CHAPTER.search(text):
+        out.append({"check": "class_label", "kind": "scholarly_chapter_not_labelled",
+                    "quote": "a named book chapter is never called a chapter"})
     return out
 
 

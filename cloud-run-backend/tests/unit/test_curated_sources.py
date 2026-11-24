@@ -134,12 +134,20 @@ def test_a_crossref_journal_article_is_peer_reviewed_and_posted_content_is_a_pre
     assert confirm("https://doi.org/10.1101/p", regs)[0]["class"] == cs.PREPRINT
 
 
-@pytest.mark.parametrize("rtype", ["dataset", "report", "book", "proceedings-article", "component", "peer-review", None])
+@pytest.mark.parametrize("rtype", ["dataset", "report", "proceedings-article", "component", "peer-review", None])
 def test_other_crossref_record_types_are_refused_with_the_type_named(rtype):
     regs = Registries(crossref_by_doi={"10.1000/o": crossref(rtype, doi="10.1000/o")})
     it = confirm("10.1000/o", regs)[0]
     assert it["confirmation"]["status"] == cs.REFUSED and it["confirmation"]["reason"].startswith("unsupported_record_type")
     assert it["item_id"] is None and it["approved"] is False
+
+
+@pytest.mark.parametrize("rtype", ["book", "book-chapter", "book-part", "monograph", "reference-entry"])
+def test_a_crossref_book_record_is_a_scholarly_chapter(rtype):
+    """A scholarly book, and any part of one, is a class the design supports (curated_chapter); it was refused before that class existed."""
+    regs = Registries(crossref_by_doi={"10.1000/o": crossref(rtype, doi="10.1000/o")})
+    it = confirm("10.1000/o", regs)[0]
+    assert it["confirmation"]["status"] == cs.CONFIRMED and it["class"] == cs.SCHOLARLY_CHAPTER
 
 
 def test_a_zenodo_record_of_a_publication_type_is_a_preprint_and_a_dataset_is_refused():
