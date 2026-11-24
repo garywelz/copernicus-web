@@ -12,7 +12,20 @@
     --bg:#ffffff; --bg-soft:#f5f7f9; --line:#dde3e8;
     --accent:#1d4f73; --accent-ink:#ffffff; --focus:#0b63a5;
     --radius:10px; --measure:34rem;
+    /* The deep band behind the masthead, and the tint that separates one section from the next. */
+    --band:#0d2b45; --band-ink:#ffffff; --band-soft:#c6d8e8; --tint:#f2f6f9;
+    /* One colour per field. Each is dark enough to carry white text and to sit on white or on the tint: the weakest pairing in the
+       page is 6.9:1, against the 4.5:1 the brief asks for. */
+    --f-biology:#14532d; --f-chemistry:#5b2175; --f-physics:#0f3f73;
+    --f-mathematics:#8c1d18; --f-computer-science:#334155; --f-news:#7a4a00;
+    --field:var(--accent);                       /* the fallback for an episode whose field is not one of the above */
   }
+  [data-field="Biology"]{--field:var(--f-biology)}
+  [data-field="Chemistry"]{--field:var(--f-chemistry)}
+  [data-field="Physics"]{--field:var(--f-physics)}
+  [data-field="Mathematics"]{--field:var(--f-mathematics)}
+  [data-field="Computer science"]{--field:var(--f-computer-science)}
+  [data-field="News"]{--field:var(--f-news)}
   *,*::before,*::after{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
   body{
@@ -30,52 +43,72 @@
   .skip{position:absolute; left:-9999px}
   .skip:focus{left:16px; top:10px; position:fixed; z-index:20; background:var(--bg); padding:10px 14px; border:2px solid var(--focus)}
 
-  /* ---------- header ---------- */
-  header{border-bottom:1px solid var(--line); background:var(--bg)}
+  /* ---------- the deep band: masthead and introduction together ---------- */
+  .band{background:var(--band); color:var(--band-ink)}
+  .band a{color:var(--band-ink)}
+  .band h1{color:var(--band-ink)}
+  .band .lede{color:var(--band-soft)}
+  .band .note{color:var(--band-soft)}
+  header{border-bottom:1px solid rgba(255,255,255,.14)}
   .bar{display:flex; flex-wrap:wrap; gap:12px 24px; align-items:baseline; padding:18px 0}
-  .brand{font-size:1.25rem; font-weight:700; letter-spacing:-.01em; color:var(--ink); text-decoration:none}
-  .brand span{display:block; font-size:.8rem; font-weight:400; color:var(--ink-faint); letter-spacing:0}
+  .brand{font-size:1.25rem; font-weight:700; letter-spacing:-.01em; text-decoration:none}
+  .brand span{display:block; font-size:.8rem; font-weight:400; color:var(--band-soft); letter-spacing:0}
   nav{margin-left:auto}
   nav ul{display:flex; flex-wrap:wrap; gap:8px 20px; list-style:none; margin:0; padding:0}
-  nav a{color:var(--ink-soft); text-decoration:none; font-size:.95rem; padding:4px 0; border-bottom:2px solid transparent}
-  nav a:hover{color:var(--ink); border-bottom-color:var(--line)}
+  nav a{color:var(--band-soft); text-decoration:none; font-size:.95rem; padding:4px 0; border-bottom:2px solid transparent}
+  nav a:hover{color:var(--band-ink); border-bottom-color:rgba(255,255,255,.5)}
+  .band :focus-visible{outline-color:#ffffff}
 
   /* ---------- sections ---------- */
   section{padding:40px 0; border-bottom:1px solid var(--line)}
   section:last-of-type{border-bottom:0}
+  section.tinted{background:var(--tint); border-bottom-color:#e2e9ef}
+  section.band{border-bottom:0}                 /* the masthead and the introduction read as one block of colour */
   .lede{font-size:1.15rem; color:var(--ink-soft); max-width:42rem}
 
   .listen{display:flex; flex-wrap:wrap; gap:12px; margin:24px 0 0; padding:0; list-style:none}
+  /* On the band a filled button is white with dark text (14.5:1) and an outlined one is white on the band (14.5:1). */
   .btn{
     display:inline-block; padding:11px 18px; border-radius:var(--radius); text-decoration:none;
-    background:var(--accent); color:var(--accent-ink); font-weight:600; font-size:.95rem; border:1px solid var(--accent);
+    background:var(--band-ink); color:var(--band); font-weight:600; font-size:.95rem; border:1px solid var(--band-ink);
   }
-  .btn.secondary{background:var(--bg); color:var(--accent)}
-  .btn[aria-disabled="true"]{background:var(--bg-soft); color:var(--ink-faint); border-color:var(--line); cursor:not-allowed}
+  /* These two must outrank `.band a`, which would otherwise paint the filled button's text white on white. */
+  .band .btn{color:var(--band)}
+  .band .btn.secondary{background:transparent; color:var(--band-ink); border-color:rgba(255,255,255,.6)}
+  .band .btn.secondary:hover{border-color:var(--band-ink)}
   .note{font-size:.85rem; color:var(--ink-faint); max-width:var(--measure)}
 
   /* ---------- episode controls ---------- */
   .controls{display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end; margin:0 0 20px}
   .field{display:flex; flex-direction:column; gap:6px}
   .field label{font-size:.85rem; color:var(--ink-soft); font-weight:600}
-  input[type="search"],select{
+  input[type="search"]{
     font:inherit; padding:10px 12px; border:1px solid var(--line); border-radius:var(--radius);
     background:var(--bg); color:var(--ink); min-width:min(22rem,100%);
   }
-  select{min-width:12rem}
   .count{font-size:.9rem; color:var(--ink-faint); margin-left:auto}
+
+  /* The filter carries the same colour as the cards, so a field is one colour everywhere on the page. */
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 20px; padding:0; list-style:none}
+  .chip{
+    font:inherit; font-size:.9rem; cursor:pointer; padding:7px 14px; border-radius:999px;
+    background:var(--bg); color:var(--field); border:1.5px solid var(--field); font-weight:600;
+  }
+  .chip[aria-pressed="true"]{background:var(--field); color:#fff}
+  .chip:hover{box-shadow:inset 0 0 0 1px var(--field)}
 
   /* ---------- grid ---------- */
   .grid{display:grid; gap:18px; grid-template-columns:repeat(auto-fill,minmax(17rem,1fr)); margin:0; padding:0; list-style:none}
-  .card{border:1px solid var(--line); border-radius:var(--radius); background:var(--bg); overflow:hidden; display:flex; flex-direction:column}
+  .card{border:1px solid var(--line); border-top:4px solid var(--field); border-radius:var(--radius);
+        background:var(--bg); overflow:hidden; display:flex; flex-direction:column}
   .card img{width:100%; aspect-ratio:1/1; object-fit:cover; display:block; background:var(--bg-soft)}
   .card .body{padding:14px 16px 16px; display:flex; flex-direction:column; gap:8px; flex:1}
   .card h3{margin:0; font-size:1rem}
   .card h3 a{color:var(--ink); text-decoration:none}
   .card h3 a:hover{text-decoration:underline}
   .meta{font-size:.8rem; color:var(--ink-faint); display:flex; flex-wrap:wrap; gap:4px 12px}
-  .tag{display:inline-block; font-size:.72rem; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-soft);
-       background:var(--bg-soft); border:1px solid var(--line); border-radius:999px; padding:2px 9px}
+  .tag{display:inline-block; font-size:.72rem; letter-spacing:.04em; text-transform:uppercase; color:#fff;
+       background:var(--field); border-radius:999px; padding:3px 10px; font-weight:600}
   .summary{font-size:.92rem; color:var(--ink-soft); margin:0}
   .card audio{width:100%; margin-top:auto}
   details.notes{border-top:1px solid var(--line); margin:4px -16px -16px; padding:0}
@@ -101,7 +134,7 @@
 <body>
 <a class="skip" href="#episodes">Skip to the episodes</a>
 
-<header>
+<header class="band">
   <div class="wrap bar">
     <a class="brand" href="/">CopernicusAI<span>Frontier research, source by source</span></a>
     <nav aria-label="Main">
@@ -116,7 +149,7 @@
 </header>
 
 <main>
-  <section id="intro" aria-labelledby="intro-h">
+  <section id="intro" class="band" aria-labelledby="intro-h">
     <div class="wrap">
       <h1 id="intro-h">A podcast for scientists on frontier research</h1>
       <p class="lede">
@@ -124,13 +157,10 @@
         peer reviewed, a preprint, or a company release that has not been independently checked.
       </p>
       <ul class="listen">
-        <li><a class="btn" href="https://podcasts.apple.com/podcast/id1824725826">Apple Podcasts</a></li>
-        <li><a class="btn secondary" id="spotify-link" aria-disabled="true" href="#spotify-missing">Spotify — link to be confirmed</a></li>
+        <li><a class="btn" href="https://open.spotify.com/show/14YNKUgCOFC2UhGKYJMos5">Spotify</a></li>
+        <li><a class="btn secondary" href="https://podcasts.apple.com/podcast/id1824725826">Apple Podcasts</a></li>
         <li><a class="btn secondary" href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml">RSS feed</a></li>
       </ul>
-      <p class="note" id="spotify-missing">
-        The Spotify show address could not be confirmed, so that button is marked and inactive rather than pointing somewhere wrong.
-      </p>
     </div>
   </section>
 
@@ -144,19 +174,16 @@
           <label for="q">Search episodes</label>
           <input type="search" id="q" placeholder="Title, summary or source" autocomplete="off">
         </div>
-        <div class="field">
-          <label for="cat">Category</label>
-          <select id="cat"><option value="">All categories</option></select>
-        </div>
         <p class="count" id="count" role="status" aria-live="polite"></p>
       </div>
+      <ul class="chips" id="chips" role="group" aria-label="Filter by field"></ul>
 
       <ul class="grid" id="grid"></ul>
       <p class="status" id="status">Loading episodes from the podcast feed…</p>
     </div>
   </section>
 
-  <section id="how" aria-labelledby="how-h">
+  <section id="how" class="tinted" aria-labelledby="how-h">
     <div class="wrap">
       <h2 id="how-h">How episodes are made</h2>
       <ol class="how">
@@ -212,7 +239,7 @@
     </div>
   </section>
 
-  <section id="collaborate" aria-labelledby="collab-h">
+  <section id="collaborate" class="tinted" aria-labelledby="collab-h">
     <div class="wrap">
       <h2 id="collab-h">Collaborate</h2>
       <p>
@@ -233,7 +260,8 @@
   var FEED = "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml";
   var CATEGORIES = {bio:"Biology", chem:"Chemistry", phys:"Physics", math:"Mathematics", compsci:"Computer science", news:"News"};
   var grid = document.getElementById("grid"), statusEl = document.getElementById("status");
-  var q = document.getElementById("q"), cat = document.getElementById("cat"), count = document.getElementById("count");
+  var q = document.getElementById("q"), chips = document.getElementById("chips"), count = document.getElementById("count");
+  var chosen = "";
   var episodes = [];
 
   // Only the tags the feed's notes actually use. Anything else is unwrapped, every attribute is dropped, and an href is kept only
@@ -307,6 +335,31 @@
     });
   }
 
+  // One chip per field actually present, each in that field's colour, plus "All". Buttons rather than a menu, so the colour of a field
+  // is visible before it is chosen and is the same colour the cards carry.
+  function buildChips() {
+    var present = Object.keys(CATEGORIES).map(function (k) { return CATEGORIES[k]; })
+      .filter(function (label) { return episodes.some(function (ep) { return ep.category === label; }); });
+    [""].concat(present).forEach(function (label) {
+      var li = document.createElement("li");
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip";
+      b.textContent = label || "All fields";
+      b.setAttribute("aria-pressed", String(label === chosen));
+      if (label) li.setAttribute("data-field", label);
+      b.addEventListener("click", function () {
+        chosen = label;
+        Array.prototype.forEach.call(chips.querySelectorAll(".chip"), function (other) {
+          other.setAttribute("aria-pressed", String(other === b));
+        });
+        render();
+      });
+      li.appendChild(b);
+      chips.appendChild(li);
+    });
+  }
+
   function categoryOf(id) {
     var part = String(id || "").split("-")[1];
     return CATEGORIES[part] || "";
@@ -342,6 +395,7 @@
   function card(ep) {
     var li = document.createElement("li");
     li.className = "card";
+    if (ep.category) li.setAttribute("data-field", ep.category);   // the field's colour, for the stripe and the tag
     var when = ep.date ? new Date(ep.date) : null;
     var dateText = when && !isNaN(when) ? when.toLocaleDateString(undefined, {year:"numeric", month:"long", day:"numeric"}) : "";
 
@@ -412,7 +466,7 @@
   }
 
   function render() {
-    var needle = q.value.trim().toLowerCase(), chosen = cat.value;
+    var needle = q.value.trim().toLowerCase();
     var shown = episodes.filter(function (ep) {
       if (chosen && ep.category !== chosen) return false;
       if (!needle) return true;
@@ -430,13 +484,7 @@
     .then(function (r) { if (!r.ok) throw new Error("the feed returned " + r.status); return r.text(); })
     .then(function (xml) {
       episodes = parse(xml);
-      Object.keys(CATEGORIES).forEach(function (key) {
-        var label = CATEGORIES[key];
-        if (!episodes.some(function (ep) { return ep.category === label; })) return;
-        var opt = document.createElement("option");
-        opt.value = label; opt.textContent = label;
-        cat.appendChild(opt);
-      });
+      buildChips();
       statusEl.textContent = "";
       render();
     })
@@ -445,7 +493,6 @@
     });
 
   q.addEventListener("input", render);
-  cat.addEventListener("change", render);
 })();
 </script>
 </body>
