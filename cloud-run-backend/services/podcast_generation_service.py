@@ -1599,10 +1599,13 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
             from google.cloud import storage
             bucket = storage.Client().bucket(media_store.PRIVATE_BUCKET)
             given = bool(thumbnail_title or thumbnail_subtitle)
+            # The canonical id decides the panel's field colour and the motif's pattern, so each episode has a cover of its own and the
+            # same episode always draws the same one.
+            cover = {"episode_id": canonical_filename}
             if given:
-                args, kw = (thumbnail_title or title,), {"subtitle": thumbnail_subtitle or ""}
+                args, kw = (thumbnail_title or title,), dict(subtitle=thumbnail_subtitle or "", **cover)
             else:
-                args, kw = (title,), {}
+                args, kw = (title,), dict(cover)
             try:
                 thumb = await asyncio.to_thread(series_thumbnail.render_16x9, *args, **kw)
                 square = await asyncio.to_thread(series_thumbnail.render_square, *args, **kw)
@@ -1621,7 +1624,7 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
                                        canonical_filename=canonical_filename, episode_title=title,
                                        thumbnail_title=derived[0], thumbnail_subtitle=derived[1])
                 record.update({"thumbnail_title": derived[0], "thumbnail_subtitle": derived[1]})
-                args, kw = (derived[0],), ({"subtitle": derived[1]} if derived[1] else {})
+                args, kw = (derived[0],), (dict(subtitle=derived[1], **cover) if derived[1] else dict(cover))
                 thumb = await asyncio.to_thread(series_thumbnail.render_16x9, *args, **kw)
                 square = await asyncio.to_thread(series_thumbnail.render_square, *args, **kw)
             bucket.blob(f"thumbnails/{canonical_filename}-thumb.png").upload_from_string(thumb, content_type="image/png")

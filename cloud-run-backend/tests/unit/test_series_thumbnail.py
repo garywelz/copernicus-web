@@ -108,7 +108,8 @@ def test_curated_mode_uses_the_series_template_in_the_private_bucket_and_records
 
 def test_a_failure_in_curated_mode_gives_the_default_artwork_and_says_so(monkeypatch):
     s, rec = service(monkeypatch), {}
-    monkeypatch.setattr(st, "render_16x9", lambda t: (_ for _ in ()).throw(RuntimeError("boom")))
+    # the double must take what the real renderer takes, episode_id included, or the call fails before the error under test
+    monkeypatch.setattr(st, "render_16x9", lambda t, **kw: (_ for _ in ()).throw(RuntimeError("boom")))
     url = run(s.generate_and_upload_thumbnail("A title", "t", "x-1", curated=True, record=rec))
     assert url == svc.DEFAULT_ARTWORK_URL and rec == {"thumbnail_source": "default_artwork", "thumbnail_error": "RuntimeError"} and FakeStorage.store == {}
 
