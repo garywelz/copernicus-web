@@ -1,400 +1,448 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Copernicus AI - Research Podcast Platform</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .category-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-        .episode-card {
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .episode-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CopernicusAI — a podcast on frontier research</title>
+<meta name="description" content="A podcast for scientists on frontier research, built only from the papers each episode names, with each result's status stated plainly.">
+<style>
+  /* Hand-written, so the page carries no third-party script or stylesheet and nothing blocks the first paint. */
+  :root{
+    --ink:#101418; --ink-soft:#46505a; --ink-faint:#6b7684;
+    --bg:#ffffff; --bg-soft:#f5f7f9; --line:#dde3e8;
+    --accent:#1d4f73; --accent-ink:#ffffff; --focus:#0b63a5;
+    --radius:10px; --measure:34rem;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  .wrap{max-width:68rem; margin:0 auto; padding:0 16px}   /* the 16px gutter holds at phone width */
+  a{color:var(--accent)}
+  a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{
+    outline:3px solid var(--focus); outline-offset:2px; border-radius:4px;
+  }
+  h1,h2,h3{line-height:1.25; color:var(--ink); margin:0 0 .5em}
+  h1{font-size:1.5rem} h2{font-size:1.25rem} h3{font-size:1.05rem}
+  p{margin:0 0 1em; max-width:var(--measure)}
+  .skip{position:absolute; left:-9999px}
+  .skip:focus{left:16px; top:10px; position:fixed; z-index:20; background:var(--bg); padding:10px 14px; border:2px solid var(--focus)}
+
+  /* ---------- header ---------- */
+  header{border-bottom:1px solid var(--line); background:var(--bg)}
+  .bar{display:flex; flex-wrap:wrap; gap:12px 24px; align-items:baseline; padding:18px 0}
+  .brand{font-size:1.25rem; font-weight:700; letter-spacing:-.01em; color:var(--ink); text-decoration:none}
+  .brand span{display:block; font-size:.8rem; font-weight:400; color:var(--ink-faint); letter-spacing:0}
+  nav{margin-left:auto}
+  nav ul{display:flex; flex-wrap:wrap; gap:8px 20px; list-style:none; margin:0; padding:0}
+  nav a{color:var(--ink-soft); text-decoration:none; font-size:.95rem; padding:4px 0; border-bottom:2px solid transparent}
+  nav a:hover{color:var(--ink); border-bottom-color:var(--line)}
+
+  /* ---------- sections ---------- */
+  section{padding:40px 0; border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  .lede{font-size:1.15rem; color:var(--ink-soft); max-width:42rem}
+
+  .listen{display:flex; flex-wrap:wrap; gap:12px; margin:24px 0 0; padding:0; list-style:none}
+  .btn{
+    display:inline-block; padding:11px 18px; border-radius:var(--radius); text-decoration:none;
+    background:var(--accent); color:var(--accent-ink); font-weight:600; font-size:.95rem; border:1px solid var(--accent);
+  }
+  .btn.secondary{background:var(--bg); color:var(--accent)}
+  .btn[aria-disabled="true"]{background:var(--bg-soft); color:var(--ink-faint); border-color:var(--line); cursor:not-allowed}
+  .note{font-size:.85rem; color:var(--ink-faint); max-width:var(--measure)}
+
+  /* ---------- episode controls ---------- */
+  .controls{display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end; margin:0 0 20px}
+  .field{display:flex; flex-direction:column; gap:6px}
+  .field label{font-size:.85rem; color:var(--ink-soft); font-weight:600}
+  input[type="search"],select{
+    font:inherit; padding:10px 12px; border:1px solid var(--line); border-radius:var(--radius);
+    background:var(--bg); color:var(--ink); min-width:min(22rem,100%);
+  }
+  select{min-width:12rem}
+  .count{font-size:.9rem; color:var(--ink-faint); margin-left:auto}
+
+  /* ---------- grid ---------- */
+  .grid{display:grid; gap:18px; grid-template-columns:repeat(auto-fill,minmax(17rem,1fr)); margin:0; padding:0; list-style:none}
+  .card{border:1px solid var(--line); border-radius:var(--radius); background:var(--bg); overflow:hidden; display:flex; flex-direction:column}
+  .card img{width:100%; aspect-ratio:1/1; object-fit:cover; display:block; background:var(--bg-soft)}
+  .card .body{padding:14px 16px 16px; display:flex; flex-direction:column; gap:8px; flex:1}
+  .card h3{margin:0; font-size:1rem}
+  .card h3 a{color:var(--ink); text-decoration:none}
+  .card h3 a:hover{text-decoration:underline}
+  .meta{font-size:.8rem; color:var(--ink-faint); display:flex; flex-wrap:wrap; gap:4px 12px}
+  .tag{display:inline-block; font-size:.72rem; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-soft);
+       background:var(--bg-soft); border:1px solid var(--line); border-radius:999px; padding:2px 9px}
+  .summary{font-size:.92rem; color:var(--ink-soft); margin:0}
+  .card audio{width:100%; margin-top:auto}
+  details.notes{border-top:1px solid var(--line); margin:4px -16px -16px; padding:0}
+  details.notes>summary{cursor:pointer; padding:10px 16px; font-size:.9rem; font-weight:600; color:var(--accent)}
+  details.notes .inner{padding:0 16px 16px; font-size:.92rem; color:var(--ink-soft)}
+  details.notes h3{font-size:.95rem; color:var(--ink); margin:1.2em 0 .4em}
+  details.notes ul{padding-left:1.2em; margin:0 0 1em}
+  details.notes li{margin:0 0 .4em}
+  details.notes p{max-width:none}
+
+  .links{list-style:none; margin:0; padding:0; display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(19rem,1fr))}
+  .links li{border:1px solid var(--line); border-radius:var(--radius); padding:14px 16px}
+  .links a{font-weight:600}
+  .links p{font-size:.9rem; color:var(--ink-soft); margin:.35em 0 0}
+  ol.how{max-width:42rem; padding-left:1.3em}
+  ol.how li{margin:0 0 .8em}
+
+  footer{padding:28px 0 40px; color:var(--ink-faint); font-size:.9rem}
+  .status{padding:24px 0; color:var(--ink-soft)}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
+</style>
 </head>
-<body class="bg-gray-50">
-    <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center">
-                    <div class="text-3xl mr-3">🔬</div>
-                    <div>
-                        <h1 class="text-2xl font-bold text-gray-900">Copernicus AI</h1>
-                        <p class="text-sm text-gray-600">Frontiers of Research</p>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <a href="/subscriber-login.html" 
-                       class="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium transition duration-200">
-                        Sign In
-                    </a>
-                    <a href="/subscriber-create-account.html" 
-                       class="bg-purple-600 text-white hover:bg-purple-700 px-4 py-2 rounded-lg font-medium transition duration-200">
-                        Create Account
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
+<body>
+<a class="skip" href="#episodes">Skip to the episodes</a>
 
-    <!-- Search Bar -->
-    <div class="bg-white border-b border-gray-200 sticky top-[73px] z-40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <form id="search-form" class="max-w-2xl mx-auto" onsubmit="handleSearch(event)">
-                <div class="flex gap-2">
-                    <input 
-                        type="text" 
-                        id="search-input"
-                        placeholder="Search episodes by title, description, or transcript..."
-                        class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-base"
-                    >
-                    <button 
-                        type="submit"
-                        class="bg-purple-600 text-white hover:bg-purple-700 px-6 py-3 rounded-lg font-medium transition duration-200 whitespace-nowrap"
-                    >
-                        🔍 Search
-                    </button>
-                </div>
-            </form>
-        </div>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="/">CopernicusAI<span>Frontier research, source by source</span></a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#episodes">Episodes</a></li>
+        <li><a href="#how">How episodes are made</a></li>
+        <li><a href="#engine">The Knowledge Engine</a></li>
+        <li><a href="/subscriber-login.html">Collaborator sign in</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section id="intro" aria-labelledby="intro-h">
+    <div class="wrap">
+      <h1 id="intro-h">A podcast for scientists on frontier research</h1>
+      <p class="lede">
+        Every episode is built only from the papers it names, and each result's status is stated plainly —
+        peer reviewed, a preprint, or a company release that has not been independently checked.
+      </p>
+      <ul class="listen">
+        <li><a class="btn" href="https://podcasts.apple.com/podcast/id1824725826">Apple Podcasts</a></li>
+        <li><a class="btn secondary" id="spotify-link" aria-disabled="true" href="#spotify-missing">Spotify — link to be confirmed</a></li>
+        <li><a class="btn secondary" href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml">RSS feed</a></li>
+      </ul>
+      <p class="note" id="spotify-missing">
+        The Spotify show address could not be confirmed, so that button is marked and inactive rather than pointing somewhere wrong.
+      </p>
     </div>
+  </section>
 
-    <!-- Category Filter -->
-    <div class="bg-white border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div id="category-tabs" class="flex flex-wrap gap-2 justify-center">
-                <!-- Categories will be loaded here -->
-            </div>
+  <section id="episodes" aria-labelledby="episodes-h">
+    <div class="wrap">
+      <h2 id="episodes-h">Latest episodes</h2>
+      <p>Each card opens the episode's full notes, with every source listed and its status given.</p>
+
+      <div class="controls">
+        <div class="field">
+          <label for="q">Search episodes</label>
+          <input type="search" id="q" placeholder="Title, summary or source" autocomplete="off">
         </div>
+        <div class="field">
+          <label for="cat">Category</label>
+          <select id="cat"><option value="">All categories</option></select>
+        </div>
+        <p class="count" id="count" role="status" aria-live="polite"></p>
+      </div>
+
+      <ul class="grid" id="grid"></ul>
+      <p class="status" id="status">Loading episodes from the podcast feed…</p>
     </div>
+  </section>
 
-    <!-- Episodes Grid -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div id="episodes-container">
-            <!-- Loading spinner -->
-            <div class="text-center py-20">
-                <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-purple-200 border-t-purple-600"></div>
-                <p class="mt-4 text-gray-600">Loading episodes...</p>
-            </div>
-        </div>
-    </main>
+  <section id="how" aria-labelledby="how-h">
+    <div class="wrap">
+      <h2 id="how-h">How episodes are made</h2>
+      <ol class="how">
+        <li>
+          <strong>Sources first.</strong> A list of sources is fixed and approved before a script is written, and every source is
+          confirmed in a registry or in a company's own published release. Nothing is added afterwards.
+        </li>
+        <li>
+          <strong>Claims are checked against those sources.</strong> Programs read the finished script and refuse it where it names a
+          work that is not on the list, credits a source with something its own text does not say, or asserts a history, a consensus
+          or a judgement that no listed source states.
+        </li>
+        <li>
+          <strong>The status is stated plainly.</strong> The wording for each source's standing is written by the pipeline from that
+          source's record — peer reviewed, a preprint, or a company release that has not been peer reviewed or independently checked —
+          and the script must carry it once, in those words.
+        </li>
+      </ol>
+      <p class="note">This describes the pipeline as it runs today, not a plan.</p>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-8 mt-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-gray-400">&copy; 2025 Copernicus AI. All rights reserved.</p>
-        </div>
-    </footer>
+  <section id="engine" aria-labelledby="engine-h">
+    <div class="wrap">
+      <h2 id="engine-h">The Knowledge Engine</h2>
+      <p>The podcast is one output of a larger system for reading, retrieving and reviewing research.</p>
+      <ul class="links">
+        <li>
+          <a href="https://link.springer.com/article/10.1007/s44163-026-01780-5">The paper</a>
+          <p>The published account of the Knowledge Engine, in <em>Discover Artificial Intelligence</em>.</p>
+        </li>
+        <li>
+          <a href="https://huggingface.co/spaces/garywelz/copernicusai">CopernicusAI Space</a>
+          <p>The project's public Space, with its corpus and its tools.</p>
+        </li>
+        <li>
+          <a href="https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine">Knowledge Engine dashboard</a>
+          <p>The live view of the corpus, ingestion and status.</p>
+        </li>
+        <li>
+          <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/copernicusai-public-reviewer.html">Public reviewer page</a>
+          <p>How to read and comment on the engine's own work.</p>
+        </li>
+        <li>
+          <a href="https://huggingface.co/spaces/garywelz/glmp">GLMP</a>
+          <p>A research engine on gene-level and molecular processes.</p>
+        </li>
+        <li>
+          <a href="https://huggingface.co/spaces/garywelz/atap">ATAP</a>
+          <p>A research engine on algorithms, theorems and proofs.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
 
-    <script>
-        let allEpisodes = [];
-        let currentCategory = 'all';
-        
-        const CATEGORIES = {
-            all: { label: 'All Episodes', icon: '🎯', color: 'bg-blue-500' },
-            biology: { label: 'Biology', icon: '🧬', color: 'bg-green-500' },
-            chemistry: { label: 'Chemistry', icon: '⚗️', color: 'bg-purple-500' },
-            physics: { label: 'Physics', icon: '⚛️', color: 'bg-blue-600' },
-            mathematics: { label: 'Mathematics', icon: '📐', color: 'bg-red-500' },
-            computer_science: { label: 'Computer Science', icon: '💻', color: 'bg-gray-700' },
-            news: { label: 'News', icon: '📰', color: 'bg-yellow-500' },
-            science: { label: 'Science', icon: '🔬', color: 'bg-indigo-500' }
-        };
+  <section id="collaborate" aria-labelledby="collab-h">
+    <div class="wrap">
+      <h2 id="collab-h">Collaborate</h2>
+      <p>
+        Accounts are by invitation, for researchers collaborating on the Knowledge Engine. If you would like to take part, write to
+        <a href="mailto:gwelz@gc.cuny.edu">gwelz@gc.cuny.edu</a>.
+      </p>
+    </div>
+  </section>
+</main>
 
-        // Extract category from episode slug/filename
-        function getCategoryFromEpisode(ep) {
-            let categoryKey = null;
-            
-            // Primary method: Extract from slug/filename (most reliable)
-            // Pattern: prefix-categorycode-number (e.g., "ever-bio-25007", "ever-phys-12345")
-            const slug = ep.episode_id || ep.slug || '';
-            
-            if (slug) {
-                const parts = slug.split('-');
-                if (parts.length >= 2) {
-                    const catCode = parts[1].toLowerCase();
-                    
-                    // Map category codes from filename
-                    if (catCode === 'bio') {
-                        categoryKey = 'biology';
-                    } else if (catCode === 'chem') {
-                        categoryKey = 'chemistry';
-                    } else if (catCode === 'compsci') {
-                        categoryKey = 'computer_science';
-                    } else if (catCode === 'math') {
-                        categoryKey = 'mathematics';
-                    } else if (catCode === 'phys') {
-                        categoryKey = 'physics';
-                    }
-                }
-            }
-            
-            // Fallback: try category_slug field
-            if (!categoryKey && ep.category_slug) {
-                const catSlug = ep.category_slug.toLowerCase().trim();
-                if (catSlug === 'biology' || catSlug === 'bio') categoryKey = 'biology';
-                else if (catSlug === 'chemistry' || catSlug === 'chem') categoryKey = 'chemistry';
-                else if (catSlug === 'physics' || catSlug === 'phys') categoryKey = 'physics';
-                else if (catSlug === 'mathematics' || catSlug === 'math') categoryKey = 'mathematics';
-                else if (catSlug === 'computer_science' || catSlug === 'compsci') categoryKey = 'computer_science';
-                else categoryKey = catSlug;
-            }
-            
-            // Fallback: try category label field
-            if (!categoryKey && ep.category) {
-                const catStr = ep.category.toLowerCase().trim();
-                if (catStr.includes('biology')) categoryKey = 'biology';
-                else if (catStr.includes('chemistry')) categoryKey = 'chemistry';
-                else if (catStr.includes('physics')) categoryKey = 'physics';
-                else if (catStr.includes('mathematics') || catStr.includes('math')) categoryKey = 'mathematics';
-                else if (catStr.includes('computer') || catStr.includes('computing')) categoryKey = 'computer_science';
-                else if (catStr.includes('news')) categoryKey = 'news';
-            }
-            
-            // Default to science if no category found
-            return categoryKey || 'science';
+<footer>
+  <div class="wrap">© 2026 CopernicusAI · New Media Lab, CUNY Graduate Center</div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var FEED = "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml";
+  var CATEGORIES = {bio:"Biology", chem:"Chemistry", phys:"Physics", math:"Mathematics", compsci:"Computer science", news:"News"};
+  var grid = document.getElementById("grid"), statusEl = document.getElementById("status");
+  var q = document.getElementById("q"), cat = document.getElementById("cat"), count = document.getElementById("count");
+  var episodes = [];
+
+  // Only the tags the feed's notes actually use. Anything else is unwrapped, every attribute is dropped, and an href is kept only
+  // when it is http(s) or mailto - so the notes cannot bring script, style, an iframe or a javascript: URL onto the page.
+  var ALLOWED = {A:1, P:1, UL:1, LI:1, STRONG:1, EM:1, H1:1, H2:1, H3:1, BR:1};
+
+  function sanitise(html) {
+    var doc = new DOMParser().parseFromString("<div>" + html + "</div>", "text/html");
+    var root = doc.body.firstChild;
+    (function walk(node) {
+      for (var i = node.childNodes.length - 1; i >= 0; i--) {
+        var child = node.childNodes[i];
+        if (child.nodeType === 1) {
+          walk(child);
+          if (!ALLOWED[child.tagName]) {                       // unwrap: the text survives, the element does not
+            while (child.firstChild) node.insertBefore(child.firstChild, child);
+            node.removeChild(child);
+            continue;
+          }
+          var href = child.tagName === "A" ? child.getAttribute("href") : null;
+          for (var a = child.attributes.length - 1; a >= 0; a--) child.removeAttribute(child.attributes[a].name);
+          if (href && /^(https?:|mailto:)/i.test(href)) {
+            child.setAttribute("href", href);
+            child.setAttribute("rel", "noopener noreferrer");
+          }
+          if (child.tagName === "H1" || child.tagName === "H2") {   // a card sits under an h3; keep the outline sound
+            var h = doc.createElement("h3");
+            while (child.firstChild) h.appendChild(child.firstChild);
+            node.replaceChild(h, child);
+          }
+        } else if (child.nodeType !== 3) {
+          node.removeChild(child);                             // comments, CDATA and the rest
         }
+      }
+    })(root);
+    linkify(root, doc);
+    return root.innerHTML;
+  }
 
-        function mapPublicEpisode(ep) {
-            return {
-                title: ep.title,
-                category: getCategoryFromEpisode(ep),
-                description: ep.summary || ep.description || '',
-                duration: ep.duration || '5-10 minutes',
-                thumbnailUrl: ep.thumbnail_url || 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicus-original-portrait-optimized.jpg',
-                audioUrl: ep.audio_url || '',
-                episodeLink: ep.episode_link || `/episodes/${ep.episode_id || ep.slug || ''}`
-            };
+  // A DOI becomes a link to doi.org. Where a reference gives no DOI but names the pinned commit it was read at, that commit becomes
+  // the link instead, so every source on the page can be opened at the version the episode used.
+  var DOI = /\b10\.\d{4,9}\/[^\s<>"')\]]+/g;
+  var COMMIT = /\bcommit\s+([0-9a-f]{7,40})\b/gi;
+  function linkify(root, doc) {
+    var walker = doc.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), texts = [], n;
+    while ((n = walker.nextNode())) if (!n.parentNode.closest("a")) texts.push(n);
+    texts.forEach(function (node) {
+      var text = node.nodeValue, out = null;
+      var make = function (re, href) {
+        var frag = doc.createDocumentFragment(), last = 0, m; re.lastIndex = 0;
+        while ((m = re.exec(text))) {
+          if (m.index > last) frag.appendChild(doc.createTextNode(text.slice(last, m.index)));
+          var a = doc.createElement("a");
+          a.setAttribute("href", href(m));
+          a.setAttribute("rel", "noopener noreferrer");
+          a.appendChild(doc.createTextNode(m[0]));
+          frag.appendChild(a);
+          last = m.index + m[0].length;
         }
+        if (!frag.childNodes.length) return null;
+        if (last < text.length) frag.appendChild(doc.createTextNode(text.slice(last)));
+        return frag;
+      };
+      out = make(DOI, function (m) { return "https://doi.org/" + m[0].replace(/[.,;)]+$/, ""); });
+      if (!out) out = make(COMMIT, function (m) { return "https://github.com/openai/math/tree/" + m[1]; });
+      if (out) node.parentNode.replaceChild(out, node);
+    });
+  }
 
-        async function loadWebsiteOnlyEpisodes() {
-            try {
-                const listRes = await fetch('/website-only-episodes.json');
-                if (!listRes.ok) return [];
-                const list = await listRes.json();
-                const ids = (list.episodes || []).map(item => item.episode_id || item).filter(Boolean);
-                const results = await Promise.all(ids.map(async (id) => {
-                    const res = await fetch(`https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app/api/episodes/${encodeURIComponent(id)}`);
-                    if (!res.ok) return null;
-                    return mapPublicEpisode(await res.json());
-                }));
-                return results.filter(Boolean);
-            } catch (error) {
-                console.warn('Website-only episode list failed:', error);
-                return [];
-            }
-        }
+  function categoryOf(id) {
+    var part = String(id || "").split("-")[1];
+    return CATEGORIES[part] || "";
+  }
 
-        // Fetch and display episodes
-        async function loadEpisodes() {
-            try {
-                // Fetch all published episodes from API (limit=200 to get all)
-                const API_URL = 'https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app/api/public/podcasts?limit=200';
-                const response = await fetch(API_URL);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const data = await response.json();
-                // Transform API response to match expected format
-                allEpisodes = (data.podcasts || []).map(ep => mapPublicEpisode(ep));
+  function text(item, tag, ns) {
+    var el = ns ? item.getElementsByTagNameNS(ns, tag)[0] : item.getElementsByTagName(tag)[0];
+    return el && el.textContent ? el.textContent.trim() : "";
+  }
 
-                // Website-only episodes (not in RSS / Spotify). Merge in front.
-                const websiteOnly = await loadWebsiteOnlyEpisodes();
-                const seen = new Set(allEpisodes.map(ep => ep.episodeLink));
-                for (const extra of websiteOnly) {
-                    if (extra.episodeLink && !seen.has(extra.episodeLink)) {
-                        allEpisodes.unshift(extra);
-                        seen.add(extra.episodeLink);
-                    }
-                }
-                console.log('Loaded episodes:', allEpisodes.length);
-                
-                renderCategoryTabs();
-                displayEpisodes();
-            } catch (error) {
-                console.error('Error loading episodes:', error);
-                document.getElementById('episodes-container').innerHTML = `
-                    <div class="text-center py-20">
-                        <p class="text-red-600 text-lg mb-4">Failed to load episodes.</p>
-                        <p class="text-gray-600 text-sm mb-4">${error.message}</p>
-                        <button onclick="loadEpisodes()" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700">
-                            Try Again
-                        </button>
-                    </div>
-                `;
-            }
-        }
+  function parse(xml) {
+    var doc = new DOMParser().parseFromString(xml, "application/xml");
+    if (doc.getElementsByTagName("parsererror").length) throw new Error("the feed could not be parsed");
+    var CONTENT = "http://purl.org/rss/1.0/modules/content/", ITUNES = "http://www.itunes.com/dtds/podcast-1.0.dtd";
+    return Array.prototype.map.call(doc.getElementsByTagName("item"), function (item) {
+      var enc = item.getElementsByTagName("enclosure")[0];
+      var img = item.getElementsByTagNameNS(ITUNES, "image")[0];
+      var id = text(item, "guid");
+      return {
+        id: id,
+        title: text(item, "title"),
+        summary: text(item, "description"),
+        notes: text(item, "encoded", CONTENT),
+        audio: enc ? enc.getAttribute("url") : "",
+        duration: text(item, "duration", ITUNES),
+        date: text(item, "pubDate"),
+        image: img ? img.getAttribute("href") : "",
+        category: categoryOf(id)
+      };
+    });
+  }
 
-        function renderCategoryTabs() {
-            const categoryCounts = {};
-            allEpisodes.forEach(ep => {
-                categoryCounts[ep.category] = (categoryCounts[ep.category] || 0) + 1;
-            });
-            
-            const tabsHtml = Object.entries(CATEGORIES).map(([key, config]) => {
-                const count = key === 'all' ? allEpisodes.length : (categoryCounts[key] || 0);
-                if (key !== 'all' && count === 0) return '';
-                
-                const isActive = currentCategory === key;
-                
-                return `
-                    <button 
-                        onclick="filterByCategory('${key}')"
-                        class="px-4 py-2 rounded-lg text-white font-medium transition-all duration-200 flex items-center gap-2 ${config.color} ${isActive ? 'ring-2 ring-offset-2 ring-purple-400 shadow-lg' : 'opacity-70 hover:opacity-100'}"
-                    >
-                        <span>${config.icon}</span>
-                        <span class="hidden sm:inline">${config.label}</span>
-                        <span class="bg-white bg-opacity-30 px-2 py-0.5 rounded-full text-xs">${count}</span>
-                    </button>
-                `;
-            }).join('');
-            
-            document.getElementById('category-tabs').innerHTML = tabsHtml;
-        }
+  function card(ep) {
+    var li = document.createElement("li");
+    li.className = "card";
+    var when = ep.date ? new Date(ep.date) : null;
+    var dateText = when && !isNaN(when) ? when.toLocaleDateString(undefined, {year:"numeric", month:"long", day:"numeric"}) : "";
 
-        function filterByCategory(category) {
-            currentCategory = category;
-            renderCategoryTabs();
-            displayEpisodes();
-        }
+    if (ep.image) {
+      var img = document.createElement("img");
+      img.src = ep.image;
+      img.alt = "";                                    // decorative: the title beside it carries the meaning
+      img.loading = "lazy";
+      li.appendChild(img);
+    }
+    var body = document.createElement("div");
+    body.className = "body";
 
-        function displayEpisodes() {
-            const filteredEpisodes = currentCategory === 'all' 
-                ? allEpisodes 
-                : allEpisodes.filter(ep => ep.category === currentCategory);
-            
-            if (filteredEpisodes.length === 0) {
-                document.getElementById('episodes-container').innerHTML = `
-                    <div class="text-center py-20">
-                        <p class="text-gray-600 text-lg">No episodes found in this category.</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            const episodesHtml = filteredEpisodes.map(episode => {
-                // Strip HTML tags from description for preview
-                const plainDescription = episode.description.replace(/<[^>]*>/g, '');
-                const shortDescription = plainDescription.substring(0, 150) + '...';
-                
-                const categoryConfig = CATEGORIES[episode.category] || CATEGORIES.science;
-                
-                return `
-                    <div class="episode-card bg-white rounded-lg shadow-md overflow-hidden">
-                        <img 
-                            src="${episode.thumbnailUrl}" 
-                            alt="${episode.title}" 
-                            class="w-full h-48 object-cover"
-                            onerror="this.src='https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicus-original-portrait-optimized.jpg'"
-                        >
-                        <div class="p-5">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="category-badge ${categoryConfig.color} text-white">
-                                    ${categoryConfig.icon} ${categoryConfig.label}
-                                </span>
-                                <span class="text-xs text-gray-500">${episode.duration}</span>
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">${episode.title}</h3>
-                            <p class="text-sm text-gray-600 mb-4 line-clamp-3">${shortDescription}</p>
-                            <div class="flex gap-2">
-                                ${episode.audioUrl ? `
-                                <button 
-                                    onclick="playEpisode('${episode.audioUrl.replace(/'/g, "\\'")}', '${episode.title.replace(/'/g, "\\'")}')"
-                                    class="flex-1 bg-purple-600 text-white hover:bg-purple-700 px-4 py-2 rounded-lg font-medium transition duration-200"
-                                >
-                                    🎧 Listen Now
-                                </button>
-                                ` : `
-                                <button 
-                                    disabled
-                                    class="flex-1 bg-gray-300 text-gray-500 px-4 py-2 rounded-lg font-medium cursor-not-allowed"
-                                    title="Audio not available"
-                                >
-                                    🔊 Audio Unavailable
-                                </button>
-                                `}
-                                <a 
-                                    href="${episode.episodeLink.replace(/"/g, '&quot;')}" 
-                                    class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg font-medium transition duration-200 whitespace-nowrap"
-                                >
-                                    View Page
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            
-            document.getElementById('episodes-container').innerHTML = `
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    ${episodesHtml}
-                </div>
-            `;
-        }
+    var h = document.createElement("h3");
+    if (ep.audio) {
+      var link = document.createElement("a");
+      link.href = ep.audio;
+      link.textContent = ep.title;
+      h.appendChild(link);
+    } else {
+      h.textContent = ep.title;
+    }
+    body.appendChild(h);
 
-        function handleSearch(event) {
-            event.preventDefault();
-            const searchQuery = document.getElementById('search-input').value.trim();
-            if (searchQuery) {
-                window.location.href = `/search.html?q=${encodeURIComponent(searchQuery)}`;
-            }
-        }
+    var meta = document.createElement("p");
+    meta.className = "meta";
+    if (ep.category) {
+      var tag = document.createElement("span");
+      tag.className = "tag";
+      tag.textContent = ep.category;
+      meta.appendChild(tag);
+    }
+    [dateText, ep.duration].forEach(function (bit) {
+      if (!bit) return;
+      var s = document.createElement("span");
+      s.textContent = bit;
+      meta.appendChild(s);
+    });
+    body.appendChild(meta);
 
-        function playEpisode(audioUrl, title) {
-            const modal = document.createElement('div');
-            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
-            modal.innerHTML = `
-                <div class="bg-white rounded-lg p-6 max-w-2xl w-full shadow-2xl">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-bold text-gray-900 pr-4">${title}</h3>
-                        <button 
-                            onclick="this.closest('div.fixed').remove()" 
-                            class="text-gray-400 hover:text-gray-600 flex-shrink-0"
-                        >
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
-                    </div>
-                    <audio controls autoplay class="w-full mb-4">
-                        <source src="${audioUrl}" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div class="text-center">
-                        <a 
-                            href="${audioUrl}" 
-                            download 
-                            class="inline-block text-purple-600 hover:text-purple-700 font-medium text-sm"
-                        >
-                            ⬇️ Download Episode
-                        </a>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
-            
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.remove();
-                }
-            });
-        }
+    if (ep.summary) {
+      var p = document.createElement("p");
+      p.className = "summary";
+      p.textContent = ep.summary.length > 260 ? ep.summary.slice(0, 260).replace(/\s+\S*$/, "") + "…" : ep.summary;
+      body.appendChild(p);
+    }
+    if (ep.audio) {
+      var audio = document.createElement("audio");
+      audio.controls = true;
+      audio.preload = "none";
+      audio.src = ep.audio;
+      body.appendChild(audio);
+    }
+    if (ep.notes) {
+      var det = document.createElement("details");
+      det.className = "notes";
+      var sum = document.createElement("summary");
+      sum.textContent = "Full notes and sources";
+      det.appendChild(sum);
+      var inner = document.createElement("div");
+      inner.className = "inner";
+      inner.innerHTML = sanitise(ep.notes);
+      det.appendChild(inner);
+      body.appendChild(det);
+    }
+    li.appendChild(body);
+    return li;
+  }
 
-        // Load episodes on page load
-        document.addEventListener('DOMContentLoaded', loadEpisodes);
-    </script>
+  function render() {
+    var needle = q.value.trim().toLowerCase(), chosen = cat.value;
+    var shown = episodes.filter(function (ep) {
+      if (chosen && ep.category !== chosen) return false;
+      if (!needle) return true;
+      return (ep.title + " " + ep.summary + " " + ep.notes).toLowerCase().indexOf(needle) !== -1;
+    });
+    grid.textContent = "";
+    shown.forEach(function (ep) { grid.appendChild(card(ep)); });
+    count.textContent = shown.length === episodes.length
+      ? episodes.length + " episodes"
+      : shown.length + " of " + episodes.length + " episodes";
+    statusEl.textContent = shown.length ? "" : "No episode matches that search.";
+  }
+
+  fetch(FEED, {cache: "no-cache"})
+    .then(function (r) { if (!r.ok) throw new Error("the feed returned " + r.status); return r.text(); })
+    .then(function (xml) {
+      episodes = parse(xml);
+      Object.keys(CATEGORIES).forEach(function (key) {
+        var label = CATEGORIES[key];
+        if (!episodes.some(function (ep) { return ep.category === label; })) return;
+        var opt = document.createElement("option");
+        opt.value = label; opt.textContent = label;
+        cat.appendChild(opt);
+      });
+      statusEl.textContent = "";
+      render();
+    })
+    .catch(function (err) {
+      statusEl.textContent = "The episode list could not be loaded (" + err.message + "). The RSS feed link above still works.";
+    });
+
+  q.addEventListener("input", render);
+  cat.addEventListener("change", render);
+})();
+</script>
 </body>
 </html>
