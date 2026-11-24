@@ -1,400 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Copernicus AI - Research Podcast Platform</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .category-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-        .episode-card {
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .episode-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CopernicusAI — a podcast on frontier research</title>
+<meta name="description" content="A podcast for scientists on frontier research, built only from the papers each episode names, with each result's status stated plainly.">
+<style>
+  /* Hand-written, so the page carries no third-party script or stylesheet and nothing blocks the first paint. */
+  :root{
+    --ink:#101418; --ink-soft:#46505a; --ink-faint:#6b7684;
+    --bg:#ffffff; --bg-soft:#f5f7f9; --line:#dde3e8;
+    --accent:#1d4f73; --accent-ink:#ffffff; --focus:#0b63a5;
+    --radius:10px; --measure:34rem;
+    /* The deep band behind the masthead, and the tint that separates one section from the next. */
+    --band:#0d2b45; --band-ink:#ffffff; --band-soft:#c6d8e8; --tint:#f2f6f9;
+    /* One colour per field. Each is dark enough to carry white text and to sit on white or on the tint: the weakest pairing in the
+       page is 6.9:1, against the 4.5:1 the brief asks for. */
+    --f-biology:#14532d; --f-chemistry:#5b2175; --f-physics:#0f3f73;
+    --f-mathematics:#8c1d18; --f-computer-science:#334155; --f-news:#7a4a00;
+    --field:var(--accent);                       /* the fallback for an episode whose field is not one of the above */
+  }
+  [data-field="Biology"]{--field:var(--f-biology)}
+  [data-field="Chemistry"]{--field:var(--f-chemistry)}
+  [data-field="Physics"]{--field:var(--f-physics)}
+  [data-field="Mathematics"]{--field:var(--f-mathematics)}
+  [data-field="Computer science"]{--field:var(--f-computer-science)}
+  [data-field="News"]{--field:var(--f-news)}
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  .wrap{max-width:68rem; margin:0 auto; padding:0 16px}   /* the 16px gutter holds at phone width */
+  a{color:var(--accent)}
+  a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{
+    outline:3px solid var(--focus); outline-offset:2px; border-radius:4px;
+  }
+  h1,h2,h3{line-height:1.25; color:var(--ink); margin:0 0 .5em}
+  h1{font-size:1.5rem} h2{font-size:1.25rem} h3{font-size:1.05rem}
+  p{margin:0 0 1em; max-width:var(--measure)}
+  .skip{position:absolute; left:-9999px}
+  .skip:focus{left:16px; top:10px; position:fixed; z-index:20; background:var(--bg); padding:10px 14px; border:2px solid var(--focus)}
+
+  /* ---------- the deep band: masthead and introduction together ---------- */
+  .band{background:var(--band); color:var(--band-ink)}
+  .band a{color:var(--band-ink)}
+  .band h1{color:var(--band-ink)}
+  .band .lede{color:var(--band-soft)}
+  .band .note{color:var(--band-soft)}
+  header{border-bottom:1px solid rgba(255,255,255,.14)}
+  .bar{display:flex; flex-wrap:wrap; gap:12px 24px; align-items:baseline; padding:18px 0}
+  .brand{font-size:1.25rem; font-weight:700; letter-spacing:-.01em; text-decoration:none}
+  .brand span{display:block; font-size:.8rem; font-weight:400; color:var(--band-soft); letter-spacing:0}
+  nav{margin-left:auto}
+  nav ul{display:flex; flex-wrap:wrap; gap:8px 20px; list-style:none; margin:0; padding:0}
+  nav a{color:var(--band-soft); text-decoration:none; font-size:.95rem; padding:4px 0; border-bottom:2px solid transparent}
+  nav a:hover{color:var(--band-ink); border-bottom-color:rgba(255,255,255,.5)}
+  .band :focus-visible{outline-color:#ffffff}
+
+  /* ---------- sections ---------- */
+  section{padding:40px 0; border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  section.tinted{background:var(--tint); border-bottom-color:#e2e9ef}
+  section.band{border-bottom:0}                 /* the masthead and the introduction read as one block of colour */
+  .lede{font-size:1.15rem; color:var(--ink-soft); max-width:42rem}
+
+  .listen{display:flex; flex-wrap:wrap; gap:12px; margin:24px 0 0; padding:0; list-style:none}
+  /* On the band a filled button is white with dark text (14.5:1) and an outlined one is white on the band (14.5:1). */
+  .btn{
+    display:inline-block; padding:11px 18px; border-radius:var(--radius); text-decoration:none;
+    background:var(--band-ink); color:var(--band); font-weight:600; font-size:.95rem; border:1px solid var(--band-ink);
+  }
+  /* These two must outrank `.band a`, which would otherwise paint the filled button's text white on white. */
+  .band .btn{color:var(--band)}
+  .band .btn.secondary{background:transparent; color:var(--band-ink); border-color:rgba(255,255,255,.6)}
+  .band .btn.secondary:hover{border-color:var(--band-ink)}
+  .note{font-size:.85rem; color:var(--ink-faint); max-width:var(--measure)}
+
+  /* A compact row of the Knowledge Engine's own pages, inside the band so a laptop sees it without scrolling. */
+  .quick{display:flex; flex-wrap:wrap; gap:10px; margin:28px 0 4px; padding:0; list-style:none}
+  .quick a{
+    display:block; padding:9px 14px; border-radius:var(--radius); text-decoration:none;
+    border:1px solid rgba(255,255,255,.35); background:rgba(255,255,255,.07);
+    color:var(--band-ink); font-size:.9rem; font-weight:600;
+  }
+  .quick a:hover{background:rgba(255,255,255,.16); border-color:rgba(255,255,255,.7)}
+
+  /* The one solid call to action outside the band. */
+  .btn.solid{background:var(--accent); color:#fff; border-color:var(--accent)}
+  .btn.solid:hover{background:#17405e}
+
+  /* ---------- episode controls ---------- */
+  .controls{display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end; margin:0 0 20px}
+  .field{display:flex; flex-direction:column; gap:6px}
+  .field label{font-size:.85rem; color:var(--ink-soft); font-weight:600}
+  input[type="search"]{
+    font:inherit; padding:10px 12px; border:1px solid var(--line); border-radius:var(--radius);
+    background:var(--bg); color:var(--ink); min-width:min(22rem,100%);
+  }
+  .count{font-size:.9rem; color:var(--ink-faint); margin-left:auto}
+  span.count{margin-left:6px}            /* on the homepage the count sits in the sentence, not in a flex row */
+
+  /* The filter carries the same colour as the cards, so a field is one colour everywhere on the page. */
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 20px; padding:0; list-style:none}
+  .chip{
+    font:inherit; font-size:.9rem; cursor:pointer; padding:7px 14px; border-radius:999px;
+    background:var(--bg); color:var(--field); border:1.5px solid var(--field); font-weight:600;
+  }
+  .chip[aria-pressed="true"]{background:var(--field); color:#fff}
+  .chip:hover{box-shadow:inset 0 0 0 1px var(--field)}
+
+  /* ---------- grid ---------- */
+  .grid{display:grid; gap:18px; grid-template-columns:repeat(auto-fill,minmax(17rem,1fr)); margin:0; padding:0; list-style:none}
+  .card{border:1px solid var(--line); border-top:4px solid var(--field); border-radius:var(--radius);
+        background:var(--bg); overflow:hidden; display:flex; flex-direction:column}
+  .card img{width:100%; aspect-ratio:1/1; object-fit:cover; display:block; background:var(--bg-soft)}
+  .card .body{padding:14px 16px 16px; display:flex; flex-direction:column; gap:8px; flex:1}
+  .card h3{margin:0; font-size:1rem}
+  .card h3 a{color:var(--ink); text-decoration:none}
+  .card h3 a:hover{text-decoration:underline}
+  .meta{font-size:.8rem; color:var(--ink-faint); display:flex; flex-wrap:wrap; gap:4px 12px}
+  .tag{display:inline-block; font-size:.72rem; letter-spacing:.04em; text-transform:uppercase; color:#fff;
+       background:var(--field); border-radius:999px; padding:3px 10px; font-weight:600}
+  .summary{font-size:.92rem; color:var(--ink-soft); margin:0}
+  .card audio{width:100%; margin-top:auto}
+  details.notes{border-top:1px solid var(--line); margin:4px -16px -16px; padding:0}
+  details.notes>summary{cursor:pointer; padding:10px 16px; font-size:.9rem; font-weight:600; color:var(--accent)}
+  details.notes .inner{padding:0 16px 16px; font-size:.92rem; color:var(--ink-soft)}
+  details.notes h3{font-size:.95rem; color:var(--ink); margin:1.2em 0 .4em}
+  details.notes ul{padding-left:1.2em; margin:0 0 1em}
+  details.notes li{margin:0 0 .4em}
+  details.notes p{max-width:none}
+
+  .links{list-style:none; margin:0; padding:0; display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(19rem,1fr))}
+  .links li{border:1px solid var(--line); border-radius:var(--radius); padding:14px 16px}
+  .links a{font-weight:600}
+  .links p{font-size:.9rem; color:var(--ink-soft); margin:.35em 0 0}
+  ol.how{max-width:42rem; padding-left:1.3em}
+  ol.how li{margin:0 0 .8em}
+
+  footer{padding:28px 0 40px; color:var(--ink-faint); font-size:.9rem}
+  .status{padding:24px 0; color:var(--ink-soft)}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
+</style>
 </head>
-<body class="bg-gray-50">
-    <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center">
-                    <div class="text-3xl mr-3">🔬</div>
-                    <div>
-                        <h1 class="text-2xl font-bold text-gray-900">Copernicus AI</h1>
-                        <p class="text-sm text-gray-600">Frontiers of Research</p>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <a href="/subscriber-login.html" 
-                       class="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium transition duration-200">
-                        Sign In
-                    </a>
-                    <a href="/subscriber-create-account.html" 
-                       class="bg-purple-600 text-white hover:bg-purple-700 px-4 py-2 rounded-lg font-medium transition duration-200">
-                        Create Account
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
+<body>
+<a class="skip" href="#episodes">Skip to the episodes</a>
 
-    <!-- Search Bar -->
-    <div class="bg-white border-b border-gray-200 sticky top-[73px] z-40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <form id="search-form" class="max-w-2xl mx-auto" onsubmit="handleSearch(event)">
-                <div class="flex gap-2">
-                    <input 
-                        type="text" 
-                        id="search-input"
-                        placeholder="Search episodes by title, description, or transcript..."
-                        class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-base"
-                    >
-                    <button 
-                        type="submit"
-                        class="bg-purple-600 text-white hover:bg-purple-700 px-6 py-3 rounded-lg font-medium transition duration-200 whitespace-nowrap"
-                    >
-                        🔍 Search
-                    </button>
-                </div>
-            </form>
-        </div>
+<header class="band">
+  <div class="wrap bar">
+    <a class="brand" href="/">CopernicusAI<span>Frontier research, source by source</span></a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#episodes">Episodes</a></li>
+        <li><a href="#how">How episodes are made</a></li>
+        <li><a href="#engine">The Knowledge Engine</a></li>
+        <li><a href="/subscriber-login.html">Collaborator sign in</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section id="intro" class="band" aria-labelledby="intro-h">
+    <div class="wrap">
+      <h1 id="intro-h">A podcast for scientists on frontier research</h1>
+      <p class="lede">
+        Every episode is built only from the papers it names, and each result's status is stated plainly —
+        peer reviewed, a preprint, or a company release that has not been independently checked.
+      </p>
+      <ul class="listen">
+        <li><a class="btn" href="https://open.spotify.com/show/14YNKUgCOFC2UhGKYJMos5">Spotify</a></li>
+        <li><a class="btn secondary" href="https://podcasts.apple.com/podcast/id1824725826">Apple Podcasts</a></li>
+        <li><a class="btn secondary" href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml">RSS feed</a></li>
+      </ul>
+      <ul class="quick" aria-label="The Knowledge Engine">
+        <li><a href="https://link.springer.com/article/10.1007/s44163-026-01780-5">The paper</a></li>
+        <li><a href="https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine">KE Dashboard</a></li>
+        <li><a href="https://huggingface.co/spaces/garywelz/copernicusai">CopernicusAI Space</a></li>
+        <li><a href="https://huggingface.co/spaces/garywelz/glmp">GLMP</a></li>
+        <li><a href="https://huggingface.co/spaces/garywelz/atap">ATAP</a></li>
+      </ul>
     </div>
+  </section>
 
-    <!-- Category Filter -->
-    <div class="bg-white border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div id="category-tabs" class="flex flex-wrap gap-2 justify-center">
-                <!-- Categories will be loaded here -->
-            </div>
-        </div>
+  <section id="episodes" aria-labelledby="episodes-h">
+    <div class="wrap">
+      <h2 id="episodes-h">Latest episodes</h2>
+      <p>Each card opens the episode's full notes, with every source listed and its status given.
+        <span class="count" id="count" role="status" aria-live="polite"></span></p>
+
+      <ul class="grid" id="grid" data-limit="6"></ul>
+      <p class="status" id="status">Loading episodes from the podcast feed…</p>
+      <p><a class="btn solid" href="/episodes.html">Browse all episodes</a></p>
     </div>
+  </section>
 
-    <!-- Episodes Grid -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div id="episodes-container">
-            <!-- Loading spinner -->
-            <div class="text-center py-20">
-                <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-purple-200 border-t-purple-600"></div>
-                <p class="mt-4 text-gray-600">Loading episodes...</p>
-            </div>
-        </div>
-    </main>
+  <section id="how" class="tinted" aria-labelledby="how-h">
+    <div class="wrap">
+      <h2 id="how-h">How episodes are made</h2>
+      <ol class="how">
+        <li>
+          <strong>Sources first.</strong> A list of sources is fixed and approved before a script is written, and every source is
+          confirmed in a registry or in a company's own published release. Nothing is added afterwards.
+        </li>
+        <li>
+          <strong>Claims are checked against those sources.</strong> Programs read the finished script and refuse it where it names a
+          work that is not on the list, credits a source with something its own text does not say, or asserts a history, a consensus
+          or a judgement that no listed source states.
+        </li>
+        <li>
+          <strong>The status is stated plainly.</strong> The wording for each source's standing is written by the pipeline from that
+          source's record — peer reviewed, a preprint, or a company release that has not been peer reviewed or independently checked —
+          and the script must carry it once, in those words.
+        </li>
+      </ol>
+      <p class="note">This describes the pipeline as it runs today, not a plan.</p>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-8 mt-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-gray-400">&copy; 2025 Copernicus AI. All rights reserved.</p>
-        </div>
-    </footer>
+  <section id="engine" aria-labelledby="engine-h">
+    <div class="wrap">
+      <h2 id="engine-h">The Knowledge Engine</h2>
+      <p>The podcast is one output of a larger system for reading, retrieving and reviewing research.</p>
+      <ul class="links">
+        <li>
+          <a href="https://link.springer.com/article/10.1007/s44163-026-01780-5">The paper</a>
+          <p>The published account of the Knowledge Engine, in <em>Discover Artificial Intelligence</em>.</p>
+        </li>
+        <li>
+          <a href="https://huggingface.co/spaces/garywelz/copernicusai">CopernicusAI Space</a>
+          <p>The project's public Space, with its corpus and its tools.</p>
+        </li>
+        <li>
+          <a href="https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine">Knowledge Engine dashboard</a>
+          <p>The live view of the corpus, ingestion and status.</p>
+        </li>
+        <li>
+          <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/copernicusai-public-reviewer.html">Public reviewer page</a>
+          <p>How to read and comment on the engine's own work.</p>
+        </li>
+        <li>
+          <a href="https://huggingface.co/spaces/garywelz/glmp">GLMP</a>
+          <p>A research engine on gene-level and molecular processes.</p>
+        </li>
+        <li>
+          <a href="https://huggingface.co/spaces/garywelz/atap">ATAP</a>
+          <p>A research engine on algorithms, theorems and proofs.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
 
-    <script>
-        let allEpisodes = [];
-        let currentCategory = 'all';
-        
-        const CATEGORIES = {
-            all: { label: 'All Episodes', icon: '🎯', color: 'bg-blue-500' },
-            biology: { label: 'Biology', icon: '🧬', color: 'bg-green-500' },
-            chemistry: { label: 'Chemistry', icon: '⚗️', color: 'bg-purple-500' },
-            physics: { label: 'Physics', icon: '⚛️', color: 'bg-blue-600' },
-            mathematics: { label: 'Mathematics', icon: '📐', color: 'bg-red-500' },
-            computer_science: { label: 'Computer Science', icon: '💻', color: 'bg-gray-700' },
-            news: { label: 'News', icon: '📰', color: 'bg-yellow-500' },
-            science: { label: 'Science', icon: '🔬', color: 'bg-indigo-500' }
-        };
+  <section id="collaborate" class="tinted" aria-labelledby="collab-h">
+    <div class="wrap">
+      <h2 id="collab-h">Collaborate</h2>
+      <p>
+        Accounts are by invitation, for researchers collaborating on the Knowledge Engine. If you would like to take part, write to
+        <a href="mailto:gwelz@gc.cuny.edu">gwelz@gc.cuny.edu</a>.
+      </p>
+    </div>
+  </section>
+</main>
 
-        // Extract category from episode slug/filename
-        function getCategoryFromEpisode(ep) {
-            let categoryKey = null;
-            
-            // Primary method: Extract from slug/filename (most reliable)
-            // Pattern: prefix-categorycode-number (e.g., "ever-bio-25007", "ever-phys-12345")
-            const slug = ep.episode_id || ep.slug || '';
-            
-            if (slug) {
-                const parts = slug.split('-');
-                if (parts.length >= 2) {
-                    const catCode = parts[1].toLowerCase();
-                    
-                    // Map category codes from filename
-                    if (catCode === 'bio') {
-                        categoryKey = 'biology';
-                    } else if (catCode === 'chem') {
-                        categoryKey = 'chemistry';
-                    } else if (catCode === 'compsci') {
-                        categoryKey = 'computer_science';
-                    } else if (catCode === 'math') {
-                        categoryKey = 'mathematics';
-                    } else if (catCode === 'phys') {
-                        categoryKey = 'physics';
-                    }
-                }
-            }
-            
-            // Fallback: try category_slug field
-            if (!categoryKey && ep.category_slug) {
-                const catSlug = ep.category_slug.toLowerCase().trim();
-                if (catSlug === 'biology' || catSlug === 'bio') categoryKey = 'biology';
-                else if (catSlug === 'chemistry' || catSlug === 'chem') categoryKey = 'chemistry';
-                else if (catSlug === 'physics' || catSlug === 'phys') categoryKey = 'physics';
-                else if (catSlug === 'mathematics' || catSlug === 'math') categoryKey = 'mathematics';
-                else if (catSlug === 'computer_science' || catSlug === 'compsci') categoryKey = 'computer_science';
-                else categoryKey = catSlug;
-            }
-            
-            // Fallback: try category label field
-            if (!categoryKey && ep.category) {
-                const catStr = ep.category.toLowerCase().trim();
-                if (catStr.includes('biology')) categoryKey = 'biology';
-                else if (catStr.includes('chemistry')) categoryKey = 'chemistry';
-                else if (catStr.includes('physics')) categoryKey = 'physics';
-                else if (catStr.includes('mathematics') || catStr.includes('math')) categoryKey = 'mathematics';
-                else if (catStr.includes('computer') || catStr.includes('computing')) categoryKey = 'computer_science';
-                else if (catStr.includes('news')) categoryKey = 'news';
-            }
-            
-            // Default to science if no category found
-            return categoryKey || 'science';
-        }
+<footer>
+  <div class="wrap">© 2026 CopernicusAI · New Media Lab, CUNY Graduate Center</div>
+</footer>
 
-        function mapPublicEpisode(ep) {
-            return {
-                title: ep.title,
-                category: getCategoryFromEpisode(ep),
-                description: ep.summary || ep.description || '',
-                duration: ep.duration || '5-10 minutes',
-                thumbnailUrl: ep.thumbnail_url || 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicus-original-portrait-optimized.jpg',
-                audioUrl: ep.audio_url || '',
-                episodeLink: ep.episode_link || `/episodes/${ep.episode_id || ep.slug || ''}`
-            };
-        }
-
-        async function loadWebsiteOnlyEpisodes() {
-            try {
-                const listRes = await fetch('/website-only-episodes.json');
-                if (!listRes.ok) return [];
-                const list = await listRes.json();
-                const ids = (list.episodes || []).map(item => item.episode_id || item).filter(Boolean);
-                const results = await Promise.all(ids.map(async (id) => {
-                    const res = await fetch(`https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app/api/episodes/${encodeURIComponent(id)}`);
-                    if (!res.ok) return null;
-                    return mapPublicEpisode(await res.json());
-                }));
-                return results.filter(Boolean);
-            } catch (error) {
-                console.warn('Website-only episode list failed:', error);
-                return [];
-            }
-        }
-
-        // Fetch and display episodes
-        async function loadEpisodes() {
-            try {
-                // Fetch all published episodes from API (limit=200 to get all)
-                const API_URL = 'https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app/api/public/podcasts?limit=200';
-                const response = await fetch(API_URL);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const data = await response.json();
-                // Transform API response to match expected format
-                allEpisodes = (data.podcasts || []).map(ep => mapPublicEpisode(ep));
-
-                // Website-only episodes (not in RSS / Spotify). Merge in front.
-                const websiteOnly = await loadWebsiteOnlyEpisodes();
-                const seen = new Set(allEpisodes.map(ep => ep.episodeLink));
-                for (const extra of websiteOnly) {
-                    if (extra.episodeLink && !seen.has(extra.episodeLink)) {
-                        allEpisodes.unshift(extra);
-                        seen.add(extra.episodeLink);
-                    }
-                }
-                console.log('Loaded episodes:', allEpisodes.length);
-                
-                renderCategoryTabs();
-                displayEpisodes();
-            } catch (error) {
-                console.error('Error loading episodes:', error);
-                document.getElementById('episodes-container').innerHTML = `
-                    <div class="text-center py-20">
-                        <p class="text-red-600 text-lg mb-4">Failed to load episodes.</p>
-                        <p class="text-gray-600 text-sm mb-4">${error.message}</p>
-                        <button onclick="loadEpisodes()" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700">
-                            Try Again
-                        </button>
-                    </div>
-                `;
-            }
-        }
-
-        function renderCategoryTabs() {
-            const categoryCounts = {};
-            allEpisodes.forEach(ep => {
-                categoryCounts[ep.category] = (categoryCounts[ep.category] || 0) + 1;
-            });
-            
-            const tabsHtml = Object.entries(CATEGORIES).map(([key, config]) => {
-                const count = key === 'all' ? allEpisodes.length : (categoryCounts[key] || 0);
-                if (key !== 'all' && count === 0) return '';
-                
-                const isActive = currentCategory === key;
-                
-                return `
-                    <button 
-                        onclick="filterByCategory('${key}')"
-                        class="px-4 py-2 rounded-lg text-white font-medium transition-all duration-200 flex items-center gap-2 ${config.color} ${isActive ? 'ring-2 ring-offset-2 ring-purple-400 shadow-lg' : 'opacity-70 hover:opacity-100'}"
-                    >
-                        <span>${config.icon}</span>
-                        <span class="hidden sm:inline">${config.label}</span>
-                        <span class="bg-white bg-opacity-30 px-2 py-0.5 rounded-full text-xs">${count}</span>
-                    </button>
-                `;
-            }).join('');
-            
-            document.getElementById('category-tabs').innerHTML = tabsHtml;
-        }
-
-        function filterByCategory(category) {
-            currentCategory = category;
-            renderCategoryTabs();
-            displayEpisodes();
-        }
-
-        function displayEpisodes() {
-            const filteredEpisodes = currentCategory === 'all' 
-                ? allEpisodes 
-                : allEpisodes.filter(ep => ep.category === currentCategory);
-            
-            if (filteredEpisodes.length === 0) {
-                document.getElementById('episodes-container').innerHTML = `
-                    <div class="text-center py-20">
-                        <p class="text-gray-600 text-lg">No episodes found in this category.</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            const episodesHtml = filteredEpisodes.map(episode => {
-                // Strip HTML tags from description for preview
-                const plainDescription = episode.description.replace(/<[^>]*>/g, '');
-                const shortDescription = plainDescription.substring(0, 150) + '...';
-                
-                const categoryConfig = CATEGORIES[episode.category] || CATEGORIES.science;
-                
-                return `
-                    <div class="episode-card bg-white rounded-lg shadow-md overflow-hidden">
-                        <img 
-                            src="${episode.thumbnailUrl}" 
-                            alt="${episode.title}" 
-                            class="w-full h-48 object-cover"
-                            onerror="this.src='https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicus-original-portrait-optimized.jpg'"
-                        >
-                        <div class="p-5">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="category-badge ${categoryConfig.color} text-white">
-                                    ${categoryConfig.icon} ${categoryConfig.label}
-                                </span>
-                                <span class="text-xs text-gray-500">${episode.duration}</span>
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">${episode.title}</h3>
-                            <p class="text-sm text-gray-600 mb-4 line-clamp-3">${shortDescription}</p>
-                            <div class="flex gap-2">
-                                ${episode.audioUrl ? `
-                                <button 
-                                    onclick="playEpisode('${episode.audioUrl.replace(/'/g, "\\'")}', '${episode.title.replace(/'/g, "\\'")}')"
-                                    class="flex-1 bg-purple-600 text-white hover:bg-purple-700 px-4 py-2 rounded-lg font-medium transition duration-200"
-                                >
-                                    🎧 Listen Now
-                                </button>
-                                ` : `
-                                <button 
-                                    disabled
-                                    class="flex-1 bg-gray-300 text-gray-500 px-4 py-2 rounded-lg font-medium cursor-not-allowed"
-                                    title="Audio not available"
-                                >
-                                    🔊 Audio Unavailable
-                                </button>
-                                `}
-                                <a 
-                                    href="${episode.episodeLink.replace(/"/g, '&quot;')}" 
-                                    class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg font-medium transition duration-200 whitespace-nowrap"
-                                >
-                                    View Page
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            
-            document.getElementById('episodes-container').innerHTML = `
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    ${episodesHtml}
-                </div>
-            `;
-        }
-
-        function handleSearch(event) {
-            event.preventDefault();
-            const searchQuery = document.getElementById('search-input').value.trim();
-            if (searchQuery) {
-                window.location.href = `/search.html?q=${encodeURIComponent(searchQuery)}`;
-            }
-        }
-
-        function playEpisode(audioUrl, title) {
-            const modal = document.createElement('div');
-            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
-            modal.innerHTML = `
-                <div class="bg-white rounded-lg p-6 max-w-2xl w-full shadow-2xl">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-bold text-gray-900 pr-4">${title}</h3>
-                        <button 
-                            onclick="this.closest('div.fixed').remove()" 
-                            class="text-gray-400 hover:text-gray-600 flex-shrink-0"
-                        >
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
-                    </div>
-                    <audio controls autoplay class="w-full mb-4">
-                        <source src="${audioUrl}" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div class="text-center">
-                        <a 
-                            href="${audioUrl}" 
-                            download 
-                            class="inline-block text-purple-600 hover:text-purple-700 font-medium text-sm"
-                        >
-                            ⬇️ Download Episode
-                        </a>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
-            
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.remove();
-                }
-            });
-        }
-
-        // Load episodes on page load
-        document.addEventListener('DOMContentLoaded', loadEpisodes);
-    </script>
+<script src="/episodes.js" defer></script>
 </body>
 </html>

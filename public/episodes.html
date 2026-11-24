@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All episodes — CopernicusAI</title>
+<meta name="description" content="Every CopernicusAI episode, with its full notes and every source it names.">
+<style>
+  /* Hand-written, so the page carries no third-party script or stylesheet and nothing blocks the first paint. */
+  :root{
+    --ink:#101418; --ink-soft:#46505a; --ink-faint:#6b7684;
+    --bg:#ffffff; --bg-soft:#f5f7f9; --line:#dde3e8;
+    --accent:#1d4f73; --accent-ink:#ffffff; --focus:#0b63a5;
+    --radius:10px; --measure:34rem;
+    /* The deep band behind the masthead, and the tint that separates one section from the next. */
+    --band:#0d2b45; --band-ink:#ffffff; --band-soft:#c6d8e8; --tint:#f2f6f9;
+    /* One colour per field. Each is dark enough to carry white text and to sit on white or on the tint: the weakest pairing in the
+       page is 6.9:1, against the 4.5:1 the brief asks for. */
+    --f-biology:#14532d; --f-chemistry:#5b2175; --f-physics:#0f3f73;
+    --f-mathematics:#8c1d18; --f-computer-science:#334155; --f-news:#7a4a00;
+    --field:var(--accent);                       /* the fallback for an episode whose field is not one of the above */
+  }
+  [data-field="Biology"]{--field:var(--f-biology)}
+  [data-field="Chemistry"]{--field:var(--f-chemistry)}
+  [data-field="Physics"]{--field:var(--f-physics)}
+  [data-field="Mathematics"]{--field:var(--f-mathematics)}
+  [data-field="Computer science"]{--field:var(--f-computer-science)}
+  [data-field="News"]{--field:var(--f-news)}
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  .wrap{max-width:68rem; margin:0 auto; padding:0 16px}   /* the 16px gutter holds at phone width */
+  a{color:var(--accent)}
+  a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{
+    outline:3px solid var(--focus); outline-offset:2px; border-radius:4px;
+  }
+  h1,h2,h3{line-height:1.25; color:var(--ink); margin:0 0 .5em}
+  h1{font-size:1.5rem} h2{font-size:1.25rem} h3{font-size:1.05rem}
+  p{margin:0 0 1em; max-width:var(--measure)}
+  .skip{position:absolute; left:-9999px}
+  .skip:focus{left:16px; top:10px; position:fixed; z-index:20; background:var(--bg); padding:10px 14px; border:2px solid var(--focus)}
+
+  /* ---------- the deep band: masthead and introduction together ---------- */
+  .band{background:var(--band); color:var(--band-ink)}
+  .band a{color:var(--band-ink)}
+  .band h1{color:var(--band-ink)}
+  .band .lede{color:var(--band-soft)}
+  .band .note{color:var(--band-soft)}
+  header{border-bottom:1px solid rgba(255,255,255,.14)}
+  .bar{display:flex; flex-wrap:wrap; gap:12px 24px; align-items:baseline; padding:18px 0}
+  .brand{font-size:1.25rem; font-weight:700; letter-spacing:-.01em; text-decoration:none}
+  .brand span{display:block; font-size:.8rem; font-weight:400; color:var(--band-soft); letter-spacing:0}
+  nav{margin-left:auto}
+  nav ul{display:flex; flex-wrap:wrap; gap:8px 20px; list-style:none; margin:0; padding:0}
+  nav a{color:var(--band-soft); text-decoration:none; font-size:.95rem; padding:4px 0; border-bottom:2px solid transparent}
+  nav a:hover{color:var(--band-ink); border-bottom-color:rgba(255,255,255,.5)}
+  .band :focus-visible{outline-color:#ffffff}
+
+  /* ---------- sections ---------- */
+  section{padding:40px 0; border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  section.tinted{background:var(--tint); border-bottom-color:#e2e9ef}
+  section.band{border-bottom:0}                 /* the masthead and the introduction read as one block of colour */
+  .lede{font-size:1.15rem; color:var(--ink-soft); max-width:42rem}
+
+  .listen{display:flex; flex-wrap:wrap; gap:12px; margin:24px 0 0; padding:0; list-style:none}
+  /* On the band a filled button is white with dark text (14.5:1) and an outlined one is white on the band (14.5:1). */
+  .btn{
+    display:inline-block; padding:11px 18px; border-radius:var(--radius); text-decoration:none;
+    background:var(--band-ink); color:var(--band); font-weight:600; font-size:.95rem; border:1px solid var(--band-ink);
+  }
+  /* These two must outrank `.band a`, which would otherwise paint the filled button's text white on white. */
+  .band .btn{color:var(--band)}
+  .band .btn.secondary{background:transparent; color:var(--band-ink); border-color:rgba(255,255,255,.6)}
+  .band .btn.secondary:hover{border-color:var(--band-ink)}
+  .note{font-size:.85rem; color:var(--ink-faint); max-width:var(--measure)}
+
+  /* A compact row of the Knowledge Engine's own pages, inside the band so a laptop sees it without scrolling. */
+  .quick{display:flex; flex-wrap:wrap; gap:10px; margin:28px 0 4px; padding:0; list-style:none}
+  .quick a{
+    display:block; padding:9px 14px; border-radius:var(--radius); text-decoration:none;
+    border:1px solid rgba(255,255,255,.35); background:rgba(255,255,255,.07);
+    color:var(--band-ink); font-size:.9rem; font-weight:600;
+  }
+  .quick a:hover{background:rgba(255,255,255,.16); border-color:rgba(255,255,255,.7)}
+
+  /* The one solid call to action outside the band. */
+  .btn.solid{background:var(--accent); color:#fff; border-color:var(--accent)}
+  .btn.solid:hover{background:#17405e}
+
+  /* ---------- episode controls ---------- */
+  .controls{display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end; margin:0 0 20px}
+  .field{display:flex; flex-direction:column; gap:6px}
+  .field label{font-size:.85rem; color:var(--ink-soft); font-weight:600}
+  input[type="search"]{
+    font:inherit; padding:10px 12px; border:1px solid var(--line); border-radius:var(--radius);
+    background:var(--bg); color:var(--ink); min-width:min(22rem,100%);
+  }
+  .count{font-size:.9rem; color:var(--ink-faint); margin-left:auto}
+  span.count{margin-left:6px}            /* on the homepage the count sits in the sentence, not in a flex row */
+
+  /* The filter carries the same colour as the cards, so a field is one colour everywhere on the page. */
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 20px; padding:0; list-style:none}
+  .chip{
+    font:inherit; font-size:.9rem; cursor:pointer; padding:7px 14px; border-radius:999px;
+    background:var(--bg); color:var(--field); border:1.5px solid var(--field); font-weight:600;
+  }
+  .chip[aria-pressed="true"]{background:var(--field); color:#fff}
+  .chip:hover{box-shadow:inset 0 0 0 1px var(--field)}
+
+  /* ---------- grid ---------- */
+  .grid{display:grid; gap:18px; grid-template-columns:repeat(auto-fill,minmax(17rem,1fr)); margin:0; padding:0; list-style:none}
+  .card{border:1px solid var(--line); border-top:4px solid var(--field); border-radius:var(--radius);
+        background:var(--bg); overflow:hidden; display:flex; flex-direction:column}
+  .card img{width:100%; aspect-ratio:1/1; object-fit:cover; display:block; background:var(--bg-soft)}
+  .card .body{padding:14px 16px 16px; display:flex; flex-direction:column; gap:8px; flex:1}
+  .card h3{margin:0; font-size:1rem}
+  .card h3 a{color:var(--ink); text-decoration:none}
+  .card h3 a:hover{text-decoration:underline}
+  .meta{font-size:.8rem; color:var(--ink-faint); display:flex; flex-wrap:wrap; gap:4px 12px}
+  .tag{display:inline-block; font-size:.72rem; letter-spacing:.04em; text-transform:uppercase; color:#fff;
+       background:var(--field); border-radius:999px; padding:3px 10px; font-weight:600}
+  .summary{font-size:.92rem; color:var(--ink-soft); margin:0}
+  .card audio{width:100%; margin-top:auto}
+  details.notes{border-top:1px solid var(--line); margin:4px -16px -16px; padding:0}
+  details.notes>summary{cursor:pointer; padding:10px 16px; font-size:.9rem; font-weight:600; color:var(--accent)}
+  details.notes .inner{padding:0 16px 16px; font-size:.92rem; color:var(--ink-soft)}
+  details.notes h3{font-size:.95rem; color:var(--ink); margin:1.2em 0 .4em}
+  details.notes ul{padding-left:1.2em; margin:0 0 1em}
+  details.notes li{margin:0 0 .4em}
+  details.notes p{max-width:none}
+
+  .links{list-style:none; margin:0; padding:0; display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(19rem,1fr))}
+  .links li{border:1px solid var(--line); border-radius:var(--radius); padding:14px 16px}
+  .links a{font-weight:600}
+  .links p{font-size:.9rem; color:var(--ink-soft); margin:.35em 0 0}
+  ol.how{max-width:42rem; padding-left:1.3em}
+  ol.how li{margin:0 0 .8em}
+
+  footer{padding:28px 0 40px; color:var(--ink-faint); font-size:.9rem}
+  .status{padding:24px 0; color:var(--ink-soft)}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#episodes">Skip to the episodes</a>
+
+<header class="band">
+  <div class="wrap bar">
+    <a class="brand" href="/">CopernicusAI<span>Frontier research, source by source</span></a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="/episodes.html" aria-current="page">Episodes</a></li>
+        <li><a href="/#how">How episodes are made</a></li>
+        <li><a href="/#engine">The Knowledge Engine</a></li>
+        <li><a href="/subscriber-login.html">Collaborator sign in</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section id="episodes" class="band" aria-labelledby="episodes-h">
+    <div class="wrap">
+      <h1 id="episodes-h">All episodes</h1>
+      <p class="lede">Every episode, with its full notes and every source it names.</p>
+    </div>
+  </section>
+
+  <section aria-label="The episode archive">
+    <div class="wrap">
+      <div class="controls">
+        <div class="field">
+          <label for="q">Search episodes</label>
+          <input type="search" id="q" placeholder="Title, summary or source" autocomplete="off">
+        </div>
+        <p class="count" id="count" role="status" aria-live="polite"></p>
+      </div>
+      <ul class="chips" id="chips" role="group" aria-label="Filter by field"></ul>
+
+      <ul class="grid" id="grid"></ul>
+      <p class="status" id="status">Loading episodes from the podcast feed…</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 CopernicusAI · New Media Lab, CUNY Graduate Center</div>
+</footer>
+
+<script src="/episodes.js" defer></script>
+</body>
+</html>
