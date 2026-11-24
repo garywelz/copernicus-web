@@ -277,6 +277,7 @@
   // the link instead, so every source on the page can be opened at the version the episode used.
   var DOI = /\b10\.\d{4,9}\/[^\s<>"')\]]+/g;
   var COMMIT = /\bcommit\s+([0-9a-f]{7,40})\b/gi;
+  var URL = /\bhttps?:\/\/[^\s<>"')\]]+/g;
   function linkify(root, doc) {
     var walker = doc.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), texts = [], n;
     while ((n = walker.nextNode())) if (!n.parentNode.closest("a")) texts.push(n);
@@ -298,6 +299,9 @@
         return frag;
       };
       out = make(DOI, function (m) { return "https://doi.org/" + m[0].replace(/[.,;)]+$/, ""); });
+      // A reference with no DOI gives the address it was read at instead - an arXiv abstract page, or the pinned commit of a company's
+      // repository. Both are linked, so every source on the page can be opened at the version the episode used.
+      if (!out) out = make(URL, function (m) { return m[0].replace(/[.,;)]+$/, ""); });
       if (!out) out = make(COMMIT, function (m) { return "https://github.com/openai/math/tree/" + m[1]; });
       if (out) node.parentNode.replaceChild(out, node);
     });
