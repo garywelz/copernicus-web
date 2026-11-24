@@ -26,12 +26,15 @@ CHANNEL = CHANNEL_NAME_SPOKEN        # the name the model is given (a script spe
 MAX_NON_COMMENTARY_PER_EPISODE = 12      # the ordinary mode's MAX_PAPERS: a longer list is a second episode
 
 CLASS_HEADINGS = {cs.PEER_REVIEWED: "Peer-reviewed papers", cs.PREPRINT: "Preprints (not peer reviewed)",
-                  cs.COMPANY_RELEASE: "Company releases (not peer reviewed)", cs.COMMENTARY: "Commentary and reporting"}
+                  cs.COMPANY_RELEASE: "Company releases (not peer reviewed)",
+                  cs.SCHOLARLY_CHAPTER: "Chapters in scholarly books (not peer-reviewed journal articles)",
+                  cs.COMMENTARY: "Commentary and reporting"}
 CLASS_TAGS = {cs.PEER_REVIEWED: "peer reviewed", cs.PREPRINT: "preprint, not peer reviewed",
               cs.COMPANY_RELEASE: "company release, not peer reviewed",
+              cs.SCHOLARLY_CHAPTER: "a chapter in a scholarly book, not a peer-reviewed journal article",
               cs.COMMENTARY: "commentary: reported, not a source for any claim that a result is true"}
 CLASS_SAYS = {cs.PREPRINT: "a preprint", cs.COMPANY_RELEASE: "a company release that has not been peer reviewed",
-              cs.COMMENTARY: "reporting by [outlet]"}
+              cs.SCHOLARLY_CHAPTER: "a chapter in a scholarly book", cs.COMMENTARY: "reporting by [outlet]"}
 
 # The exact wording each status may be given (design §4). The script receives these as constraints, the Sources section prints them.
 STATUS_WORDING = {
@@ -126,6 +129,16 @@ class CuratedRun:
                     raise CuratedListError("the attached text of a company release is missing from the private store")
                 if hashlib.sha256(text.encode("utf-8")).hexdigest() != (i["release_text"] or {}).get("sha256"):
                     raise CuratedListError("the attached text of a company release is not the text the list was approved with")
+                i["evidence_text"] = ((i.get("evidence_text") or "") + "\n\n" + text).strip()
+                continue
+            if i["class"] == cs.SCHOLARLY_CHAPTER and (i.get("confirmation") or {}).get("registry") == "chapter_excerpt":
+                # The chapter's own passage, transcribed from the book. It is the only text there is for this source - there is nothing to
+                # fetch - so a run cannot proceed without it, and it must be the passage the list was approved with.
+                text = (private_texts or {}).get(i["item_id"])
+                if text is None:
+                    raise CuratedListError("the attached passage of a book chapter is missing from the private store")
+                if hashlib.sha256(text.encode("utf-8")).hexdigest() != (i["confirmation"] or {}).get("excerpt_sha256"):
+                    raise CuratedListError("the attached passage of a book chapter is not the passage the list was approved with")
                 i["evidence_text"] = ((i.get("evidence_text") or "") + "\n\n" + text).strip()
                 continue
             if i["class"] != cs.COMMENTARY:

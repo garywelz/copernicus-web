@@ -63,6 +63,11 @@ def clause_for(item: Dict[str, Any], status: str) -> Optional[str]:
     # words unchanged; only the arrangement is the writer's.
     if klass == cs.PREPRINT:
         return "a preprint, so it has not been peer reviewed"
+    # A chapter in a scholarly book went through a publisher and an editor, which a preprint did not, and did NOT go through journal peer
+    # review, which a journal article did. Saying only "not peer reviewed" would put a university-press chapter on a footing with an
+    # unreviewed posting, and saying nothing would let it pass as a journal article. The clause says which it is.
+    if klass == cs.SCHOLARLY_CHAPTER:
+        return "a chapter in a scholarly book rather than a peer-reviewed journal article"
     if klass == cs.COMPANY_RELEASE:
         if status == cc.STATUS_WITHDRAWN:
             when = _withdrawal_date(item)

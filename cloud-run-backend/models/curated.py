@@ -93,6 +93,18 @@ class AddCommentary(BaseModel):
     approved_quotes: List[str] = Field(default_factory=list, max_length=5)
 
 
+class AddScholarlyChapter(BaseModel):
+    """A chapter in a scholarly book, identified by something that will still resolve years from now and evidenced by the passage the
+    producer transcribed. The passage is private: it is stored apart from the list and never returned by any list route."""
+    identifier: str = Field(..., min_length=1, max_length=500)      # a JSTOR stable address, a handle, or isbn:<number>
+    title: str = Field(..., min_length=1, max_length=300)           # the chapter's title, which must occur in the passage
+    excerpt: str = Field(..., min_length=1, max_length=40000)
+    book_title: Optional[str] = Field(None, max_length=300)
+    authors: Optional[str] = Field(None, max_length=300)
+    year: Optional[str] = Field(None, max_length=10)
+    source_note: Optional[str] = Field(None, max_length=300)        # where the passage came from: edition, pages
+
+
 class SetCheckedBy(BaseModel):
     """Record that a cited commentary source says a manuscript was checked by experts, with the sentence that says so."""
     commentary_item_id: str = Field(..., min_length=1, max_length=64)

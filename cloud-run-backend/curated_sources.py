@@ -7,6 +7,8 @@ A source list is what Gary approves before anything is generated. Each item has 
                   (arXiv DOIs; Zenodo records of a publication type)
   company_release a manuscript of github.com/openai/math at a recorded commit (openai_math_index), or a company release at a stable https
                   address pinned by the SHA-256 of the fetched bytes (curated_web_release)
+  scholarly_chapter a chapter in a scholarly book: a DOI whose Crossref record is a book chapter or another part of a book, or a stable
+                  identifier (a JSTOR stable number, a handle, an ISBN) with the passage Gary attached, pinned by its hash (curated_chapter)
   commentary      any other web address; it can only be retrieved, never confirmed, and retrieval is not built yet (C4), so an
                   item of this class is held as pending and blocks approval until Gary removes it
 
@@ -26,11 +28,13 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 from urllib.parse import urlparse
 
 import paper_confirmation as pc
+import curated_chapter as cch
 import openai_math_index as omi
 import openai_math_status as oms
 
 PEER_REVIEWED, PREPRINT, COMPANY_RELEASE, COMMENTARY = "peer_reviewed", "preprint", "company_release", "commentary"
-CLASSES = (PEER_REVIEWED, PREPRINT, COMPANY_RELEASE, COMMENTARY)
+SCHOLARLY_CHAPTER = "scholarly_chapter"
+CLASSES = (PEER_REVIEWED, PREPRINT, COMPANY_RELEASE, SCHOLARLY_CHAPTER, COMMENTARY)
 
 MIN_NON_COMMENTARY = 3        # design §2.1, decision Q1: commentary never counts toward it
 MAX_ITEMS_PER_LIST = 60
@@ -112,6 +116,10 @@ def class_from_record(c: "pc.ConfirmedPaper") -> Tuple[Optional[str], Optional[s
             return PEER_REVIEWED, None
         if t == "posted-content":
             return PREPRINT, None
+        # A book chapter and the other parts of a scholarly book are a class of their own: editorially reviewed and published, but not a
+        # peer-reviewed journal article, and the script must say which it is.
+        if cch.is_book_record(t):
+            return SCHOLARLY_CHAPTER, None
         return None, f"unsupported_record_type:{t or 'unknown'}"
     if reg == "datacite":
         return PREPRINT, None
@@ -135,6 +143,8 @@ def item_key(identifiers: Dict[str, Any]) -> str:
         return "release_url:" + identifiers["release_url"]
     if identifiers.get("commentary"):
         return "commentary:" + identifiers["commentary"]
+    if identifiers.get("chapter"):
+        return "chapter:" + identifiers["chapter"]
     ids = identifiers
     if ids.get("arxiv"):
         return "arxiv:" + ids["arxiv"] + (ids.get("arxiv_version") or "")
@@ -360,6 +370,8 @@ def minimum_check(items: Sequence[Dict[str, Any]]) -> Tuple[bool, Dict[str, int]
 def _pin_of(item: Dict[str, Any]) -> Optional[str]:
     """The content pin of an item: the repository blob id of a manuscript, or the SHA-256 of the bytes of a company release fetched from a web address."""
     c = item.get("confirmation") or {}
+    if c.get("registry") == cch.REGISTRY:
+        return c.get("excerpt_sha256")
     return c.get("blob_sha") or (c.get("sha256") if c.get("registry") == "web_release" else None)
 
 
