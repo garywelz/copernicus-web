@@ -79,12 +79,37 @@ def test_a_subtitle_too_long_to_read_is_refused_too():
 
 
 # --- the job and the requests ------------------------------------------------------------------------------------------------------------------------
-def test_an_over_long_title_fails_the_thumbnail_step_with_a_clear_message_and_writes_nothing(monkeypatch):
+def test_an_over_long_title_is_now_shortened_from_the_episodes_own_words(monkeypatch):
+    """This used to fall straight back to the default cover, which is how ever-math-260018 and ever-math-260020 lost their art. The
+    title's own words are rearranged instead - the head on the cover, the rest in the subtitle - and what was used is recorded."""
     s, rec = service(monkeypatch), {}
     url = run(s.generate_and_upload_thumbnail(OVER_LONG, "t", "x-3", curated=True, record=rec))
-    assert url == svc.DEFAULT_ARTWORK_URL and FakeStorage.store == {}                                      # the episode goes on with the default artwork; no file written
+    assert url == svc.media_store.public_url("thumbnails/x-3-thumb.png")
+    assert set(FakeStorage.store) == {"thumbnails/x-3-thumb.png", "episode-images/x-3-artwork-3000.png"}
+    assert rec["thumbnail_source"] == "series_template" and "thumbnail_error" not in rec
+    assert rec["thumbnail_title"] and rec["thumbnail_subtitle"], rec
+    kept = (rec["thumbnail_title"] + " " + rec["thumbnail_subtitle"]).split()
+    assert kept == OVER_LONG.split(), "every word of the title is kept, between the cover and the subtitle"
+
+
+# A title of one unbreakable word: no split can help, so the episode still falls back to the default cover - and says so.
+NO_FORM_FITS = "Pneumonoultramicroscopicsilicovolcanoconiosisandmorebesidesthatcannotbesetatall"
+
+
+def test_a_title_no_form_of_which_fits_still_falls_back_and_says_so(monkeypatch):
+    s, rec = service(monkeypatch), {}
+    url = run(s.generate_and_upload_thumbnail(NO_FORM_FITS, "t", "x-3b", curated=True, record=rec))
+    assert url == svc.DEFAULT_ARTWORK_URL and FakeStorage.store == {}      # the episode goes on; no file written
     assert rec["thumbnail_source"] == "default_artwork" and rec["thumbnail_error"] == "TitleDoesNotFit"
     assert "too long to set legibly" in rec["thumbnail_error_message"] and "thumbnail_title" in rec["thumbnail_error_message"]
+
+
+def test_a_given_thumbnail_title_that_does_not_fit_is_reported_not_replaced(monkeypatch):
+    """The producer chose those words. Substituting others silently would be worse than telling them they do not fit."""
+    s, rec = service(monkeypatch), {}
+    url = run(s.generate_and_upload_thumbnail("A short title", "t", "x-3c", curated=True, record=rec, thumbnail_title=OVER_LONG))
+    assert url == svc.DEFAULT_ARTWORK_URL and FakeStorage.store == {}
+    assert rec["thumbnail_error"] == "TitleDoesNotFit" and "thumbnail_title" not in rec
 
 
 def spy(monkeypatch):
