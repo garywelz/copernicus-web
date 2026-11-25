@@ -358,8 +358,50 @@ PASSAGE_SOURCE = "producer_transcribed"
 
 
 def has_passage(item: Dict[str, Any]) -> bool:
-    """Whether an item is a journal article evidenced by a passage the producer transcribed (held privately, pinned by its hash)."""
+    """Whether an item carries a passage the producer transcribed (held privately, pinned by its hash): a journal article printed without
+    an abstract, evidenced by the passage alone, or a registry item with an abstract that also carries passages from its full text."""
     return bool((item.get("passage") or {}).get("sha256"))
+
+
+PASSAGE_ATTACHABLE = (PEER_REVIEWED, PREPRINT)
+
+
+class PassageRefused(Exception):
+    """A passage cannot be attached to an item. The reason is a fixed code, safe to log; the detail says why in words."""
+
+    def __init__(self, reason: str, detail: str = ""):
+        super().__init__(f"{reason}{f': {detail}' if detail else ''}")
+        self.reason, self.detail = reason, detail
+
+
+def passage_for_item(item: Dict[str, Any], passage: str, source_note: str = "") -> Dict[str, Any]:
+    """The record of a passage attached to a registry item that already has its abstract - a preprint such as an arXiv posting, or a
+    journal article whose registry holds an abstract - or raise PassageRefused. Nothing is changed; the caller applies the record.
+
+    An abstract states what a paper claims; it rarely carries the paper's account of other people's work, which is often what an episode
+    needs (a survey's account of a debate, say). The rules are those of a passage that stands alone: it must contain the item's title as
+    its registry records it, it is pinned by its SHA-256 and enters the list hash, and the caller stores it privately. The item's class is
+    unchanged - a preprint stays a preprint - and the abstract stays where it is; at a run the passage is added after it."""
+    if item.get("class") not in PASSAGE_ATTACHABLE:
+        raise PassageRefused("passage_class", f"a passage attaches to a peer-reviewed article or a preprint, not to {item.get('class')}")
+    if (item.get("confirmation") or {}).get("status") != CONFIRMED:
+        raise PassageRefused("item_not_confirmed")
+    if has_passage(item):
+        raise PassageRefused("passage_already_attached", "clear the attached passage first to replace it")
+    if not (item.get("evidence_text") or "").strip():
+        raise PassageRefused("item_has_no_abstract", "an article with no abstract is added with its passage (items-with-passage)")
+    text = (passage or "").strip()
+    if _CONTROL.search(text) or not (PASSAGE_MIN <= len(text) <= PASSAGE_MAX):
+        raise PassageRefused("passage_length", f"the passage must be {PASSAGE_MIN} to {PASSAGE_MAX} characters of plain text")
+    note = (source_note or "").strip()
+    if len(note) > 300:
+        raise PassageRefused("source_note_too_long", "the source note takes at most 300 characters")
+    if not cch.title_in_excerpt(item.get("title") or "", text):
+        raise PassageRefused("title_not_in_passage", "the passage does not contain the item's title as its registry records it")
+    sha = hashlib.sha256(text.encode("utf-8")).hexdigest()
+    at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return {"passage": {"sha256": sha, "chars": len(text), "source_note": note or None, "attached_at": at, "with_abstract": True},
+            "limit": {"type": "passage_supplied", "label": PASSAGE_SUPPLIED_LABEL, "sha256": sha, "at": at}}
 
 
 def needs_private_text(item: Dict[str, Any]) -> bool:

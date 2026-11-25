@@ -43,6 +43,13 @@ class AddPaperWithPassage(BaseModel):
     source_note: Optional[str] = Field(None, max_length=300)        # where the passage came from: pages, the copy read
 
 
+class AttachPassage(BaseModel):
+    """A passage the producer transcribed from an item that already has its abstract (a preprint, a journal article with a registry
+    abstract), which must contain the item's title. Private, like every transcribed passage; the item keeps its class and abstract."""
+    passage: str = Field(..., min_length=1, max_length=40000)
+    source_note: Optional[str] = Field(None, max_length=300)
+
+
 class OverrideItemClass(BaseModel):
     # "class" is a Python keyword, so the body field is named source_class
     source_class: str = Field(..., max_length=40)

@@ -143,16 +143,17 @@ class CuratedRun:
                 i["evidence_text"] = ((i.get("evidence_text") or "") + "\n\n" + text).strip()
                 continue
             if cs.has_passage(i):
-                # A journal article printed without an abstract, evidenced by the passage Gary transcribed. As for a chapter, the passage
-                # is the only text there is, so a run cannot proceed without it. It stands where the abstract stands, in memory only: the
-                # stored record keeps an empty abstract so the transcription never reaches a list response.
+                # A passage Gary transcribed: for a journal article printed without an abstract it is the only text there is; for an
+                # item with an abstract (a preprint, say) it is added after the abstract. Either way a run cannot proceed without it, and
+                # it must be the passage the list was approved with. In memory only: the stored record never holds the transcription.
                 text = (private_texts or {}).get(i["item_id"])
                 if text is None:
-                    raise CuratedListError("the transcribed passage of a journal article is missing from the private store")
+                    raise CuratedListError("the transcribed passage of a source is missing from the private store")
                 if hashlib.sha256(text.encode("utf-8")).hexdigest() != i["passage"]["sha256"]:
-                    raise CuratedListError("the transcribed passage of a journal article is not the passage the list was approved with")
-                i["evidence_text"] = text
-                i["confirmation"] = {**(i.get("confirmation") or {}), "abstract": text}
+                    raise CuratedListError("the transcribed passage of a source is not the passage the list was approved with")
+                both = ((i.get("evidence_text") or "") + "\n\n" + text).strip()
+                i["evidence_text"] = both
+                i["confirmation"] = {**(i.get("confirmation") or {}), "abstract": both}
                 continue
             if i["class"] != cs.COMMENTARY:
                 continue
