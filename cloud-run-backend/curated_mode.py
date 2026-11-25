@@ -289,9 +289,21 @@ class CuratedRun:
     def approved_quotes(self) -> List[str]:
         return [q for i in self.items for q in (i.get("approved_quotes") or [])]
 
+    def listed_titles(self) -> List[str]:
+        """Every listed source's title, as the run shows it and as the registry records it. A passage must contain its source's title, so
+        without this the copying check refused every title of eight words or more that the script said aloud (dry run 2, 2026-11-25)."""
+        out: List[str] = []
+        for i in self.items:
+            for t in (i.get("title"), (i.get("confirmation") or {}).get("title")):
+                if t and t not in out:
+                    out.append(t)
+        return out
+
     def checks(self, script: str) -> List[Dict[str, Any]]:
-        """Every deterministic curated check on a script."""
-        return cc.run_all(script, self.results(), self.commentary_texts() + self.passage_texts(), self.approved_quotes(), items=self.results())
+        """Every deterministic curated check on a script. A listed title is exempt from the copying check: saying a source's title is naming
+        it, not copying its text. Only the title itself is exempt; a run of copied words that goes on past the title is still refused."""
+        return cc.run_all(script, self.results(), self.commentary_texts() + self.passage_texts(), self.approved_quotes() + self.listed_titles(),
+                          items=self.results())
 
     # --- the prompt ---------------------------------------------------------------------------------------------------------------
     def prompt_block(self, include_excerpts: bool = True) -> str:

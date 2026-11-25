@@ -2155,9 +2155,10 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             raise CoverageStatementError(missing_cov)
         llm = make_gemini_llm_call(google_key)
         naming = await model_call("naming_check", lambda: check_naming(script, description, research_context.confirmed_papers, llm, topic=request.topic))
-        if getattr(research_context, "curated", None) is not None and research_context.curated.reporting_text:
-            import curated_script                  # curated mode only: a NAME used as a reporting attribution is not an unlisted work
-            naming.violations, _ = curated_script.exempt_reporting_attributions(naming.violations, research_context.curated.reporting_text)
+        if getattr(research_context, "curated", None) is not None:
+            import curated_script                  # curated mode only: a NAME used as a reporting attribution, or a person a listed
+            # source's passage discusses, named in a sentence that credits that source, is not an unlisted work
+            naming.violations, _ = curated_script.exempt_naming(naming.violations, research_context.curated, script)
         if not naming.passed:
             reject(rejection_log.naming_items(0, naming.violations))
             raise NamingViolationError(naming.violations)
