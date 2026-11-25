@@ -107,7 +107,7 @@ async def _generate(request, research_context, check_llm, writer_llm, job_id, on
     transient = {"n": 0}
     state: Dict[str, Any] = {"naming": None, "checks": 0}
     uncovered = uncovered_named_things(request.topic, confirmed)
-    withheld = run.commentary_pids()
+    withheld = run.private_text_pids()          # commentary and transcribed passages: their text never reaches a rejection record
 
     def reject(items):
         for i, item in enumerate(items):
