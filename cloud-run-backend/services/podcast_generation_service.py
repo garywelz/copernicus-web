@@ -2348,7 +2348,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         structured_logger.info("Curated script accepted", job_id=job_id, words=len(gen.content['script'].split()), checks=len(gen.naming_attempts))
         return gen.content, gen.naming_result, gen.naming_attempts
 
-    async def _supplied_curated_content(self, request, research_context, google_key: str, job_id: str, supplied: dict):
+    async def _supplied_curated_content(self, request, research_context, google_key: str, job_id: str, supplied: dict, on_rejection=None):
         """Curated mode, a script written by an editor: the same checks as a generated one (curated_pipeline.check_supplied_script); a violation
         fails the episode, nothing is repaired. Same return shape as ``_generate_checked_content``."""
         import curated_pipeline
@@ -2356,6 +2356,12 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                                                title=supplied.get("title") or "", job_id=job_id, with_metadata=True)
         self._last_naming_attempts, self._last_rejections = [checked.entry], []
         if not checked.passed or checked.content is None:
+            if on_rejection is not None and checked.violations:
+                import rejection_log
+                try:
+                    on_rejection(rejection_log.supplied_items(checked.violations))      # which sentences were refused, on the job record
+                except Exception as e:  # noqa: BLE001 - best effort, as for every rejection record: the episode still fails closed
+                    structured_logger.warning("Could not store a supplied script's violations", job_id=job_id, error_type=type(e).__name__)
             raise curated_pipeline.SuppliedScriptRejected(checked.violations)
         structured_logger.info("Supplied curated script accepted", job_id=job_id, words=checked.words)
         return checked.content, checked.naming_result, [checked.entry]
@@ -2534,7 +2540,8 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 # Generate, check and (if needed) regenerate. Gap 3 fix 1 (C5): the script may name only confirmed
                 # papers; after the allowed regenerations the episode fails (NamingViolationError).
                 if supplied is not None and curated_run is not None:
-                    content, naming_result, naming_attempts = await self._supplied_curated_content(request, research_context, google_key, job_id, supplied)
+                    content, naming_result, naming_attempts = await self._supplied_curated_content(request, research_context, google_key, job_id, supplied,
+                                                                                                        on_rejection=self._job_rejection_sink(job_ref))
                 else:
                     content, naming_result, naming_attempts = await self._generate_checked_content(
                         request, research_context, google_key, job_id, on_rejection=self._job_rejection_sink(job_ref))

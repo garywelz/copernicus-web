@@ -613,14 +613,21 @@ def passage_person_credit(v: Dict[str, Any], run, script: str) -> Optional[str]:
     if v.get("kind") != "unlisted_work" or v.get("where") != "script" or not (v.get("authors") or v.get("title_words")):
         return None
     sentence = _sentence_with(script, v.get("quote") or "")
-    people = {_flat_words(_surname_of(a)).strip() for a in (v.get("authors") or [])}
     for i in run.items:
         flat = cm.passage_words(i)
-        if not flat or not _named_in(flat, v) or not cm.sentence_credits_item(sentence, i):
+        if not flat or not cm.sentence_credits_item(sentence, i):
             continue
-        if people & {_flat_words(s).strip() for s in cm.item_surnames(i)}:
-            continue                                    # the source's own author is not "a person its passage discusses"
-        return run.pids[i["item_id"]]
+        # The crediting source's own author is named in the sentence that credits it ("As Aberdein reports, ..."), and the naming model
+        # sometimes puts that name in the mention beside the person or event the passage discusses. It is taken out before matching; the
+        # source used to be skipped instead, which refused "As Aberdein reports, Dauben compared ... the Glorious Revolution of 1688"
+        # whenever the model extracted "Aberdein, Dauben" (check-script, 2026-11-25).
+        own = {_flat_words(s).strip() for s in cm.item_surnames(i)}
+        rest = [a for a in (v.get("authors") or []) if _flat_words(_surname_of(a)).strip() not in own]
+        mention = {**v, "authors": rest}
+        if not (rest or mention.get("title_words")):
+            continue                                    # nothing left but the source's own author: not something its passage discusses
+        if _named_in(flat, mention):
+            return run.pids[i["item_id"]]
     return None
 
 

@@ -151,3 +151,66 @@ def test_a_title_with_eight_copied_words_beside_it_is_still_copying():
     copied = ("EXPERT: The paper “More than two thirds of the zeta zeros are simple and on the critical line” says Jarred Sumner posed "
               "the problem and guided the investigation; the accompanying Lean 4 formalisation was orchestrated by Eric Easley.")
     assert [v for v in r.checks(copied) if v["kind"] == "verbatim_run"]
+
+
+# --- the crediting source's own author in the extracted mention (the voicing failure of 2026-11-25) -------------------------------------
+GLORIOUS = ("EXPERT: As Aberdein reports, Dauben compared revolutions in mathematics with England's Glorious Revolution of 1688, when the old "
+            "order persisted under different terms, and wrote that \"New theories cannot displace the old\".")
+
+
+def glorious_mention(*authors):
+    return {"kind": "unlisted_work", "where": "script", "quote": GLORIOUS[8:150], "authors": list(authors), "year": 1688,
+            "title_words": ["England's", "Glorious", "Revolution"]}
+
+
+def test_the_event_is_allowed_however_the_model_extracts_the_names():
+    """The naming model returned this mention sometimes as "Dauben" and sometimes as "Aberdein, Dauben". The second was refused, because
+    the rule skipped any source whose own author was in the mention; the same script passed one check and failed the next three."""
+    r = the_run()
+    for authors in ((), ("Dauben",), ("Aberdein", "Dauben"), ("Aberdein",), ("Andrew Aberdein", "Joseph Dauben")):
+        kept, exempt = csr.exempt_naming([glorious_mention(*authors)], r, GLORIOUS)
+        assert kept == [] and exempt, authors
+
+
+def test_removing_the_crediting_author_does_not_let_an_unknown_person_through():
+    r = the_run()
+    kept, _ = csr.exempt_naming([dict(glorious_mention("Aberdein", "Tao"), title_words=[], year=None)], r, GLORIOUS)
+    assert kept                                                               # Tao is in no passage
+    kept, _ = csr.exempt_naming([dict(glorious_mention("Aberdein"), title_words=[], year=None)], r, GLORIOUS)
+    assert kept                                                               # nothing left but the source's own author
+
+
+# --- a failed supplied script's violations reach the job record ----------------------------------------------------------------------------
+def test_supplied_violations_are_recorded_with_check_kind_and_quote_and_a_copied_run_is_withheld():
+    import rejection_log as rl
+    items = rl.supplied_items([
+        {"check": "naming", "kind": "unlisted_work", "find": "As Aberdein reports, Dauben compared ...", "message": "m"},
+        {"check": "verbatim_run", "kind": "verbatim_run", "find": "jarred sumner posed the problem and guided the investigation", "message": "m"},
+    ])
+    assert items[0] == {"attempt": 1, "check": "naming", "kind": "unlisted_work", "quote": "As Aberdein reports, Dauben compared ...",
+                        "source": "supplied_script"}
+    assert items[1]["quote"] == rl.WITHHELD and "sumner" not in json.dumps(items)
+
+
+def test_a_failed_supplied_script_writes_its_violations_through_the_job_sink(monkeypatch):
+    import sys
+    from unittest.mock import MagicMock
+    sys.modules.setdefault("psutil", MagicMock())
+    import curated_pipeline
+    import services.podcast_generation_service as svc
+    violation = {"check": "naming", "kind": "unlisted_work", "find": "As Aberdein reports, Dauben compared ...", "message": "m"}
+
+    async def failing(*a, **k):
+        return curated_pipeline.SuppliedCheck(passed=False, words=1, min_words=1, max_words=2, format_problems=[], violations=[violation], entry={})
+    monkeypatch.setattr(curated_pipeline, "check_supplied_script", failing)
+    monkeypatch.setattr(svc, "make_gemini_llm_call", lambda key: None)
+    stored = []
+    service = svc.PodcastGenerationService()
+    try:
+        run(service._supplied_curated_content(None, None, "k", "job-1", {"script": "HOST: x", "title": "T"}, on_rejection=stored.extend))
+    except curated_pipeline.SuppliedScriptRejected:
+        pass
+    else:
+        raise AssertionError("a failed supplied script must still fail the episode")
+    assert stored == [{"attempt": 1, "check": "naming", "kind": "unlisted_work", "quote": "As Aberdein reports, Dauben compared ...",
+                       "source": "supplied_script"}]
