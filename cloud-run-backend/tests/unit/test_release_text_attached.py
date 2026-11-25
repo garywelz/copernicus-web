@@ -108,7 +108,11 @@ def test_the_route_exists_and_is_for_company_releases_only():
     assert re.search(r'@router\.post\("/api/admin/curated/lists/\{list_id\}/items/\{item_id\}/release-text"\)', text)
     assert re.search(r'@router\.delete\("/api/admin/curated/lists/\{list_id\}/items/\{item_id\}/release-text"\)', text)
     assert "Only a company release carries attached text" in text
-    assert 'i.get("release_text")' in text, "every path that reads private texts must pass attached text too"
+    # Every path that starts a run reads its private texts through one helper, and that helper loads attached release text.
+    import curated_sources as cs
+    assert cs.needs_private_text({"class": cs.COMPANY_RELEASE, "release_text": {"sha256": "x"}})
+    assert text.count("texts = _run_private_texts(body.list_id, doc)") == 3, "generate, dry run and check-script each load the private texts"
+    assert "_private_text(body.list_id" not in text, "no route may load private texts for a run by its own rule"
 
 
 def test_the_request_model_records_where_the_text_came_from():

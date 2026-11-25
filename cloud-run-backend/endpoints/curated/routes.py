@@ -23,7 +23,7 @@ import curated_web_release as cwr
 import openai_math_index as omi
 import paper_confirmation as pc
 from config.database import db
-from models.curated import (AddCommentary, AddCompanyRelease, AddPaperWithSuppliedAbstract, AddScholarlyChapter, AddSourceItems, AttachReleaseText,
+from models.curated import (AddCommentary, AddCompanyRelease, AddPaperWithPassage, AttachPassage, AddPaperWithSuppliedAbstract, AddScholarlyChapter, AddSourceItems, AttachReleaseText,
                             CheckSuppliedScript, CreateSourceList, GenerateCuratedEpisode, OverrideItemClass, SetCheckedBy)
 from models.podcast import PodcastRequest
 from utils.auth import verify_admin_api_key
@@ -107,6 +107,13 @@ def _private_ref(list_id: str, item_id: str):
 def _private_text(list_id: str, item_id: str):
     snap = _private_ref(list_id, item_id).get()
     return (snap.to_dict() or {}).get("text") if snap.exists else None
+
+
+def _run_private_texts(list_id: str, doc: Dict[str, Any]) -> Dict[str, str]:
+    """The private texts a run is built from, keyed by item id: every item `cs.needs_private_text` names. A text that is not in the store is
+    left out, and the run refuses the item for it (`CuratedRun.from_list_doc`), so a missing text is reported rather than written around."""
+    texts = {i["item_id"]: _private_text(list_id, i["item_id"]) for i in doc.get("items") or [] if cs.needs_private_text(i)}
+    return {k: v for k, v in texts.items() if v is not None}
 
 
 def _summary(item: Dict[str, Any]) -> Dict[str, Any]:
@@ -250,6 +257,118 @@ async def add_paper_with_supplied_abstract(list_id: str, body: AddPaperWithSuppl
             "refused": [_summary(r) | {"input": r.get("input")} for r in refused]}
 
 
+@router.post("/api/admin/curated/lists/{list_id}/items-with-passage")
+async def add_paper_with_passage(list_id: str, body: AddPaperWithPassage):
+    """One peer-reviewed journal article whose registry record has no abstract and that was printed without one, evidenced by a passage the
+    producer transcribed from it. Confirmed against Crossref as usual; the passage must contain the article's title, goes to the private
+    store, and the list keeps only its hash, length and source note. Refused if the registry has an abstract or the record is not a journal
+    article. Draft lists only. If a registry cannot be reached nothing is added (503).
+
+    The item is added first and its passage stored second, so a duplicate never overwrites the passage of the item already in the list. If
+    storing the passage fails, the item is taken out again: an item without its passage could not be used by any run."""
+    _require_db()
+    snap = db.collection(COLLECTION).document(list_id).get()
+    if not snap.exists:
+        raise HTTPException(status_code=404, detail="No such source list")
+    _require_draft(snap.to_dict() or {})
+    try:
+        result = await cs.confirm_with_passage(body.doi, body.passage, body.source_note or "")
+    except pc.RegistryUnavailable as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    text = result.pop("private_text", None)
+    added, refused = _store_results(list_id, [result])
+    for item in added:
+        try:
+            _private_ref(list_id, item["item_id"]).set({"list_id": list_id, "item_id": item["item_id"], "text": text,
+                                                        "text_sha256": item["passage"]["sha256"], "created_at": _now()})
+        except Exception as e:  # noqa: BLE001 - reported to the caller; the item is withdrawn so the list does not hold an unusable source
+            structured_logger.warning("Could not store a transcribed passage", list_id=list_id, error_type=type(e).__name__)
+
+            def withdraw(d: Dict[str, Any], iid=item["item_id"]):
+                d["items"] = [i for i in d.get("items") or [] if i.get("item_id") != iid]
+            _mutate(list_id, withdraw)
+            raise HTTPException(status_code=503, detail="The passage could not be stored; nothing was added")
+    structured_logger.info("Curated paper with transcribed passage added", list_id=list_id, added=len(added), refused=len(refused),
+                           characters=len(text or "") if added else 0)
+    return {"list_id": list_id,
+            "added": [_summary(i) | {"passage_sha256": i["passage"]["sha256"], "passage_chars": i["passage"]["chars"]} for i in added],
+            "refused": [_summary(r) | {"input": r.get("input")} for r in refused]}
+
+
+@router.post("/api/admin/curated/lists/{list_id}/items/{item_id}/passage")
+async def attach_passage(list_id: str, item_id: str, body: AttachPassage):
+    """Attach a transcribed passage to a confirmed item that already has its abstract - a preprint, or a journal article whose registry
+    holds one. The same rules as a passage that stands alone: the item's title must occur in it, it is pinned by its SHA-256 and enters the
+    list hash, and it goes to the private store; the item keeps its class and its abstract. Draft lists only; one passage per item (clear
+    it to replace it). The item records the passage first and the text is stored second, so an item that already has a passage never has
+    its text overwritten; if storing fails, the record is taken off again (a draft cannot be run, so nothing reads the gap between)."""
+    _require_db()
+    snap = db.collection(COLLECTION).document(list_id).get()
+    if not snap.exists:
+        raise HTTPException(status_code=404, detail="No such source list")
+    doc = snap.to_dict() or {}
+    _require_draft(doc)
+    item = next((i for i in doc.get("items") or [] if i.get("item_id") == item_id), None)
+    if item is None:
+        raise HTTPException(status_code=404, detail="No such item in this list")
+    try:
+        record = cs.passage_for_item(item, body.passage, body.source_note or "")
+    except cs.PassageRefused as e:
+        raise HTTPException(status_code=409 if e.reason == "passage_already_attached" else 422, detail=str(e))
+    text = body.passage.strip()
+
+    def apply(d: Dict[str, Any]):
+        _require_draft(d)
+        target = next((i for i in d.get("items") or [] if i.get("item_id") == item_id), None)
+        if target is None:
+            raise HTTPException(status_code=404, detail="No such item in this list")
+        if cs.has_passage(target):
+            raise HTTPException(status_code=409, detail="passage_already_attached: clear the attached passage first to replace it")
+        target["passage"] = record["passage"]
+        target["limits"] = [l for l in target.get("limits") or [] if l.get("type") != "passage_supplied"] + [record["limit"]]
+        return _summary(target)
+    out = _mutate(list_id, apply)
+    try:
+        _private_ref(list_id, item_id).set({"list_id": list_id, "item_id": item_id, "text": text,
+                                            "text_sha256": record["passage"]["sha256"], "created_at": _now()})
+    except Exception as e:  # noqa: BLE001 - reported to the caller; the record is taken off so the list does not point at a missing text
+        structured_logger.warning("Could not store an attached passage", list_id=list_id, error_type=type(e).__name__)
+
+        def undo(d: Dict[str, Any]):
+            target = next((i for i in d.get("items") or [] if i.get("item_id") == item_id), None)
+            if target is not None and (target.get("passage") or {}).get("sha256") == record["passage"]["sha256"]:
+                target.pop("passage", None)
+                target["limits"] = [l for l in target.get("limits") or [] if l.get("type") != "passage_supplied"]
+        _mutate(list_id, undo)
+        raise HTTPException(status_code=503, detail="The passage could not be stored; nothing was attached")
+    structured_logger.info("Passage attached", list_id=list_id, item_id=item_id, characters=len(text))
+    return {"list_id": list_id, "item_id": item_id, **out, "passage_sha256": record["passage"]["sha256"], "passage_chars": len(text)}
+
+
+@router.delete("/api/admin/curated/lists/{list_id}/items/{item_id}/passage")
+async def clear_passage(list_id: str, item_id: str):
+    """Remove a passage attached to an item that has its abstract, and the private document that holds it. Draft lists only. An article
+    evidenced by its passage alone has no abstract to fall back on: strike it from the list instead."""
+    _require_db()
+
+    def apply(d: Dict[str, Any]):
+        _require_draft(d)
+        target = next((i for i in d.get("items") or [] if i.get("item_id") == item_id), None)
+        if target is None or not cs.has_passage(target):
+            raise HTTPException(status_code=404, detail="That item has no attached passage")
+        if not target["passage"].get("with_abstract"):
+            raise HTTPException(status_code=409, detail="This article is evidenced by its passage alone; strike the item instead")
+        target.pop("passage", None)
+        target["limits"] = [l for l in target.get("limits") or [] if l.get("type") != "passage_supplied"]
+
+    _mutate(list_id, apply)
+    try:
+        _private_ref(list_id, item_id).delete()
+    except Exception as e:  # noqa: BLE001 - the list no longer points at it; a leftover private document is harmless and reported
+        structured_logger.warning("Could not delete an attached passage", list_id=list_id, error_type=type(e).__name__)
+    return {"list_id": list_id, "item_id": item_id, "passage": None}
+
+
 @router.post("/api/admin/curated/lists/{list_id}/items/{item_id}/release-text")
 async def attach_release_text(list_id: str, item_id: str, body: AttachReleaseText):
     """Attach more of a company release's own text to that release's item. The text goes to the private store; the item keeps its hash,
@@ -382,9 +501,7 @@ async def generate_episode(body: GenerateCuratedEpisode):
     if not snap.exists:
         raise HTTPException(status_code=404, detail="No such source list")
     doc = snap.to_dict() or {}
-    texts = {i["item_id"]: _private_text(body.list_id, i["item_id"]) for i in doc.get("items") or []
-             if (i.get("class") == cs.COMMENTARY and i.get("approved")) or i.get("release_text")}
-    texts = {k: v for k, v in texts.items() if v is not None}
+    texts = _run_private_texts(body.list_id, doc)
     try:
         run = curated_mode.CuratedRun.from_list_doc(doc, topic=body.topic, private_texts=texts)
     except curated_mode.CuratedListError as e:
@@ -424,9 +541,7 @@ async def dry_run_script(body: GenerateCuratedEpisode):
     if not snap.exists:
         raise HTTPException(status_code=404, detail="No such source list")
     doc = snap.to_dict() or {}
-    texts = {i["item_id"]: _private_text(body.list_id, i["item_id"]) for i in doc.get("items") or []
-             if (i.get("class") == cs.COMMENTARY and i.get("approved")) or i.get("release_text")}
-    texts = {k: v for k, v in texts.items() if v is not None}
+    texts = _run_private_texts(body.list_id, doc)
     try:
         run = curated_mode.CuratedRun.from_list_doc(doc, topic=body.topic, private_texts=texts, title=body.title)
     except curated_mode.CuratedListError as e:
@@ -502,9 +617,7 @@ async def check_supplied_script(body: CheckSuppliedScript):
     if not snap.exists:
         raise HTTPException(status_code=404, detail="No such source list")
     doc = snap.to_dict() or {}
-    texts = {i["item_id"]: _private_text(body.list_id, i["item_id"]) for i in doc.get("items") or []
-             if (i.get("class") == cs.COMMENTARY and i.get("approved")) or i.get("release_text")}
-    texts = {k: v for k, v in texts.items() if v is not None}
+    texts = _run_private_texts(body.list_id, doc)
     try:
         run = curated_mode.CuratedRun.from_list_doc(doc, topic=body.topic, private_texts=texts, title=body.title)
     except curated_mode.CuratedListError as e:
@@ -612,7 +725,9 @@ async def add_scholarly_chapter(list_id: str, body: AddScholarlyChapter):
     text = body.excerpt.strip()
     item = {"item_id": cs.item_id(identifiers), "input": body.identifier.strip()[:cs.MAX_ITEM_CHARS], "class": cs.SCHOLARLY_CHAPTER,
             "added_by": "gary", "identifiers": identifiers, "title": confirmation["title"], "authors": confirmation.get("authors"),
-            "year": confirmation.get("year"), "confirmation": confirmation, "approved": False,
+            # Approved on adding, as every confirmed registry item is: nothing else ever sets it, and an unapproved item is silently left
+            # out of the hash, the minimum and every run (`cs.approved_items`), so a chapter added with False never reached an episode.
+            "year": confirmation.get("year"), "confirmation": confirmation, "approved": True,
             "evidence_text": "", "result_status": None}
     _private_ref(list_id, item["item_id"]).set({"list_id": list_id, "item_id": item["item_id"], "text": text,
                                                 "text_sha256": confirmation["excerpt_sha256"], "created_at": _now()})

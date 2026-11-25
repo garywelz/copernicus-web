@@ -352,6 +352,112 @@ def approved_items(items: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return [i for i in items if i.get("approved") and i.get("confirmation", {}).get("status") == CONFIRMED]
 
 
+PASSAGE_MIN, PASSAGE_MAX = 200, 40_000
+PASSAGE_SUPPLIED_LABEL = "passage transcribed by the producer"
+PASSAGE_SOURCE = "producer_transcribed"
+
+
+def has_passage(item: Dict[str, Any]) -> bool:
+    """Whether an item carries a passage the producer transcribed (held privately, pinned by its hash): a journal article printed without
+    an abstract, evidenced by the passage alone, or a registry item with an abstract that also carries passages from its full text."""
+    return bool((item.get("passage") or {}).get("sha256"))
+
+
+PASSAGE_ATTACHABLE = (PEER_REVIEWED, PREPRINT)
+
+
+class PassageRefused(Exception):
+    """A passage cannot be attached to an item. The reason is a fixed code, safe to log; the detail says why in words."""
+
+    def __init__(self, reason: str, detail: str = ""):
+        super().__init__(f"{reason}{f': {detail}' if detail else ''}")
+        self.reason, self.detail = reason, detail
+
+
+def passage_for_item(item: Dict[str, Any], passage: str, source_note: str = "") -> Dict[str, Any]:
+    """The record of a passage attached to a registry item that already has its abstract - a preprint such as an arXiv posting, or a
+    journal article whose registry holds an abstract - or raise PassageRefused. Nothing is changed; the caller applies the record.
+
+    An abstract states what a paper claims; it rarely carries the paper's account of other people's work, which is often what an episode
+    needs (a survey's account of a debate, say). The rules are those of a passage that stands alone: it must contain the item's title as
+    its registry records it, it is pinned by its SHA-256 and enters the list hash, and the caller stores it privately. The item's class is
+    unchanged - a preprint stays a preprint - and the abstract stays where it is; at a run the passage is added after it."""
+    if item.get("class") not in PASSAGE_ATTACHABLE:
+        raise PassageRefused("passage_class", f"a passage attaches to a peer-reviewed article or a preprint, not to {item.get('class')}")
+    if (item.get("confirmation") or {}).get("status") != CONFIRMED:
+        raise PassageRefused("item_not_confirmed")
+    if has_passage(item):
+        raise PassageRefused("passage_already_attached", "clear the attached passage first to replace it")
+    if not (item.get("evidence_text") or "").strip():
+        raise PassageRefused("item_has_no_abstract", "an article with no abstract is added with its passage (items-with-passage)")
+    text = (passage or "").strip()
+    if _CONTROL.search(text) or not (PASSAGE_MIN <= len(text) <= PASSAGE_MAX):
+        raise PassageRefused("passage_length", f"the passage must be {PASSAGE_MIN} to {PASSAGE_MAX} characters of plain text")
+    note = (source_note or "").strip()
+    if len(note) > 300:
+        raise PassageRefused("source_note_too_long", "the source note takes at most 300 characters")
+    if not cch.title_in_excerpt(item.get("title") or "", text):
+        raise PassageRefused("title_not_in_passage", "the passage does not contain the item's title as its registry records it")
+    sha = hashlib.sha256(text.encode("utf-8")).hexdigest()
+    at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return {"passage": {"sha256": sha, "chars": len(text), "source_note": note or None, "attached_at": at, "with_abstract": True},
+            "limit": {"type": "passage_supplied", "label": PASSAGE_SUPPLIED_LABEL, "sha256": sha, "at": at}}
+
+
+def needs_private_text(item: Dict[str, Any]) -> bool:
+    """Whether a run must load this item's text from the private store: approved commentary, a company release's attached text, a
+    chapter's transcribed passage, or a journal article's transcribed passage. The one list every route that starts a run reads from, so
+    a class added later cannot be loaded by one route and forgotten by another (a chapter's passage was, at first, loaded by none)."""
+    if item.get("class") == COMMENTARY:
+        return bool(item.get("approved"))
+    if item.get("release_text") or has_passage(item):
+        return True
+    return item.get("class") == SCHOLARLY_CHAPTER and (item.get("confirmation") or {}).get("registry") == cch.REGISTRY
+
+
+async def confirm_with_passage(doi: Any, passage: str, source_note: str = "", http_get=None) -> Dict[str, Any]:
+    """A peer-reviewed journal article whose Crossref record has NO abstract and that has no published abstract to supply, confirmed
+    against Crossref as usual and evidenced by a passage the producer transcribed from the article itself.
+
+    Many older articles - most of the history and philosophy of mathematics before the 1990s - were printed without an abstract, so the
+    supplied-abstract route cannot take them, and the chapter route would mislabel them as books. The passage is treated as a chapter's
+    passage is: it must contain the article's title as Crossref records it (so a passage from the wrong article is refused), it is pinned
+    by its SHA-256, and the caller stores it privately - it is never in the list record, any list response or the feed. The item keeps its
+    class, peer_reviewed, because a journal article is what it is; its limit says the passage was transcribed by the producer, because no
+    code can tell whether the transcription is faithful. Refused when the identifier is not a DOI, when the registry already has an
+    abstract (add it the ordinary way), or when the record is not a journal article. Raises pc.RegistryUnavailable.
+
+    The returned item carries the passage under "private_text" for the caller to store; the caller removes it before saving the item."""
+    parsed = parse_item(doi)
+    if parsed.kind != "doi":
+        return _refused(parsed, "passage_needs_a_doi", "only a DOI whose Crossref record has no abstract takes a transcribed passage")
+    text = (passage or "").strip()
+    if _CONTROL.search(text) or not (PASSAGE_MIN <= len(text) <= PASSAGE_MAX):
+        return _refused(parsed, "passage_length", f"the passage must be {PASSAGE_MIN} to {PASSAGE_MAX} characters of plain text")
+    note = (source_note or "").strip()
+    if len(note) > 300:
+        return _refused(parsed, "source_note_too_long", "the source note takes at most 300 characters")
+    item = await confirm_registry_item(parsed, http_get=http_get, supplied_abstracts={parsed.ids_doi.lower(): text})
+    if item["confirmation"]["status"] != CONFIRMED:
+        return item
+    if item["confirmation"].get("abstract_source") != "producer_supplied":
+        return _refused(parsed, "registry_has_abstract", "the registry already has an abstract for this paper; add it by its DOI the ordinary way", cls=item["class"])
+    if item["class"] != PEER_REVIEWED:
+        return _refused(parsed, "passage_needs_a_journal_article", f"the record is classed {item['class']}", cls=item["class"])
+    if not cch.title_in_excerpt(item.get("title") or "", text):
+        return _refused(parsed, "title_not_in_passage", "the passage does not contain the article's title as its registry records it", cls=item["class"])
+    sha = hashlib.sha256(text.encode("utf-8")).hexdigest()
+    at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    # The passage stood in for the abstract only to pass the registry confirmation. It must not stay in the record: the list document is
+    # returned by list routes, and the transcription is private.
+    item["evidence_text"] = ""
+    item["confirmation"].update({"abstract": "", "abstract_source": PASSAGE_SOURCE})
+    item["passage"] = {"sha256": sha, "chars": len(text), "source_note": note or None, "attached_at": at}
+    item["limits"] = [{"type": "passage_supplied", "label": PASSAGE_SUPPLIED_LABEL, "sha256": sha, "at": at}]
+    item["private_text"] = text
+    return item
+
+
 def minimum_check(items: Sequence[Dict[str, Any]]) -> Tuple[bool, Dict[str, int]]:
     """At least MIN_NON_COMMENTARY confirmed, approved, non-commentary items (design §2.1, Q1). Commentary never counts, and neither does a
     withdrawn manuscript: it is content to talk about, not a source for any claim."""
@@ -384,6 +490,9 @@ def list_hash(pin: Dict[str, Any], items: Sequence[Dict[str, Any]]) -> str:
                     # for an item that has attached text, so a list without any hashes exactly as it did before attaching existed; adding
                     # the key unconditionally invalidated every list approved earlier, which cannot be re-approved once frozen.
                     **({"release_text_sha256": (i["release_text"] or {}).get("sha256")} if i.get("release_text") else {}),
+                    # The same for a journal article's transcribed passage: present only on an item that has one, so no earlier list's
+                    # hash changes.
+                    **({"passage_sha256": i["passage"]["sha256"]} if has_passage(i) else {}),
                     "blob_sha": _pin_of(i), "status": i.get("result_status"),
                     "checked_by": i.get("checked_by")}
                    for i in approved_items(items)), key=lambda r: r["id"])

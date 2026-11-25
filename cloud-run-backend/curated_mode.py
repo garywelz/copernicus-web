@@ -15,6 +15,7 @@ from typing import Any, Dict, List, Optional, Sequence
 
 import curated_checks as cc
 from speakable import spoken_source, speakable
+import curated_chapter as cch
 import curated_sources as cs
 import paper_confirmation as pc
 from reference_sections import compact_line, strip_model_reference_sections, _STOP
@@ -140,6 +141,19 @@ class CuratedRun:
                 if hashlib.sha256(text.encode("utf-8")).hexdigest() != (i["confirmation"] or {}).get("excerpt_sha256"):
                     raise CuratedListError("the attached passage of a book chapter is not the passage the list was approved with")
                 i["evidence_text"] = ((i.get("evidence_text") or "") + "\n\n" + text).strip()
+                continue
+            if cs.has_passage(i):
+                # A passage Gary transcribed: for a journal article printed without an abstract it is the only text there is; for an
+                # item with an abstract (a preprint, say) it is added after the abstract. Either way a run cannot proceed without it, and
+                # it must be the passage the list was approved with. In memory only: the stored record never holds the transcription.
+                text = (private_texts or {}).get(i["item_id"])
+                if text is None:
+                    raise CuratedListError("the transcribed passage of a source is missing from the private store")
+                if hashlib.sha256(text.encode("utf-8")).hexdigest() != i["passage"]["sha256"]:
+                    raise CuratedListError("the transcribed passage of a source is not the passage the list was approved with")
+                both = ((i.get("evidence_text") or "") + "\n\n" + text).strip()
+                i["evidence_text"] = both
+                i["confirmation"] = {**(i.get("confirmation") or {}), "abstract": both}
                 continue
             if i["class"] != cs.COMMENTARY:
                 continue
@@ -290,6 +304,19 @@ def confirmed_from_item(item: Dict[str, Any], pid: str) -> "pc.ConfirmedPaper":
         return pc.ConfirmedPaper(pid=pid, title=item.get("title") or "", authors=list(item.get("authors") or []), year=item.get("year"), venue=item.get("venue"),
                                  ids=dict(empty_ids), url=item.get("url") or "", abstract=item.get("evidence_text") or "", registry="commentary",
                                  confirmed_at=c.get("confirmed_at") or "", title_match=1.0, record_type="commentary", source_class=cls)
+    if cls == cs.SCHOLARLY_CHAPTER and c.get("registry") == cch.REGISTRY:
+        # A chapter confirmed by its passage has no registry record to rebuild a paper from: its record holds what Gary supplied (title,
+        # book, authors as one string, year as text) and the passage's hash. Without this branch the generic rebuild below fails for want
+        # of the registry fields, and no run with such a chapter could get past building its sources.
+        try:
+            year = int(item.get("year") or c.get("year") or 0) or None
+        except (TypeError, ValueError):
+            year = None
+        authors = [a.strip() for a in re.split(r";|\band\b", item.get("authors") or c.get("authors") or "") if a.strip()]
+        pin = {k: c.get(k) for k in ("scheme", "identifier", "url", "excerpt_sha256", "source_note")}
+        return pc.ConfirmedPaper(pid=pid, title=item.get("title") or c.get("title") or "", authors=authors, year=year, venue=c.get("book_title"),
+                                 ids=dict(empty_ids), url=c.get("url") or "", abstract=item.get("evidence_text") or "", registry=cch.REGISTRY,
+                                 confirmed_at=c.get("confirmed_at") or "", title_match=1.0, record_type="chapter_excerpt", source_class=cls, pin=pin)
     data = {k: v for k, v in c.items() if k in _CP_FIELDS}
     data["pid"], data["source_class"] = pid, cls
     return pc.ConfirmedPaper(**data)
@@ -366,8 +393,13 @@ def source_line(c: "pc.ConfirmedPaper", cls: str, status: Optional[str] = None, 
             line += f" {READING_LIMIT_LINE}"
         return line
     line = f"{compact_line(c)} [{tag}]"
+    if cls == cs.SCHOLARLY_CHAPTER and c.registry == cch.REGISTRY and c.url:
+        # No DOI to print, so the line carries the stable address the chapter was cited by (a handle, a JSTOR number) or its ISBN.
+        line = f"{compact_line(c)} {c.url if c.url.startswith('isbn:') else https_url(c.url)} [{tag}]"
     if any(l.get("type") == "abstract_supplied" for l in (limits or [])):
         line += f" ({cs.ABSTRACT_SUPPLIED_LABEL})"
+    if any(l.get("type") == "passage_supplied" for l in (limits or [])):
+        line += f" ({cs.PASSAGE_SUPPLIED_LABEL})"
     return line
 
 

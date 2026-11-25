@@ -120,7 +120,7 @@ def add(list_id, canned, raws_to_items):
 # --- admin key on every route ---------------------------------------------------------------------------------------------------------
 def test_every_route_on_the_router_needs_the_admin_key():
     routes_ = [r for r in router.routes if hasattr(r, "methods")]
-    assert len(routes_) == 19       # + attach and clear the text of a company release, + add a chapter in a scholarly book
+    assert len(routes_) == 22       # + release text (2), + a chapter, + a journal article with its passage, + attach and clear a passage (2)
     with patch.object(auth, "get_admin_api_key", return_value="test-key"), patch.object(routes, "db", FakeDB()):
         for r in routes_:
             path = r.path.replace("{list_id}", "L").replace("{item_id}", "I")
@@ -861,3 +861,225 @@ def test_the_request_is_bounded(env):
     lid = new_list()
     for bad in ({**REL, "url": "x"}, {**REL, "title": ""}, {**REL, "company": "x" * 61}, {**REL, "authors": ["a"] * 6}, {k: v for k, v in REL.items() if k != "date"}):
         assert client.post(f"/api/admin/curated/lists/{lid}/company-releases", json=bad, headers=KEY).status_code == 422
+
+
+# --- a journal article evidenced by a transcribed passage, and a chapter's passage reaching the run ---------------------------------------
+from tests.unit.test_curated_passage import PASSAGE, Registries as PassageRegistries  # noqa: E402
+from tests.unit.test_curated_supplied_abstract import DOI as PASSAGE_DOI, no_abstract  # noqa: E402
+from tests.unit.test_curated_chapter import EXCERPT as CHAPTER_EXCERPT, TITLE as CHAPTER_TITLE  # noqa: E402
+
+_real_confirm_with_passage = cs.confirm_with_passage
+
+
+@pytest.fixture
+def passage_env(gen_env):
+    fake, canned, service = gen_env
+
+    async def offline(doi, passage, source_note="", http_get=None):
+        return await _real_confirm_with_passage(doi, passage, source_note, http_get=PassageRegistries(crossref_by_doi={PASSAGE_DOI: no_abstract()}))
+    with patch.object(cs, "confirm_with_passage", offline):
+        yield fake, canned, service
+
+
+def post_passage(lid, **kw):
+    body = {"doi": PASSAGE_DOI, "passage": PASSAGE, "source_note": "pp. 367-375", **kw}
+    return client.post(f"/api/admin/curated/lists/{lid}/items-with-passage", json=body, headers=KEY)
+
+
+def post_chapter(lid):
+    body = {"identifier": "hdl:11299/185659", "title": CHAPTER_TITLE, "excerpt": CHAPTER_EXCERPT, "book_title": "A Book",
+            "authors": "Joseph W. Dauben", "year": "1988", "source_note": "pp. 177-200"}
+    return client.post(f"/api/admin/curated/lists/{lid}/chapter", json=body, headers=KEY)
+
+
+def test_a_passage_goes_to_the_private_store_and_never_into_the_list(passage_env):
+    fake, canned, service = passage_env
+    lid = new_list()
+    r = post_passage(lid)
+    assert r.status_code == 200, r.text
+    added = r.json()["added"][0]
+    assert added["class"] == cs.PEER_REVIEWED and added["passage_chars"] == len(PASSAGE)
+    assert PASSAGE[:60] not in repr(fake.store[lid]) and PASSAGE[:60] not in r.text
+    stored = fake.other[PRIVATE_COLLECTION][f"{lid}__{added['item_id']}"]
+    assert stored["text"] == PASSAGE and stored["text_sha256"] == added["passage_sha256"]
+    assert PASSAGE[:60] not in client.get(f"/api/admin/curated/lists/{lid}", headers=KEY).text
+
+
+def test_a_duplicate_passage_is_refused_and_leaves_the_first_passage_in_place(passage_env):
+    fake, canned, service = passage_env
+    lid = new_list()
+    iid = post_passage(lid).json()["added"][0]["item_id"]
+    r = post_passage(lid, passage=PASSAGE + " A different transcription.")
+    assert r.json()["added"] == [] and r.json()["refused"][0]["reason"] == "duplicate"
+    assert fake.other[PRIVATE_COLLECTION][f"{lid}__{iid}"]["text"] == PASSAGE
+
+
+def test_a_refused_passage_stores_nothing_and_a_frozen_list_takes_none(passage_env):
+    fake, canned, service = passage_env
+    lid = new_list()
+    r = post_passage(lid, passage=PASSAGE.replace("On the Complexity of k-SAT.", "Elsewhere."))
+    assert r.json()["added"] == [] and r.json()["refused"][0]["reason"] == "title_not_in_passage"
+    assert fake.store[lid]["items"] == [] and not fake.other.get(PRIVATE_COLLECTION)
+    lid2 = ready_list(canned)
+    client.post(f"/api/admin/curated/lists/{lid2}/approve", headers=KEY)
+    assert post_passage(lid2).status_code == 409
+
+
+def test_generation_loads_a_journal_passage_and_a_chapter_passage_for_the_run(passage_env):
+    """The chapter route stored its passage, but no route loaded it, so a list with a chapter could never be run."""
+    fake, canned, service = passage_env
+    lid = ready_list(canned)
+    pid = post_passage(lid).json()["added"][0]["item_id"]
+    r = post_chapter(lid)
+    assert r.status_code == 200, r.text
+    cid = r.json()["added"]["item_id"]
+    assert client.post(f"/api/admin/curated/lists/{lid}/approve", headers=KEY).status_code == 200
+    r = generate(lid, topic="Revolutions in mathematics")
+    assert r.status_code == 200, r.text
+    assert service.private_texts == {pid: PASSAGE, cid: CHAPTER_EXCERPT}
+
+
+def test_a_dry_run_builds_a_run_from_a_list_with_a_chapter(passage_env):
+    fake, canned, service = passage_env
+    lid = ready_list(canned)
+    assert post_chapter(lid).status_code == 200
+    assert client.post(f"/api/admin/curated/lists/{lid}/approve", headers=KEY).status_code == 200
+    seen = {}
+    real = curated_mode.CuratedRun.from_list_doc.__func__
+
+    def spy(cls, doc, **kw):
+        run_ = real(cls, doc, **kw)
+        # the rebuild that failed for a chapter confirmed by its passage (the list's other items here are bare fakes, so only the chapter)
+        seen["papers"] = [curated_mode.confirmed_from_item(i, run_.pids[i["item_id"]]) for i in run_.items if i["class"] == cs.SCHOLARLY_CHAPTER]
+        raise curated_mode.CuratedListError("stop here: the run was built")
+    with patch.object(curated_mode.CuratedRun, "from_list_doc", classmethod(spy)):
+        r = dry_run(lid, topic="Revolutions in mathematics")
+    assert r.status_code == 409 and "the run was built" in r.json()["detail"]
+    assert any(p.source_class == cs.SCHOLARLY_CHAPTER and p.abstract == CHAPTER_EXCERPT for p in seen["papers"]), seen["papers"]
+
+
+def test_a_chapter_added_by_its_passage_counts_toward_the_minimum_and_the_hash(passage_env):
+    """It was stored unapproved, and nothing approves an item later, so it was silently left out of every run, the hash and the count."""
+    fake, canned, service = passage_env
+    lid = new_list()
+    add(lid, canned, {"a": [item(cs.PREPRINT, 1), item(cs.PEER_REVIEWED, 2)]})
+    assert client.post(f"/api/admin/curated/lists/{lid}/approve", headers=KEY).status_code == 422       # two sources: below the minimum
+    assert post_chapter(lid).status_code == 200
+    r = client.post(f"/api/admin/curated/lists/{lid}/approve", headers=KEY)
+    assert r.status_code == 200 and r.json()["counts"][cs.SCHOLARLY_CHAPTER] == 1
+
+
+# --- a passage attached to an item that already has its abstract (a preprint such as Aberdein 2018) ----------------------------------------
+ABERDEIN_ABSTRACT = ("In their account of theory change in logic, Aberdein and Read distinguish 'glorious' from 'inglorious' revolutions. "
+                     "This paper seeks to resolve a disagreement through consideration of some putative mathematical revolutions.")
+ABERDEIN_PASSAGE = ("REDEFINING REVOLUTIONS\n\nANDREW ABERDEIN\n\n[...]\n\n3. Mathematical Revolutions?\n\nThe discussion of mathematical "
+                    "revolutions essentially begins with Michael Crowe, who boldly asserts as a ‘law’ that ‘Revolutions never occur "
+                    "in mathematics’. Dauben likens mathematical revolutions to the Glorious Revolution of 1688, in the persistence of the "
+                    "‘old order’.")
+
+
+def preprint_with_abstract():
+    return item(cs.PREPRINT, 7, title="Redefining Revolutions", evidence_text=ABERDEIN_ABSTRACT,
+                identifiers={"arxiv": "1810.07038", "arxiv_version": "v1"})
+
+
+def list_with_preprint(canned):
+    lid = new_list()
+    pre = preprint_with_abstract()
+    pre["item_id"] = cs.item_id(pre["identifiers"])
+    add(lid, canned, {"a": [item(cs.PEER_REVIEWED, 1), item(cs.PEER_REVIEWED, 2), item(cs.COMPANY_RELEASE, 3), pre]})
+    return lid, pre["item_id"]
+
+
+def attach_passage(lid, iid, passage=ABERDEIN_PASSAGE, note="arXiv:1810.07038v1, pp. 1, 4-8"):
+    return client.post(f"/api/admin/curated/lists/{lid}/items/{iid}/passage", json={"passage": passage, "source_note": note}, headers=KEY)
+
+
+def test_a_preprint_with_an_abstract_carries_a_private_passage_and_stays_a_preprint(env):
+    fake, canned = env
+    lid, iid = list_with_preprint(canned)
+    before = cs.list_hash(fake.store[lid]["pin"], fake.store[lid]["items"])
+    r = attach_passage(lid, iid)
+    assert r.status_code == 200, r.text
+    assert r.json()["class"] == cs.PREPRINT and r.json()["passage_chars"] == len(ABERDEIN_PASSAGE)
+    stored = next(i for i in fake.store[lid]["items"] if i["item_id"] == iid)
+    assert stored["class"] == cs.PREPRINT and stored["evidence_text"] == ABERDEIN_ABSTRACT        # class and abstract unchanged
+    assert stored["passage"]["with_abstract"] is True and stored["limits"][-1]["label"] == "passage transcribed by the producer"
+    assert "boldly asserts" not in repr(fake.store[lid]) and "boldly asserts" not in r.text
+    assert "boldly asserts" not in client.get(f"/api/admin/curated/lists/{lid}", headers=KEY).text
+    assert fake.other[PRIVATE_COLLECTION][f"{lid}__{iid}"]["text"] == ABERDEIN_PASSAGE
+    assert cs.list_hash(fake.store[lid]["pin"], fake.store[lid]["items"]) != before                 # the passage is in the hash
+
+
+def test_an_attached_passage_must_contain_the_title_and_a_second_one_is_refused(env):
+    fake, canned = env
+    lid, iid = list_with_preprint(canned)
+    r = attach_passage(lid, iid, passage=ABERDEIN_PASSAGE.replace("REDEFINING REVOLUTIONS", "SOMETHING ELSE"))
+    assert r.status_code == 422 and "title_not_in_passage" in r.json()["detail"] and not fake.other.get(PRIVATE_COLLECTION)
+    assert attach_passage(lid, iid).status_code == 200
+    r = attach_passage(lid, iid, passage=ABERDEIN_PASSAGE + " A different transcription.")
+    assert r.status_code == 409 and fake.other[PRIVATE_COLLECTION][f"{lid}__{iid}"]["text"] == ABERDEIN_PASSAGE
+
+
+def test_a_passage_attaches_only_to_a_confirmed_article_or_preprint_with_an_abstract_on_a_draft(env):
+    fake, canned = env
+    lid, iid = list_with_preprint(canned)
+    rel = next(i["item_id"] for i in fake.store[lid]["items"] if i["class"] == cs.COMPANY_RELEASE)
+    assert attach_passage(lid, rel).status_code == 422
+    bare = item(cs.PEER_REVIEWED, 9, evidence_text="", title="Redefining Revolutions")
+    add(lid, canned, {"b": [bare]})
+    r = attach_passage(lid, bare["item_id"])
+    assert r.status_code == 422 and "item_has_no_abstract" in r.json()["detail"]
+    assert attach_passage(lid, "nope").status_code == 404
+    client.post(f"/api/admin/curated/lists/{lid}/approve", headers=KEY)
+    assert attach_passage(lid, iid).status_code == 409 and not fake.other.get(PRIVATE_COLLECTION)
+
+
+def test_generation_loads_the_attached_passage_after_the_abstract(gen_env):
+    fake, canned, service = gen_env
+    lid, iid = list_with_preprint(canned)
+    assert attach_passage(lid, iid).status_code == 200
+    assert client.post(f"/api/admin/curated/lists/{lid}/approve", headers=KEY).status_code == 200
+    seen = {}
+    real = curated_mode.CuratedRun.from_list_doc.__func__
+
+    def spy(cls, doc, **kw):
+        run_ = real(cls, doc, **kw)
+        seen["item"] = next(i for i in run_.items if i["item_id"] == iid)
+        return run_
+    with patch.object(curated_mode.CuratedRun, "from_list_doc", classmethod(spy)):
+        r = generate(lid, topic="Revolutions in mathematics")
+    assert r.status_code == 200, r.text
+    assert service.private_texts == {iid: ABERDEIN_PASSAGE}
+    got = seen["item"]
+    assert got["class"] == cs.PREPRINT and got["evidence_text"] == ABERDEIN_ABSTRACT + "\n\n" + ABERDEIN_PASSAGE
+    assert got["confirmation"]["abstract"] == got["evidence_text"]
+
+
+def test_a_run_refuses_a_missing_or_unapproved_attached_passage(gen_env):
+    fake, canned, service = gen_env
+    lid, iid = list_with_preprint(canned)
+    attach_passage(lid, iid)
+    assert client.post(f"/api/admin/curated/lists/{lid}/approve", headers=KEY).status_code == 200
+    key = f"{lid}__{iid}"
+    fake.other[PRIVATE_COLLECTION][key]["text"] = ABERDEIN_PASSAGE.replace("1688", "1689")      # not the passage the list was approved with
+    r = generate(lid)
+    assert r.status_code == 409 and "not the passage the list was approved with" in r.json()["detail"] and service.calls == []
+    del fake.other[PRIVATE_COLLECTION][key]
+    r = dry_run(lid)
+    assert r.status_code == 409 and "missing from the private store" in r.json()["detail"]
+
+
+def test_clearing_an_attached_passage_restores_the_item_and_removes_the_text(passage_env):
+    fake, canned, service = passage_env
+    lid, iid = list_with_preprint(canned)
+    before = cs.list_hash(fake.store[lid]["pin"], fake.store[lid]["items"])
+    attach_passage(lid, iid)
+    r = client.delete(f"/api/admin/curated/lists/{lid}/items/{iid}/passage", headers=KEY)
+    assert r.status_code == 200 and f"{lid}__{iid}" not in fake.other[PRIVATE_COLLECTION]
+    stored = next(i for i in fake.store[lid]["items"] if i["item_id"] == iid)
+    assert "passage" not in stored and not [l for l in stored.get("limits") or [] if l["type"] == "passage_supplied"]
+    assert cs.list_hash(fake.store[lid]["pin"], fake.store[lid]["items"]) == before
+    assert client.delete(f"/api/admin/curated/lists/{lid}/items/{iid}/passage", headers=KEY).status_code == 404
+    pid = post_passage(lid).json()["added"][0]["item_id"]                  # evidenced by its passage alone: strike it instead
+    assert client.delete(f"/api/admin/curated/lists/{lid}/items/{pid}/passage", headers=KEY).status_code == 409
