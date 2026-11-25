@@ -90,18 +90,33 @@ def _label(paper: Any) -> str:
     return f"{who} ({paper.year})" if paper.year else who
 
 
-async def check_attributions(script: str, named_papers: Sequence[Any], llm_call: LlmCall) -> AttributionResult:
+MAX_SOURCE_TEXT_CHARS = 60000      # one source's whole text in source-text mode: a guard against a runaway input, not a cut of any real passage
+PROMPT_ID_SOURCE_TEXT = "ATTRIBUTIONS-SOURCE-TEXT@1"
+SYSTEM_SOURCE_TEXT = SYSTEM.replace("abstracts", "source texts").replace("abstract text", "source text")
+INSTRUCTIONS_SOURCE_TEXT = (INSTRUCTIONS.replace("its abstract", "its source text").replace("the abstract", "the source text")
+                            .replace("The abstract", "The source text") + "\nA source text may be an abstract followed by a passage the "
+                            "producer transcribed from the paper; \"[...]\" marks text left out. Judge against all of it.")
+
+
+async def check_attributions(script: str, named_papers: Sequence[Any], llm_call: LlmCall, source_text: bool = False) -> AttributionResult:
     """`named_papers`: the confirmed papers the script names (each with pid, title, authors, year, abstract). Raises
-    AttributionCheckUnavailable if the model step fails."""
+    AttributionCheckUnavailable if the model step fails.
+
+    `source_text` (curated mode): a paper's `abstract` holds its whole source text - the registry abstract and any passage transcribed from
+    it - and the judge is given all of it, labelled as the source's text. The ordinary mode keeps the 2,500-character abstract. In curated
+    mode the cut used to apply too, so a claim from late in a passage was judged unsupported against text the judge never saw
+    (check-script, 2026-11-25)."""
     papers = [p for p in named_papers if (getattr(p, "abstract", "") or "").strip()]
     result = AttributionResult()
     if not papers or not (script or "").strip():
         result.skipped_reason = "no named papers with abstracts" if not papers else "empty script"
         return result
-    block = "\n\n".join(f"[{p.pid}] {', '.join(p.authors[:3])} ({p.year}). {p.title}\nABSTRACT: {p.abstract.strip()[:MAX_ABSTRACT_CHARS]}" for p in papers)
-    user = f"{INSTRUCTIONS}\n\nPAPERS:\n{block}\n\nSCRIPT:\n{script}"
+    cap, label = (MAX_SOURCE_TEXT_CHARS, "SOURCE TEXT") if source_text else (MAX_ABSTRACT_CHARS, "ABSTRACT")
+    system, instructions = (SYSTEM_SOURCE_TEXT, INSTRUCTIONS_SOURCE_TEXT) if source_text else (SYSTEM, INSTRUCTIONS)
+    block = "\n\n".join(f"[{p.pid}] {', '.join(p.authors[:3])} ({p.year}). {p.title}\n{label}: {p.abstract.strip()[:cap]}" for p in papers)
+    user = f"{instructions}\n\nPAPERS:\n{block}\n\nSCRIPT:\n{script}"
     try:
-        raw = await llm_call(SYSTEM, user)
+        raw = await llm_call(system, user)
     except Exception as e:
         raise AttributionCheckUnavailable(f"attribution check failed: {type(e).__name__}: {e}")
     try:

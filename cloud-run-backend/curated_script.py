@@ -583,36 +583,44 @@ def _surname_of(name: str) -> str:
     return parts[-1] if parts else ""
 
 
-def _item_surnames(item: Dict[str, Any]) -> List[str]:
-    a = item.get("authors") or []
-    names = re.split(r";|\band\b", a) if isinstance(a, str) else list(a)
-    return [s for s in (_surname_of(n) for n in names) if len(s) > 1]
+def _named_in(passage_flat: str, v: Dict[str, Any]) -> bool:
+    """Whether the passage names what the mention names: every person's surname; for a named event or thing ("England's Glorious Revolution
+    of 1688"), at least two thirds of its content words and its year. A model extracts the mention and may add a word the passage does not
+    print ("England's"), so an event is matched on most of its words, never on one."""
+    people = [_flat_words(_surname_of(a)).strip() for a in (v.get("authors") or [])]
+    if any(not p or f" {p} " not in passage_flat for p in people):
+        return False
+    words = [w for w in (_flat_words(" ".join(v.get("title_words") or [])).split()) if len(w) >= 3 and w not in ("the", "and", "for", "with")]
+    if words:
+        found = sum(1 for w in words if f" {w} " in passage_flat)
+        if found < 2 or found * 3 < len(words) * 2:
+            return False
+    year = str(v.get("year") or "").strip()
+    if year and f" {year} " not in passage_flat:
+        return False
+    return bool(people or words)
 
 
 def passage_person_credit(v: Dict[str, Any], run, script: str) -> Optional[str]:
-    """The P number of the listed source a person-mention is credited to, when the person is named in that source's passage and the same
-    sentence names the source (an author's surname, or the title): "Crowe cites Fourier and Hankel". None otherwise.
+    """The P number of the listed source a mention is credited to, when what it names - a person, or a named event such as "the Glorious
+    Revolution of 1688" - appears in that source's passage and the same sentence names the source (an author's surname, or the title):
+    "Crowe cites Fourier and Hankel", "As Aberdein reports, Dauben compared ... the Glorious Revolution of 1688". None otherwise.
 
-    A passage is a listed source's own account of other people, so naming the people it discusses is reporting the source, not citing an
-    unlisted work - but only in a sentence that says whose account it is. "He cites Fourier", "Robinson believed" with no source named, or a
-    person who appears in no passage, are still refused."""
-    if v.get("kind") != "unlisted_work" or v.get("where") != "script" or not v.get("authors") or v.get("title_words"):
+    A passage is a listed source's own account of other people and events, so naming what it discusses is reporting the source, not citing an
+    unlisted work - but only in a sentence that says whose account it is. "He cites Fourier", "Robinson believed" with no source named, or
+    anything that appears in no passage, are still refused. Code cannot tell a named event from a work's title when both are in a passage;
+    either is allowed only as the credited source's own account of it."""
+    if v.get("kind") != "unlisted_work" or v.get("where") != "script" or not (v.get("authors") or v.get("title_words")):
         return None
-    sentence = _flat_words(_sentence_with(script, v.get("quote") or ""))
-    people = [_flat_words(_surname_of(a)).strip() for a in v["authors"]]
-    if not people or not all(people):
-        return None
+    sentence = _sentence_with(script, v.get("quote") or "")
+    people = {_flat_words(_surname_of(a)).strip() for a in (v.get("authors") or [])}
     for i in run.items:
-        passage = i.get(cm.PASSAGE_KEY)
-        if not passage:
+        flat = cm.passage_words(i)
+        if not flat or not _named_in(flat, v) or not cm.sentence_credits_item(sentence, i):
             continue
-        text = _flat_words(passage)
-        if not all(f" {p} " in text for p in people):
-            continue
-        credited = any(f" {_flat_words(s).strip()} " in sentence for s in _item_surnames(i))
-        credited = credited or (_flat_words(i.get("title") or "").strip() and _flat_words(i.get("title") or "").strip() in sentence)
-        if credited and not any(f" {p} " in f" {' '.join(_flat_words(s).strip() for s in _item_surnames(i))} " for p in people):
-            return run.pids[i["item_id"]]
+        if people & {_flat_words(s).strip() for s in cm.item_surnames(i)}:
+            continue                                    # the source's own author is not "a person its passage discusses"
+        return run.pids[i["item_id"]]
     return None
 
 
