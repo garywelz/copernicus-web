@@ -290,7 +290,7 @@ def feedback_text(violations: Sequence[Dict[str, Any]]) -> str:
         elif k == "withdrawn_not_stated":
             lines.append(f"- This result was WITHDRAWN. Every sentence that mentions it must say it was withdrawn: \"{v['sentence']}\"")
         elif k == "verbatim_run":
-            lines.append(f"- {v['words']} words in a row were copied from a commentary text. Paraphrase it in your own words and attribute it: \"{v['quote']}\"")
+            lines.append(f"- {v['words']} words in a row were copied from a commentary text or a passage. Paraphrase it in your own words and attribute it: \"{v['quote']}\"")
         elif k == "spoken_name":
             lines.append(f"- The speakers have no names. Remove the name from the dialogue (labels are HOST and EXPERT only): \"{v['sentence']}\"")
         elif k == "preprint_not_labelled":

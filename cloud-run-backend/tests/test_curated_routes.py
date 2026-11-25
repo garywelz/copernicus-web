@@ -1083,3 +1083,23 @@ def test_clearing_an_attached_passage_restores_the_item_and_removes_the_text(pas
     assert client.delete(f"/api/admin/curated/lists/{lid}/items/{iid}/passage", headers=KEY).status_code == 404
     pid = post_passage(lid).json()["added"][0]["item_id"]                  # evidenced by its passage alone: strike it instead
     assert client.delete(f"/api/admin/curated/lists/{lid}/items/{pid}/passage", headers=KEY).status_code == 409
+
+
+def test_through_the_dry_run_route_the_writer_is_given_each_passage_whole(gen_env):
+    """The first revolutions dry run was written from each passage's first 700 characters; the writer's facts now carry all of it."""
+    import curated_script
+    fake, canned, service = gen_env
+    lid, iid = list_with_preprint(canned)
+    long_passage = ABERDEIN_PASSAGE + " " + "Further argument follows here. " * 40 + "THE LAST SENTENCE OF THE PASSAGE."
+    assert attach_passage(lid, iid, passage=long_passage).status_code == 200
+    assert client.post(f"/api/admin/curated/lists/{lid}/approve", headers=KEY).status_code == 200
+    seen = {}
+    real = curated_mode.CuratedRun.from_list_doc.__func__
+
+    def spy(cls, doc, **kw):
+        run_ = real(cls, doc, **kw)
+        seen["facts"] = curated_script.facts_block(run_)
+        raise curated_mode.CuratedListError("stop here: the run was built")
+    with patch.object(curated_mode.CuratedRun, "from_list_doc", classmethod(spy)):
+        dry_run(lid, topic="Revolutions in mathematics")
+    assert "THE LAST SENTENCE OF THE PASSAGE" in seen["facts"] and curated_script.PASSAGE_OPEN in seen["facts"]

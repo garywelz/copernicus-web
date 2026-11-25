@@ -86,6 +86,74 @@ def check_tts_threshold(characters: int) -> None:
         raise TtsOverThreshold(characters)
 
 
+PASSAGE_KEY = "passage_text"        # in a run's own copy of an item only: the transcribed passage or chapter excerpt, never written back
+ABSTRACT_AND_PASSAGE = "registry_and_passage"   # a run's abstract_source for a registry abstract followed by a transcribed passage
+
+_SMALL_WORDS = {"a", "an", "and", "as", "at", "but", "by", "for", "from", "in", "into", "nor", "of", "on", "or", "over", "per", "the", "to",
+                "via", "vs", "with"}
+_ROMAN = re.compile(r"^(?=[IVXLC]{2,4}$)C{0,3}(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$")
+
+
+def _all_capitals(s: str) -> bool:
+    letters = [ch for ch in s or "" if ch.isalpha()]
+    return len(letters) >= 2 and all(ch.isupper() for ch in letters)
+
+
+def _cap_word(w: str, numerals: bool = True) -> str:
+    """One word in capitals, in normal case: 'MCLAUGHLIN' -> 'McLaughlin', "O'BRIEN" -> "O'Brien"; a Roman numeral ('II', 'II:') stays."""
+    bare = re.sub(r"[^A-Za-z]+$", "", w)
+    if (_ROMAN.match(bare) if numerals else bare in ("II", "III", "IV")):
+        return w
+    out = []
+    for p in re.split(r"([-'’])", w):
+        if not p or p in ("-", "'", "’"):
+            out.append(p)
+        elif len(p) > 2 and p[:2] == "MC":
+            out.append("Mc" + p[2] + p[3:].lower())
+        else:
+            out.append(p[:1] + p[1:].lower())
+    return "".join(out)
+
+
+def title_case(title: str) -> str:
+    """A title the registry holds entirely in capitals, in title case: small words in lower case except first, last and after a colon."""
+    words = (title or "").split()
+    out = []
+    for n, w in enumerate(words):
+        lead = re.match(r"^[^A-Za-z0-9]*", w).group(0)
+        core = w[len(lead):]
+        after_stop = n > 0 and words[n - 1].endswith((":", "?", "!", "."))
+        if 0 < n < len(words) - 1 and not after_stop and re.fullmatch(r"[A-Za-z]+[,;]?", core) and core.rstrip(",;").lower() in _SMALL_WORDS:
+            out.append(lead + core.lower())
+        else:
+            out.append(lead + _cap_word(core))
+    return " ".join(out)
+
+
+def display_name(name: str) -> str:
+    """A name in capitals, in normal case. Only II, III and IV are kept as numerals: 'LI' and 'XI' in a name are surnames."""
+    return " ".join(_cap_word(w, numerals=False) for w in (name or "").split())
+
+
+def display_case_item(item: Dict[str, Any]) -> None:
+    """In a run's own copy of an item: a Crossref title or author name that is entirely in capitals is put in normal case for everything the
+    run writes - the script, the reference line, the show notes. The stored record, and so the list hash, is unchanged (the hash is checked
+    before this runs); a title or name only partly in capitals is left exactly as the registry has it."""
+    c = dict(item.get("confirmation") or {})
+    if c.get("registry") != "crossref":
+        return
+    if _all_capitals(item.get("title") or ""):
+        item["title"] = title_case(item["title"])
+        if c.get("title"):
+            c["title"] = title_case(c["title"])
+    fix = lambda names: [display_name(a) if isinstance(a, str) and _all_capitals(a) else a for a in names or []]
+    if item.get("authors"):
+        item["authors"] = fix(item["authors"])
+    if c.get("authors"):
+        c["authors"] = fix(c["authors"])
+    item["confirmation"] = c
+
+
 class CuratedListError(Exception):
     """The list cannot be used for generation (not approved, changed since approval, or not usable as one episode)."""
 
@@ -141,6 +209,7 @@ class CuratedRun:
                 if hashlib.sha256(text.encode("utf-8")).hexdigest() != (i["confirmation"] or {}).get("excerpt_sha256"):
                     raise CuratedListError("the attached passage of a book chapter is not the passage the list was approved with")
                 i["evidence_text"] = ((i.get("evidence_text") or "") + "\n\n" + text).strip()
+                i[PASSAGE_KEY] = text
                 continue
             if cs.has_passage(i):
                 # A passage Gary transcribed: for a journal article printed without an abstract it is the only text there is; for an
@@ -153,7 +222,11 @@ class CuratedRun:
                     raise CuratedListError("the transcribed passage of a source is not the passage the list was approved with")
                 both = ((i.get("evidence_text") or "") + "\n\n" + text).strip()
                 i["evidence_text"] = both
-                i["confirmation"] = {**(i.get("confirmation") or {}), "abstract": both}
+                conf = {**(i.get("confirmation") or {}), "abstract": both}
+                if conf.get("abstract_source") != cs.PASSAGE_SOURCE:
+                    conf["abstract_source"] = ABSTRACT_AND_PASSAGE   # so storage_dict knows the abstract now carries private text
+                i["confirmation"] = conf
+                i[PASSAGE_KEY] = text
                 continue
             if i["class"] != cs.COMMENTARY:
                 continue
@@ -163,6 +236,8 @@ class CuratedRun:
             if hashlib.sha256(text.encode("utf-8")).hexdigest() != i.get("text_sha256"):
                 raise CuratedListError("the stored text of a commentary item is not the text the list was approved with")
             i["evidence_text"] = text            # in memory only: this copy is never written back
+        for i in items:
+            display_case_item(i)
         pids = {i["item_id"]: f"P{n}" for n, i in enumerate(items, start=1)}
         return cls(list_id=doc["list_id"], list_hash=doc["list_hash"], pin=dict(doc["pin"]), topic=t, items=items, pids=pids, title=(title or "").strip() or None)
 
@@ -202,12 +277,21 @@ class CuratedRun:
     def commentary_texts(self) -> List[str]:
         return [i["evidence_text"] for i in self.items if i["class"] == cs.COMMENTARY and i.get("evidence_text")]
 
+    def private_text_pids(self) -> List[str]:
+        """The P numbers whose text must not be written to any record: commentary, and every source carrying a transcribed passage."""
+        return [self.pids[i["item_id"]] for i in self.items if i["class"] == cs.COMMENTARY or i.get(PASSAGE_KEY)]
+
+    def passage_texts(self) -> List[str]:
+        """The transcribed passages and chapter excerpts, in full. The writer is given them whole, so the rule against copying eight or more
+        words in a row is checked against them exactly as it is against commentary."""
+        return [i[PASSAGE_KEY] for i in self.items if i.get(PASSAGE_KEY)]
+
     def approved_quotes(self) -> List[str]:
         return [q for i in self.items for q in (i.get("approved_quotes") or [])]
 
     def checks(self, script: str) -> List[Dict[str, Any]]:
         """Every deterministic curated check on a script."""
-        return cc.run_all(script, self.results(), self.commentary_texts(), self.approved_quotes(), items=self.results())
+        return cc.run_all(script, self.results(), self.commentary_texts() + self.passage_texts(), self.approved_quotes(), items=self.results())
 
     # --- the prompt ---------------------------------------------------------------------------------------------------------------
     def prompt_block(self, include_excerpts: bool = True) -> str:
@@ -270,14 +354,17 @@ class CuratedRun:
 def withheld_pids(research_context: Any) -> List[str]:
     """The P numbers whose text must not be written to any record (the commentary of a curated run); none in the ordinary mode."""
     run = getattr(research_context, "curated", None)
-    return run.commentary_pids() if run is not None else []
+    return run.private_text_pids() if run is not None else []
 
 
 def storage_dict(c: "pc.ConfirmedPaper") -> Dict[str, Any]:
-    """What may be stored about a confirmed source in the job and the episode records. Commentary text is third-party text kept in the private
-    store only: its `abstract` (the pasted excerpt) is withheld here. Every other class is stored exactly as before."""
+    """What may be stored about a confirmed source in the job and the episode records. Commentary text and every transcribed passage or
+    chapter excerpt are third-party text kept in the private store only: a run carries them in the source's `abstract`, which is withheld
+    here. A source with a registry abstract AND a passage is withheld whole; its registry abstract can be fetched again from the registry.
+    Every other source is stored exactly as before."""
     d = c.to_dict()
-    if c.source_class == cs.COMMENTARY:
+    if (c.source_class == cs.COMMENTARY or c.registry == cch.REGISTRY
+            or c.abstract_source in (cs.PASSAGE_SOURCE, ABSTRACT_AND_PASSAGE)):
         d["abstract"], d["abstract_withheld"] = "", True
     return d
 
