@@ -41,6 +41,30 @@ def fold(s: str) -> str:
     return re.sub(rf"[{_DASHES}]", "-", s).lower()
 
 
+# British spellings folded to American ones, for the coverage check only. Both sides of every comparison are folded the same way, so a rule
+# that also changes a word with no American twin ("precise" -> "precize") changes it everywhere and cannot make two different words match.
+_SPELLING = [
+    (re.compile(r"(?<=[a-z]{2})our(?=s?\b|ed\b|ing\b|ful\b|less\b|ite\b|ites\b|able\b)"), "or"),     # colour, behaviour, favourite, honourable
+    (re.compile(r"(?<=[a-z]{3})is(?=e\b|es\b|ed\b|ing\b|ation\b|ations\b|er\b|ers\b)"), "iz"),         # formalise, formalisation
+    (re.compile(r"(?<=[a-z]{2})ys(?=e\b|es\b|ed\b|ing\b)"), "yz"),                                       # analyse
+    (re.compile(r"(?<=[a-z]{2})tre(?=s?\b)"), "ter"),                                                    # centre, metre
+    (re.compile(r"(?<=[a-z])ll(?=ed\b|ing\b|er\b|ers\b)"), "l"),                                         # modelling, travelled
+    (re.compile(r"\bprogramme"), "program"),
+    (re.compile(r"(?<=[a-z]{3})logue\b"), "log"),                                                        # catalogue, dialogue
+    (re.compile(r"\b(def|off)ence\b"), r"\1ense"),                                                       # defence, offence
+]
+
+
+def spelling_fold(s: str) -> str:
+    """`fold`, and then British spellings as American ones: "four-colour" and "Four-Color" both become "four-color". The coverage check
+    compares this way; without it, a topic spelt the British way was not covered by a source spelt the American way, and the writer was
+    made to say that the sources did not cover what one of them is about (dry run 2, 2026-11-25)."""
+    t = fold(s)
+    for pattern, repl in _SPELLING:
+        t = pattern.sub(repl, t)
+    return t
+
+
 class CoverageStatementError(Exception):
     """The script never says that the reviewed papers do not cover something the topic names, after the allowed regenerations."""
 
@@ -88,7 +112,7 @@ def _covers(text: str, name: str) -> bool:
     """Whether `text` covers `name`, comparing accent-free and with every dash form alike. A name joined by a dash is covered when both of
     its parts are present, so "Mézard–Parisi" is covered by a source that writes "Mezard-Parisi", "Mezard and Parisi" or either surname
     beside the other."""
-    hay, needle = fold(text), fold(name).strip("-")
+    hay, needle = spelling_fold(text), spelling_fold(name).strip("-")
     if not needle:
         return False
     if term_hits(hay, [needle]):
@@ -130,8 +154,8 @@ def missing_coverage_statements(script: str, uncovered: Sequence[str]) -> List[s
     for name in uncovered:
         # The sentence is matched folded, so a script that writes "Mezard-Parisi" satisfies a name spelt "Mézard–Parisi" and the other way
         # round. Without this the script could not say the sentence the check demands.
-        word = re.compile(r"(?<![a-z0-9])" + re.escape(fold(name).strip("-")) + r"(?:'s|s)?(?![a-z0-9])")
-        if not any(word.search(fold(s)) and any(p.search(s) for p in _NOT_COVERED) for s in sents):
+        word = re.compile(r"(?<![a-z0-9])" + re.escape(spelling_fold(name).strip("-")) + r"(?:'s|s)?(?![a-z0-9])")
+        if not any(word.search(spelling_fold(s)) and any(p.search(s) for p in _NOT_COVERED) for s in sents):
             missing.append(name)
     return missing
 

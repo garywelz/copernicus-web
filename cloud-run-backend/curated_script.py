@@ -560,6 +560,76 @@ def exempt_reporting_attributions(violations: Sequence[Dict[str, Any]], text: st
     return kept, exempt
 
 
+_SENTENCE_END = re.compile(r"(?<=[.!?])\s+|\n+")
+
+
+def _sentence_with(script: str, quote: str) -> str:
+    """The sentence of the script that holds `quote` (the naming check's extracted words), or the quote itself when it cannot be placed."""
+    flat_q = " ".join((quote or "").split())
+    for s in _SENTENCE_END.split(script or ""):
+        if flat_q and flat_q in " ".join(s.split()):
+            return s
+    return quote or ""
+
+
+def _flat_words(s: str) -> str:
+    import unicodedata
+    n = unicodedata.normalize("NFKD", s or "")
+    return " " + re.sub(r"[^a-z0-9]+", " ", "".join(ch for ch in n if not unicodedata.combining(ch)).lower()) + " "
+
+
+def _surname_of(name: str) -> str:
+    parts = [p for p in re.split(r"[\s.]+", (name or "").strip()) if p]
+    return parts[-1] if parts else ""
+
+
+def _item_surnames(item: Dict[str, Any]) -> List[str]:
+    a = item.get("authors") or []
+    names = re.split(r";|\band\b", a) if isinstance(a, str) else list(a)
+    return [s for s in (_surname_of(n) for n in names) if len(s) > 1]
+
+
+def passage_person_credit(v: Dict[str, Any], run, script: str) -> Optional[str]:
+    """The P number of the listed source a person-mention is credited to, when the person is named in that source's passage and the same
+    sentence names the source (an author's surname, or the title): "Crowe cites Fourier and Hankel". None otherwise.
+
+    A passage is a listed source's own account of other people, so naming the people it discusses is reporting the source, not citing an
+    unlisted work - but only in a sentence that says whose account it is. "He cites Fourier", "Robinson believed" with no source named, or a
+    person who appears in no passage, are still refused."""
+    if v.get("kind") != "unlisted_work" or v.get("where") != "script" or not v.get("authors") or v.get("title_words"):
+        return None
+    sentence = _flat_words(_sentence_with(script, v.get("quote") or ""))
+    people = [_flat_words(_surname_of(a)).strip() for a in v["authors"]]
+    if not people or not all(people):
+        return None
+    for i in run.items:
+        passage = i.get(cm.PASSAGE_KEY)
+        if not passage:
+            continue
+        text = _flat_words(passage)
+        if not all(f" {p} " in text for p in people):
+            continue
+        credited = any(f" {_flat_words(s).strip()} " in sentence for s in _item_surnames(i))
+        credited = credited or (_flat_words(i.get("title") or "").strip() and _flat_words(i.get("title") or "").strip() in sentence)
+        if credited and not any(f" {p} " in f" {' '.join(_flat_words(s).strip() for s in _item_surnames(i))} " for p in people):
+            return run.pids[i["item_id"]]
+    return None
+
+
+def exempt_naming(violations: Sequence[Dict[str, Any]], run, script: str) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    """(kept, exempted): the naming check's violations less pure reporting attributions and less people named in a listed source's
+    passage in a sentence that credits that source. Used only in the curated mode."""
+    kept, exempt = exempt_reporting_attributions(violations, run.reporting_text)
+    still: List[Dict[str, Any]] = []
+    for v in kept:
+        pid = passage_person_credit(v, run, script)
+        if pid:
+            exempt.append({**v, "exempted": "a person named in a listed source's passage, credited to that source", "credited_pid": pid})
+        else:
+            still.append(v)
+    return still, exempt
+
+
 @dataclass
 class ScriptResult:
     script: str

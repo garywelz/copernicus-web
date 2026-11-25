@@ -158,7 +158,7 @@ async def _generate(request, research_context, check_llm, writer_llm, job_id, on
         state["checks"] += 1
         n = state["checks"]
         naming = await model_call("naming_check", lambda: check_naming(script, "", confirmed, check_counted, topic=request.topic))
-        naming.violations, exempted = csr.exempt_reporting_attributions(naming.violations, run.reporting_text)     # only a name used as a reporting attribution
+        naming.violations, exempted = csr.exempt_naming(naming.violations, run, script)     # only a name used as a reporting attribution
         state["naming"] = naming
         bad_notation = notation_problems(script, "")
         banned = banned_phrase_hits(script, "")
@@ -209,7 +209,7 @@ async def _generate(request, research_context, check_llm, writer_llm, job_id, on
         problems += [f"notation that cannot be read aloud: {p}" for p in notation_problems("", description)]
         problems += [f"status wording \"{v['term']}\": {v['sentence']}" for v in cc.check_status_wording(description, run.results()) if v["kind"] == "forbidden_term"]
         naming = await model_call("naming_check", lambda: check_naming(script, description, confirmed, check_counted, topic=request.topic))
-        kept, _ = csr.exempt_reporting_attributions(naming.violations, run.reporting_text)
+        kept, _ = csr.exempt_naming(naming.violations, run, script)
         problems += [f"the description names a work that is not allowed: {v['quote'][:120]}" for v in kept if v.get("where") == "description"]
         return problems
 
@@ -309,7 +309,7 @@ async def check_supplied_script(request, research_context, check_llm: csr.LlmCal
     exempted: List[Dict[str, Any]] = []
     for _ in range(NAMING_PASSES):
         one = await model_call(lambda: check_naming(script, "", confirmed, counted, topic=request.topic))
-        one.violations, gone = csr.exempt_reporting_attributions(one.violations, run.reporting_text)
+        one.violations, gone = csr.exempt_naming(one.violations, run, script)
         exempted += gone
         passes.append(one)
     naming = passes[0]
@@ -360,7 +360,7 @@ async def check_supplied_script(request, research_context, check_llm: csr.LlmCal
             problems += [f"notation that cannot be read aloud: {p}" for p in notation_problems("", description)]
             problems += [f"status wording \"{v['term']}\": {v['sentence']}" for v in cc.check_status_wording(description, run.results()) if v["kind"] == "forbidden_term"]
             n2 = await model_call(lambda: check_naming(script, description, confirmed, counted, topic=request.topic))
-            kept, _ = csr.exempt_reporting_attributions(n2.violations, run.reporting_text)
+            kept, _ = csr.exempt_naming(n2.violations, run, script)
             problems += [f"the description names a work that is not allowed: {v['quote'][:120]}" for v in kept if v.get("where") == "description"]
             return problems
 
