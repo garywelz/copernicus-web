@@ -34,6 +34,15 @@ class AddPaperWithSuppliedAbstract(BaseModel):
     abstract_url: str = Field(..., min_length=10, max_length=500)
 
 
+class AddPaperWithPassage(BaseModel):
+    """A peer-reviewed journal article whose Crossref record has no abstract and that was printed without one: its DOI and a passage the
+    producer transcribed from the article, which must contain the article's title. The passage is private: it is stored apart from the list
+    and never returned by any list route; the item is labelled "passage transcribed by the producer"."""
+    doi: str = Field(..., min_length=7, max_length=200)
+    passage: str = Field(..., min_length=1, max_length=40000)
+    source_note: Optional[str] = Field(None, max_length=300)        # where the passage came from: pages, the copy read
+
+
 class OverrideItemClass(BaseModel):
     # "class" is a Python keyword, so the body field is named source_class
     source_class: str = Field(..., max_length=40)

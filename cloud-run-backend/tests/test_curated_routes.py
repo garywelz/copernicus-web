@@ -120,7 +120,7 @@ def add(list_id, canned, raws_to_items):
 # --- admin key on every route ---------------------------------------------------------------------------------------------------------
 def test_every_route_on_the_router_needs_the_admin_key():
     routes_ = [r for r in router.routes if hasattr(r, "methods")]
-    assert len(routes_) == 19       # + attach and clear the text of a company release, + add a chapter in a scholarly book
+    assert len(routes_) == 20       # + attach and clear the text of a company release, + add a chapter in a scholarly book, + a journal passage
     with patch.object(auth, "get_admin_api_key", return_value="test-key"), patch.object(routes, "db", FakeDB()):
         for r in routes_:
             path = r.path.replace("{list_id}", "L").replace("{item_id}", "I")
@@ -861,3 +861,109 @@ def test_the_request_is_bounded(env):
     lid = new_list()
     for bad in ({**REL, "url": "x"}, {**REL, "title": ""}, {**REL, "company": "x" * 61}, {**REL, "authors": ["a"] * 6}, {k: v for k, v in REL.items() if k != "date"}):
         assert client.post(f"/api/admin/curated/lists/{lid}/company-releases", json=bad, headers=KEY).status_code == 422
+
+
+# --- a journal article evidenced by a transcribed passage, and a chapter's passage reaching the run ---------------------------------------
+from tests.unit.test_curated_passage import PASSAGE, Registries as PassageRegistries  # noqa: E402
+from tests.unit.test_curated_supplied_abstract import DOI as PASSAGE_DOI, no_abstract  # noqa: E402
+from tests.unit.test_curated_chapter import EXCERPT as CHAPTER_EXCERPT, TITLE as CHAPTER_TITLE  # noqa: E402
+
+_real_confirm_with_passage = cs.confirm_with_passage
+
+
+@pytest.fixture
+def passage_env(gen_env):
+    fake, canned, service = gen_env
+
+    async def offline(doi, passage, source_note="", http_get=None):
+        return await _real_confirm_with_passage(doi, passage, source_note, http_get=PassageRegistries(crossref_by_doi={PASSAGE_DOI: no_abstract()}))
+    with patch.object(cs, "confirm_with_passage", offline):
+        yield fake, canned, service
+
+
+def post_passage(lid, **kw):
+    body = {"doi": PASSAGE_DOI, "passage": PASSAGE, "source_note": "pp. 367-375", **kw}
+    return client.post(f"/api/admin/curated/lists/{lid}/items-with-passage", json=body, headers=KEY)
+
+
+def post_chapter(lid):
+    body = {"identifier": "hdl:11299/185659", "title": CHAPTER_TITLE, "excerpt": CHAPTER_EXCERPT, "book_title": "A Book",
+            "authors": "Joseph W. Dauben", "year": "1988", "source_note": "pp. 177-200"}
+    return client.post(f"/api/admin/curated/lists/{lid}/chapter", json=body, headers=KEY)
+
+
+def test_a_passage_goes_to_the_private_store_and_never_into_the_list(passage_env):
+    fake, canned, service = passage_env
+    lid = new_list()
+    r = post_passage(lid)
+    assert r.status_code == 200, r.text
+    added = r.json()["added"][0]
+    assert added["class"] == cs.PEER_REVIEWED and added["passage_chars"] == len(PASSAGE)
+    assert PASSAGE[:60] not in repr(fake.store[lid]) and PASSAGE[:60] not in r.text
+    stored = fake.other[PRIVATE_COLLECTION][f"{lid}__{added['item_id']}"]
+    assert stored["text"] == PASSAGE and stored["text_sha256"] == added["passage_sha256"]
+    assert PASSAGE[:60] not in client.get(f"/api/admin/curated/lists/{lid}", headers=KEY).text
+
+
+def test_a_duplicate_passage_is_refused_and_leaves_the_first_passage_in_place(passage_env):
+    fake, canned, service = passage_env
+    lid = new_list()
+    iid = post_passage(lid).json()["added"][0]["item_id"]
+    r = post_passage(lid, passage=PASSAGE + " A different transcription.")
+    assert r.json()["added"] == [] and r.json()["refused"][0]["reason"] == "duplicate"
+    assert fake.other[PRIVATE_COLLECTION][f"{lid}__{iid}"]["text"] == PASSAGE
+
+
+def test_a_refused_passage_stores_nothing_and_a_frozen_list_takes_none(passage_env):
+    fake, canned, service = passage_env
+    lid = new_list()
+    r = post_passage(lid, passage=PASSAGE.replace("On the Complexity of k-SAT.", "Elsewhere."))
+    assert r.json()["added"] == [] and r.json()["refused"][0]["reason"] == "title_not_in_passage"
+    assert fake.store[lid]["items"] == [] and not fake.other.get(PRIVATE_COLLECTION)
+    lid2 = ready_list(canned)
+    client.post(f"/api/admin/curated/lists/{lid2}/approve", headers=KEY)
+    assert post_passage(lid2).status_code == 409
+
+
+def test_generation_loads_a_journal_passage_and_a_chapter_passage_for_the_run(passage_env):
+    """The chapter route stored its passage, but no route loaded it, so a list with a chapter could never be run."""
+    fake, canned, service = passage_env
+    lid = ready_list(canned)
+    pid = post_passage(lid).json()["added"][0]["item_id"]
+    r = post_chapter(lid)
+    assert r.status_code == 200, r.text
+    cid = r.json()["added"]["item_id"]
+    assert client.post(f"/api/admin/curated/lists/{lid}/approve", headers=KEY).status_code == 200
+    r = generate(lid, topic="Revolutions in mathematics")
+    assert r.status_code == 200, r.text
+    assert service.private_texts == {pid: PASSAGE, cid: CHAPTER_EXCERPT}
+
+
+def test_a_dry_run_builds_a_run_from_a_list_with_a_chapter(passage_env):
+    fake, canned, service = passage_env
+    lid = ready_list(canned)
+    assert post_chapter(lid).status_code == 200
+    assert client.post(f"/api/admin/curated/lists/{lid}/approve", headers=KEY).status_code == 200
+    seen = {}
+    real = curated_mode.CuratedRun.from_list_doc.__func__
+
+    def spy(cls, doc, **kw):
+        run_ = real(cls, doc, **kw)
+        # the rebuild that failed for a chapter confirmed by its passage (the list's other items here are bare fakes, so only the chapter)
+        seen["papers"] = [curated_mode.confirmed_from_item(i, run_.pids[i["item_id"]]) for i in run_.items if i["class"] == cs.SCHOLARLY_CHAPTER]
+        raise curated_mode.CuratedListError("stop here: the run was built")
+    with patch.object(curated_mode.CuratedRun, "from_list_doc", classmethod(spy)):
+        r = dry_run(lid, topic="Revolutions in mathematics")
+    assert r.status_code == 409 and "the run was built" in r.json()["detail"]
+    assert any(p.source_class == cs.SCHOLARLY_CHAPTER and p.abstract == CHAPTER_EXCERPT for p in seen["papers"]), seen["papers"]
+
+
+def test_a_chapter_added_by_its_passage_counts_toward_the_minimum_and_the_hash(passage_env):
+    """It was stored unapproved, and nothing approves an item later, so it was silently left out of every run, the hash and the count."""
+    fake, canned, service = passage_env
+    lid = new_list()
+    add(lid, canned, {"a": [item(cs.PREPRINT, 1), item(cs.PEER_REVIEWED, 2)]})
+    assert client.post(f"/api/admin/curated/lists/{lid}/approve", headers=KEY).status_code == 422       # two sources: below the minimum
+    assert post_chapter(lid).status_code == 200
+    r = client.post(f"/api/admin/curated/lists/{lid}/approve", headers=KEY)
+    assert r.status_code == 200 and r.json()["counts"][cs.SCHOLARLY_CHAPTER] == 1
