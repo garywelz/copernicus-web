@@ -10,6 +10,7 @@ from __future__ import annotations
 import dataclasses
 import hashlib
 import re
+import unicodedata
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Sequence
 
@@ -135,6 +136,42 @@ def display_name(name: str) -> str:
     return " ".join(_cap_word(w, numerals=False) for w in (name or "").split())
 
 
+def split_authors(names: str) -> List[str]:
+    """Authors typed as one string ("Joseph W. Dauben", "A and B; C") as a list."""
+    return [a.strip() for a in re.split(r";|\band\b", names or "") if a.strip()]
+
+
+def _flat_words(s: str) -> str:
+    n = unicodedata.normalize("NFKD", s or "")
+    return " " + re.sub(r"[^a-z0-9]+", " ", "".join(ch for ch in n if not unicodedata.combining(ch)).lower()) + " "
+
+
+def item_surnames(item: Dict[str, Any]) -> List[str]:
+    a = item.get("authors") or []
+    names = split_authors(a) if isinstance(a, str) else list(a)
+    out = []
+    for n in names:
+        parts = [p for p in re.split(r"[\s.]+", str(n).strip()) if p]
+        if parts and len(parts[-1]) > 1:
+            out.append(parts[-1])
+    return out
+
+
+def sentence_credits_item(sentence: str, item: Dict[str, Any]) -> bool:
+    """Whether a sentence names a listed item: one of its authors' surnames, or its whole title. "Crowe cites ...", "Alpöge and Furman
+    write ...", "Hales and his co-authors explain ...". Accents, case and punctuation are ignored."""
+    flat = _flat_words(sentence)
+    if any(f" {_flat_words(s).strip()} " in flat for s in item_surnames(item)):
+        return True
+    title = _flat_words(item.get("title") or "").strip()
+    return bool(title) and f" {title} " in flat
+
+
+def passage_words(item: Dict[str, Any]) -> str:
+    """A run item's transcribed passage, flattened for word lookups ("" when it has none)."""
+    return _flat_words(item.get(PASSAGE_KEY) or "") if item.get(PASSAGE_KEY) else ""
+
+
 def display_case_item(item: Dict[str, Any]) -> None:
     """In a run's own copy of an item: a Crossref title or author name that is entirely in capitals is put in normal case for everything the
     run writes - the script, the reference line, the show notes. The stored record, and so the list hash, is unchanged (the hash is checked
@@ -210,6 +247,11 @@ class CuratedRun:
                     raise CuratedListError("the attached passage of a book chapter is not the passage the list was approved with")
                 i["evidence_text"] = ((i.get("evidence_text") or "") + "\n\n" + text).strip()
                 i[PASSAGE_KEY] = text
+                # A chapter's record holds its authors as the one string Gary typed. Everything that reads a run's authors expects a list:
+                # joined as a list, the string became single letters, so "Dauben notes ..." was routed as crediting a source not on the
+                # list (check-script, 2026-11-25). The run's copy gets the list; the stored record, and the hash, are unchanged.
+                if isinstance(i.get("authors"), str):
+                    i["authors"] = split_authors(i["authors"])
                 continue
             if cs.has_passage(i):
                 # A passage Gary transcribed: for a journal article printed without an abstract it is the only text there is; for an
@@ -302,7 +344,7 @@ class CuratedRun:
     def checks(self, script: str) -> List[Dict[str, Any]]:
         """Every deterministic curated check on a script. A listed title is exempt from the copying check: saying a source's title is naming
         it, not copying its text. Only the title itself is exempt; a run of copied words that goes on past the title is still refused."""
-        return cc.run_all(script, self.results(), self.commentary_texts() + self.passage_texts(), self.approved_quotes() + self.listed_titles(),
+        return cc.run_all(script, self.results(), self.commentary_texts() + self.passage_texts(), self.approved_quotes(), titles=self.listed_titles(),
                           items=self.results())
 
     # --- the prompt ---------------------------------------------------------------------------------------------------------------
@@ -411,7 +453,8 @@ def confirmed_from_item(item: Dict[str, Any], pid: str) -> "pc.ConfirmedPaper":
             year = int(item.get("year") or c.get("year") or 0) or None
         except (TypeError, ValueError):
             year = None
-        authors = [a.strip() for a in re.split(r";|\band\b", item.get("authors") or c.get("authors") or "") if a.strip()]
+        raw = item.get("authors") or c.get("authors") or ""
+        authors = list(raw) if isinstance(raw, list) else split_authors(raw)
         pin = {k: c.get(k) for k in ("scheme", "identifier", "url", "excerpt_sha256", "source_note")}
         return pc.ConfirmedPaper(pid=pid, title=item.get("title") or c.get("title") or "", authors=authors, year=year, venue=c.get("book_title"),
                                  ids=dict(empty_ids), url=c.get("url") or "", abstract=item.get("evidence_text") or "", registry=cch.REGISTRY,

@@ -171,10 +171,27 @@ def _grams(tokens: Sequence[str], n: int) -> Set[Tuple[str, ...]]:
     return {tuple(tokens[i:i + n]) for i in range(len(tokens) - n + 1)} if len(tokens) >= n else set()
 
 
-def check_verbatim_runs(script: str, texts: Iterable[str], approved_quotes: Iterable[str] = (), n: int = VERBATIM_RUN_WORDS) -> List[Dict[str, Any]]:
-    """Runs of `n` or more consecutive words (case, punctuation and accents ignored) that the script shares with any of `texts`."""
+def _title_covers(run: Sequence[str], titles: Sequence[Sequence[str]], n: int) -> bool:
+    """Whether a shared run is a listed title plus fewer than `n` words around it: naming a source, not copying its text. "Ten Laws concerning
+    patterns of change in the history of mathematics by Michael" matches a passage that prints the byline under the title; it is the title and
+    two words, and was refused as copying until this (2026-11-25). A title with eight or more copied words beside it is still a copy."""
+    for t in titles:
+        k = len(t)
+        if not k or k > len(run):
+            continue
+        for s in range(len(run) - k + 1):
+            if tuple(run[s:s + k]) == tuple(t) and len(run) - k < n:
+                return True
+    return False
+
+
+def check_verbatim_runs(script: str, texts: Iterable[str], approved_quotes: Iterable[str] = (), n: int = VERBATIM_RUN_WORDS,
+                        titles: Iterable[str] = ()) -> List[Dict[str, Any]]:
+    """Runs of `n` or more consecutive words (case, punctuation and accents ignored) that the script shares with any of `texts`. A run that
+    is an approved quotation, or a listed title with fewer than `n` words beside it, is not reported."""
     st = words(dialogue_text(script))
     approved_text = [" ".join(words(q)) for q in approved_quotes if q]
+    title_words = [words(t) for t in titles if t]
     out: List[Dict[str, Any]] = []
     for ti, text in enumerate(texts):
         tw = words(text)
@@ -196,7 +213,7 @@ def check_verbatim_runs(script: str, texts: Iterable[str], approved_quotes: Iter
             runs.append((start, prev + n))
         for a, b in runs:
             run_text = " ".join(st[a:b])
-            if any(run_text in q for q in approved_text):
+            if any(run_text in q for q in approved_text) or _title_covers(st[a:b], title_words, n):
                 continue
             out.append({"check": "verbatim_run", "kind": "verbatim_run", "words": b - a, "quote": " ".join(st[a:min(b, a + 25)]), "source_index": ti})
     return out
@@ -261,10 +278,10 @@ def check_class_labels(script: str, items: Sequence[Dict[str, Any]]) -> List[Dic
 
 # --- all of them, and the feedback --------------------------------------------------------------------------------------------------
 def run_all(script: str, results: Sequence[Dict[str, Any]], commentary_texts: Sequence[str] = (), approved_quotes: Sequence[str] = (),
-            items: Optional[Sequence[Dict[str, Any]]] = None) -> List[Dict[str, Any]]:
+            items: Optional[Sequence[Dict[str, Any]]] = None, titles: Sequence[str] = ()) -> List[Dict[str, Any]]:
     out: List[Dict[str, Any]] = []
     out += check_status_wording(script, results)
-    out += check_verbatim_runs(script, commentary_texts, approved_quotes)
+    out += check_verbatim_runs(script, commentary_texts, approved_quotes, titles=titles)
     out += check_spoken_names(script)
     out += check_class_labels(script, items if items is not None else results)
     return out

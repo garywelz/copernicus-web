@@ -280,6 +280,8 @@ class Router:
         self.sources = commentary_sources(run)
         self.releases = [i for i in run.items if i["class"] != cs.COMMENTARY]
         self.person_index = {s.item_id: _person_tokens(s) for s in self.sources}
+        # Transcribed passages: the people and events a listed source's own account names (see persons_credited).
+        self.passage_items = [i for i in run.items if i.get(curated_mode.PASSAGE_KEY)]
         # The companies whose releases are listed. Naming one IS naming a listed source: a list holding OpenAI's manuscripts supports
         # "OpenAI's claim", and the required coverage statement has to name the company to say what the other papers do not cover.
         # Taken from the items rather than hard-coded, so a release from any other company works the same way.
@@ -319,11 +321,26 @@ class Router:
                 hit.sort(key=lambda s: -sum(s.text.lower().count(t) for t in keyed))
                 for s in hit[:MAX_ROUTED_SOURCES]:
                     sources[s.item_id] = s
+            elif self.named_in_credited_passage(sentence, keyed):
+                pass                                   # a person or event the credited source's passage names: judged as content, against it
             elif not any(t in self.vocab for t in keyed):
                 unknown.append(" ".join(toks))
             elif not any(t in {"lean"} | self.companies or t in _GENERIC_SUBJECTS for t in keyed):
                 pass                                   # a word the list knows (a title word, say), used as a subject: not a person to check
         return list(sources.values()), unknown
+
+    def named_in_credited_passage(self, sentence: str, keyed: Sequence[str]) -> bool:
+        """Whether every word of a credited name is in the transcribed passage of a listed source that the same sentence credits.
+
+        "Hales and his co-authors explain why it was needed by quoting Lagarias's account" credits Hales's paper, whose passage quotes
+        Lagarias: the claim is Hales's paper's, and is judged against its text. Without this the router read Lagarias - and Claude, in the
+        Alpöge-Furman sentence - as a source not on the list (check-script, 2026-11-25). A name in no passage, or in the passage of a source
+        the sentence does not credit, is still unknown."""
+        for i in self.passage_items:
+            words = curated_mode.passage_words(i)
+            if all(f" {t} " in words for t in keyed) and curated_mode.sentence_credits_item(sentence, i):
+                return True
+        return False
 
     # -- the status records -------------------------------------------------------------------------------------------------------------------------
     def releases_named(self, sentence: str) -> List[Dict[str, Any]]:
@@ -574,7 +591,7 @@ async def check_curated_attributions(script: str, run, named_papers: Sequence[An
     result.routing = [r for r in routed]
     content_text = "\n".join(r.sentence for r in routed if r.route == "content")
     papers = [p for p in named_papers if getattr(p, "source_class", None) != cs.COMMENTARY and (getattr(p, "abstract", "") or "").strip()]
-    content = await check_attributions(content_text, papers, llm) if content_text.strip() else AttributionResult()
+    content = await check_attributions(content_text, papers, llm, source_text=True) if content_text.strip() else AttributionResult()
     for r in routed:
         if r.route in ("commentary", "status", "unlisted_source"):
             rec = _record(r)
