@@ -56,6 +56,20 @@ def transient_item(attempt: int, stage: str, error: Exception) -> Dict[str, Any]
     return item
 
 
+def supplied_items(violations: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """A supplied script's violations, for the job record of a script that failed its checks: check, kind and the quoted words. The job
+    used to keep only the summary ("naming:unlisted_work"), so which sentence was refused could be found only by checking the script again
+    (2026-11-25). A copied run's words are a source's private text, so its quote is withheld, as everywhere else."""
+    out = []
+    for v in violations:
+        quote = v.get("find") if v.get("find") is not None else v.get("quote")
+        if v.get("kind") == "verbatim_run":
+            quote = WITHHELD
+        out.append({"attempt": 1, "check": v.get("check"), "kind": v.get("kind"), "quote": (str(quote)[:600] if quote is not None else None),
+                    "source": "supplied_script"})
+    return out
+
+
 def curated_items(attempt: int, violations: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """Curated-sources checks (status wording, verbatim runs, spoken names, class labels): the whole sentence or run is kept."""
     return [{"attempt": attempt, "check": v.get("check"), "kind": v.get("kind"), "sentence": v.get("sentence"),
